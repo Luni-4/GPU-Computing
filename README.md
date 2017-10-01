@@ -24,7 +24,7 @@ GPU Computing
 
 ## 2.1. Obiettivi
 
-Realizzare una rete neurale che consenta di applicare un semplice filtro ad un immagine usando CUDA
+Realizzare una rete neurale usando CUDA per applicare un filtro ad un immagine
  
 
 ## 2.2. Divisione dei compiti
@@ -36,7 +36,11 @@ MICHELE:
 
 ## 2.3. Link Utili
 
-- Dati: https://developer.nvidia.com/cudnn
+- Creazione di reti neurali con NVidia: https://developer.nvidia.com/cudnn
+- Training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
+- Spiegazione reti neurali: https://mmlind.github.io/
+- Esempio di una possibile rete neurale a 2 livelli (input - output) (questa è sequenziale ed è a singolo livello): https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+- Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 
 
 # 3. Comunicazioni
