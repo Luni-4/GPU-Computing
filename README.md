@@ -37,9 +37,11 @@ MICHELE:
 ## 2.3. Link Utili
 
 - Creazione di reti neurali con NVidia: https://developer.nvidia.com/cudnn
-- Training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
+- Rete convoluzionale: https://en.wikipedia.org/wiki/Convolutional_neural_network#GPU_implementations
+- Spiegazione approfondita reti convoluzionali: https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks/
+- Famoso database contenente training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
 - Spiegazione reti neurali: https://mmlind.github.io/
-- Esempio di una possibile rete neurale a 2 livelli (input - output) (questa è sequenziale ed è a singolo livello): https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+- Esempio di una possibile rete neurale a 2 livelli (input - output) per il riconoscimento di caratteri da immagini (l'implementazione in c è sequenziale): https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 
 
