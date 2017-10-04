@@ -17,6 +17,7 @@ GPU Computing
 
 - Linguaggio di programmazione: Cuda
 - Versione Toolkit: Cuda Toolkit 8.0
+- Cross-compiling da Linux per Windows: non fattibile
 - Possibili Librerie
     - NVIDIA cuDNN
 
