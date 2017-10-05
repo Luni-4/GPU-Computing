@@ -17,7 +17,7 @@ GPU Computing
 
 - Linguaggio di programmazione: Cuda
 - Versione Toolkit: Cuda Toolkit 8.0
-- Cross-compiling da Linux per Windows: non fattibile
+- Cross-compiling da Linux per Windows con NVCC: non fattibile
 - Possibili Librerie
     - NVIDIA cuDNN
 
@@ -42,7 +42,7 @@ MICHELE:
 - Spiegazione approfondita reti convoluzionali: https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks/
 - Famoso database contenente training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
 - Spiegazione reti neurali: https://mmlind.github.io/
-- Esempio di una possibile rete neurale a 2 livelli (input - output) per il riconoscimento di caratteri da immagini (l'implementazione in c è sequenziale): https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+- Esempio di una rete neurale a 1 livello (output) per il riconoscimento di caratteri da immagini (l'implementazione in c è sequenziale): https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 
 
