@@ -1,0 +1,6 @@
+/home/mik/Documenti/educnn/build/CMakeFiles/rebuild_cache.dir
+/home/mik/Documenti/educnn/build/CMakeFiles/edit_cache.dir
+/home/mik/Documenti/educnn/build/sources/CMakeFiles/rebuild_cache.dir
+/home/mik/Documenti/educnn/build/sources/CMakeFiles/edit_cache.dir
+/home/mik/Documenti/educnn/build/sources/CMakeFiles/test_lecun.dir
+/home/mik/Documenti/educnn/build/sources/CMakeFiles/test_neural.dir

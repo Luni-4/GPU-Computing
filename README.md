@@ -30,8 +30,7 @@ GPU Computing
 - Riprodurre la stessa rete in CUDA e valutare se:
     - Diminuisce il tempo di esecuzione, quindi la rete ha un notevole Speed-up
     - Diminuisce l'errore della rete (cosa altamente improbabile)
-- Produrre la documentazione necessaria da presentare al prof (report)
-
+- Produrre la documentazione necessaria (report) da presentare
 
 ## 2.2. Processo di lavoro
 
@@ -58,8 +57,10 @@ MICHELE:
 - Spiegazione approfondita reti convoluzionali: https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks/
 - Famoso database contenente training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
 - Spiegazione reti neurali: https://mmlind.github.io/
-- Esempio di una rete neurale a 1 livello (output) per il riconoscimento di caratteri da immagini (l'implementazione in c è sequenziale): https://mmlind.github.io/Simple_1-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
+- Esempio di una rete neurale convoluzionale: https://mmlind.github.io/Deep_Neural_Network_for_MNIST_Handwriting_Recognition/
+- Spiegazione della rete LeCun Net (meglio conosciuta come LeNet) per il riconoscimento dei caratteri: https://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
+- Rete neurale convoluzionale LeCun Net per il riconoscimento di caratteri sequenziale: https://github.com/tatsy/educnn 
 
 
 # 3. Comunicazioni
