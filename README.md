@@ -60,7 +60,8 @@ MICHELE:
 - Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Esempio di una rete neurale convoluzionale: https://mmlind.github.io/Deep_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Spiegazione della rete LeCun Net (meglio conosciuta come LeNet) per il riconoscimento dei caratteri: https://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
-- Rete neurale convoluzionale LeCun Net per il riconoscimento di caratteri sequenziale: https://github.com/tatsy/educnn 
+- Rete neurale convoluzionale LeCun Net per il riconoscimento di caratteri sequenziale: https://github.com/tatsy/educnn
+- Seconda rete neurale convoluzionale per il riconoscimento dei caratteri con video YouTube: https://github.com/can1357/simple_cnn
 
 
 # 3. Comunicazioni
