@@ -10,7 +10,9 @@
 #include "Mnist.h"
 
 Mnist::Mnist(const std::string filename)
-: _filename(filename)
+: _filename(filename),
+  imgWidth(0),
+  imgHeight(0)
 {
 
 }
@@ -67,13 +69,13 @@ void Mnist::readImages(const std::string& datafile)
         exit(1);
     }
     
+    uint32_t temp;
+    
     // Leggere Magic Number
-    uint32_t magicNumber;
-    ifs.read(reinterpret_cast<char *>(&magicNumber), sizeof(magicNumber));
+    ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp));
     
     // Leggere numero massimo di immagini
-    ifs.read(reinterpret_cast<char *>(&maxImages), sizeof(maxImages));
-    maxImages = flipBytes(maxImages);
+    ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp)); 
     
     // Leggere larghezza immagini
     ifs.read(reinterpret_cast<char *>(&imgWidth), sizeof(imgWidth));
@@ -109,13 +111,14 @@ void Mnist::readLabels(const std::string& datafile)
         exit(1);
     }
     
+    
+    uint32_t temp;
+    
     // Leggere Magic Number
-    uint32_t magicNumber;
-    ifs.read(reinterpret_cast<char *>(&magicNumber), sizeof(magicNumber));
+    ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp));
     
     // Leggere numero massimo di labels
-    ifs.read(reinterpret_cast<char *>(&maxLabels), sizeof(maxLabels));
-    maxLabels = flipBytes(maxLabels);    
+    ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp));    
     
     // Lettura delle labels
     std::copy((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>(), std::back_inserter(labels));

@@ -10,10 +10,10 @@
 int main() {
 
     // Leggere i dati
-    Data* d = new Mnist("../data/");    
+    Data* d = new Mnist("../data/");       
     
     // Lettura dati di training
-    d->readTrainData();    
+    d->readTrainData(); 
     
     // Vettori di valori per Cuda    
     const double * m = d->getData();

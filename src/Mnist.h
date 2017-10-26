@@ -17,7 +17,11 @@ public:
     Mnist(const std::string filename);
     ~Mnist();
     void readTrainData() override;
-    void readTestData() override;  
+    void readTestData() override;
+    
+    uint32_t getImgWidth() const { return imgWidth; }
+    uint32_t getImgHeight() const { return imgHeight; }
+    uint32_t getImgDepth() const { return 1; }
     
     
 private:
@@ -29,10 +33,8 @@ private:
 private:
     const std::string _filename;
     
-    uint32_t maxImages;
     uint32_t imgWidth;
-    uint32_t imgHeight;
-    uint32_t maxLabels;
+    uint32_t imgHeight;    
     
     bool isTrain;
     bool isTest;
