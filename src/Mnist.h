@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Data.h"
-
 #include <string>
+
+#include "Data.h"
 
 
 const std::string train_image_file_mnist = "train-images-idx3-ubyte";
@@ -14,8 +14,8 @@ const std::string test_label_file_mnist  = "t10k-labels-idx1-ubyte";
 class Mnist : public Data {
 
 public:
-    Mnist(const std::string filename);
-    ~Mnist();
+    Mnist(const std::string& filename);
+    virtual ~Mnist();
     void readTrainData() override;
     void readTestData() override;
     

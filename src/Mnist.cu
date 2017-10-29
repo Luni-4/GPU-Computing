@@ -9,7 +9,7 @@
 
 #include "Mnist.h"
 
-Mnist::Mnist(const std::string filename)
+Mnist::Mnist(const std::string& filename)
 : _filename(filename),
   imgWidth(0),
   imgHeight(0)
