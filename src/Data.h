@@ -2,13 +2,8 @@
 
 #include <cstdio>
 #include <vector>
-#include <cstdint>
 
 class Data {
-
-protected:
-    std::vector<double> data = {};
-    std::vector<uint8_t> labels = {};
 
 public:
     
@@ -31,4 +26,8 @@ public:
     inline const uint8_t* getLabels() const { return &labels[0]; }
     inline size_t getDataSize() const { return data.size(); }
     inline size_t getLabelSize() const { return labels.size(); }
+    
+protected:
+    std::vector<double> data = {};
+    std::vector<uint8_t> labels = {};
 };

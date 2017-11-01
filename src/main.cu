@@ -2,10 +2,10 @@
 #include <iostream>
 
 // Librerie Cuda
-#include <cuda_runtime.h>
 
 // Librerie di progetto
 #include "Mnist.h"
+#include "FullyConnected.h"
 
 int main() {
 
@@ -16,19 +16,25 @@ int main() {
     d->readTrainData(); 
     
     // Vettori di valori per Cuda    
-    const double * m = d->getData();
+    const double* m = d->getData();
     const uint8_t* s = d->getLabels(); 
     
     delete d;
     
-    /*// Creare i layer
-    std::vector<LayerDefinition*> layers(2);
+    // Creare i layer
+    //std::vector<LayerDefinition*> layers(1);
     
-    layers[0] = new ConvolutionalLayer(rng, 768, 300);
-    layers[1] = new OutputLayer(rng, 300, 10);
+    //layers[0] = new ConvolutionalLayer(rng, 768, 300);
+    LayerDefinition* layer = new FullyConnected(10, RELU);
+    
+    printf("%d %d %d %d",layer->getWidth(), layer->getHeight(), layer->getLayerType(), layer->getActivationFunction());
+    
+    layer->defineCuda(28,28,1);
+    
+    delete layer;
     
     // Creare la rete
-    Network nn(layers, // param);
+    /*Network nn(layers, // param);
     
     // Training
     nn.train(//param);

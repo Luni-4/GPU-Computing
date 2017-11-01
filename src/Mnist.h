@@ -14,8 +14,9 @@ const std::string test_label_file_mnist  = "t10k-labels-idx1-ubyte";
 class Mnist : public Data {
 
 public:
-    Mnist(const std::string& filename);
+    Mnist(const std::string &filename);
     virtual ~Mnist();
+    
     void readTrainData() override;
     void readTestData() override;
     
@@ -28,7 +29,7 @@ private:
     void readImages(const std::string& datafile);
     void readLabels(const std::string& datafile);
     
-    inline uint32_t flipBytes(const uint32_t& n);
+    inline uint32_t flipBytes(const uint32_t &n);
 
 private:
     const std::string _filename;
