@@ -7,8 +7,10 @@
 #include "Mnist.h"
 #include "FullyConnected.h"
 
-int main() {
 
+
+void test_input()
+{
     // Leggere i dati
     Data* d = new Mnist("../data/");       
     
@@ -20,18 +22,38 @@ int main() {
     const uint8_t* s = d->getLabels(); 
     
     delete d;
+
+}
+
+
+void test_fully()
+{
+    LayerDefinition* layer = new FullyConnected(10, RELU);
+    
+    //printf("%d %d %d %d",layer->getWidth(), layer->getHeight(), layer->getLayerType(), layer->getActivationFunction());
+    
+    layer->defineCuda(28,28,1);
+    
+    std::vector<double> p = layer->getWeight();
+    
+    //std::cout << p.size() << std::endl;
+    
+    /*for (auto t: p)
+        std::cout << t << std::endl;*/
+            
+    delete layer;
+}
+
+int main() {
+    
+    //test_input();
+    
+    test_fully();
     
     // Creare i layer
     //std::vector<LayerDefinition*> layers(1);
     
     //layers[0] = new ConvolutionalLayer(rng, 768, 300);
-    LayerDefinition* layer = new FullyConnected(10, RELU);
-    
-    printf("%d %d %d %d",layer->getWidth(), layer->getHeight(), layer->getLayerType(), layer->getActivationFunction());
-    
-    layer->defineCuda(28,28,1);
-    
-    delete layer;
     
     // Creare la rete
     /*Network nn(layers, // param);

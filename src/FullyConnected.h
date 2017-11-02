@@ -26,7 +26,7 @@ public:
     
     
 private:
-    int _wBytes;
+    int _wDim;
     bool _isCuda;
 
     double *weight; // Matrice dei pesi in Cuda

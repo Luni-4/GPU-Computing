@@ -43,82 +43,105 @@ int FullyConnected::getWeightCount(const int &prevLayerNode)
 
 std::vector<double> FullyConnected::getWeight()
 {
-	std::vector<double> wCPU(_wBytes);
-	CHECK(cudaMemcpy(&wCPU[0], weight, _wBytes, cudaMemcpyDeviceToHost));
+	std::vector<double> wCPU(_wDim);
+	CHECK(cudaMemcpy(&wCPU[0], weight, _wDim * sizeof(double), cudaMemcpyDeviceToHost));
 	return wCPU;
 }
 
 
-__global__ void initWeight(double *weight, const unsigned int rDim, const unsigned int cDim, curandState *states) {
-
-	// Gestione degli indici
-	const unsigned int idx = blockDim.x * blockIdx.x + threadIdx.x;
-	const unsigned int idy = blockDim.y * blockIdx.y + threadIdx.y;
-	const unsigned int tid = idy * cDim  + idx;
+__global__ void initWeight(double *weight, const int wDim, curandState *states) {	
+	
+	// Gestione degli indici	
+	const int blockId   = blockIdx.y * gridDim.x + blockIdx.x;				
+	const int tid = blockId * blockDim.x + threadIdx.x;		
 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
-
+	
 	// Variabile che conterrà il valore casuale
-	float r;
+	float r = curand_uniform(&states[tid]);
+	
+	if (tid % 2 == 0)
+	    r = -r;
 
-	// Evitare warp divergence
-	int wid = tid / warpSize;
+	if (tid < wDim)
+ 		weight[tid] = 0.4 * r;
+ }
+ 
+ 
+ __global__ void initBias(double *bias, const int node, curandState *states) {	
+	
+	// Gestione degli indici	
+	const int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (!(wid % 2))
-		r = -(curand_uniform(&states[tid]));	// Branch1: thread tid = 0-31, 64-95, ...
-	else
-		r = curand_uniform(&states[tid]);		// Branch2: thread tid = 32-63, 96-127, ...
+	// Sequenza di rand diversa per ogni thread
+	curand_init(tid, 0, 0, &states[tid]);
+	
+	// Variabile che conterrà il valore casuale
+	float r = curand_uniform(&states[tid]);
+	
+	if (tid % 2 == 0)
+	    r = -r;
 
-	// ricostruzione indice corretto del vettore c
-	int i = 2 * (tid % warpSize) + tid/(2*warpSize) + wid % 2;
-
-	if (i < rDim * cDim)
- 		weight[i] = 0.4 * r;
+	if (tid < node)
+ 		bias[tid] = 0.4 * r;
  }
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth)
 {
 	// Abilita Cuda
-	_isCuda = true;
+	_isCuda = true; 
 
 	// Numero di nodi livello fully connected
-	const unsigned int node = this->getLayerNodeCount();
+	const int node = this->getLayerNodeCount();
+	
+	// Dimensione matrice dei pesi
+	_wDim = prevLayerWidth * prevLayerHeight * prevLayerDepth * node;
 
 	// Dimensione matrice dei pesi in byte
-	_wBytes = prevLayerWidth * prevLayerHeight * node * sizeof(double);
+	const unsigned int wBytes = _wDim * sizeof(double);
 
 	// Dimensione bias, output, error
 	const unsigned int Bytes = node * sizeof(double);
+	
+	// Impostazione buffer che gestisce il printf in Cuda
+	size_t sz = 1048576 * 1000;
+    cudaDeviceSetLimit(cudaLimitPrintfFifoSize, sz);
 
 	// Allocare le matrici
-	CHECK(cudaMalloc((void**) &weight, _wBytes));
+	CHECK(cudaMalloc((void**) &weight, wBytes));
 	CHECK(cudaMalloc((void**) &bias, Bytes));
 	CHECK(cudaMalloc((void**) &output, Bytes));
 	CHECK(cudaMalloc((void**) &error, Bytes));
 
 	// Rendere i blocchi multipli di 32
-	const unsigned int a = ALIGN_UP(prevLayerWidth);
-	const unsigned int b = ALIGN_UP(prevLayerHeight);
-
+	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight);
+	
 	// Tanti blocchi quanto sono i nodi e la profondità del layer precedente
-	dim3 numBlocks(node,prevLayerDepth,1);
+	dim3 numBlocks(node, prevLayerDepth, 1);
 
 	// Blocchi bidimensionali contenenti tanti thread quanti i nodi del livello precedente
-	dim3 threadBlocks(a,b,1);
+	dim3 threadBlocks(aligned, 1, 1);
 
 	// Inizializza array per numeri casuali
 	curandState *devStates;
 
 	// Numero di sequenze diverse per il rand
-	const int numRand = node * prevLayerDepth * a * b;
+	const int numRand = node * prevLayerDepth * aligned;
 
 	// Alloca la memoria
-	CHECK(cudaMalloc((void **) &devStates, numRand * sizeof(curandState)));
+	CHECK(cudaMalloc((void **) &devStates, numRand * sizeof(curandState))); 
 
-	// Inizializzare i weight
-	initWeight<<<numBlocks, threadBlocks>>>(weight, (prevLayerHeight * prevLayerDepth), (prevLayerWidth * node), devStates);
+	// Inizializzare i weight del livello
+	initWeight<<<numBlocks, threadBlocks>>>(weight, _wDim, devStates);	
 
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+	
+	const int b = ALIGN_UP(node);
+	
+	initBias<<<1, b>>>(bias, b, devStates);
+	
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
 
