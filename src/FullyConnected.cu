@@ -6,27 +6,23 @@
 #include "FullyConnected.h"
 
 FullyConnected::FullyConnected(const int &width, const int &height, const ActFctType &a)
-: LayerDefinition(width, height, 1, FULLY_CONNECTED, a),
-  _isCuda(false)
+: LayerDefinition(width, height, 1, FULLY_CONNECTED, a)
 {
 
 }
 
 FullyConnected::FullyConnected(const int &width, const ActFctType &a)
-: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a),
-  _isCuda(false)
+: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a)
 {
 
 }
 
 FullyConnected::~FullyConnected()
 {
-	if (_isCuda){
-		CHECK(cudaFree(weight));
-		CHECK(cudaFree(bias));
-		CHECK(cudaFree(output));
-		CHECK(cudaFree(error));
-	}
+    CHECK(cudaFree(weight));
+    CHECK(cudaFree(bias));
+    CHECK(cudaFree(output));
+    CHECK(cudaFree(error));
 }
 
 int FullyConnected::getLayerNodeCount()
@@ -46,6 +42,15 @@ std::vector<double> FullyConnected::getWeight()
 	std::vector<double> wCPU(_wDim);
 	CHECK(cudaMemcpy(&wCPU[0], weight, _wDim * sizeof(double), cudaMemcpyDeviceToHost));
 	return wCPU;
+}
+
+std::vector<double> FullyConnected::getBias()
+{
+	const int node = this->getLayerNodeCount();
+	
+	std::vector<double> bCPU(node);
+	CHECK(cudaMemcpy(&bCPU[0], bias, node * sizeof(double), cudaMemcpyDeviceToHost));
+	return bCPU;
 }
 
 
@@ -89,9 +94,6 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth)
 {
-	// Abilita Cuda
-	_isCuda = true; 
-
 	// Numero di nodi livello fully connected
 	const int node = this->getLayerNodeCount();
 	

@@ -23,6 +23,7 @@ public:
     virtual int getLayerNodeCount() = 0; // Numero di nodi del livello
     virtual int getWeightCount(const int &prevLayerNode) = 0; // Numero di pesi del livello (dipendono dal livello precedente)
     virtual std::vector<double> getWeight() = 0; // Restituisce da Cuda il vettore di pesi
+    virtual std::vector<double> getBias() = 0; // Restituisce da Cuda il vettore di pesi
 
     virtual void forward_propagation() = 0; // Definita in Cuda
     

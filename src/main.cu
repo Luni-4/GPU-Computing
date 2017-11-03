@@ -17,10 +17,6 @@ void test_input()
     // Lettura dati di training
     d->readTrainData(); 
     
-    // Vettori di valori per Cuda    
-    const double* m = d->getData();
-    const uint8_t* s = d->getLabels(); 
-    
     delete d;
 
 }
@@ -30,16 +26,16 @@ void test_fully()
 {
     LayerDefinition* layer = new FullyConnected(10, RELU);
     
-    //printf("%d %d %d %d",layer->getWidth(), layer->getHeight(), layer->getLayerType(), layer->getActivationFunction());
+    printf("%d %d %d %d\n",layer->getWidth(), layer->getHeight(), layer->getLayerType(), layer->getActivationFunction());
     
     layer->defineCuda(28,28,1);
     
     std::vector<double> p = layer->getWeight();
     
-    //std::cout << p.size() << std::endl;
+    std::cout << p.size() << std::endl;
     
-    /*for (auto t: p)
-        std::cout << t << std::endl;*/
+    for (auto t: p)
+        std::cout << t << std::endl;
             
     delete layer;
 }

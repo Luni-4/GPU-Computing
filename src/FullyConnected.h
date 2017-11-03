@@ -17,6 +17,7 @@ public:
     int getLayerNodeCount() override;
     int getWeightCount(const int &prevLayerNode) override;
     std::vector<double> getWeight() override;
+    std::vector<double> getBias() override;
     
     void forward_propagation() override;
     
@@ -27,7 +28,6 @@ public:
     
 private:
     int _wDim;
-    bool _isCuda;
 
     double *weight; // Matrice dei pesi in Cuda
     double *bias; // Matrice per i bias in Cuda
