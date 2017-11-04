@@ -25,7 +25,7 @@ public:
     virtual std::vector<double> getWeight() = 0; // Restituisce da Cuda il vettore di pesi
     virtual std::vector<double> getBias() = 0; // Restituisce da Cuda il vettore di pesi
 
-    virtual void forward_propagation() = 0; // Definita in Cuda
+    virtual void forward_propagation(const double *prev) = 0; // Definita in Cuda
     
     virtual void back_propagation() = 0; // Aggiorno i pesi di questo livello in Cuda
     
