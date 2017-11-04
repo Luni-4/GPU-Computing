@@ -20,9 +20,10 @@ public:
     void readTrainData() override;
     void readTestData() override;
     
-    uint32_t getImgWidth() const { return imgWidth; }
-    uint32_t getImgHeight() const { return imgHeight; }
-    uint32_t getImgDepth() const { return 1; }
+    uint32_t getImgWidth() const override { return imgWidth; }
+    uint32_t getImgHeight() const override { return imgHeight; }
+    uint32_t getImgDepth() const override { return 1; }
+    uint32_t getImgDimension() const override { return imgWidth * imgHeight; }
     
     
 private:
