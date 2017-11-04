@@ -6,6 +6,7 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "FullyConnected.h"
+#include "Network.h"
 
 
 
@@ -39,30 +40,35 @@ void test_fully() {
 
 int main() {
 
-	test_input();
+	//test_input();
 
-	test_fully();
+	//test_fully();
+	
+	// Leggere i dati
+	Data* d = new Mnist("../data/");
 
 	// Creare i layer
-	//std::vector<LayerDefinition*> layers(1);
+	std::vector<LayerDefinition*> layers(1);
 
-	//layers[0] = new ConvolutionalLayer(rng, 768, 300);
+	layers[0] = new FullyConnected(10, RELU);
 
 	// Creare la rete
-	/*Network nn(layers, // param);
+	Network nn(layers);
 
 	// Training
-	nn.train(//param);
+	nn.train(d, 20, 0.5, 0.1);
 
 	// Test
-	nn.predict(//param);
+	//nn.predict(//param);
 
 	// Cancellare i layer
-	for (int i = 0; i < layers.size(); i++) {
+	for (std::size_t i = 0; i < layers.size(); i++) {
 		delete layers[i];
-	}*/
+	}
+	
+	delete d;
 
-#if _WIN32
+#ifdef _WIN32
 	system("pause");
 #endif
 
