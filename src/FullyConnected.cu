@@ -5,98 +5,94 @@
 #include "Common.h"
 #include "FullyConnected.h"
 
+#ifdef _WIN32
+#include "Windows.h"
+#endif
+
 FullyConnected::FullyConnected(const int &width, const int &height, const ActFctType &a)
-: LayerDefinition(width, height, 1, FULLY_CONNECTED, a)
-{
+	: LayerDefinition(width, height, 1, FULLY_CONNECTED, a) {
 
 }
 
 FullyConnected::FullyConnected(const int &width, const ActFctType &a)
-: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a)
-{
+	: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a) {
 
 }
 
-FullyConnected::~FullyConnected()
-{
-    CHECK(cudaFree(weight));
-    CHECK(cudaFree(bias));
-    CHECK(cudaFree(output));
-    CHECK(cudaFree(error));
+FullyConnected::~FullyConnected() {
+	CHECK(cudaFree(weight));
+	CHECK(cudaFree(bias));
+	CHECK(cudaFree(output));
+	CHECK(cudaFree(error));
 }
 
-int FullyConnected::getLayerNodeCount()
-{
-    return _width * _height;
-}
-
-
-int FullyConnected::getWeightCount(const int &prevLayerNode)
-{
-    return prevLayerNode * this->getLayerNodeCount();
+int FullyConnected::getLayerNodeCount() {
+	return _width * _height;
 }
 
 
-std::vector<double> FullyConnected::getWeight()
-{
+int FullyConnected::getWeightCount(const int &prevLayerNode) {
+	return prevLayerNode * this->getLayerNodeCount();
+}
+
+
+std::vector<double> FullyConnected::getWeight() {
 	std::vector<double> wCPU(_wDim);
 	CHECK(cudaMemcpy(&wCPU[0], weight, _wDim * sizeof(double), cudaMemcpyDeviceToHost));
 	return wCPU;
 }
 
-std::vector<double> FullyConnected::getBias()
-{
+std::vector<double> FullyConnected::getBias() {
 	const int node = this->getLayerNodeCount();
-	
+
 	std::vector<double> bCPU(node);
 	CHECK(cudaMemcpy(&bCPU[0], bias, node * sizeof(double), cudaMemcpyDeviceToHost));
 	return bCPU;
 }
 
 
-__global__ void initWeight(double *weight, const int wDim, curandState *states) {	
-	
+__global__ void initWeight(double *weight, const int wDim, curandState *states) {
+
 	// Gestione degli indici	
-	const int blockId   = blockIdx.y * gridDim.x + blockIdx.x;				
-	const int tid = blockId * blockDim.x + threadIdx.x;		
+	const int blockId = blockIdx.y * gridDim.x + blockIdx.x;
+	const int tid = blockId * blockDim.x + threadIdx.x;
 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
-	
+
 	// Variabile che conterrà il valore casuale
 	float r = curand_uniform(&states[tid]);
-	
+
 	if (tid % 2 == 0)
-	    r = -r;
+		r = -r;
 
 	if (tid < wDim)
- 		weight[tid] = 0.4 * r;
- }
- 
- 
- __global__ void initBias(double *bias, const int node, curandState *states) {	
-	
+		weight[tid] = 0.4 * r;
+}
+
+
+__global__ void initBias(double *bias, const int node, curandState *states) {
+
 	// Gestione degli indici	
 	const int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
-	
+
 	// Variabile che conterrà il valore casuale
 	float r = curand_uniform(&states[tid]);
-	
+
 	if (tid % 2 == 0)
-	    r = -r;
+		r = -r;
 
 	if (tid < node)
- 		bias[tid] = 0.4 * r;
- }
+		bias[tid] = 0.4 * r;
+}
 
-void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth)
-{
+void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
 	// Numero di nodi livello fully connected
 	const int node = this->getLayerNodeCount();
-	
+
 	// Dimensione matrice dei pesi
 	_wDim = prevLayerWidth * prevLayerHeight * prevLayerDepth * node;
 
@@ -105,20 +101,20 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 	// Dimensione bias, output, error
 	const unsigned int Bytes = node * sizeof(double);
-	
+
 	// Impostazione buffer che gestisce il printf in Cuda
 	size_t sz = 1048576 * 1000;
-    cudaDeviceSetLimit(cudaLimitPrintfFifoSize, sz);
+	cudaDeviceSetLimit(cudaLimitPrintfFifoSize, sz);
 
 	// Allocare le matrici
-	CHECK(cudaMalloc((void**) &weight, wBytes));
-	CHECK(cudaMalloc((void**) &bias, Bytes));
-	CHECK(cudaMalloc((void**) &output, Bytes));
-	CHECK(cudaMalloc((void**) &error, Bytes));
+	CHECK(cudaMalloc((void**)&weight, wBytes));
+	CHECK(cudaMalloc((void**)&bias, Bytes));
+	CHECK(cudaMalloc((void**)&output, Bytes));
+	CHECK(cudaMalloc((void**)&error, Bytes));
 
 	// Rendere i blocchi multipli di 32
 	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight);
-	
+
 	// Tanti blocchi quanto sono i nodi e la profondità del layer precedente
 	dim3 numBlocks(node, prevLayerDepth, 1);
 
@@ -132,18 +128,28 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	const int numRand = node * prevLayerDepth * aligned;
 
 	// Alloca la memoria
-	CHECK(cudaMalloc((void **) &devStates, numRand * sizeof(curandState))); 
+	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandState)));
 
 	// Inizializzare i weight del livello
-	initWeight<<<numBlocks, threadBlocks>>>(weight, _wDim, devStates);	
+#ifdef _WIN32
+	initWeight NvCUDA2(numBlocks, threadBlocks) (weight, _wDim, devStates);
+#endif
+#ifdef linux
+	initWeight << <numBlocks, threadBlocks >> > (weight, _wDim, devStates);
+#endif
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
-	
+
 	const int b = ALIGN_UP(node);
-	
-	initBias<<<1, b>>>(bias, b, devStates);
-	
+
+#ifdef _WIN32
+	initBias NvCUDA2(1, b) (bias, b, devStates);
+#endif
+#ifdef linux
+	initBias << <1, b >> > (bias, b, devStates);
+#endif
+
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
 
@@ -152,12 +158,10 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 }
 
 
-void FullyConnected::forward_propagation()
-{
+void FullyConnected::forward_propagation() {
 
 }
 
-void FullyConnected::back_propagation()
-{
+void FullyConnected::back_propagation() {
 
 }
