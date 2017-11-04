@@ -236,3 +236,4 @@ TSWLatexianTemp*
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+/src/x64/*
