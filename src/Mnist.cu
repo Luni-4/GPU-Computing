@@ -12,9 +12,9 @@
 Mnist::Mnist(const std::string& filename)
 	: _filename(filename),
 	imgWidth(0),
-	imgHeight(0) {
-	this->isTrain = false;
-	this->isTest = false;
+	imgHeight(0),
+	isTrain(false),
+	isTest(false) {	
 }
 
 Mnist::~Mnist() {
