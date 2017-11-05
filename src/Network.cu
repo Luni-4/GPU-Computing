@@ -1,25 +1,25 @@
-#include <cstdio>
-#include <vector>
-
 // Cuda
 #include <cuda_runtime.h>
+
+#include <iostream>
 
 #include "Common.h"
 #include "Network.h"
 
-Network::Network(const std::vector<LayerDefinition*>& layers)
-	: _layers(layers) {
-
+Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers) {
+    
+    for(auto& l: layers)
+		_layers.push_back(l.get());
 }
 
 Network::~Network() {    
     // Liberare la memoria del device
     CHECK(cudaFree(inputImg));
-    CHECK(cudaDeviceReset());
+    //CHECK(cudaDeviceReset());
 }
 
 void Network::train(Data *data, const int &epoch, const double &eta, const double &lambda) {
-	//Leggere i dati dal training set
+    //Leggere i dati dal training set
     data->readTrainData();
     
     // Caricare i dati in Cuda

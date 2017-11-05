@@ -30,7 +30,7 @@ FullyConnected::~FullyConnected() {
 	CHECK(cudaFree(weight));
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
-	CHECK(cudaFree(error));
+    CHECK(cudaFree(error));
 }
 
 int FullyConnected::getLayerNodeCount() {

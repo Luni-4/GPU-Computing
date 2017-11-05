@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <memory>
 
 // Librerie Cuda
 
@@ -45,28 +46,27 @@ int main() {
 	//test_fully();
 	
 	// Leggere i dati
-	Data* d = new Mnist("../data/");
+	std::unique_ptr<Data> d(new Mnist("../data/"));
 
-	// Creare i layer
-	std::vector<LayerDefinition*> layers(1);
-
-	layers[0] = new FullyConnected(10, RELU);
+	// Vettore contenente i livelli della rete
+	std::vector<std::unique_ptr<LayerDefinition>> layers;
+	
+	// Inizializzare i livelli	
+	layers.emplace_back( new FullyConnected(10, RELU) );
 
 	// Creare la rete
 	Network nn(layers);
 
 	// Training
-	nn.train(d, 20, 0.5, 0.1);
+	nn.train(d.get(), 20, 0.5, 0.1);
 
 	// Test
 	//nn.predict(//param);
 
 	// Cancellare i layer
-	for (std::size_t i = 0; i < layers.size(); i++) {
-		delete layers[i];
-	}
-	
-	delete d;
+	//for (std::size_t i = 0; i < layers.size(); i++) {
+		//delete layers[i];
+	//}
 
 #ifdef _WIN32
 	system("pause");
