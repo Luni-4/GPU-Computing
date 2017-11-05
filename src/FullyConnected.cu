@@ -14,19 +14,19 @@
 
 FullyConnected::FullyConnected(const int &width, const int &height, const ActFctType &a)
 	: LayerDefinition(width, height, 1, FULLY_CONNECTED, a) {
-	
-	this->_nodes = width * height; 
+
+	this->_nodes = width * height;
 
 }
 
 FullyConnected::FullyConnected(const int &width, const ActFctType &a)
 	: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a),
-      _nodes(width) {
+	_nodes(width) {
 
 }
 
 FullyConnected::~FullyConnected() {
-    CHECK_CUBLAS(cublasDestroy(handle));
+	CHECK_CUBLAS(cublasDestroy(handle));
 	CHECK(cudaFree(weight));
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
@@ -95,7 +95,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 }
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
-	
+
 	// Dimensione matrice dei pesi
 	_wDim = prevLayerWidth * prevLayerHeight * prevLayerDepth * _nodes;
 
@@ -104,20 +104,20 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 	// Dimensione bias, output, error
 	const unsigned int Bytes = _nodes * sizeof(double);
-	
+
 	// Impostazione buffer che gestisce il printf in Cuda
 	size_t sz = 1048576 * 1000;
-    cudaDeviceSetLimit(cudaLimitPrintfFifoSize, sz);
+	cudaDeviceSetLimit(cudaLimitPrintfFifoSize, sz);
 
 	// Allocare le matrici
-	CHECK(cudaMalloc((void**) &weight, wBytes));
-	CHECK(cudaMalloc((void**) &bias, Bytes));
-	CHECK(cudaMalloc((void**) &output, Bytes));
-	CHECK(cudaMalloc((void**) &error, Bytes));
+	CHECK(cudaMalloc((void**)&weight, wBytes));
+	CHECK(cudaMalloc((void**)&bias, Bytes));
+	CHECK(cudaMalloc((void**)&output, Bytes));
+	CHECK(cudaMalloc((void**)&error, Bytes));
 
 	// Rendere i blocchi multipli di 32
 	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight);
-	
+
 	// Tanti blocchi quanto sono i nodi e la profondità del layer precedente
 	dim3 numBlocks(_nodes, prevLayerDepth, 1);
 
@@ -131,24 +131,24 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	const int numRand = _nodes * prevLayerDepth * aligned;
 
 	// Alloca la memoria
-	CHECK(cudaMalloc((void **) &devStates, numRand * sizeof(curandState))); 
+	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandState)));
 
 	// Inizializzare i weight del livello
 #ifdef _WIN32
 	initWeight NvCUDA2(numBlocks, threadBlocks) (weight, _wDim, devStates);
 #else
-	initWeight <<<numBlocks, threadBlocks>>> (weight, _wDim, devStates);
+	initWeight << <numBlocks, threadBlocks >> > (weight, _wDim, devStates);
 #endif
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
-	
+
 	const int b = ALIGN_UP(_nodes);
 
 #ifdef _WIN32
 	initBias NvCUDA2(1, b) (bias, b, devStates);
 #else
-	initBias <<<1, b >>> (bias, b, devStates);
+	initBias << <1, b >> > (bias, b, devStates);
 #endif
 
 	// CPU deve attendere che esecuzione della funzione finisca
@@ -160,31 +160,31 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 
 void FullyConnected::forward_propagation(const double *prev) {
-    
-    // Creare l'handle di cuBLAS
+
+	// Creare l'handle di cuBLAS
 	CHECK_CUBLAS(cublasCreate(&handle));
-	
+
 	// Dimensione righe matrice, le colonne sono i nodi
 	const int r = _wDim / _nodes;
-	
+
 	// Fattori dei prodotti
 	const double alpha = 1.0f;
-	const double beta = 0.0f;	
-	
-    CHECK_CUBLAS(
-			cublasDgemv(handle, CUBLAS_OP_N, r, _nodes, &alpha, weight, r, prev, 1, &beta, output, 1));
-			
-    // Somma con il bias
-    CHECK_CUBLAS(
-            cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
-     
-    // DEBUG
-    std::vector<double> outputC(_nodes);
+	const double beta = 0.0f;
+
+	CHECK_CUBLAS(
+		cublasDgemv(handle, CUBLAS_OP_N, r, _nodes, &alpha, weight, r, prev, 1, &beta, output, 1));
+
+	// Somma con il bias
+	CHECK_CUBLAS(
+		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
+
+	// DEBUG
+	std::vector<double> outputC(_nodes);
 	CHECK(cudaMemcpy(&outputC[0], output, _nodes * sizeof(double), cudaMemcpyDeviceToHost));
-	
+
 	for (auto t : outputC)
-		std::cout << t << std::endl;       
-    
+		std::cout << t << std::endl;
+
 }
 
 void FullyConnected::back_propagation() {

@@ -43,7 +43,7 @@ int main() {
 	//test_input();
 
 	//test_fully();
-	
+
 	// Leggere i dati
 	Data* d = new Mnist("../data/");
 
@@ -65,7 +65,7 @@ int main() {
 	for (std::size_t i = 0; i < layers.size(); i++) {
 		delete layers[i];
 	}
-	
+
 	delete d;
 
 #ifdef _WIN32
