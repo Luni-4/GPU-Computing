@@ -29,11 +29,11 @@ void test_fully() {
 
 	layer->defineCuda(28, 28, 1);
 
-	std::vector<double> p = layer->getWeight();
+	std::vector<double> w = layer->getWeights();
 
-	std::cout << p.size() << std::endl;
+	std::cout << w.size() << std::endl;
 
-	for (auto t : p)
+	for (auto t : w)
 		std::cout << t << std::endl;
 
 	delete layer;
@@ -62,19 +62,6 @@ int main() {
 
 	// Test
 	//nn.predict(//param);
-
-	// Cancellare i layer
-<<<<<<< HEAD
-	//for (std::size_t i = 0; i < layers.size(); i++) {
-		//delete layers[i];
-	//}
-=======
-	for (std::size_t i = 0; i < layers.size(); i++) {
-		delete layers[i];
-	}
-
-	delete d;
->>>>>>> 71d4af608fea82b7f8710006484b6a64424f1867
 
 #ifdef _WIN32
 	system("pause");
