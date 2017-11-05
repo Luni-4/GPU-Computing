@@ -16,7 +16,7 @@ public:
     
     int getLayerNodeCount() override;
     int getWeightCount(const int &prevLayerNode) override;
-    std::vector<double> getWeight() override;
+    std::vector<double> getWeights() override;
     std::vector<double> getBias() override;
     
     void forward_propagation(const double *prev) override;
@@ -24,6 +24,7 @@ public:
     void back_propagation() override;
     
     void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
+    void deleteCuda() override;
     
     
 private:

@@ -26,11 +26,7 @@ FullyConnected::FullyConnected(const int &width, const ActFctType &a)
 }
 
 FullyConnected::~FullyConnected() {
-	CHECK_CUBLAS(cublasDestroy(handle));
-	CHECK(cudaFree(weight));
-	CHECK(cudaFree(bias));
-	CHECK(cudaFree(output));
-    CHECK(cudaFree(error));
+
 }
 
 int FullyConnected::getLayerNodeCount() {
@@ -43,7 +39,7 @@ int FullyConnected::getWeightCount(const int &prevLayerNode) {
 }
 
 
-std::vector<double> FullyConnected::getWeight() {
+std::vector<double> FullyConnected::getWeights() {
 	std::vector<double> wCPU(_wDim);
 	CHECK(cudaMemcpy(&wCPU[0], weight, _wDim * sizeof(double), cudaMemcpyDeviceToHost));
 	return wCPU;
@@ -189,4 +185,13 @@ void FullyConnected::forward_propagation(const double *prev) {
 
 void FullyConnected::back_propagation() {
 
+}
+
+void FullyConnected::deleteCuda() {
+
+    CHECK_CUBLAS(cublasDestroy(handle));
+	CHECK(cudaFree(weight));
+	CHECK(cudaFree(bias));
+	CHECK(cudaFree(output));
+    CHECK(cudaFree(error));
 }
