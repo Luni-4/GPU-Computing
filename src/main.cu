@@ -44,7 +44,7 @@ int main() {
 	//test_input();
 
 	//test_fully();
-	
+
 	// Leggere i dati
 	std::unique_ptr<Data> d(new Mnist("../data/"));
 
@@ -64,9 +64,17 @@ int main() {
 	//nn.predict(//param);
 
 	// Cancellare i layer
+<<<<<<< HEAD
 	//for (std::size_t i = 0; i < layers.size(); i++) {
 		//delete layers[i];
 	//}
+=======
+	for (std::size_t i = 0; i < layers.size(); i++) {
+		delete layers[i];
+	}
+
+	delete d;
+>>>>>>> 71d4af608fea82b7f8710006484b6a64424f1867
 
 #ifdef _WIN32
 	system("pause");
