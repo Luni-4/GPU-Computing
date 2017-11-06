@@ -1,32 +1,24 @@
-configure_file(directories.h.in
-               ${CMAKE_CURRENT_LIST_DIR}/directories.h
-               @ONLY)
+cmake_minimum_required(VERSION 2.8.0)
+project(educnn)
 
-set(EDUCNN_HEADERS ${EDUCNN_HEADERS}
-    educnn.h
-    common.h
-    timer.h
-    directories.h
-    activation.h
-    mnist.h
-    random.h
-    network.h
-    abstract_layer.h
-    fully_connected_layer.h
-    convolution_layer.h
-    max_pooling_layer.h
-    average_pooling_layer.h)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-function(BUILD_TEST_PROGRAM TEST_FILE BUILD_NAME)
-  add_executable(${BUILD_NAME} ${TEST_FILE} ${EDUCNN_HEADERS})
-  source_group("Source Files" FILES ${TEST_FILE} ${EDUCNN_HEADERS})
+set(CMAKE_CXX_STANDARD 11)
+if (NOT MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O2")
+endif()
 
-  if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zi")
-    set_property(TARGET ${BUILD_NAME} APPEND PROPERTY LINK_FLAGS "/DEBUG /PROFILE")
+option(WITH_OPENMP ON)
+if (WITH_OPENMP)
+  find_package(OpenMP)
+  if (OPENMP_FOUND)
+    message(STATUS "OpenMP found!")
+    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS})
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS})
   endif()
-endfunction()
+endif()
 
-build_test_program(test_neural.cpp test_neural)
-build_test_program(test_lecun.cpp test_lecun)
-build_test_program(test_dnn.cpp test_dnn)
+find_package(Eigen3 REQUIRED)
+include_directories(${EIGEN3_INCLUDE_DIR})
+
+add_subdirectory(sources)

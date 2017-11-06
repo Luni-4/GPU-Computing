@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -O2   CMakeFiles/test_dnn.dir/test_dnn.cpp.o  -o test_dnn -rdynamic 
