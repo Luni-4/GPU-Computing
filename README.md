@@ -9,7 +9,7 @@ GPU Computing
   2. [Processo di lavoro](#22-processo-di-lavoro)
   3. [Divisione dei compiti](#23-divisione-dei-compiti)
   4. [Link Utili](#24-link-utili)
-3. [Comunicazioni](#3-comunicazioni)
+3. [Considerazioni](#3-considerazioni)
 
 
 -----------------
@@ -64,17 +64,9 @@ MICHELE:
 - Seconda rete neurale convoluzionale per il riconoscimento dei caratteri con video YouTube: https://github.com/can1357/simple_cnn
 
 
-# 3. Comunicazioni
+# 3. Considerazioni
 
-DA NICHOLAS:
-
-
-
-A NICHOLAS:
+La dnn **originale** risulta più veloce perché utilizza uno stride pari a 2 nei livelli convoluzionali e non usa le epoche.
+La educnn oltre ai livelli convoluzionali ha i livelli di max_pooling e di average_pooling
 
 
-
-DA MICHELE:
-
-
-A MICHELE:
