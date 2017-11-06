@@ -180,7 +180,6 @@ void FullyConnected::forward_propagation(const double *prev) {
 
 	for (auto t : outputC)
 		std::cout << t << std::endl;
-
 }
 
 void FullyConnected::back_propagation() {
@@ -189,9 +188,9 @@ void FullyConnected::back_propagation() {
 
 void FullyConnected::deleteCuda() {
 
-    CHECK_CUBLAS(cublasDestroy(handle));
+	CHECK_CUBLAS(cublasDestroy(handle));
 	CHECK(cudaFree(weight));
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
-    CHECK(cudaFree(error));
+	CHECK(cudaFree(error));
 }

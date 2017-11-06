@@ -7,9 +7,8 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "FullyConnected.h"
+#include "Convolutional.h"
 #include "Network.h"
-
-
 
 void test_input() {
 	// Leggere i dati
@@ -50,9 +49,10 @@ int main() {
 
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
-	
+
 	// Inizializzare i livelli	
-	layers.emplace_back( new FullyConnected(10, RELU) );
+	//layers.emplace_back(new FullyConnected(10, RELU));
+	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 
 	// Creare la rete
 	Network nn(layers);

@@ -8,8 +8,7 @@
 #include "Network.h"
 
 Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers) {
-    
-    for(auto& l: layers)
+	for (auto& l : layers)
 		_layers.push_back(l.get());
 }
 
@@ -18,24 +17,24 @@ Network::~Network() {
 }
 
 void Network::train(Data *data, const int &epoch, const double &eta, const double &lambda) {
-    //Leggere i dati dal training set
-    data->readTrainData();
-    
-    // Caricare i dati in Cuda
-    cudaDataLoad(data);
-    
-    // Inizializzare le strutture della rete
-    cudaInitStruct(data);
-    
-    // Numero di esempi nel training set
-    const int nImages = data->getLabelSize();
-    
-    // Dimensione della singola immagine
-    const int imgDim = data->getImgDimension();
-    
-    // Quantità di dati da allocare e copiare
-    const int iBytes = imgDim * sizeof(double); 
-	
+	//Leggere i dati dal training set
+	data->readTrainData();
+
+	// Caricare i dati in Cuda
+	cudaDataLoad(data);
+
+	// Inizializzare le strutture della rete
+	cudaInitStruct(data);
+
+	// Numero di esempi nel training set
+	const int nImages = data->getLabelSize();
+
+	// Dimensione della singola immagine
+	const int imgDim = data->getImgDimension();
+
+	// Quantità di dati da allocare e copiare
+	const int iBytes = imgDim * sizeof(double);
+
 	// Allocare il buffer di input della singola coppia (etichetta,immagine)
 	CHECK(cudaMalloc((void**)&inputImg, iBytes));
 
@@ -63,10 +62,10 @@ void Network::train(Data *data, const int &epoch, const double &eta, const doubl
 
 //}
 
-    // cancellare i dati di train dal device
+	// cancellare i dati di train dal device
 	CHECK(cudaFree(cudaData));
 	CHECK(cudaFree(cudaLabels));
-	
+
 	// DA SPOSTARE NELLA FUNZIONE CHE FA IL TEST
 	cudaClearAll();
 
@@ -92,14 +91,14 @@ void Network::cudaDataLoad(Data *data) {
 void Network::cudaInitStruct(Data *data) {
 
 	_layers[0]->defineCuda(data->getImgWidth(), data->getImgHeight(), data->getImgDepth());
-	
+
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
-        const int prevWidth = (*it - 1)->getWidth();
+		const int prevWidth = (*it - 1)->getWidth();
 		const int prevHeight = (*it - 1)->getHeight();
 		const int prevDepth = (*it - 1)->getDepth();
 
 		(*it)->defineCuda(prevWidth, prevHeight, prevDepth);
-    }   	
+	}
 }
 
 void Network::forwardPropagation() {
@@ -115,14 +114,14 @@ void Network::forwardPropagation() {
 
 void Network::cudaClearAll() {
 
-    // Liberare il buffer contenente le immagini in input alla rete
-    CHECK(cudaFree(inputImg));
-    
-    // Liberare la memoria cuda associata ad ogni layer
-	for(auto l: _layers)
-        l->deleteCuda();
-	
+	// Liberare il buffer contenente le immagini in input alla rete
+	CHECK(cudaFree(inputImg));
+
+	// Liberare la memoria cuda associata ad ogni layer
+	for (auto l : _layers)
+		l->deleteCuda();
+
 	// Liberare la memoria del device
-    CHECK(cudaDeviceReset());
-	
+	CHECK(cudaDeviceReset());
+
 }

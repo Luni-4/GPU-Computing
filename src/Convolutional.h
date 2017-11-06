@@ -5,13 +5,10 @@
 
 #include "LayerDefinition.h"
 
-class FullyConnected : public LayerDefinition {
-
+class Convolutional : public LayerDefinition {
 public:
-
-	FullyConnected(const int &width, const int &height, const ActFctType &a);
-	FullyConnected(const int &width, const ActFctType &a);
-	~FullyConnected();
+	Convolutional(const int &filterWidth, const int &filterDepth, const int &stride, const ActFctType &a);
+	~Convolutional();
 
 	int getLayerNodeCount() override;
 	int getWeightCount(const int &prevLayerNode) override;
@@ -25,7 +22,6 @@ public:
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda() override;
 
-
 private:
 	int _wDim;
 	int _nodes;
@@ -35,7 +31,13 @@ private:
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
 
+	int _filterWidth;
+	int _stride;
+	int _padding;
+
 	// Handle per cuBlas
 	cublasHandle_t handle;
 
+	int calcOutput(int prevLayerWidth, bool withPadding);
 };
+
