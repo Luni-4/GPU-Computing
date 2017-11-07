@@ -1,9 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 
 // Cuda
 #include <curand_kernel.h>
+
 
 #include "Common.h"
 #include "FullyConnected.h"
@@ -62,7 +64,7 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 	curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
-	float r = curand_uniform(&states[tid]);
+	double r = curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
 		r = -r;
@@ -75,13 +77,13 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 __global__ void initBias(double *bias, const int node, curandState *states) {
 
 	// Gestione degli indici	
-	const int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
-	float r = curand_uniform(&states[tid]);
+	double r = curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
 		r = -r;
@@ -133,7 +135,7 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 #ifdef _WIN32
 	initWeight NvCUDA2(numBlocks, threadBlocks) (weight, _wDim, devStates);
 #else
-	initWeight << <numBlocks, threadBlocks >> > (weight, _wDim, devStates);
+	initWeight <<< numBlocks, threadBlocks >>> (weight, _wDim, devStates);
 #endif
 
 	// CPU deve attendere che esecuzione della funzione finisca
@@ -144,11 +146,19 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 #ifdef _WIN32
 	initBias NvCUDA2(1, b) (bias, b, devStates);
 #else
-	initBias << <1, b >> > (bias, b, devStates);
-#endif
+	initBias <<<1, b>>> (bias, _nodes, devStates);
+#endif    
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
+	
+#ifdef DEBUG
+    std::cout << "\n\nValore dei pesi\n\n";
+	printFromCuda(weight, _wDim);
+	std::cout << "\n\nValore dei bias\n\n";
+	printFromCuda(bias, _nodes);
+	std::cout << "\n\n\n\n";
+#endif
 
 	// Distrugge gli stati
 	CHECK(cudaFree(devStates));
@@ -174,12 +184,10 @@ void FullyConnected::forward_propagation(const double *prev) {
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
 
-	// DEBUG
-	std::vector<double> outputC(_nodes);
-	CHECK(cudaMemcpy(&outputC[0], output, _nodes * sizeof(double), cudaMemcpyDeviceToHost));
-
-	for (auto t : outputC)
-		std::cout << t << std::endl;
+#ifdef DEBUG
+    std::cout << "\n\nOutput dei nodi\n\n";
+	printFromCuda(output, _nodes);
+#endif
 }
 
 void FullyConnected::back_propagation() {

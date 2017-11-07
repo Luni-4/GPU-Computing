@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdio>
+#include <iostream>
+#include <vector>
 
 // Converte un numero intero al multiplo più vicino di 32
 #define ALIGN_UP(a) ((a + 31) / 32) * 32
@@ -66,15 +68,12 @@
     }                                                                          \
 }
 
-/*inline void device_prop() {
-	// set up device
-	int dev = 0;
-	cudaDeviceProp deviceProp;
-	CHECK(cudaGetDeviceProperties(&deviceProp, dev));
-	float tot_global_mem = (float) deviceProp.totalGlobalMem / 1048576.0f;
-	unsigned int max_grid_size_x = (unsigned int)deviceProp.maxGridSize[0];
-	printf("device %d: %s\n", dev, deviceProp.name);
-	printf("Total amount of global memory:\t %.1f (Mbytes)\n", tot_global_mem);
-	printf("Max dimension of the 1D-grid:\t %d (blocks)\n", max_grid_size_x);
-	CHECK(cudaSetDevice(dev));
-}*/
+inline void printFromCuda(const double *deb, const int dim) {
+	
+	// DEBUG
+	std::vector<double> outputC(dim);
+	CHECK(cudaMemcpy(&outputC[0], deb, dim * sizeof(double), cudaMemcpyDeviceToHost));
+
+	for (auto t : outputC)
+		std::cout << t << std::endl;
+}
