@@ -51,8 +51,11 @@ int main() {
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
 
 	// Inizializzare i livelli	
-	//layers.emplace_back(new FullyConnected(10, RELU));
+#ifdef _WIN32	
 	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+#else
+    layers.emplace_back(new FullyConnected(10, RELU));
+#endif
 
 	// Creare la rete
 	Network nn(layers);
