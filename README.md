@@ -68,5 +68,3 @@ MICHELE:
 
 La dnn **originale** risulta più veloce perché utilizza uno stride pari a 2 nei livelli convoluzionali e non usa le epoche.
 La educnn oltre ai livelli convoluzionali ha i livelli di max_pooling e di average_pooling
-
-
