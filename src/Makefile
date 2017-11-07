@@ -5,6 +5,10 @@ LIBS = -lcublas
 
 OBJECTS := $(wildcard *.cu)
 
+ifeq ($(DEBUG), 1)
+    CUDAFLAGS += -DDEBUG
+endif
+
 all: $(MAIN)
 
 $(MAIN): $(OBJECTS)
