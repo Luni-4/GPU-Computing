@@ -2,9 +2,13 @@
 #include <vector>
 #include <algorithm>
 
+
+// Cuda Library
 // Cuda
 #include <curand_kernel.h>
 
+// Cuda Kernel
+#include "Kernel.h"
 
 #include "Common.h"
 #include "FullyConnected.h"
@@ -52,44 +56,6 @@ std::vector<double> FullyConnected::getBias() {
 	return bCPU;
 }
 
-
-__global__ void initWeight(double *weight, const int wDim, curandState *states) {
-
-	// Gestione degli indici	
-	const int blockId = blockIdx.y * gridDim.x + blockIdx.x;
-	const int tid = blockId * blockDim.x + threadIdx.x;
-
-	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
-
-	// Variabile che conterrà il valore casuale
-	double r = curand_uniform_double(&states[tid]);
-
-	if (tid % 2 == 0)
-		r = -r;
-
-	if (tid < wDim)
-		weight[tid] = 0.4 * r;
-}
-
-
-__global__ void initBias(double *bias, const int node, curandState *states) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
-
-	// Variabile che conterrà il valore casuale
-	double r = curand_uniform_double(&states[tid]);
-
-	if (tid % 2 == 0)
-		r = -r;
-
-	if (tid < node)
-		bias[tid] = 0.4 * r;
-}
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
 
@@ -139,11 +105,12 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
-
+    
+    // Convertire il numero di nodi in un multiplo di 32
 	const int b = ALIGN_UP(_nodes);
 
 #ifdef _WIN32
-	initBias NvCUDA2(1, b) (bias, b, devStates);
+	initBias NvCUDA2(1, b) (bias, _nodes, devStates);
 #else
 	initBias <<<1, b>>> (bias, _nodes, devStates);
 #endif    
@@ -171,6 +138,9 @@ void FullyConnected::forward_propagation(const double *prev) {
 
 	// Dimensione righe matrice, le colonne sono i nodi
 	const int r = _wDim / _nodes;
+	
+	// Convertire il numero di nodi in un multiplo di 32
+	const int b = ALIGN_UP(_nodes);
 
 	// Fattori dei prodotti
 	const double alpha = 1.0f;
@@ -178,15 +148,48 @@ void FullyConnected::forward_propagation(const double *prev) {
 
 	CHECK_CUBLAS(
 		cublasDgemv(handle, CUBLAS_OP_N, r, _nodes, &alpha, weight, r, prev, 1, &beta, output, 1));
+		
+    // CPU deve attendere che esecuzione della funzione finisca
+    CHECK(cudaDeviceSynchronize());  
 
 	// Somma con il bias
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
+		
+    // CPU deve attendere che esecuzione della funzione finisca
+    CHECK(cudaDeviceSynchronize());  
 
 #ifdef DEBUG
     std::cout << "\n\nOutput dei nodi\n\n";
 	printFromCuda(output, _nodes);
 #endif
+
+    // Applicare funzione di attivazione
+    if(_a == RELU)
+    
+#ifdef _WIN32
+	    actRelu NvCUDA2(1, b) (output, _nodes);
+#else
+	    actRelu <<<1, b>>> (output, _nodes);
+#endif 
+    else if(_a == SIGMOID)
+
+#ifdef _WIN32
+	    actSigmoid NvCUDA2(1, b) (output, _nodes);
+#else
+	    actSigmoid <<<1, b>>> (output, _nodes);
+#endif
+
+    else
+
+#ifdef _WIN32
+	    actTanh NvCUDA2(1, b) (output, _nodes);
+#else
+	    actTanh <<<1, b>>> (output, _nodes);
+#endif 
+    
+    // CPU deve attendere che esecuzione della funzione finisca
+    CHECK(cudaDeviceSynchronize());    
 }
 
 void FullyConnected::back_propagation() {
