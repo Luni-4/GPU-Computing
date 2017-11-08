@@ -111,9 +111,9 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 
 #ifdef DEBUG
 	std::cout << "\n\nValore dei pesi\n\n";
-	printFromCuda(weight, _wDim);
+	printFromCudaFormatted(weight, _wDim, _filterWidth);
 	std::cout << "\n\nValore dei bias\n\n";
-	printFromCuda(bias, _nodes);
+	printFromCudaFormatted(bias, _nodes, 1);
 	std::cout << "\n\n\n\n";
 #endif
 

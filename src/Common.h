@@ -69,11 +69,30 @@
 }
 
 inline void printFromCuda(const double *deb, const int dim) {
-	
+
 	// DEBUG
 	std::vector<double> outputC(dim);
 	CHECK(cudaMemcpy(&outputC[0], deb, dim * sizeof(double), cudaMemcpyDeviceToHost));
 
 	for (auto t : outputC)
 		std::cout << t << std::endl;
+}
+
+
+inline void printFromCudaFormatted(const double *deb, const int wdim, const int dim) {
+
+	// DEBUG
+	std::vector<double> outputC(wdim);
+	CHECK(cudaMemcpy(&outputC[0], deb, wdim * sizeof(double), cudaMemcpyDeviceToHost));
+
+	int dd = (dim * dim);
+	for (int i = 0; i < outputC.size(); i++) {
+		int cut = (outputC[i] * 100);
+		double o = ((double)cut) / 100;
+		std::cout << o << " ";
+		if ((i + 1) % dim == 0)
+			std::cout << " :" << i << std::endl;
+		if ((i + 1) % (dim * dim) == 0)
+			std::cout << std::endl;
+	}
 }

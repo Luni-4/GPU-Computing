@@ -15,3 +15,7 @@
 
 //scommentare per utilizzare gli ifdef DEBUG
 #define DEBUG
+
+//#ifdef _DEBUG
+//#define DEBUG _DEBUG
+//#endif
