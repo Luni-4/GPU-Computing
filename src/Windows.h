@@ -10,10 +10,8 @@
 #define NvCUDA4(grid, block, sh_mem, stream)
 #endif
 
-#pragma once
-#ifdef __INTELLISENSE__
-void __syncthreads();
-#endif
-
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+
+//scommentare per utilizzare gli ifdef DEBUG
+#define DEBUG

@@ -25,6 +25,7 @@ void Network::train(Data *data, const int &epoch, const double &eta, const doubl
 
 	// Inizializzare le strutture della rete
 	cudaInitStruct(data);
+	return;
 
 	// Numero di esempi nel training set
 	const int nImages = data->getLabelSize();
@@ -58,7 +59,7 @@ void Network::train(Data *data, const int &epoch, const double &eta, const doubl
 
 	// Backward_propagation per ogni livello
    // backwardPropagation();
-//}   
+//}
 
 //}
 

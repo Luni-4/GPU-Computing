@@ -2,11 +2,6 @@
 #include <vector>
 #include <algorithm>
 
-
-// Cuda Library
-// Cuda
-#include <curand_kernel.h>
-
 // Cuda Kernel
 #include "Kernel.h"
 
@@ -97,29 +92,22 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandState)));
 
 	// Inizializzare i weight del livello
-#ifdef _WIN32
-	initWeight NvCUDA2(numBlocks, threadBlocks) (weight, _wDim, devStates);
-#else
-	initWeight <<< numBlocks, threadBlocks >>> (weight, _wDim, devStates);
-#endif
+	Kernel::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
-    
-    // Convertire il numero di nodi in un multiplo di 32
+
+	// Convertire il numero di nodi in un multiplo di 32
 	const int b = ALIGN_UP(_nodes);
 
-#ifdef _WIN32
-	initBias NvCUDA2(1, b) (bias, _nodes, devStates);
-#else
-	initBias <<<1, b>>> (bias, _nodes, devStates);
-#endif    
+	// Inizializzare i bias del livello
+	Kernel::initBiasK(1, b, bias, _nodes, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
-	
+
 #ifdef DEBUG
-    std::cout << "\n\nValore dei pesi\n\n";
+	std::cout << "\n\nValore dei pesi\n\n";
 	printFromCuda(weight, _wDim);
 	std::cout << "\n\nValore dei bias\n\n";
 	printFromCuda(bias, _nodes);
@@ -138,7 +126,7 @@ void FullyConnected::forward_propagation(const double *prev) {
 
 	// Dimensione righe matrice, le colonne sono i nodi
 	const int r = _wDim / _nodes;
-	
+
 	// Convertire il numero di nodi in un multiplo di 32
 	const int b = ALIGN_UP(_nodes);
 
@@ -148,48 +136,32 @@ void FullyConnected::forward_propagation(const double *prev) {
 
 	CHECK_CUBLAS(
 		cublasDgemv(handle, CUBLAS_OP_N, r, _nodes, &alpha, weight, r, prev, 1, &beta, output, 1));
-		
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());  
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 
 	// Somma con il bias
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
-		
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());  
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
-    std::cout << "\n\nOutput dei nodi\n\n";
+	std::cout << "\n\nOutput dei nodi\n\n";
 	printFromCuda(output, _nodes);
 #endif
 
-    // Applicare funzione di attivazione
-    if(_a == RELU)
-    
-#ifdef _WIN32
-	    actRelu NvCUDA2(1, b) (output, _nodes);
-#else
-	    actRelu <<<1, b>>> (output, _nodes);
-#endif 
-    else if(_a == SIGMOID)
+	// Applicare funzione di attivazione
+	if (_a == RELU)
+		Kernel::actReluK(1, b, output, _nodes);
+	else if (_a == SIGMOID)
+		Kernel::actSigmoidK(1, b, output, _nodes);
+	else
+		Kernel::actTanhK(1, b, output, _nodes);
 
-#ifdef _WIN32
-	    actSigmoid NvCUDA2(1, b) (output, _nodes);
-#else
-	    actSigmoid <<<1, b>>> (output, _nodes);
-#endif
-
-    else
-
-#ifdef _WIN32
-	    actTanh NvCUDA2(1, b) (output, _nodes);
-#else
-	    actTanh <<<1, b>>> (output, _nodes);
-#endif 
-    
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());    
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 }
 
 void FullyConnected::back_propagation() {

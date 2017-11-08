@@ -2,8 +2,8 @@
 #include <vector>
 #include <algorithm>
 
-// Cuda
-#include <curand_kernel.h>
+// Cuda Kernel
+#include "Kernel.h"
 
 #include "Common.h"
 #include "Convolutional.h"
@@ -45,48 +45,12 @@ void Convolutional::forward_propagation(const double * prev) {
 void Convolutional::back_propagation() {
 }
 
-__global__ void initWeightConv(double *weight, const int wDim, curandState *states) {
-	// Gestione degli indici	
-	const int blockId = blockIdx.y * gridDim.x + blockIdx.x;
-	const int tid = blockId * blockDim.x + threadIdx.x;
-
-	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
-
-	// Variabile che conterrà il valore casuale
-	float r = curand_uniform(&states[tid]);
-
-	if (tid % 2 == 0)
-		r = -r;
-
-	if (tid < wDim)
-		weight[tid] = 0.4 * r;
-}
-
-__global__ void initBiasConv(double *bias, const int node, curandState *states) {
-
-	// Gestione degli indici	
-	const int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
-
-	// Variabile che conterrà il valore casuale
-	float r = curand_uniform(&states[tid]);
-
-	if (tid % 2 == 0)
-		r = -r;
-
-	if (tid < node)
-		bias[tid] = 0.4 * r;
-}
-
 void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
 	//numero di nodi dipende da filtro e nodi livello precedente
 	//width
-	_width = calcOutput(prevLayerWidth, false);
+	_width = _calcOutput(prevLayerWidth, false);
 	//height
-	_height = calcOutput(prevLayerHeight, false);
+	_height = _calcOutput(prevLayerHeight, false);
 	//depth = numero di filtri
 
 	this->_nodes = _width * _height * _depth;
@@ -131,25 +95,27 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandState)));
 
 	// Inizializzare i weight del livello
-#ifdef _WIN32
-	initWeightConv NvCUDA2(numBlocks, threadBlocks) (weight, _wDim, devStates);
-#else
-	initWeightConv << <numBlocks, threadBlocks >> > (weight, _wDim, devStates);
-#endif
+	Kernel::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
 
+	// Convertire il numero di nodi in un multiplo di 32
 	const int b = ALIGN_UP(_nodes);
 
-#ifdef _WIN32
-	initBiasConv NvCUDA2(1, b) (bias, b, devStates);
-#else
-	initBiasConv << <1, b >> > (bias, b, devStates);
-#endif
+	// Inizializzare i bias del livello
+	Kernel::initBiasK(1, b, bias, _nodes, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nValore dei pesi\n\n";
+	printFromCuda(weight, _wDim);
+	std::cout << "\n\nValore dei bias\n\n";
+	printFromCuda(bias, _nodes);
+	std::cout << "\n\n\n\n";
+#endif
 
 	// Distrugge gli stati
 	CHECK(cudaFree(devStates));
@@ -163,7 +129,7 @@ void Convolutional::deleteCuda() {
 	CHECK(cudaFree(error));
 }
 
-int Convolutional::calcOutput(int prevLayerWidth, bool withPadding) {
+int Convolutional::_calcOutput(int prevLayerWidth, bool withPadding) {
 	//PER ORA NON CONSIDERATO CASO IN CUI SI GENERANO ERRORI (padding numero non intero, filtro più grande dell'input, stride che non combacia, ecc)
 	if (withPadding) {
 		_padding = (_filterWidth - 1) / 2;

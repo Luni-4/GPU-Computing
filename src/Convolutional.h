@@ -38,6 +38,6 @@ private:
 	// Handle per cuBlas
 	cublasHandle_t handle;
 
-	int calcOutput(int prevLayerWidth, bool withPadding);
+	int _calcOutput(int prevLayerWidth, bool withPadding);
 };
 
