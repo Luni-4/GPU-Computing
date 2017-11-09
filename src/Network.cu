@@ -25,8 +25,7 @@ void Network::train(Data *data, const int &epoch, const double &eta, const doubl
 
 	// Inizializzare le strutture della rete
 	cudaInitStruct(data);
-	return;
-
+	
 	// Numero di esempi nel training set
 	const int nImages = data->getLabelSize();
 
@@ -52,13 +51,13 @@ void Network::train(Data *data, const int &epoch, const double &eta, const doubl
 	//for(int j = 0; j < epoch; j++)
 	//{
 		// Forward_propagation per ogni livello
-	forwardPropagation();
+	    forwardPropagation();
 
 	// Calcolo dell'errore per ogni livello
 	//error();
 
-	// Backward_propagation per ogni livello
-   // backwardPropagation();
+        // Backward_propagation per ogni livello
+        backPropagation(i);
 //}
 
 //}
@@ -91,7 +90,7 @@ void Network::cudaDataLoad(Data *data) {
 
 void Network::cudaInitStruct(Data *data) {
 
-	_layers[0]->defineCuda(data->getImgWidth(), data->getImgHeight(), data->getImgDepth());
+	_layers.front()->defineCuda(data->getImgWidth(), data->getImgHeight(), data->getImgDepth());
 
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
 		const int prevWidth = (*it - 1)->getWidth();
@@ -104,12 +103,21 @@ void Network::cudaInitStruct(Data *data) {
 
 void Network::forwardPropagation() {
 
-	_layers[0]->forward_propagation(inputImg);
+	_layers.front()->forward_propagation(inputImg);
 
 
-	/*for(std::size_t i = 1; i < _layers.size(); i++)
-	{
-		_layers[i]->forward_propagation(_layers[i-1].getOutput());
+	/*for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
+		(*it)->forward_propagation((*it - 1)->getOutput());
+	}*/
+}
+
+void Network::backPropagation(const int &target) {
+
+	_layers.back()->back_propagation_output(target);
+
+
+	/*for (auto it = _layers.rbegin() - 1; it != _layers.rend(); ++it) {
+		(*it)->backward_propagation();
 	}*/
 }
 

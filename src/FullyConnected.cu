@@ -137,15 +137,15 @@ void FullyConnected::forward_propagation(const double *prev) {
 	CHECK_CUBLAS(
 		cublasDgemv(handle, CUBLAS_OP_N, r, _nodes, &alpha, weight, r, prev, 1, &beta, output, 1));
 
-	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+    // CPU deve attendere che esecuzione della funzione finisca
+    CHECK(cudaDeviceSynchronize());
 
 	// Somma con il bias
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
 
-	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+    // CPU deve attendere che esecuzione della funzione finisca
+    CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi\n\n";
@@ -157,7 +157,7 @@ void FullyConnected::forward_propagation(const double *prev) {
 		Kernel::actReluK(1, b, output, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::actSigmoidK(1, b, output, _nodes);
-	else
+	else if (_a == TANH)
 		Kernel::actTanhK(1, b, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
@@ -165,6 +165,13 @@ void FullyConnected::forward_propagation(const double *prev) {
 }
 
 void FullyConnected::back_propagation() {
+
+}
+
+void FullyConnected::back_propagation_output(const int &target) {
+    
+    
+    
 
 }
 

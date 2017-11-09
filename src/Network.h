@@ -25,7 +25,7 @@ private:
 
 	void forwardPropagation();
 	void predictionError();
-	void backwardPropagation();
+	void backPropagation(const int &target);
 
 private:
 	std::vector<LayerDefinition*> _layers;

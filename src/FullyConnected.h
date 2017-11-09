@@ -21,6 +21,7 @@ public:
 	void forward_propagation(const double *prev) override;
 
 	void back_propagation() override;
+	void back_propagation_output(const int &target) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda() override;

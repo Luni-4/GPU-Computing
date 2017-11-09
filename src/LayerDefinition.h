@@ -28,6 +28,7 @@ public:
 	virtual void forward_propagation(const double *prev) = 0;
 
 	virtual void back_propagation() = 0;
+	virtual void back_propagation_output(const int &target) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
 	virtual void deleteCuda() = 0;
