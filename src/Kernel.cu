@@ -55,7 +55,7 @@ void Kernel::initBiasK(dim3 t, dim3 b, double * weight, const int wDim, curandSt
 #endif
 }
 
-__global__ void outputError(double *output, double *error, const uint8_t label, const int node) {
+__global__ void outputError(const double *output, double *error, const uint8_t *label, const int target, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -64,7 +64,7 @@ __global__ void outputError(double *output, double *error, const uint8_t label, 
 	
 	/* Il predittore dovrebbe predire con probabilità 1 solo la label passata alla funzione, quindi la variabile
 	trueLabel contiene il valore che ci si aspetterebbe dal predittore, cioè 1 */
-	if(tid == label)
+	if(tid == label[target])
 	    trueLabel = 1;
 	
 	// L'errore commesso è dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
@@ -72,11 +72,11 @@ __global__ void outputError(double *output, double *error, const uint8_t label, 
 		error[tid] = trueLabel - output[tid];
 }
 
-void Kernel::outputErrorK(dim3 t, dim3 b, double *output, double *error, const uint8_t label, const int nodes) {
+void Kernel::outputErrorK(dim3 t, dim3 b, const double *output, double *error, const uint8_t *label, const int target, const int nodes) {
 #ifdef _WIN32
-	outputError NvCUDA2(t, b) (output, error, label, nodes);
+	outputError NvCUDA2(t, b) (output, error, label, target, nodes);
 #else
-	outputError << <t, b >> > (output, error, label, nodes);
+	outputError << <t, b >> > (output, error, label, target, nodes);
 #endif
 }
 
@@ -94,7 +94,7 @@ __global__ void actRelu(double *output, const int node) {
 		output[tid] = log(1 + exp((output[tid])));
 }
 
-__global__ void derivActRelu(double *output, double *error, const int node) {
+__global__ void derivActRelu(const double *output, double *error, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -103,7 +103,7 @@ __global__ void derivActRelu(double *output, double *error, const int node) {
 		error[tid] = error[tid] * (1 / (1 + (exp((-output[tid])))));
 }
 
-void Kernel::actReluK(dim3 t, dim3 b, double *output, int nodes) {
+void Kernel::actReluK(dim3 t, dim3 b, double *output, const int nodes) {
 #ifdef _WIN32
 	actRelu NvCUDA2(t, b) (output, nodes);
 #else
@@ -111,7 +111,7 @@ void Kernel::actReluK(dim3 t, dim3 b, double *output, int nodes) {
 #endif 
 }
 
-void Kernel::derivActReluK(dim3 t, dim3 b, double *output, double *error, const int nodes) {
+void Kernel::derivActReluK(dim3 t, dim3 b, const double *output, double *error, const int nodes) {
 #ifdef _WIN32
 	derivActRelu NvCUDA2(t, b) (output, error, nodes);
 #else
@@ -132,7 +132,7 @@ __global__ void actSigmoid(double *output, const int node) {
 		output[tid] = 1 / (1 + (exp((-output[tid]))));
 }
 
-__global__ void derivActSigmoid(double *output, double *error, const int node) {
+__global__ void derivActSigmoid(const double *output, double *error, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -149,7 +149,7 @@ void Kernel::actSigmoidK(dim3 t, dim3 b, double *output, int nodes) {
 #endif 
 }
 
-void Kernel::derivActSigmoidK(dim3 t, dim3 b, double *output, double *error, const int nodes) {
+void Kernel::derivActSigmoidK(dim3 t, dim3 b, const double *output, double *error, const int nodes) {
 #ifdef _WIN32
 	derivActSigmoid NvCUDA2(t, b) (output, error, nodes);
 #else
@@ -171,7 +171,7 @@ __global__ void actTanh(double *output, const int node) {
 		output[tid] = tanh(output[tid]);
 }
 
-__global__ void derivActTanh(double *output, double *error, const int node) {
+__global__ void derivActTanh(const double *output, double *error, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -188,7 +188,7 @@ void Kernel::actTanhK(dim3 t, dim3 b, double *output, int nodes) {
 #endif 
 }
 
-void Kernel::derivActTanhK(dim3 t, dim3 b, double *output, double *error, const int nodes) {
+void Kernel::derivActTanhK(dim3 t, dim3 b, const double *output, double *error, const int nodes) {
 #ifdef _WIN32
 	derivActTanh NvCUDA2(t, b) (output, error, nodes);
 #else
