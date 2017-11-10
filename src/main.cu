@@ -100,7 +100,7 @@ int main() {
 	Network nn(layers);
 
 	// Training
-	nn.train(d.get(), 20, 0.5, 0.1);
+	nn.train(d.get(), 20, 0.5);
 
 	// Test
 	//nn.predict(//param);
