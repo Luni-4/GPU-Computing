@@ -16,7 +16,7 @@ Network::~Network() {
 
 }
 
-void Network::train(Data *data, const int &epoch, const double &eta, const double &lambda) {
+void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	//Leggere i dati dal training set
 	data->readTrainData();
 
@@ -57,7 +57,7 @@ void Network::train(Data *data, const int &epoch, const double &eta, const doubl
 	//error();
 
         // Backward_propagation per ogni livello
-        backPropagation(i);
+        backPropagation(i, learningRate);
 //}
 
 //}
@@ -111,9 +111,11 @@ void Network::forwardPropagation() {
 	}*/
 }
 
-void Network::backPropagation(const int &target) {
-
-	_layers.back()->back_propagation_output(target);
+void Network::backPropagation(const int &target, const double &learningRate) {
+    
+    
+    // TODO Non è inputImg ma output livello i - 1
+	_layers.back()->back_propagation_output(inputImg, cudaLabels, target, learningRate);
 
 
 	/*for (auto it = _layers.rbegin() - 1; it != _layers.rend(); ++it) {

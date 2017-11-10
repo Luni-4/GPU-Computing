@@ -15,7 +15,7 @@ public:
 	Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers);
 	~Network();
 
-	void train(Data *data, const int &epoch, const double &eta, const double &lambda);
+	void train(Data *data, const int &epoch, const double &learningRate);
 	std::vector<uint8_t> predict(Data *data);
 
 private:
@@ -25,7 +25,7 @@ private:
 
 	void forwardPropagation();
 	void predictionError();
-	void backPropagation(const int &target);
+	void backPropagation(const int &target, const double &learningRate);
 
 private:
 	std::vector<LayerDefinition*> _layers;

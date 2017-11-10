@@ -21,7 +21,7 @@ public:
 	void forward_propagation(const double *prev) override;
 
 	void back_propagation() override;
-	void back_propagation_output(const int &target) override;
+	void back_propagation_output(const double *prev, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda() override;
@@ -30,6 +30,8 @@ public:
 private:
 	int _wDim;
 	int _nodes;
+	int _prevLayerDim;
+	int _alignedNodes;
 
 	double *weight; // Matrice dei pesi in Cuda
 	double *bias; // Matrice per i bias in Cuda

@@ -1,7 +1,7 @@
 #pragma once
 
 typedef enum LayerType { CONVOLUTIONAL, FULLY_CONNECTED } LayerType;
-typedef enum ActFctType { SIGMOID, TANH, RELU, NONE } ActFctType;
+typedef enum ActFctType { SIGMOID, TANH, RELU } ActFctType;
 
 class LayerDefinition {
 
@@ -28,7 +28,7 @@ public:
 	virtual void forward_propagation(const double *prev) = 0;
 
 	virtual void back_propagation() = 0;
-	virtual void back_propagation_output(const int &target) = 0;
+	virtual void back_propagation_output(const double *prev, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
 	virtual void deleteCuda() = 0;
