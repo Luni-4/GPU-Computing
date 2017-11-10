@@ -187,8 +187,14 @@ void FullyConnected::back_propagation_output(const double *prev, const uint8_t *
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
     
-    // Aggiornare i pesi (da mettere in funzione)
+    // Aggiornare i pesi (da mettere in funzione)    
+    updateWeights(prev, learningRate);   
+
+}
+
+void FullyConnected::updateWeights(const double *prev, const double &learningRate) {
     
+    // Matrice temporanea
     double *temp;
     
     // Dimensione matrice temporanea in byte
@@ -200,32 +206,29 @@ void FullyConnected::back_propagation_output(const double *prev, const uint8_t *
 	// Riempirla di 0
 	CHECK(cudaMemset(temp, 0, wBytes));
 	
-	// Definizione di alpha
-	const double alpha = 1.0f;
-	
-	//output[i] * *(&learningRate)
-	
 	for (int i = 0; i < _nodes; i++)
 	    CHECK_CUBLAS(
-		    cublasDaxpy(handle, _prevLayerDim, &alpha, prev, 1, temp + i, 1));
+		    cublasDaxpy(handle, _prevLayerDim, &output[i], prev, 1, temp + i, 1));
     
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
     
     // Aggiornamento effettivo dei pesi 
     CHECK_CUBLAS(
-		cublasDaxpy(handle, _wDim, &alpha, temp, 1, weight, 1));
+		cublasDaxpy(handle, _wDim, &learningRate, temp, 1, weight, 1));
+		
+    // CPU deve attendere che esecuzione della funzione finisca
+    CHECK(cudaDeviceSynchronize());
+	
+	// Aggiornamento del bias 
+    CHECK_CUBLAS(
+		cublasDaxpy(handle, _nodes, &learningRate, error, 1, bias, 1));
 		
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
     
     // Distrugge la matrice dei pesi
 	CHECK(cudaFree(temp));
-    
-    
-    
-    
-    
 
 }
 

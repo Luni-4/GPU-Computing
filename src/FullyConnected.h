@@ -25,6 +25,9 @@ public:
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda() override;
+	
+private:
+    void updateWeights(const double *prev, const double &learningRate);
 
 
 private:
