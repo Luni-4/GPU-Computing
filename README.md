@@ -26,21 +26,18 @@ GPU Computing
 
 ## 2.1. TODO
 
-- Valutare la velocità delle rete neurale sequenziale a 3 livelli creata dallo sviluppatore
+- Valutare la velocità delle rete neurale sequenziale contenuta nella directory sequential su diversi terminali
 - Riprodurre la stessa rete in CUDA e valutare se:
-    - Diminuisce il tempo di esecuzione, quindi la rete ha un notevole Speed-up
-    - Diminuisce l'errore della rete (cosa altamente improbabile)
-- Produrre la documentazione necessaria (report) da presentare
+    - Diminuisce il tempo di esecuzione, quindi si ottiene un notevole Speed-up
+    - Diminuisce l'errore della rete (molto improbabile in quanto dipende dal learning rate e da parametri sulla quale bisogna fare il tuning)
+- Produrre la documentazione necessaria da presentare (report, slide)
 
 ## 2.2. Processo di lavoro
 
-- Valutare come parallelizzare il più possibile:
-    - Il livello di input
-    - Il livello hidden
-    - Il livello di output
-- Analizzare i risultati ottenuti e poi fare il tuning dei parametri per vedere se si ottengono risultati
+- Parallelizzare il più possibile la rete, partendo dalla costruzione dei livelli e poi dalla loro composizione 
+- Analizzare i risultati ottenuti e successivamente fare il tuning dei parametri per vedere se si riescono ad ottenere risultati
 migliori (es. dimensione del blocco, uso di stream ecc...)
-- Produrre il report
+- Produrre il report, slide ecc...
  
 
 ## 2.3. Divisione dei compiti
@@ -57,6 +54,9 @@ MICHELE:
 - Spiegazione approfondita reti convoluzionali: https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks/
 - Famoso database contenente training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
 - Spiegazione reti neurali: https://mmlind.github.io/
+- Partendo da diverse configurazioni di blocchi e thread iniziali, ottenere i rispettivi indici degli array: http://www.martinpeniak.com/index.php?option=com_content&view=article&id=288:cuda-thread-indexing-explained&catid=17:updates
+
+
 - Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Esempio di una rete neurale convoluzionale: https://mmlind.github.io/Deep_Neural_Network_for_MNIST_Handwriting_Recognition/
 - Spiegazione della rete LeCun Net (meglio conosciuta come LeNet) per il riconoscimento dei caratteri: https://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
@@ -66,5 +66,5 @@ MICHELE:
 
 # 3. Considerazioni
 
-La dnn **originale** risulta più veloce perché utilizza uno stride pari a 2 nei livelli convoluzionali e non usa le epoche.
-La educnn oltre ai livelli convoluzionali ha i livelli di max_pooling e di average_pooling
+- La dnn **originale** risulta più veloce perché utilizza uno stride pari a 2 nei livelli convoluzionali e non usa le epoche
+- La educnn oltre ai livelli convoluzionali ha i livelli di max_pooling e di average_pooling
