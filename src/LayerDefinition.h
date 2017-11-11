@@ -25,10 +25,10 @@ public:
 	virtual std::vector<double> getWeights() = 0;
 	virtual std::vector<double> getBias() = 0;
 
-	virtual void forward_propagation(const double *prev) = 0;
+	virtual forward_propagation(const double *prevOutput) = 0;
 
-	virtual void back_propagation() = 0;
-	virtual void back_propagation_output(const double *prev, const uint8_t *labels, const int &target, const double &learningRate) = 0;
+	virtual void back_propagation(const double *forwardWeight, const double *forwardError, const int &forwardNodes) = 0;
+	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
 	virtual void deleteCuda() = 0;
