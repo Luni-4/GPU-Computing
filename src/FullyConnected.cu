@@ -35,15 +35,6 @@ FullyConnected::~FullyConnected() {
 
 }
 
-int FullyConnected::getLayerNodeCount() {
-	return _nodes;
-}
-
-
-int FullyConnected::getWeightCount(const int &prevLayerNode) {
-	return prevLayerNode * _nodes;
-}
-
 
 std::vector<double> FullyConnected::getWeights() {
 	std::vector<double> wCPU(_wDim);
@@ -67,20 +58,26 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	_prevLayerDim = prevLayerWidth * prevLayerHeight * prevLayerDepth;  
 
 	// Dimensione matrice dei pesi in byte
-	const unsigned int wBytes = _wDim * sizeof(double);
+	_wBytes = _wDim * sizeof(double);
 
 	// Dimensione bias, output, error
 	const unsigned int Bytes = _nodes * sizeof(double);
-
+	
+	// Creare l'handle di cuBLAS
+	CHECK_CUBLAS(cublasCreate(&handle));
+	
+#ifdef DEBUG
 	// Impostazione buffer che gestisce il printf in Cuda
 	size_t sz = 1048576 * 1000;
 	cudaDeviceSetLimit(cudaLimitPrintfFifoSize, sz);
+#endif
 
 	// Allocare le matrici
-	CHECK(cudaMalloc((void**)&weight, wBytes));
+	CHECK(cudaMalloc((void**)&weight, _wBytes));
 	CHECK(cudaMalloc((void**)&bias, Bytes));
 	CHECK(cudaMalloc((void**)&output, Bytes));
 	CHECK(cudaMalloc((void**)&error, Bytes));
+	CHECK(cudaMalloc((void**)&temp, _wBytes));
 
 	// Rendere i blocchi multipli di 32
 	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight);
@@ -125,17 +122,10 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 }
 
 
-void FullyConnected::forward_propagation(const double *prev) {
-
-	// Creare l'handle di cuBLAS
-	CHECK_CUBLAS(cublasCreate(&handle));
-
-	// Fattori dei prodotti
-	const double alpha = 1.0f;
-	const double beta = 0.0f;
+void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	CHECK_CUBLAS(
-		cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prev, 1, &beta, output, 1));
+		cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));
 
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
@@ -164,11 +154,18 @@ void FullyConnected::forward_propagation(const double *prev) {
 	CHECK(cudaDeviceSynchronize());
 }
 
-void FullyConnected::back_propagation() {
+void FullyConnected::back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) {
+    
+    // Propagazione dell'errore dal livello successivo
+    CHECK_CUBLAS(
+		cublasDgemv(handle, CUBLAS_OP_T, _nodes ,forwardNodes, &alpha, forwardWeight, _nodes, forwardError, 1, &beta, error, 1));
+		
+	// Calcolo della Back Propagation
+	calcBackPropagation(prevOutput, learningRate);   
 
 }
 
-void FullyConnected::back_propagation_output(const double *prev, const uint8_t *labels, const int &target, const double &learningRate) {
+void FullyConnected::back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) {
     
     // Calcolo dell'errore per ogni nodo
     Kernel::outputErrorK(1, _alignedNodes, output, error, labels, target, _nodes);
@@ -176,6 +173,23 @@ void FullyConnected::back_propagation_output(const double *prev, const uint8_t *
     // CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
     
+    // Calcolo della Back Propagation
+	calcBackPropagation(prevOutput, learningRate);  
+
+}
+
+void FullyConnected::deleteCuda() {
+
+	CHECK_CUBLAS(cublasDestroy(handle));
+	CHECK(cudaFree(weight));
+	CHECK(cudaFree(bias));
+	CHECK(cudaFree(output));
+	CHECK(cudaFree(error));
+	CHECK(cudaFree(temp));
+}
+
+void FullyConnected::calcBackPropagation(const double *prevOutput, const double &learningRate) {
+
     // Applicare derivata della funzione di attivazione
 	if (_a == RELU)
 		Kernel::derivActReluK(1, _alignedNodes, output, error, _nodes);
@@ -183,32 +197,22 @@ void FullyConnected::back_propagation_output(const double *prev, const uint8_t *
 		Kernel::derivActSigmoidK(1, _alignedNodes, output, error, _nodes);
 	else if (_a == TANH)
 		Kernel::derivActTanhK(1, _alignedNodes, output, error, _nodes);
-	
+		
 	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+    CHECK(cudaDeviceSynchronize());
     
     // Aggiornare i pesi (da mettere in funzione)    
-    updateWeights(prev, learningRate);   
-
+    updateWeights(prevOutput, learningRate);
 }
 
-void FullyConnected::updateWeights(const double *prev, const double &learningRate) {
-    
-    // Matrice temporanea
-    double *temp;
-    
-    // Dimensione matrice temporanea in byte
-	const unsigned int wBytes = _wDim * sizeof(double);
-
-	// Allocare la matrice temporanea
-	CHECK(cudaMalloc((void**)&temp, wBytes));
+void FullyConnected::updateWeights(const double *prevOutput, const double &learningRate) {
 	
-	// Riempirla di 0
-	CHECK(cudaMemset(temp, 0, wBytes));
+	// Riempire la matrice temporanea di 0
+	CHECK(cudaMemset(temp, 0, _wBytes));
 	
 	for (int i = 0; i < _nodes; i++)
 	    CHECK_CUBLAS(
-		    cublasDaxpy(handle, _prevLayerDim, &output[i], prev, 1, temp + i, 1));
+		    cublasDaxpy(handle, _prevLayerDim, &output[i], prevOutput, 1, temp + i, 1));
     
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
@@ -226,17 +230,4 @@ void FullyConnected::updateWeights(const double *prev, const double &learningRat
 		
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
-    
-    // Distrugge la matrice dei pesi
-	CHECK(cudaFree(temp));
-
-}
-
-void FullyConnected::deleteCuda() {
-
-	CHECK_CUBLAS(cublasDestroy(handle));
-	CHECK(cudaFree(weight));
-	CHECK(cudaFree(bias));
-	CHECK(cudaFree(output));
-	CHECK(cudaFree(error));
 }

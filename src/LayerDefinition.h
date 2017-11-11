@@ -20,18 +20,22 @@ public:
 	LayerDefinition(LayerDefinition const&) = delete;
 	LayerDefinition& operator=(LayerDefinition const&) = delete;
 
-	virtual int getLayerNodeCount() = 0;
-	virtual int getWeightCount(const int &prevLayerNode) = 0;
+	virtual int getNodeCount() const = 0;
+	virtual int getWeightCount(const int &prevLayerNode) const = 0;
 	virtual std::vector<double> getWeights() = 0;
 	virtual std::vector<double> getBias() = 0;
 
 	virtual void forward_propagation(const double *prevOutput) = 0;
 
-	virtual void back_propagation(const double *forwardWeight, const double *forwardError, const int &forwardNodes) = 0;
+	virtual void back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) = 0;
 	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
 	virtual void deleteCuda() = 0;
+	
+	virtual double* getCudaOutputPointer() const = 0;
+	virtual double* getCudaWeightPointer() const = 0;
+	virtual double* getCudaErrorPointer() const = 0;
 
 	inline LayerType getLayerType() const { return _l; }
 	inline int getWidth() const { return _width; }
