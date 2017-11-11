@@ -25,7 +25,7 @@ public:
 	virtual std::vector<double> getWeights() = 0;
 	virtual std::vector<double> getBias() = 0;
 
-	virtual forward_propagation(const double *prevOutput) = 0;
+	virtual void forward_propagation(const double *prevOutput) = 0;
 
 	virtual void back_propagation(const double *forwardWeight, const double *forwardError, const int &forwardNodes) = 0;
 	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
