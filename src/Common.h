@@ -68,6 +68,14 @@
     }                                                                          \
 }
 
+template<typename T>
+inline void printVector(std::vector<T> &a) {
+
+	for (auto t : a)
+		std::cout << t << std::endl;
+}
+
+
 inline void printFromCuda(const double *deb, const int dim) {
 
 	// DEBUG
