@@ -1,12 +1,11 @@
 #include "Kernel.h"
 
-#include <stdio.h>
 
 __global__ void initWeight(double *weight, const int wDim, curandState *states) {
 
 	// Gestione degli indici	
-	const unsigned  int blockId = blockIdx.y * gridDim.x + blockIdx.x;
-	const unsigned  int tid = blockId * blockDim.x + threadIdx.x;
+	const unsigned int blockId = blockIdx.y * gridDim.x + blockIdx.x;
+	const unsigned int tid = blockId * blockDim.x + threadIdx.x;
 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
@@ -18,10 +17,14 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 		r = -r;
 
 	if (tid < wDim)
+#ifdef DEBUG
+        weight[tid] = 1.0;
+#else
 		weight[tid] = 0.4 * r;
+#endif
 }
 
-void Kernel::initWeightK(dim3 t, dim3 b, double * weight, const int wDim, curandState * states) {
+void Kernel::initWeightK(dim3 t, dim3 b, double *weight, const int &wDim, curandState *states) {
 #ifdef _WIN32
 	initWeight NvCUDA2(t, b) (weight, wDim, states);
 #else
@@ -44,10 +47,14 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 		r = -r;
 
 	if (tid < node)
+#ifdef DEBUG
+        bias[tid] = 1.0;
+#else
 		bias[tid] = 0.4 * r;
+#endif
 }
 
-void Kernel::initBiasK(dim3 t, dim3 b, double * weight, const int wDim, curandState * states) {
+void Kernel::initBiasK(dim3 t, dim3 b, double *weight, const int &wDim, curandState *states) {
 #ifdef _WIN32
 	initBias NvCUDA2(t, b) (weight, wDim, states);
 #else
@@ -72,7 +79,7 @@ __global__ void outputError(const double *output, double *error, const uint8_t *
 		error[tid] = trueLabel - output[tid];
 }
 
-void Kernel::outputErrorK(dim3 t, dim3 b, const double *output, double *error, const uint8_t *label, const int target, const int nodes) {
+void Kernel::outputErrorK(dim3 t, dim3 b, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes) {
 #ifdef _WIN32
 	outputError NvCUDA2(t, b) (output, error, label, target, nodes);
 #else
@@ -103,7 +110,7 @@ __global__ void derivActRelu(const double *output, double *error, const int node
 		error[tid] = error[tid] * (1 / (1 + (exp((-output[tid])))));
 }
 
-void Kernel::actReluK(dim3 t, dim3 b, double *output, const int nodes) {
+void Kernel::actReluK(dim3 t, dim3 b, double *output, const int &nodes) {
 #ifdef _WIN32
 	actRelu NvCUDA2(t, b) (output, nodes);
 #else
@@ -111,7 +118,7 @@ void Kernel::actReluK(dim3 t, dim3 b, double *output, const int nodes) {
 #endif 
 }
 
-void Kernel::derivActReluK(dim3 t, dim3 b, const double *output, double *error, const int nodes) {
+void Kernel::derivActReluK(dim3 t, dim3 b, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
 	derivActRelu NvCUDA2(t, b) (output, error, nodes);
 #else
@@ -141,7 +148,7 @@ __global__ void derivActSigmoid(const double *output, double *error, const int n
 		error[tid] = error[tid] * (output[tid] * (1 - output[tid]));
 }
 
-void Kernel::actSigmoidK(dim3 t, dim3 b, double *output, int nodes) {
+void Kernel::actSigmoidK(dim3 t, dim3 b, double *output, const int &nodes) {
 #ifdef _WIN32
 	actSigmoid NvCUDA2(t, b) (output, nodes);
 #else
@@ -149,7 +156,7 @@ void Kernel::actSigmoidK(dim3 t, dim3 b, double *output, int nodes) {
 #endif 
 }
 
-void Kernel::derivActSigmoidK(dim3 t, dim3 b, const double *output, double *error, const int nodes) {
+void Kernel::derivActSigmoidK(dim3 t, dim3 b, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
 	derivActSigmoid NvCUDA2(t, b) (output, error, nodes);
 #else
@@ -180,7 +187,7 @@ __global__ void derivActTanh(const double *output, double *error, const int node
 		error[tid] = error[tid] * (1 - pow(tanh(output[tid]),2));
 }
 
-void Kernel::actTanhK(dim3 t, dim3 b, double *output, int nodes) {
+void Kernel::actTanhK(dim3 t, dim3 b, double *output, const int &nodes) {
 #ifdef _WIN32
 	actTanh NvCUDA2(t, b) (output, nodes);
 #else
@@ -188,7 +195,7 @@ void Kernel::actTanhK(dim3 t, dim3 b, double *output, int nodes) {
 #endif 
 }
 
-void Kernel::derivActTanhK(dim3 t, dim3 b, const double *output, double *error, const int nodes) {
+void Kernel::derivActTanhK(dim3 t, dim3 b, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
 	derivActTanh NvCUDA2(t, b) (output, error, nodes);
 #else
