@@ -1,4 +1,6 @@
-//#include <cstdio.h>
+//#ifdef DEBUG
+#include "Common.h"
+//#endif
 
 #include <iostream>
 #include <fstream>
@@ -24,12 +26,26 @@ Mnist::~Mnist() {
 void Mnist::readTrainData() {
 	if (isTrain)
 		return;
-
+		
+#ifdef DEBUG
+    data.resize(6);
+    std::fill(data.begin(), data.end(), 1.0);
+    
+    std::cout << "\n\nVettore contenente una sola immagine\n\n";    
+    printVector<double>(data);
+    
+    labels.resize(1);
+    std::fill(labels.begin(), labels.end(), 1);
+    
+    std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";    
+    printVector<uint8_t>(labels);
+#else
 	// Leggere le immagini di train
 	readImages(train_image_file_mnist);
 
 	// Leggere le etichette di train
 	readLabels(train_label_file_mnist);
+#endif
 
 	// Lette le immagini di train ed il test deve essere zero
 	isTrain = true;

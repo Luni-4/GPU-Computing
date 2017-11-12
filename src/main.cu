@@ -16,7 +16,7 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "FullyConnected.h"
-#include "Convolutional.h"
+//#include "Convolutional.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -83,7 +83,7 @@ int main() {
 #endif
 
 	// Leggere i dati
-	std::unique_ptr<Data> d(new Mnist("../data/"));
+	std::unique_ptr<Data> d(new Mnist("data/"));
 
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
@@ -93,7 +93,7 @@ int main() {
 	layers.emplace_back(new FullyConnected(10, RELU));
 	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 #else
-	layers.emplace_back(new FullyConnected(10, RELU));
+	layers.emplace_back(new FullyConnected(2, NONE));
 #endif
 
 	// Creare la rete

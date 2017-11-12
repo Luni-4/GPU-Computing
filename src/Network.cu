@@ -25,7 +25,11 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	const int nImages = 1;// data->getLabelSize();
 
 	// Dimensione della singola immagine
+#ifdef DEBUG
+    const int imgDim = 6;
+#else
 	const int imgDim = data->getImgDimension();
+#endif
 
 	// Quantità di dati da allocare e copiare
 	const int iBytes = imgDim * sizeof(double);
@@ -86,7 +90,11 @@ void Network::cudaDataLoad(Data *data) {
 
 void Network::cudaInitStruct(Data *data) {
 
+#ifdef DEBUG
+    _layers.front()->defineCuda(2, 1, 3);
+#else
 	_layers.front()->defineCuda(data->getImgWidth(), data->getImgHeight(), data->getImgDepth());
+#endif
 
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
 		const int prevWidth = (*it - 1)->getWidth();
@@ -125,7 +133,7 @@ void Network::backPropagation(const int &target, const double &learningRate) {
         auto forwardWeight = (*it - 1)->getCudaWeightPointer(); 
         auto forwardError = (*it - 1)->getCudaErrorPointer();
         auto forwardNodes = (*it - 1)->getNodeCount();
-		(*it)->back_propagation(prev, forwardWeight, forwardError, forwardNodes, learningRate);
+        (*it)->back_propagation(prev, forwardWeight, forwardError, forwardNodes, learningRate);
 	}
 	
 	// Back Propagation al primp livello (solo input precedente a lui)
