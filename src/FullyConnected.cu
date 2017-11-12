@@ -111,9 +111,9 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 #ifdef DEBUG
 	std::cout << "\n\nValore dei pesi\n\n";
-	printFromCudaFormatted(weight, _wDim, prevLayerWidth);
+	printFromCuda(weight, _wDim);
 	std::cout << "\n\nValore dei bias\n\n";
-	printFromCudaFormatted(bias, _nodes, 1);
+	printFromCuda(bias, _nodes);
 	std::cout << "\n\n\n\n";
 #endif
 
@@ -125,7 +125,12 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	CHECK_CUBLAS(
-		cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));
+		cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));
+
+#ifdef DEBUG
+	std::cout << "\n\nOutput dei nodi senza bias\n\n";
+	printFromCuda(output, _nodes);
+#endif
 
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
@@ -138,7 +143,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
     CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
-	std::cout << "\n\nOutput dei nodi\n\n";
+	std::cout << "\n\nOutput dei nodi con bias sommato\n\n";
 	printFromCuda(output, _nodes);
 #endif
 
@@ -152,6 +157,11 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nOutput dei nodi con funzione di attivazione\n\n";
+	printFromCuda(output, _nodes);
+#endif
 }
 
 void FullyConnected::back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) {
