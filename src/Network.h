@@ -21,11 +21,12 @@ public:
 private:
 	void cudaDataLoad(Data *data);
 	void cudaInitStruct(Data *data);
-	void cudaClearAll();
+	void setNetwork(Data *data);
 
 	void forwardPropagation();
-	void predictionError();
 	void backPropagation(const int &target, const double &learningRate);
+	
+    void cudaClearAll();
 
 private:
 	std::vector<LayerDefinition*> _layers;

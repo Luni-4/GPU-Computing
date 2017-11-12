@@ -17,17 +17,12 @@ Network::~Network() {
 }
 
 void Network::train(Data *data, const int &epoch, const double &learningRate) {
-	//Leggere i dati dal training set
-	data->readTrainData();
-
-	// Caricare i dati in Cuda
-	cudaDataLoad(data);
-
-	// Inizializzare le strutture della rete
-	cudaInitStruct(data);
 	
-	// Numero di esempi nel training set
-	const int nImages = data->getLabelSize();
+    // Definire la rete
+    setNetwork(data);
+    
+    // Numero di esempi nel training set
+	const int nImages = 1;// data->getLabelSize();
 
 	// Dimensione della singola immagine
 	const int imgDim = data->getImgDimension();
@@ -37,30 +32,20 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 	// Allocare il buffer di input della singola coppia (etichetta,immagine)
 	CHECK(cudaMalloc((void**)&inputImg, iBytes));
-
-	int i = 0;
-
+	
 	// Elabora ogni immagine
-	//for(int i = 0; i < nImages; i++)
-	//{
-	int imgIndex = i * imgDim;
+	for(int i = 0; i < nImages; i++) {	
+        int imgIndex = i * imgDim;
+        
+	    // Copia dell'immagine corrente nel buffer
+	    CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
 
-	// Copia dell'immagine corrente nel buffer
-	CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
+	    for(int j = 0; j < 1; j++) {
+	        forwardPropagation();
 
-	//for(int j = 0; j < epoch; j++)
-	//{
-		// Forward_propagation per ogni livello
-	    forwardPropagation();
-
-	// Calcolo dell'errore per ogni livello
-	//error();
-
-        // Backward_propagation per ogni livello
-        backPropagation(i, learningRate);
-//}
-
-//}
+            backPropagation(i, learningRate);
+        }
+    }
 
 	// cancellare i dati di train dal device
 	CHECK(cudaFree(cudaData));
@@ -69,6 +54,17 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// DA SPOSTARE NELLA FUNZIONE CHE FA IL TEST
 	cudaClearAll();
 
+}
+
+void Network::setNetwork(Data *data) {
+    //Leggere i dati dal training set
+	data->readTrainData();
+
+	// Caricare i dati in Cuda
+	cudaDataLoad(data);
+
+	// Inizializzare le strutture della rete
+	cudaInitStruct(data);
 }
 
 
@@ -104,23 +100,40 @@ void Network::cudaInitStruct(Data *data) {
 void Network::forwardPropagation() {
 
 	_layers.front()->forward_propagation(inputImg);
-
-
-	/*for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
-		(*it)->forward_propagation((*it - 1)->getOutput());
-	}*/
+	
+	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
+        const double *outputPointer = (*it - 1)->getCudaOutputPointer();
+        (*it)->forward_propagation(outputPointer);
+	}
 }
 
 void Network::backPropagation(const int &target, const double &learningRate) {
     
+    // Caso in cui ci sia solo un livello
+    if(_layers.size() == 1) {    
+	    _layers.back()->back_propagation_output(inputImg, cudaLabels, target, learningRate);
+	    return;
+	}
+	
+	// Caso in cui i livelli > 1	    
+    auto prevOutput = (*_layers.end() - 1)->getCudaOutputPointer(); 
+    _layers.back()->back_propagation_output(prevOutput, cudaLabels, target, learningRate);
     
-    // TODO Non è inputImg ma output livello i - 1
-	_layers.back()->back_propagation_output(inputImg, cudaLabels, target, learningRate);
-
-
-	/*for (auto it = _layers.rbegin() - 1; it != _layers.rend(); ++it) {
-		(*it)->backward_propagation();
-	}*/
+    // Back Propagation sui livelli intermedi
+    for (auto it = _layers.rbegin() + 1; it != _layers.rend() -1; ++it) {
+        auto prev = (*it + 1)->getCudaOutputPointer();
+        auto forwardWeight = (*it - 1)->getCudaWeightPointer(); 
+        auto forwardError = (*it - 1)->getCudaErrorPointer();
+        auto forwardNodes = (*it - 1)->getNodeCount();
+		(*it)->back_propagation(prev, forwardWeight, forwardError, forwardNodes, learningRate);
+	}
+	
+	// Back Propagation al primp livello (solo input precedente a lui)
+	 auto forwardWeight = (*_layers.begin() + 1)->getCudaWeightPointer(); 
+     auto forwardError = (*_layers.begin() + 1)->getCudaErrorPointer();
+     auto forwardNodes = (*_layers.begin() + 1)->getNodeCount();
+	_layers.front()->back_propagation(inputImg, forwardWeight, forwardError, forwardNodes, learningRate);
+	    
 }
 
 void Network::cudaClearAll() {
