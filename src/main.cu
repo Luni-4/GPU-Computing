@@ -23,7 +23,7 @@
 
 void test_input() {
 	// Leggere i dati
-	Data* d = new Mnist("../data/");
+	Data* d = new Mnist("data/");
 
 	// Lettura dati di training
 	d->readTrainData();
