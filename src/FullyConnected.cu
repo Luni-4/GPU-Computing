@@ -182,6 +182,11 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
     
     // CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
+	
+#ifdef DEBUG
+	std::cout << "\n\nErrore commesso sui nodi\n\n";
+	printFromCuda(error, _nodes);
+#endif
     
     // Calcolo della Back Propagation
 	calcBackPropagation(prevOutput, learningRate);  
@@ -211,6 +216,11 @@ void FullyConnected::calcBackPropagation(const double *prevOutput, const double 
 	// CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
     
+#ifdef DEBUG
+	std::cout << "\n\nErrore commesso sui nodi con relativa derivata\n\n";
+	printFromCuda(error, _nodes);
+#endif
+    
     // Aggiornare i pesi (da mettere in funzione)    
     updateWeights(prevOutput, learningRate);
 }
@@ -220,12 +230,24 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	// Riempire la matrice temporanea di 0
 	CHECK(cudaMemset(temp, 0, _wBytes));
 	
-	for (int i = 0; i < _nodes; i++)
+	// Deve ricevere lo scalare dal device
+	cublasSetPointerMode(handle, CUBLAS_POINTER_MODE_DEVICE);		
+	
+	for (int i = 0; i < _nodes; i++){
 	    CHECK_CUBLAS(
-		    cublasDaxpy(handle, _prevLayerDim, &output[i], prevOutput, 1, temp + i, 1));
-    
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());
+		    cublasDaxpy(handle, _prevLayerDim, &error[i], prevOutput, 1, temp + (i * _prevLayerDim), 1));   
+        
+        // CPU deve attendere che esecuzione della funzione finisca
+        CHECK(cudaDeviceSynchronize());
+    }
+
+#ifdef DEBUG
+	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
+	printFromCuda(temp, _wDim);
+#endif
+
+    // Deve ricevere lo scalare dall'host
+	cublasSetPointerMode(handle, CUBLAS_POINTER_MODE_HOST);    
     
     // Aggiornamento effettivo dei pesi 
     CHECK_CUBLAS(
@@ -233,6 +255,11 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 		
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nMatrice dei pesi aggiornata\n\n";
+	printFromCuda(weight, _wDim);
+#endif
 	
 	// Aggiornamento del bias 
     CHECK_CUBLAS(
@@ -240,4 +267,9 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 		
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nVettore del bias aggiornato\n\n";
+	printFromCuda(bias, _nodes);
+#endif
 }

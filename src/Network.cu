@@ -44,7 +44,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	    // Copia dell'immagine corrente nel buffer
 	    CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
 
-	    for(int j = 0; j < 1; j++) {
+	    for(int j = 0; j < epoch; j++) {
 	        forwardPropagation();
 
             backPropagation(i, learningRate);
