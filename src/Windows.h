@@ -13,9 +13,7 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
+#include <cstdint>
+
 //scommentare per utilizzare gli ifdef DEBUG
 #define DEBUG
-
-//#ifdef _DEBUG
-//#define DEBUG _DEBUG
-//#endif

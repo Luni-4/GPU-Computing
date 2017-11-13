@@ -18,6 +18,7 @@ public:
 	void forward_propagation(const double *prev) override;
 
 	void back_propagation() override;
+	void back_propagation_output(const double *prev, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda() override;
@@ -30,6 +31,8 @@ private:
 	double *bias; // Matrice per i bias in Cuda
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
+
+	int _prevLayerWidth;
 
 	int _filterWidth;
 	int _stride;

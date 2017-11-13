@@ -66,14 +66,14 @@ __global__ void outputError(const double *output, double *error, const uint8_t *
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-	
+
 	int trueLabel = 0;
-	
+
 	/* Il predittore dovrebbe predire con probabilità 1 solo la label passata alla funzione, quindi la variabile
 	trueLabel contiene il valore che ci si aspetterebbe dal predittore, cioè 1 */
-	if(tid == label[target])
-	    trueLabel = 1;
-	
+	if (tid == label[target])
+		trueLabel = 1;
+
 	// L'errore commesso è dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
 	if (tid < node)
 		error[tid] = trueLabel - output[tid];
@@ -184,7 +184,7 @@ __global__ void derivActTanh(const double *output, double *error, const int node
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node)
-		error[tid] = error[tid] * (1 - pow(tanh(output[tid]),2));
+		error[tid] = error[tid] * (1 - pow(tanh(output[tid]), 2));
 }
 
 void Kernel::actTanhK(dim3 t, dim3 b, double *output, const int &nodes) {

@@ -18,7 +18,7 @@
 FullyConnected::FullyConnected(const int &width, const int &height, const ActFctType &a)
 	: LayerDefinition(width, height, 1, FULLY_CONNECTED, a) {
 
-	this->_nodes = width * height;		
+	this->_nodes = width * height;
 	this->_alignedNodes = ALIGN_UP(_nodes);
 
 }
@@ -26,7 +26,7 @@ FullyConnected::FullyConnected(const int &width, const int &height, const ActFct
 FullyConnected::FullyConnected(const int &width, const ActFctType &a)
 	: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a),
 	_nodes(width) {
-	
+
 	this->_alignedNodes = ALIGN_UP(_nodes);
 
 }
@@ -53,9 +53,9 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 	// Dimensione matrice dei pesi
 	_wDim = prevLayerWidth * prevLayerHeight * prevLayerDepth * _nodes;
-	
+
 	// Salvare dimensione del livello precedente
-	_prevLayerDim = prevLayerWidth * prevLayerHeight * prevLayerDepth;  
+	_prevLayerDim = prevLayerWidth * prevLayerHeight * prevLayerDepth;
 
 	// Dimensione matrice dei pesi in byte
 	_wBytes = _wDim * sizeof(double);
@@ -132,15 +132,15 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 	pettyPrintCuda(output, _nodes, 1);
 #endif
 
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 
 	// Somma con il bias
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
 
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con bias sommato\n\n";

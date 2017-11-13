@@ -90,8 +90,8 @@ int main() {
 
 	// Inizializzare i livelli	
 #ifdef _WIN32	
-	layers.emplace_back(new FullyConnected(10, RELU));
-	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	//layers.emplace_back(new FullyConnected(10, RELU));
+	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 #else
 	layers.emplace_back(new FullyConnected(4, SIGMOID));
 	layers.emplace_back(new FullyConnected(3, SIGMOID));

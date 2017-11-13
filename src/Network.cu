@@ -17,12 +17,26 @@ Network::~Network() {
 }
 
 void Network::train(Data *data, const int &epoch, const double &learningRate) {
+<<<<<<< HEAD
 	
     // Definire la rete
     setNetwork(data);
     
     // Numero di esempi nel training set
 	const int nImages = 1;// data->getLabelSize();
+=======
+	//Leggere i dati dal training set
+	data->readTrainData();
+
+	// Caricare i dati in Cuda
+	cudaDataLoad(data);
+
+	// Inizializzare le strutture della rete
+	cudaInitStruct(data);
+
+	// Numero di esempi nel training set
+	const int nImages = data->getLabelSize();
+>>>>>>> convolutional network with incomplete forward propagation
 
 	// Dimensione della singola immagine
 #ifdef DEBUG
@@ -38,6 +52,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	CHECK(cudaMalloc((void**)&inputImg, iBytes));
 	
 	// Elabora ogni immagine
+<<<<<<< HEAD
 	for(int i = 0; i < nImages; i++) {	
         int imgIndex = i * imgDim;
         
@@ -50,8 +65,31 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
             backPropagation(i, learningRate);
         }
     }
+=======
+	//for(int i = 0; i < nImages; i++)
+	//{
+	int imgIndex = i * imgDim;
 
-	// cancellare i dati di train dal device
+	// Copia dell'immagine corrente nel buffer
+	CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
+
+	//for(int j = 0; j < epoch; j++)
+	//{
+		// Forward_propagation per ogni livello
+	forwardPropagation();
+	return;
+
+	// Calcolo dell'errore per ogni livello
+	//error();
+
+		// Backward_propagation per ogni livello
+	backPropagation(i, learningRate);
+	//}
+
+	//}
+>>>>>>> convolutional network with incomplete forward propagation
+
+		// cancellare i dati di train dal device
 	CHECK(cudaFree(cudaData));
 	CHECK(cudaFree(cudaLabels));
 
@@ -117,6 +155,7 @@ void Network::forwardPropagation() {
 }
 
 void Network::backPropagation(const int &target, const double &learningRate) {
+<<<<<<< HEAD
     
     // Caso in cui ci sia solo un livello
     if(_layers.size() == 1) {    
@@ -148,6 +187,17 @@ void Network::backPropagation(const int &target, const double &learningRate) {
     auto forwardNodes = (*fw)->getNodeCount();
 	_layers.front()->back_propagation(inputImg, forwardWeight, forwardError, forwardNodes, learningRate);
 	    
+=======
+
+
+	// TODO Non è inputImg ma output livello i - 1
+	_layers.back()->back_propagation_output(inputImg, cudaLabels, target, learningRate);
+
+
+	/*for (auto it = _layers.rbegin() - 1; it != _layers.rend(); ++it) {
+		(*it)->backward_propagation();
+	}*/
+>>>>>>> convolutional network with incomplete forward propagation
 }
 
 void Network::cudaClearAll() {
