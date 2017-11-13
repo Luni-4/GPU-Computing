@@ -44,7 +44,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	    // Copia dell'immagine corrente nel buffer
 	    CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
 
-	    for(int j = 0; j < epoch; j++) {
+	    for(int j = 0; j < 1; j++) {
 	        forwardPropagation();
 
             backPropagation(i, learningRate);
@@ -97,10 +97,10 @@ void Network::cudaInitStruct(Data *data) {
 #endif
 
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
-		const int prevWidth = (*it - 1)->getWidth();
-		const int prevHeight = (*it - 1)->getHeight();
-		const int prevDepth = (*it - 1)->getDepth();
-
+	    auto pv = std::prev(it, 1);
+		auto prevWidth = (*pv)->getWidth();
+		auto prevHeight = (*pv)->getHeight();
+		auto prevDepth = (*pv)->getDepth();
 		(*it)->defineCuda(prevWidth, prevHeight, prevDepth);
 	}
 }
@@ -110,7 +110,8 @@ void Network::forwardPropagation() {
 	_layers.front()->forward_propagation(inputImg);
 	
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
-        const double *outputPointer = (*it - 1)->getCudaOutputPointer();
+	    auto pv = std::prev(it, 1);
+        auto *outputPointer = (*pv)->getCudaOutputPointer();
         (*it)->forward_propagation(outputPointer);
 	}
 }
@@ -123,23 +124,28 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 	    return;
 	}
 	
-	// Caso in cui i livelli > 1	    
-    auto prevOutput = (*_layers.end() - 1)->getCudaOutputPointer(); 
+	// Caso in cui i livelli > 1 (tornare indietro di 2 livelli)	    
+    auto prevOutput = (*std::prev(_layers.end(), 2))->getCudaOutputPointer();     
     _layers.back()->back_propagation_output(prevOutput, cudaLabels, target, learningRate);
     
     // Back Propagation sui livelli intermedi
     for (auto it = _layers.rbegin() + 1; it != _layers.rend() -1; ++it) {
-        auto prev = (*it + 1)->getCudaOutputPointer();
-        auto forwardWeight = (*it - 1)->getCudaWeightPointer(); 
-        auto forwardError = (*it - 1)->getCudaErrorPointer();
-        auto forwardNodes = (*it - 1)->getNodeCount();
+        
+        auto pv = std::prev(it, 1);
+        auto fw = std::next(it, 1);
+        
+        auto prev = (*fw)->getCudaOutputPointer();
+        auto forwardWeight = (*pv)->getCudaWeightPointer(); 
+        auto forwardError = (*pv)->getCudaErrorPointer();
+        auto forwardNodes = (*pv)->getNodeCount();
         (*it)->back_propagation(prev, forwardWeight, forwardError, forwardNodes, learningRate);
 	}
 	
-	// Back Propagation al primp livello (solo input precedente a lui)
-	 auto forwardWeight = (*_layers.begin() + 1)->getCudaWeightPointer(); 
-     auto forwardError = (*_layers.begin() + 1)->getCudaErrorPointer();
-     auto forwardNodes = (*_layers.begin() + 1)->getNodeCount();
+	// Back Propagation al primo livello (solo input precedente a lui)
+	auto fw = std::next(_layers.begin(), 1);
+	auto forwardWeight = (*fw)->getCudaWeightPointer(); 
+    auto forwardError = (*fw)->getCudaErrorPointer();
+    auto forwardNodes = (*fw)->getNodeCount();
 	_layers.front()->back_propagation(inputImg, forwardWeight, forwardError, forwardNodes, learningRate);
 	    
 }

@@ -168,7 +168,19 @@ void FullyConnected::back_propagation(const double *prevOutput, const double *fo
     
     // Propagazione dell'errore dal livello successivo
     CHECK_CUBLAS(
-		cublasDgemv(handle, CUBLAS_OP_T, _nodes ,forwardNodes, &alpha, forwardWeight, _nodes, forwardError, 1, &beta, error, 1));
+		cublasDgemv(handle, CUBLAS_OP_N, _nodes ,forwardNodes, &alpha, forwardWeight, _nodes, forwardError, 1, &beta, error, 1));
+	
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nForward weight\n\n";
+	printFromCuda(forwardWeight, _nodes * forwardNodes);
+	std::cout << "\n\nForward error\n\n";
+	printFromCuda(forwardError, forwardNodes);
+	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
+	printFromCuda(error, _nodes);
+#endif
 		
 	// Calcolo della Back Propagation
 	calcBackPropagation(prevOutput, learningRate);   
@@ -184,7 +196,7 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 	CHECK(cudaDeviceSynchronize());
 	
 #ifdef DEBUG
-	std::cout << "\n\nErrore commesso sui nodi\n\n";
+	std::cout << "\n\nErrore commesso sui nodi back propagation output\n\n";
 	printFromCuda(error, _nodes);
 #endif
     
@@ -229,6 +241,11 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	
 	// Riempire la matrice temporanea di 0
 	CHECK(cudaMemset(temp, 0, _wBytes));
+
+#ifdef DEBUG
+	std::cout << "\n\nMatrice temporanea valore iniziale\n\n";
+	printFromCuda(temp, _wDim);
+#endif
 	
 	// Deve ricevere lo scalare dal device
 	cublasSetPointerMode(handle, CUBLAS_POINTER_MODE_DEVICE);		
