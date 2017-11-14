@@ -44,7 +44,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	    // Copia dell'immagine corrente nel buffer
 	    CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
 
-	    for(int j = 0; j < 1; j++) {
+	    for(int j = 0; j < epoch; j++) {
 	        forwardPropagation();
 
             backPropagation(i, learningRate);
@@ -131,13 +131,13 @@ void Network::backPropagation(const int &target, const double &learningRate) {
     // Back Propagation sui livelli intermedi
     for (auto it = _layers.rbegin() + 1; it != _layers.rend() -1; ++it) {
         
-        auto pv = std::prev(it, 1);
-        auto fw = std::next(it, 1);
+        auto pv = std::next(it, 1);
+        auto fw = std::prev(it, 1);
         
-        auto prev = (*fw)->getCudaOutputPointer();
-        auto forwardWeight = (*pv)->getCudaWeightPointer(); 
-        auto forwardError = (*pv)->getCudaErrorPointer();
-        auto forwardNodes = (*pv)->getNodeCount();
+        auto prev = (*pv)->getCudaOutputPointer();
+        auto forwardWeight = (*fw)->getCudaWeightPointer(); 
+        auto forwardError = (*fw)->getCudaErrorPointer();
+        auto forwardNodes = (*fw)->getNodeCount();
         (*it)->back_propagation(prev, forwardWeight, forwardError, forwardNodes, learningRate);
 	}
 	

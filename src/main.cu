@@ -93,15 +93,16 @@ int main() {
 	layers.emplace_back(new FullyConnected(10, RELU));
 	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 #else
-	layers.emplace_back(new FullyConnected(3, NONE));
-	layers.emplace_back(new FullyConnected(2, NONE));
+	layers.emplace_back(new FullyConnected(4, SIGMOID));
+	layers.emplace_back(new FullyConnected(3, SIGMOID));
+	layers.emplace_back(new FullyConnected(2, SIGMOID));
 #endif
 
 	// Creare la rete
 	Network nn(layers);
 
 	// Training
-	nn.train(d.get(), 20, 0.5);
+	nn.train(d.get(), 20, 0.001);
 
 	// Test
 	//nn.predict(//param);
