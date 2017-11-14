@@ -38,6 +38,8 @@ private:
 	int _stride;
 	int _padding;
 
+	int _alignedNodes;
+
 	// Handle per cuBlas
 	cublasHandle_t handle;
 

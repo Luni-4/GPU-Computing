@@ -102,78 +102,42 @@ void Convolutional::forward_propagation(const double * prev) {
 	const double beta = 0.0f;
 
 	//ora sono in una situazione simile al fully connected
-	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, 24, 25, &alpha, sub + 00, 24, weight, 1, &beta, output + 00, 1));
+	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterWidth * _filterWidth, _nodes, &alpha, sub, _filterWidth * _filterWidth, weight, 1, &beta, output, 1));
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
 
+#ifdef DEBUG
+	std::cout << "\n\nValore output senza bias\n\n";
+	printFromCudaFormatted(output, _nodes, _width);
+#endif
+
+	// Somma con il bias
+	CHECK_CUBLAS(
+		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
+
+#ifdef DEBUG
+	std::cout << "\n\nValore output prima di funzione di attivazione\n\n";
+	printFromCudaFormatted(output, _nodes, _width);
+#endif
+
+	// Applicare funzione di attivazione
+	if (_a == RELU)
+		Kernel::actReluK(1, _alignedNodes, output, _nodes);
+	else if (_a == SIGMOID)
+		Kernel::actSigmoidK(1, _alignedNodes, output, _nodes);
+	else if (_a == TANH)
+		Kernel::actTanhK(1, _alignedNodes, output, _nodes);
+
+#ifdef DEBUG
 	std::cout << "\n\nValore output\n\n";
-	printFromCudaFormatted(output, _nodes, 24);
+	printFromCudaFormatted(output, _nodes, _width);
+#endif
 
-	{
-		//test correttezza
-		double tot = 0;
-		std::vector<double> test(25);
-		std::vector<double> testW(25);
-		CHECK(cudaMemcpy(&test[0], sub + 25 * 0, 25 * sizeof(double), cudaMemcpyDeviceToHost));
-		CHECK(cudaMemcpy(&testW[0], weight, 25 * sizeof(double), cudaMemcpyDeviceToHost));
-		for (int i = 0; i < 25; i++) {
-			std::cout << test[i] << " ";
-		}
-		std::cout << std::endl;
-		for (int i = 0; i < 25; i++) {
-			std::cout << testW[i] << " ";
-		}
-		std::cout << std::endl;
-		for (int i = 0; i < 25; i++) {
-			tot += test[i] * testW[i];
-		}
-		std::cout << std::endl;
-		std::cout << tot << std::endl;
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 
-		double data1[] = {
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99,
-			-0.99, -0.99, -0.99, -0.99, -0.99
-		};
-		double data2[] = {
-			-0.17, 0.28, -0.16, 0.21, -0.07,
-			0.1, -0.34, 0.38, -0.24, 0.01,
-			-0.14, 0.18, -0.03, 0.07, -0.17,
-			0.39, -0.29, 0.08, -0.19, 0.25,
-			-0.08, 0.13, -0.34, 0.1, -0.26
-		};
-		int m_row = 25;
-		int m_col = 25;
-		std::vector<double> matrix(data1, data1 + sizeof(data1) / sizeof(double));
-		std::vector<double> vector(data2, data2 + sizeof(data2) / sizeof(double));
-
-		double * d_matrix, *d_vector, *d_res;
-		CHECK(cudaMalloc((void**)&d_matrix, m_row * m_col * sizeof(double)));
-		CHECK(cudaMalloc((void**)&d_vector, m_col * sizeof(double)));
-		CHECK(cudaMalloc((void**)&d_res, m_row * sizeof(double)));
-
-		CHECK(cudaMemcpy(d_matrix, &matrix[0], m_row * m_col * sizeof(double), cudaMemcpyHostToDevice));
-		CHECK(cudaMemcpy(d_vector, &vector[0], m_col * sizeof(double), cudaMemcpyHostToDevice));
-
-		CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, m_row, m_col, &alpha, sub, m_row, weight, 1, &beta, d_res, 1));
-
-		CHECK(cudaDeviceSynchronize());
-
-		CHECK(cudaMemcpy(&matrix[0], d_res, m_row * sizeof(double), cudaMemcpyDeviceToHost));
-		std::cout << std::endl;
-		for (int i = 0; i < m_row; i++) {
-			std::cout << matrix[i] << " ";
-		}
-		std::cout << std::endl;
-	}
+	CHECK(cudaFree(sub));
 }
 
 void Convolutional::back_propagation() {
@@ -195,7 +159,7 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	this->_nodes = _width * _height * _depth;
 
 #ifdef DEBUG
-	std::cout << _width << " - " << _height << " - " << _depth << std::endl;
+	std::cout << "dimensioni output del livello: " << _width << " - " << _height << " - " << _depth << std::endl;
 #endif
 
 	// Dimensione matrice dei pesi
@@ -243,10 +207,10 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 
 	// Convertire il numero di filtri in un multiplo di 32
 	//datascience.stackexchange.com/questions/11853/question-about-bias-in-convolutional-networks
-	const int b = ALIGN_UP(_depth);
+	_alignedNodes = ALIGN_UP(_nodes);
 
 	// Inizializzare i bias del livello
-	Kernel::initBiasK(1, b, bias, _depth, devStates);
+	Kernel::initBiasK(1, _alignedNodes, bias, _nodes, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -255,7 +219,7 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	std::cout << "\n\nValore dei pesi\n\n";
 	printFromCudaFormatted(weight, _wDim, _filterWidth);
 	std::cout << "\n\nValore dei bias\n\n";
-	printFromCudaFormatted(bias, _depth, 1);
+	printFromCudaFormatted(bias, _nodes, _width);
 	std::cout << "\n\n\n\n";
 #endif
 
