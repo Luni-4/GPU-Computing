@@ -69,14 +69,19 @@
 }
 
 template<typename T>
-inline void printVector(std::vector<T> &a) {
-
-	for (auto t : a)
-		std::cout << t << std::endl;
+inline void printVector(std::vector<T> &a, const int &dim) {	
+    
+	for (std::size_t i = 0; i < a.size(); i++) {
+		std::cout << a[i] << " ";
+		if ((i + 1) % dim == 0)
+			std::cout << " :" << i + 1 << std::endl;
+		if ((i + 1) % (dim * dim) == 0)
+			std::cout << std::endl;
+	}
 }
 
 
-inline void printFromCuda(const double *deb, const int dim) {
+inline void printFromCuda(const double *deb, const int &dim) {
 
 	// DEBUG
 	std::vector<double> outputC(dim);
@@ -87,7 +92,7 @@ inline void printFromCuda(const double *deb, const int dim) {
 }
 
 
-inline void printFromCudaFormatted(const double *deb, const int wdim, const int dim) {
+inline void printFromCudaFormatted(const double *deb, const int wdim, const int &dim) {
 
 	// DEBUG
 	std::vector<double> outputC(wdim);
@@ -95,10 +100,25 @@ inline void printFromCudaFormatted(const double *deb, const int wdim, const int 
 
 	for (std::size_t i = 0; i < outputC.size(); i++) {
 		int cut = (outputC[i] * 100);
-		double o = ((double)cut) / 100;
+		double o = (static_cast<double>(cut)) / 100;
 		std::cout << o << " ";
 		if ((i + 1) % dim == 0)
 			std::cout << " :" << i << std::endl;
+		if ((i + 1) % (dim * dim) == 0)
+			std::cout << std::endl;
+	}
+}
+
+inline void pettyPrintCuda(const double *deb, const int wdim, const int &dim) {
+
+	// DEBUG
+	std::vector<double> outputC(wdim);
+	CHECK(cudaMemcpy(&outputC[0], deb, wdim * sizeof(double), cudaMemcpyDeviceToHost));
+
+	for (std::size_t i = 0; i < outputC.size(); i++) {
+		std::cout << outputC[i] << " ";
+		if ((i + 1) % dim == 0)
+			std::cout << " :" << i + 1 << std::endl;
 		if ((i + 1) % (dim * dim) == 0)
 			std::cout << std::endl;
 	}
