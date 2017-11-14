@@ -32,13 +32,13 @@ void Mnist::readTrainData() {
     std::fill(data.begin(), data.end(), 1.0);
     
     std::cout << "\n\nVettore contenente una sola immagine\n\n";    
-    printVector<double>(data);
+    printVector<double>(data, 3);
     
     labels.resize(1);
     std::fill(labels.begin(), labels.end(), 1);
     
     std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";    
-    printVector<uint8_t>(labels);
+    printVector<uint8_t>(labels, 1);
 #else
 	// Leggere le immagini di train
 	readImages(train_image_file_mnist);

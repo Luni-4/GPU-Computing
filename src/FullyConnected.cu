@@ -111,9 +111,9 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 #ifdef DEBUG
 	std::cout << "\n\nValore dei pesi\n\n";
-	printFromCuda(weight, _wDim);
+	pettyPrintCuda(weight, _wDim, _prevLayerDim);
 	std::cout << "\n\nValore dei bias\n\n";
-	printFromCuda(bias, _nodes);
+	pettyPrintCuda(bias, _nodes, 1);
 	std::cout << "\n\n\n\n";
 #endif
 
@@ -129,7 +129,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi senza bias\n\n";
-	printFromCuda(output, _nodes);
+	pettyPrintCuda(output, _nodes, 1);
 #endif
 
     // CPU deve attendere che esecuzione della funzione finisca
@@ -144,7 +144,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con bias sommato\n\n";
-	printFromCuda(output, _nodes);
+	pettyPrintCuda(output, _nodes, 1);
 #endif
 
 	// Applicare funzione di attivazione
@@ -160,7 +160,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con funzione di attivazione\n\n";
-	printFromCuda(output, _nodes);
+	pettyPrintCuda(output, _nodes, 1);
 #endif
 }
 
@@ -175,11 +175,11 @@ void FullyConnected::back_propagation(const double *prevOutput, const double *fo
 
 #ifdef DEBUG
 	std::cout << "\n\nForward weight\n\n";
-	printFromCuda(forwardWeight, _nodes * forwardNodes);
+	pettyPrintCuda(forwardWeight, _nodes * forwardNodes, forwardNodes);
 	std::cout << "\n\nForward error\n\n";
-	printFromCuda(forwardError, forwardNodes);
+	pettyPrintCuda(forwardError, forwardNodes, 1);
 	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
-	printFromCuda(error, _nodes);
+	pettyPrintCuda(error, _nodes, 1);
 #endif
 		
 	// Calcolo della Back Propagation
@@ -197,7 +197,7 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 	
 #ifdef DEBUG
 	std::cout << "\n\nErrore commesso sui nodi back propagation output\n\n";
-	printFromCuda(error, _nodes);
+	pettyPrintCuda(error, _nodes, 1);
 #endif
     
     // Calcolo della Back Propagation
@@ -230,7 +230,7 @@ void FullyConnected::calcBackPropagation(const double *prevOutput, const double 
     
 #ifdef DEBUG
 	std::cout << "\n\nErrore commesso sui nodi con relativa derivata\n\n";
-	printFromCuda(error, _nodes);
+	pettyPrintCuda(error, _nodes, 1);
 #endif
     
     // Aggiornare i pesi (da mettere in funzione)    
@@ -244,7 +244,7 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 
 #ifdef DEBUG
 	std::cout << "\n\nMatrice temporanea valore iniziale\n\n";
-	printFromCuda(temp, _wDim);
+	pettyPrintCuda(temp, _wDim, _prevLayerDim);
 #endif
 	
 	// Deve ricevere lo scalare dal device
@@ -260,7 +260,7 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 
 #ifdef DEBUG
 	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
-	printFromCuda(temp, _wDim);
+	pettyPrintCuda(temp, _wDim, _prevLayerDim);
 #endif
 
     // Deve ricevere lo scalare dall'host
@@ -275,7 +275,7 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 
 #ifdef DEBUG
 	std::cout << "\n\nMatrice dei pesi aggiornata\n\n";
-	printFromCuda(weight, _wDim);
+	pettyPrintCuda(weight, _wDim, _prevLayerDim);
 #endif
 	
 	// Aggiornamento del bias 
@@ -287,6 +287,6 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 
 #ifdef DEBUG
 	std::cout << "\n\nVettore del bias aggiornato\n\n";
-	printFromCuda(bias, _nodes);
+	pettyPrintCuda(bias, _nodes, 1);
 #endif
 }
