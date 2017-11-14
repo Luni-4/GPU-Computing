@@ -7,7 +7,6 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
-#include <bitset>
 
 #include "Mnist.h"
 
@@ -45,11 +44,11 @@ void Mnist::readTrainData() {
 
 	// Leggere le etichette di train
 	readLabels(train_label_file_mnist);
-#endif
 
 	// Lette le immagini di train ed il test deve essere zero
 	isTrain = true;
 	isTest = false;
+#endif
 }
 
 
