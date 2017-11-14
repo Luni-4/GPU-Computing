@@ -16,7 +16,7 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "FullyConnected.h"
-//#include "Convolutional.h"
+#include "Convolutional.h"
 #include "Network.h"
 
 #ifdef DEBUG

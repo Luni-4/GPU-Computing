@@ -49,14 +49,6 @@ Convolutional::Convolutional(const int &filterWidth, const int &depth, const int
 Convolutional::~Convolutional() {
 }
 
-int Convolutional::getLayerNodeCount() {
-	return 0;
-}
-
-int Convolutional::getWeightCount(const int & prevLayerNode) {
-	return 0;
-}
-
 std::vector<double> Convolutional::getWeights() {
 	return std::vector<double>();
 }
@@ -140,7 +132,7 @@ void Convolutional::forward_propagation(const double * prev) {
 	CHECK(cudaFree(sub));
 }
 
-void Convolutional::back_propagation() {
+void Convolutional::back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) {
 }
 
 void Convolutional::back_propagation_output(const double * prev, const uint8_t * labels, const int & target, const double & learningRate) {

@@ -18,7 +18,7 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 
 	if (tid < wDim)
 #ifdef DEBUG
-        weight[tid] = 1.0;
+		weight[tid] = 1.0;
 #else
 		weight[tid] = 0.4 * r;
 #endif
@@ -48,7 +48,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 
 	if (tid < node)
 #ifdef DEBUG
-        bias[tid] = 1.0;
+		bias[tid] = 1.0;
 #else
 		bias[tid] = 0.4 * r;
 #endif

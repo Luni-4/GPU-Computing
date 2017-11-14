@@ -10,18 +10,22 @@ public:
 	Convolutional(const int &filterWidth, const int &filterDepth, const int &stride, const ActFctType &a);
 	~Convolutional();
 
-	int getLayerNodeCount() override;
-	int getWeightCount(const int &prevLayerNode) override;
+	int getNodeCount() const override { return _nodes; }
+	int getWeightCount(const int &prevLayerNode) const override { return prevLayerNode * _nodes; }
 	std::vector<double> getWeights() override;
 	std::vector<double> getBias() override;
 
 	void forward_propagation(const double *prev) override;
 
-	void back_propagation() override;
+	void back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) override;
 	void back_propagation_output(const double *prev, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda() override;
+
+	double* getCudaOutputPointer() const override { return output; }
+	double* getCudaWeightPointer() const override { return weight; }
+	double* getCudaErrorPointer() const override { return error; }
 
 private:
 	int _wDim;
