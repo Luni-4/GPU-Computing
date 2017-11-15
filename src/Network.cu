@@ -7,7 +7,12 @@
 #include "Common.h"
 #include "Network.h"
 
-Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers) {
+Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers)
+    : _imgDim(0),
+	  _iBytes(0),
+	  _testError(0),
+	  _isPredict(false) {
+	  
 	for (auto& l : layers)
 		_layers.push_back(l.get());
 }
@@ -25,23 +30,23 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 	// Dimensione della singola immagine
 #ifdef DEBUG
-	const int imgDim = 6;
+	_imgDim = 6;
 #else
-	const int imgDim = data->getImgDimension();
+	_imgDim = data->getImgDimension();
 #endif
 
 	// Quantità di dati da allocare e copiare
-	const int iBytes = imgDim * sizeof(double);
+	_iBytes = _imgDim * sizeof(double);
 
 	// Allocare il buffer di input della singola coppia (etichetta,immagine)
-	CHECK(cudaMalloc((void**)&inputImg, iBytes));
+	CHECK(cudaMalloc((void**)&inputImg, _iBytes));
 
 	// Elabora ogni immagine
 	for (int i = 0; i < nImages; i++) {
-		int imgIndex = i * imgDim;
+		int imgIndex = i * _imgDim;
 
 		// Copia dell'immagine corrente nel buffer
-		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), iBytes, cudaMemcpyDeviceToDevice));
+		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
 		for (int j = 0; j < 1; j++) {
 			forwardPropagation();
@@ -50,13 +55,65 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 		}
 	}
 
-	// cancellare i dati di train dal device
+	// Cancellare i dati di train dal device
 	CHECK(cudaFree(cudaData));
 	CHECK(cudaFree(cudaLabels));
 
-	// DA SPOSTARE NELLA FUNZIONE CHE FA IL TEST
-	cudaClearAll();
+}
 
+void Network::predict(Data *data) {
+
+    _isPredict = true;    
+    
+    //Leggere i dati dal test set
+    data->readTestData();
+    
+    // Caricare i dati in Cuda
+	cudaDataLoad(data);
+	
+	// Numero di esempi nel test set
+	const int nImages = data->getLabelSize();
+	
+	// Ottenere array contenente le labels
+	const uint8_t *labels = data->getLabels();
+	
+	// Definire dimensione dell'array delle predizioni
+	_predictions.resize(nImages); 
+
+	// Elabora ogni immagine
+	for (int i = 0; i < nImages; i++) {
+		int imgIndex = i * _imgDim;
+
+		// Copia dell'immagine corrente nel buffer
+		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
+				
+		forwardPropagation();
+		
+		predictLabel(i, labels[i]);		
+	}
+	
+	// Cancellare il vettore contenente le labels
+	data->clearLabels();
+
+	// Cancellare i dati di test dal device
+	CHECK(cudaFree(cudaData));
+	CHECK(cudaFree(cudaLabels));
+
+	// Pulizia della memoria Cuda e reset del device 
+	cudaClearAll();
+}
+
+inline void Network::predictLabel(const int &index, const uint8_t &label) {
+    
+    // Calcolare predizione al livello di output
+    uint8_t prediction = 0;// _layers.back()->getPredictionIndex();
+    
+    // Salvare la predizione nell'array
+    _predictions[index] = prediction;
+    
+    // Verificare che la predizione sia corretta
+    if(prediction != label)
+        _testError++;
 }
 
 void Network::setNetwork(Data *data) {
@@ -80,11 +137,15 @@ void Network::cudaDataLoad(Data *data) {
 	CHECK(cudaMalloc((void**)&cudaLabels, lBytes));
 
 	// Passare i dati
-	CHECK(cudaMemcpy(cudaData, data->getCudaData(), dBytes, cudaMemcpyHostToDevice));
-	CHECK(cudaMemcpy(cudaLabels, data->getCudaLabels(), lBytes, cudaMemcpyHostToDevice));
-
-	// Liberare i dati dalla CPU
-	data->clearDataCPU();
+	CHECK(cudaMemcpy(cudaData, data->getData(), dBytes, cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(cudaLabels, data->getLabels(), lBytes, cudaMemcpyHostToDevice));
+    
+    // Liberare le label dalla CPU (solo in fase di train) 
+	if (!_isPredict)
+	    data->clearLabels();
+    
+    // Liberare le immagini dalla CPU
+    data->clearData();
 }
 
 void Network::cudaInitStruct(Data *data) {
@@ -104,7 +165,7 @@ void Network::cudaInitStruct(Data *data) {
 	}
 }
 
-void Network::forwardPropagation() {
+void Network::forwardPropagation(void) {
 
 	_layers.front()->forward_propagation(inputImg);
 
