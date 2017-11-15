@@ -14,24 +14,26 @@ public:
     Data(Data const&) = delete;
     Data& operator=(Data const&) = delete;
     
-    virtual void readTrainData() = 0;
-    virtual void readTestData() = 0;
+    virtual void readTrainData(void) = 0;
+    virtual void readTestData(void) = 0;
     
-    virtual uint32_t getImgWidth() const = 0;
-    virtual uint32_t getImgHeight() const = 0;
-    virtual uint32_t getImgDepth() const = 0;
+    virtual uint32_t getImgWidth(void) const = 0;
+    virtual uint32_t getImgHeight(void) const = 0;
+    virtual uint32_t getImgDepth(void) const = 0;
     
-    virtual uint32_t getImgDimension() const = 0;
+    virtual uint32_t getImgDimension(void) const = 0;
     
-    inline const double* getCudaData() const { return &data[0]; }
-    inline const uint8_t* getCudaLabels() const { return &labels[0]; }
+    inline const double* getData(void) const { return &data[0]; }
+    inline const uint8_t* getLabels(void) const { return &labels[0]; }
     
-    inline size_t getDataSize() const { return data.size(); }
-    inline size_t getLabelSize() const { return labels.size(); }
+    inline size_t getDataSize(void) const { return data.size(); }
+    inline size_t getLabelSize(void) const { return labels.size(); }
     
-    void clearDataCPU()
-    {
+    void clearData(void) {
         data.clear();
+    }
+    
+    void clearLabels(void) {    
         labels.clear();
     }
     
