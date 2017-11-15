@@ -36,13 +36,13 @@ FullyConnected::~FullyConnected() {
 }
 
 
-std::vector<double> FullyConnected::getWeights() {
+std::vector<double> FullyConnected::getWeights(void) {
 	std::vector<double> wCPU(_wDim);
 	CHECK(cudaMemcpy(&wCPU[0], weight, _wDim * sizeof(double), cudaMemcpyDeviceToHost));
 	return wCPU;
 }
 
-std::vector<double> FullyConnected::getBias() {
+std::vector<double> FullyConnected::getBias(void) {
 	std::vector<double> bCPU(_nodes);
 	CHECK(cudaMemcpy(&bCPU[0], bias, _nodes * sizeof(double), cudaMemcpyDeviceToHost));
 	return bCPU;
@@ -205,7 +205,7 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 
 }
 
-void FullyConnected::deleteCuda() {
+void FullyConnected::deleteCuda(void) {
 
 	CHECK_CUBLAS(cublasDestroy(handle));
 	CHECK(cudaFree(weight));

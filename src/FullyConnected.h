@@ -12,10 +12,10 @@ public:
 	FullyConnected(const int &width, const ActFctType &a);
 	~FullyConnected();
 
-	int getNodeCount() const override { return _nodes; }
+	int getNodeCount(void) const override { return _nodes; }
 	int getWeightCount(const int &prevLayerNode) const override { return prevLayerNode * _nodes; }
-	std::vector<double> getWeights() override;
-	std::vector<double> getBias() override;
+	std::vector<double> getWeights(void) override;
+	std::vector<double> getBias(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
 
@@ -23,11 +23,11 @@ public:
 	void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
-	void deleteCuda() override;
+	void deleteCuda(void) override;
 	
-	double* getCudaOutputPointer() const override { return output;}
-	double* getCudaWeightPointer() const override { return weight; }
-	double* getCudaErrorPointer() const override { return error; }
+	double* getCudaOutputPointer(void) const override { return output;}
+	double* getCudaWeightPointer(void) const override { return weight; }
+	double* getCudaErrorPointer(void) const override { return error; }
 	
 private:
     void updateWeights(const double *prevOutput, const double &learningRate);

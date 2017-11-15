@@ -22,7 +22,7 @@ Mnist::~Mnist() {
 
 }
 
-void Mnist::readTrainData() {
+void Mnist::readTrainData(void) {
 	if (isTrain)
 		return;
 
@@ -53,7 +53,7 @@ void Mnist::readTrainData() {
 
 
 
-void Mnist::readTestData() {
+void Mnist::readTestData(void) {
 	if (isTest)
 		return;
 

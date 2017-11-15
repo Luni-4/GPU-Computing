@@ -17,13 +17,13 @@ public:
     Mnist(const std::string &filename);
     virtual ~Mnist();
     
-    void readTrainData() override;
-    void readTestData() override;
+    void readTrainData(void) override;
+    void readTestData(void) override;
     
-    uint32_t getImgWidth() const override { return imgWidth; }
-    uint32_t getImgHeight() const override { return imgHeight; }
-    uint32_t getImgDepth() const override { return 1; }
-    uint32_t getImgDimension() const override { return imgWidth * imgHeight; }
+    uint32_t getImgWidth(void) const override { return imgWidth; }
+    uint32_t getImgHeight(void) const override { return imgHeight; }
+    uint32_t getImgDepth(void) const override { return 1; }
+    uint32_t getImgDimension(void) const override { return imgWidth * imgHeight; }
     
     
 private:
