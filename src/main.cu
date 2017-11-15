@@ -104,7 +104,7 @@ int main() {
 	nn.train(d.get(), 20, 0.001);
 
 	// Test
-	//nn.predict(//param);
+	//nn.predict(d.get());
 
 #ifdef _WIN32
 	system("pause");
