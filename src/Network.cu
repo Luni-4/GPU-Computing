@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 // Cuda
 #include <cuda_runtime.h>
@@ -25,7 +26,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	setNetwork(data);
 
 	// Numero di esempi nel training set
-	const int nImages = 1;// data->getLabelSize();
+	const int nImages = 5;//data->getLabelSize();
 
 	// Dimensione della singola immagine
 #ifdef DEBUG
@@ -47,11 +48,11 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 		// Copia dell'immagine corrente nel buffer
 		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
-		for (int j = 0; j < 1; j++) {
+		//for (int j = 0; j < 1; j++) {
 			forwardPropagation();
 
 			backPropagation(i, learningRate);
-		}
+		//}
 	}
 
 	// Cancellare i dati di train dal device
@@ -71,7 +72,7 @@ void Network::predict(Data *data) {
 	cudaDataLoad(data);
 	
 	// Numero di esempi nel test set
-	const int nImages = data->getLabelSize();
+	const int nImages = 5;//data->getLabelSize();
 	
 	// Ottenere array contenente le labels
 	const uint8_t *labels = data->getLabels();
@@ -105,7 +106,7 @@ void Network::predict(Data *data) {
 inline void Network::predictLabel(const int &index, const uint8_t &label) {
     
     // Calcolare predizione al livello di output
-    uint8_t prediction = 0;// _layers.back()->getPredictionIndex();
+    uint8_t prediction = _layers.back()->getPredictionIndex();
     
     // Salvare la predizione nell'array
     _predictions[index] = prediction;
@@ -207,7 +208,43 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 	_layers.front()->back_propagation(inputImg, forwardWeight, forwardError, forwardNodes, learningRate);
 }
 
-void Network::cudaClearAll() {
+void Network::printWeightsOnFile(const std::string &filename) {
+
+	std::ofstream ofs(filename.c_str(), std::ios::out | std::ios::binary);
+
+	if (!ofs.is_open()) {
+		std::cerr << "Errore nell'apertura del file per i pesi!!" << std::endl;
+		cudaClearAll();
+		exit(1);
+	}
+	
+	for (auto l : _layers) {
+	    auto weights = l->getWeights();
+	    auto weightSize = l->getWeightCount();
+	    auto bias = l->getBias();
+	    auto biaSize = l->getNodeCount();
+	    
+	    auto prev = weightSize / biaSize;
+	    
+	    ofs << "Livello" << std::endl << std::endl;
+	    
+	    ofs << "Weights Matrix" << std::endl << std::endl;
+	    	    
+	    printOnFile(weights, prev, ofs);
+	    
+	    ofs << std::endl << std::endl;
+	    
+	    ofs << "Bias Matrix" << std::endl << std::endl;
+	    
+	    printOnFile(bias, biaSize, ofs);
+	    
+	    ofs << std::endl << std::endl << std::endl;
+	}	
+	
+	ofs.close();
+}
+
+void Network::cudaClearAll(void) {
 
 	// Liberare il buffer contenente le immagini in input alla rete
 	CHECK(cudaFree(inputImg));

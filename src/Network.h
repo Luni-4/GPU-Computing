@@ -16,6 +16,7 @@ public:
 	
 	inline std::vector<uint8_t> getPredictions(void) const { return _predictions; }
 	inline int getTestError(void) const { return _testError; } 
+	void printWeightsOnFile(const std::string &filename);
 
 private:
 	void cudaDataLoad(Data *data);
@@ -26,7 +27,7 @@ private:
 	void forwardPropagation(void);
 	void backPropagation(const int &target, const double &learningRate);
 	
-    void cudaClearAll();
+    void cudaClearAll(void);
 
 private:
 	std::vector<LayerDefinition*> _layers;
