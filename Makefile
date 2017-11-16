@@ -6,7 +6,7 @@ LIBS = -lcublas
 OBJECTS := $(wildcard src/*.cu)
 
 ifeq ($(DEBUG), 1)
-    CUDAFLAGS += -DDEBUG
+    CUDAFLAGS += -DDEBUG -DTOYINPUT
 endif
 
 all: $(MAIN)
