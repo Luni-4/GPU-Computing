@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
 
 // Converte un numero intero al multiplo più vicino di 32
 #define ALIGN_UP(a) ((a + 31) / 32) * 32
@@ -76,6 +77,23 @@ inline void printVector(std::vector<T> &a, const int &dim) {
 		if ((i + 1) % (dim * dim) == 0)
 			std::cout << std::endl;
 	}
+}
+
+inline void printOnFile(std::vector<double> &a, const int &dim, std::ofstream &ofs) {	
+    
+	for (std::size_t i = 0; i < a.size(); i++) {
+		ofs << a[i] << " ";
+		if ((i + 1) % dim == 0)
+			ofs << " :" << i + 1 << std::endl;
+		if ((i + 1) % (dim * dim) == 0)
+			ofs << std::endl;
+	}
+}
+
+inline void printLabels(std::vector<uint8_t> &a) {
+
+    for (auto t : a)
+		std::cout << unsigned(t) << std::endl;
 }
 
 
