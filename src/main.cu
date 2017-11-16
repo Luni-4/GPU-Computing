@@ -1,10 +1,12 @@
+#include <iostream>
+
 #ifdef _WIN32
 #include "Windows.h"
 #endif
 
-#ifdef DEBUG
+//#ifdef DEBUG
 #include "Common.h"
-#endif
+//#endif
 
 // Librerie di progetto
 #include "Mnist.h"
@@ -95,9 +97,24 @@ int main() {
 
 	// Training
 	nn.train(d.get(), 20, 0.001);
+	
+	// Stampa i pesi prodotti dalla rete su un file
+	nn.printWeightsOnFile("Weights.txt");
 
 	// Test
-	//nn.predict(d.get());
+	nn.predict(d.get());
+	
+	// Array contenente le predizioni
+	std::vector<uint8_t> predictions = nn.getPredictions();
+	
+	// Errore commesso dalla rete sul test set
+	int error = nn.getTestError();
+	
+	// Stampare le predizioni
+	printLabels(predictions);
+	
+	// Stampare l'errore
+	std::cout << "\n\n" << error << std::endl;	
 
 #ifdef _WIN32
 	system("pause");
