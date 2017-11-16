@@ -24,7 +24,7 @@ void Mnist::readTrainData(void) {
 	if (_isTrain)
 		return;
 
-#ifdef DEBUG
+#ifdef TOYINPUT
 	data.resize(6);
 	std::fill(data.begin(), data.end(), 1.0);
 
@@ -42,11 +42,11 @@ void Mnist::readTrainData(void) {
 
 	// Leggere le etichette di train
 	readLabels(train_label_file_mnist);
+#endif
 
 	// Lette le immagini di train ed il test deve essere zero
 	_isTrain = true;
 	_isTest = false;
-#endif
 }
 
 
@@ -145,5 +145,3 @@ inline uint32_t Mnist::flipBytes(const uint32_t &n) {
 
 	return (b0 | b1 | b2 | b3);
 }
-
-
