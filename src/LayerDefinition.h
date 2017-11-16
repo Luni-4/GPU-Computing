@@ -20,10 +20,11 @@ public:
 	LayerDefinition(LayerDefinition const&) = delete;
 	LayerDefinition& operator=(LayerDefinition const&) = delete;
 
-	virtual int getNodeCount() const = 0;
-	virtual int getWeightCount(const int &prevLayerNode) const = 0;
-	virtual std::vector<double> getWeights() = 0;
-	virtual std::vector<double> getBias() = 0;
+	virtual int getNodeCount(void) const = 0;
+	virtual int getWeightCount(void) const = 0;
+	virtual std::vector<double> getWeights(void) = 0;
+	virtual std::vector<double> getBias(void) = 0;
+	virtual uint8_t getPredictionIndex(void) = 0;
 
 	virtual void forward_propagation(const double *prevOutput) = 0;
 
@@ -31,17 +32,17 @@ public:
 	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
-	virtual void deleteCuda() = 0;
+	virtual void deleteCuda(void) = 0;
 	
-	virtual double* getCudaOutputPointer() const = 0;
-	virtual double* getCudaWeightPointer() const = 0;
-	virtual double* getCudaErrorPointer() const = 0;
+	virtual double* getCudaOutputPointer(void) const = 0;
+	virtual double* getCudaWeightPointer(void) const = 0;
+	virtual double* getCudaErrorPointer(void) const = 0;
 
-	inline LayerType getLayerType() const { return _l; }
-	inline int getWidth() const { return _width; }
-	inline int getHeight() const { return _height; }
-	inline int getDepth() const { return _depth; }
-	inline ActFctType getActivationFunction() const { return _a; }
+	inline LayerType getLayerType(void) const { return _l; }
+	inline int getWidth(void) const { return _width; }
+	inline int getHeight(void) const { return _height; }
+	inline int getDepth(void) const { return _depth; }
+	inline ActFctType getActivationFunction(void) const { return _a; }
 
 
 protected:

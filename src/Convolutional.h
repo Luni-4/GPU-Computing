@@ -11,7 +11,7 @@ public:
 	~Convolutional();
 
 	int getNodeCount() const override { return _nodes; }
-	int getWeightCount(const int &prevLayerNode) const override { return prevLayerNode * _nodes; }
+	int getWeightCount() const override { return _wDim; }
 	std::vector<double> getWeights() override;
 	std::vector<double> getBias() override;
 

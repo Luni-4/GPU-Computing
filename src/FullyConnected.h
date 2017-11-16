@@ -13,9 +13,10 @@ public:
 	~FullyConnected();
 
 	int getNodeCount(void) const override { return _nodes; }
-	int getWeightCount(const int &prevLayerNode) const override { return prevLayerNode * _nodes; }
+	int getWeightCount(void) const override { return _wDim; }
 	std::vector<double> getWeights(void) override;
 	std::vector<double> getBias(void) override;
+	uint8_t getPredictionIndex(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
 

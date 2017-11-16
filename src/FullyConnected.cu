@@ -46,6 +46,15 @@ std::vector<double> FullyConnected::getBias(void) {
 	return bCPU;
 }
 
+uint8_t FullyConnected::getPredictionIndex(void) {
+	int maxIndex;
+	
+	// Individuare indice (classe) che corrisponde al valore massimo di output
+	CHECK_CUBLAS(
+		cublasIdamax(handle, _nodes, output, 1, &maxIndex));
+	
+	return maxIndex;
+}
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
 
