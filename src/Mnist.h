@@ -21,7 +21,7 @@ public:
     uint32_t getImgWidth(void) const override { return _imgWidth; }
     uint32_t getImgHeight(void) const override { return _imgHeight; }
     uint32_t getImgDepth(void) const override { return 1; }
-    uint32_t getImgDimension(void) const override { return _imgWidth * imgHeight; }
+    uint32_t getImgDimension(void) const override { return _imgWidth * _imgHeight; }
     
     
 private:
