@@ -1,8 +1,7 @@
+#include <iostream>
+
 // Cuda
 #include <cuda_runtime.h>
-
-#include <iostream>
-#include <iterator>
 
 #include "Common.h"
 #include "Network.h"

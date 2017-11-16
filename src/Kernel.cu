@@ -1,6 +1,5 @@
 #include "Kernel.h"
 
-
 __global__ void initWeight(double *weight, const int wDim, curandState *states) {
 
 	// Gestione degli indici	

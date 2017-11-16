@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 
 #ifdef _WIN32
 #include "Windows.h"

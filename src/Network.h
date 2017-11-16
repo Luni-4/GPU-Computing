@@ -1,13 +1,9 @@
 #pragma once
 
-#include <cstdio>
-#include <cstdint>
-#include <vector>
 #include <memory>
 
 #include "Data.h"
-#include "LayerDefinition.h"
- 
+#include "LayerDefinition.h" 
 
 class Network {
 

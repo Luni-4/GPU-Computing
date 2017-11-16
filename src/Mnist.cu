@@ -1,12 +1,10 @@
-//#ifdef DEBUG
+#ifdef DEBUG
 #include "Common.h"
-//#endif
+#endif
 
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <algorithm>
-#include <iterator>
 
 #include "Mnist.h"
 

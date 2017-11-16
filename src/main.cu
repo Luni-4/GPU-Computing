@@ -1,10 +1,3 @@
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-
-// Librerie Cuda
-
 #ifdef _WIN32
 #include "Windows.h"
 #endif

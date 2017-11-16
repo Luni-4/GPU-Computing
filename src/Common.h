@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstdio>
-#include <iostream>
 #include <vector>
 
 // Converte un numero intero al multiplo più vicino di 32
