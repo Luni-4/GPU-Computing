@@ -36,7 +36,7 @@ FullyConnected::~FullyConnected() {
 
 std::vector<double> FullyConnected::getWeights(void) {
 	std::vector<double> wCPU(_wDim);
-	CHECK(cudaMemcpy(&wCPU[0], weight, _wDim * sizeof(double), cudaMemcpyDeviceToHost));
+	CHECK(cudaMemcpy(&wCPU[0], weight, _wBytes, cudaMemcpyDeviceToHost));
 	return wCPU;
 }
 

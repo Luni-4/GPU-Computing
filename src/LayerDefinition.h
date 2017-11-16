@@ -12,8 +12,9 @@ public:
 		_height(height),
 		_depth(depth),
 		_l(l),
-		_a(a) {
-	}
+		_a(a) 
+		{}
+		
 	virtual ~LayerDefinition() {}
 
 	// Impedisce che vengano fatte copie e assegnamenti alla classe
