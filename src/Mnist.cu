@@ -8,20 +8,20 @@
 
 #include "Mnist.h"
 
-Mnist::Mnist(const std::string& filename)
+Mnist::Mnist(const std::string &filename)
 	: _filename(filename),
-	imgWidth(0),
-	imgHeight(0),
-	isTrain(false),
-	isTest(false) {
-}
+	  _imgWidth(0),
+      _imgHeight(0),
+	  _isTrain(false),
+	  _isTest(false) 
+	  {}
 
 Mnist::~Mnist() {
 
 }
 
 void Mnist::readTrainData(void) {
-	if (isTrain)
+	if (_isTrain)
 		return;
 
 #ifdef DEBUG
@@ -44,15 +44,15 @@ void Mnist::readTrainData(void) {
 	readLabels(train_label_file_mnist);
 
 	// Lette le immagini di train ed il test deve essere zero
-	isTrain = true;
-	isTest = false;
+	_isTrain = true;
+	_isTest = false;
 #endif
 }
 
 
 
 void Mnist::readTestData(void) {
-	if (isTest)
+	if (_isTest)
 		return;
 
 	// Leggere le immagini di test
@@ -62,12 +62,12 @@ void Mnist::readTestData(void) {
 	readLabels(test_label_file_mnist);
 
 	// Lette le immagini di test ed il train deve essere zero
-	isTest = true;
-	isTrain = false;
+	_isTest = true;
+	_isTrain = false;
 }
 
 
-void Mnist::readImages(const std::string& datafile) {
+void Mnist::readImages(const std::string &datafile) {
 	// Eliminare il contenuto di data
 	data.clear();
 
@@ -87,12 +87,12 @@ void Mnist::readImages(const std::string& datafile) {
 	ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp));
 
 	// Leggere larghezza immagini
-	ifs.read(reinterpret_cast<char *>(&imgWidth), sizeof(imgWidth));
-	imgWidth = flipBytes(imgWidth);
+	ifs.read(reinterpret_cast<char *>(&_imgWidth), sizeof(_imgWidth));
+	_imgWidth = flipBytes(_imgWidth);
 
 	// Leggere altezza immagini
-	ifs.read(reinterpret_cast<char *>(&imgHeight), sizeof(imgHeight));
-	imgHeight = flipBytes(imgHeight);
+	ifs.read(reinterpret_cast<char *>(&_imgHeight), sizeof(_imgHeight));
+	_imgHeight = flipBytes(_imgHeight);
 
 	// Lettura dell'immagine    
 	std::vector<uint8_t> pixel((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
@@ -107,7 +107,7 @@ void Mnist::readImages(const std::string& datafile) {
 	ifs.close();
 }
 
-void Mnist::readLabels(const std::string& datafile) {
+void Mnist::readLabels(const std::string &datafile) {
 	// Eliminare il contenuto di labels
 	labels.clear();
 
@@ -134,7 +134,7 @@ void Mnist::readLabels(const std::string& datafile) {
 }
 
 
-inline uint32_t Mnist::flipBytes(const uint32_t& n) {
+inline uint32_t Mnist::flipBytes(const uint32_t &n) {
 
 	uint32_t b0, b1, b2, b3;
 

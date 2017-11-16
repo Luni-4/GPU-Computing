@@ -18,26 +18,26 @@ public:
     void readTrainData(void) override;
     void readTestData(void) override;
     
-    uint32_t getImgWidth(void) const override { return imgWidth; }
-    uint32_t getImgHeight(void) const override { return imgHeight; }
+    uint32_t getImgWidth(void) const override { return _imgWidth; }
+    uint32_t getImgHeight(void) const override { return _imgHeight; }
     uint32_t getImgDepth(void) const override { return 1; }
-    uint32_t getImgDimension(void) const override { return imgWidth * imgHeight; }
+    uint32_t getImgDimension(void) const override { return _imgWidth * imgHeight; }
     
     
 private:
-    void readImages(const std::string& datafile);
-    void readLabels(const std::string& datafile);
+    void readImages(const std::string &datafile);
+    void readLabels(const std::string &datafile);
     
     inline uint32_t flipBytes(const uint32_t &n);
 
 private:
     const std::string _filename;
     
-    uint32_t imgWidth;
-    uint32_t imgHeight;    
+    uint32_t _imgWidth;
+    uint32_t _imgHeight;    
     
-    bool isTrain;
-    bool isTest;
+    bool _isTrain;
+    bool _isTest;
 };
 
 
