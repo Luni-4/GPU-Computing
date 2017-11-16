@@ -1,5 +1,3 @@
-#include <iostream>
-
 #ifdef _WIN32
 #include "Windows.h"
 #endif
@@ -8,6 +6,7 @@
 
 // Librerie di progetto
 #include "Mnist.h"
+#include "Cifar.h"
 #include "FullyConnected.h"
 #include "Convolutional.h"
 #include "Network.h"
