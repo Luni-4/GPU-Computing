@@ -32,6 +32,7 @@ private:
 private:
 	std::vector<LayerDefinition*> _layers;
 	std::vector<uint8_t> _predictions;
+	int _nImages;
 	int _imgDim;
 	int _iBytes;
 	int _testError;

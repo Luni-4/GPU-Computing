@@ -8,7 +8,8 @@
 #include "Network.h"
 
 Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers)
-    : _imgDim(0),
+    : _nImages(0),
+      _imgDim(0),
 	  _iBytes(0),
 	  _testError(0),
 	  _isPredict(false) {
@@ -25,9 +26,6 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Definire la rete
 	setNetwork(data);
 
-	// Numero di esempi nel training set
-	const int nImages = 5;//data->getLabelSize();
-
 	// Dimensione della singola immagine
 #ifdef DEBUG
 	_imgDim = 6;
@@ -42,16 +40,16 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	CHECK(cudaMalloc((void**)&inputImg, _iBytes));
 
 	// Elabora ogni immagine
-	for (int i = 0; i < nImages; i++) {
+	for (int i = 0; i < _nImages; i++) {
 		int imgIndex = i * _imgDim;
 
 		// Copia dell'immagine corrente nel buffer
 		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
 		//for (int j = 0; j < 1; j++) {
-			forwardPropagation();
+		forwardPropagation();
 
-			backPropagation(i, learningRate);
+		backPropagation(i, learningRate);
 		//}
 	}
 
@@ -71,17 +69,14 @@ void Network::predict(Data *data) {
     // Caricare i dati in Cuda
 	cudaDataLoad(data);
 	
-	// Numero di esempi nel test set
-	const int nImages = 5;//data->getLabelSize();
-	
 	// Ottenere array contenente le labels
 	const uint8_t *labels = data->getLabels();
 	
 	// Definire dimensione dell'array delle predizioni
-	_predictions.resize(nImages); 
+	_predictions.resize(_nImages); 
 
 	// Elabora ogni immagine
-	for (int i = 0; i < nImages; i++) {
+	for (int i = 0; i < _nImages; i++) {
 		int imgIndex = i * _imgDim;
 
 		// Copia dell'immagine corrente nel buffer
@@ -129,8 +124,11 @@ void Network::setNetwork(Data *data) {
 
 
 void Network::cudaDataLoad(Data *data) {
+    // Numero di esempi presenti
+    _nImages = data->getLabelSize();
+     
 	const int dBytes = data->getDataSize() * sizeof(double);
-	const int lBytes = data->getLabelSize() * sizeof(uint8_t);
+	const int lBytes = _nImages * sizeof(uint8_t);
 
 	// Allocare le matrici
 	CHECK(cudaMalloc((void**)&cudaData, dBytes));
@@ -142,7 +140,7 @@ void Network::cudaDataLoad(Data *data) {
     
     // Liberare le label dalla CPU (solo in fase di train) 
 	if (!_isPredict)
-	    data->clearLabels();
+	   data->clearLabels();
     
     // Liberare le immagini dalla CPU
     data->clearData();
