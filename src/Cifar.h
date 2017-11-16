@@ -31,7 +31,7 @@ const int cifarTestDim = 10000;
 class Cifar : public Data {
 
 public:
-    Cifar(const std::string &filename, const bool &isCifar10);
+    Cifar(const std::string &filename, const bool &isCifar10 = true);
     virtual ~Cifar();
     
     void readTrainData(void) override;

@@ -9,7 +9,7 @@
 
 #include "Cifar.h"
 
-Cifar::Cifar(const std::string &filename, const bool &isCifar10 = true)
+Cifar::Cifar(const std::string &filename, const bool &isCifar10)
 	: _filename(filename),
 	  _imgWidth(32),
 	  _imgHeight(32),
