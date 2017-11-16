@@ -12,7 +12,7 @@ void test_mnist_input() {
 
 void test_cifar_input() {
 	// Leggere i dati
-	Data* d = new Cifar("data/cifar");
+	Data* d = new Cifar("data/cifar/cifar10");
 
 	// Lettura dati di training
 	d->readTrainData();
