@@ -8,12 +8,12 @@
 #include "Network.h"
 
 Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers)
-    : _nImages(0),
-      _imgDim(0),
-	  _iBytes(0),
-	  _testError(0),
-	  _isPredict(false) {
-	  
+	: _nImages(0),
+	_imgDim(0),
+	_iBytes(0),
+	_testError(0),
+	_isPredict(false) {
+
 	for (auto& l : layers)
 		_layers.push_back(l.get());
 }
@@ -61,19 +61,19 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 void Network::predict(Data *data) {
 
-    _isPredict = true;    
-    
-    //Leggere i dati dal test set
-    data->readTestData();
-    
-    // Caricare i dati in Cuda
+	_isPredict = true;
+
+	//Leggere i dati dal test set
+	data->readTestData();
+
+	// Caricare i dati in Cuda
 	cudaDataLoad(data);
-	
+
 	// Ottenere array contenente le labels
 	const uint8_t *labels = data->getLabels();
-	
+
 	// Definire dimensione dell'array delle predizioni
-	_predictions.resize(_nImages); 
+	_predictions.resize(_nImages);
 
 	// Elabora ogni immagine
 	for (int i = 0; i < _nImages; i++) {
@@ -81,12 +81,12 @@ void Network::predict(Data *data) {
 
 		// Copia dell'immagine corrente nel buffer
 		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
-				
+
 		forwardPropagation();
-		
-		predictLabel(i, labels[i]);		
+
+		predictLabel(i, labels[i]);
 	}
-	
+
 	// Cancellare il vettore contenente le labels
 	data->clearLabels();
 
@@ -99,16 +99,16 @@ void Network::predict(Data *data) {
 }
 
 inline void Network::predictLabel(const int &index, const uint8_t &label) {
-    
-    // Calcolare predizione al livello di output
-    uint8_t prediction = _layers.back()->getPredictionIndex();
-    
-    // Salvare la predizione nell'array
-    _predictions[index] = prediction;
-    
-    // Verificare che la predizione sia corretta
-    if(prediction != label)
-        _testError++;
+
+	// Calcolare predizione al livello di output
+	uint8_t prediction = _layers.back()->getPredictionIndex();
+
+	// Salvare la predizione nell'array
+	_predictions[index] = prediction;
+
+	// Verificare che la predizione sia corretta
+	if (prediction != label)
+		_testError++;
 }
 
 void Network::setNetwork(Data *data) {
@@ -124,9 +124,9 @@ void Network::setNetwork(Data *data) {
 
 
 void Network::cudaDataLoad(Data *data) {
-    // Numero di esempi presenti
-    _nImages = data->getLabelSize();
-     
+	// Numero di esempi presenti
+	_nImages = data->getLabelSize();
+
 	const int dBytes = data->getDataSize() * sizeof(double);
 	const int lBytes = _nImages * sizeof(uint8_t);
 
@@ -137,13 +137,13 @@ void Network::cudaDataLoad(Data *data) {
 	// Passare i dati
 	CHECK(cudaMemcpy(cudaData, data->getData(), dBytes, cudaMemcpyHostToDevice));
 	CHECK(cudaMemcpy(cudaLabels, data->getLabels(), lBytes, cudaMemcpyHostToDevice));
-    
-    // Liberare le label dalla CPU (solo in fase di train) 
+
+	// Liberare le label dalla CPU (solo in fase di train) 
 	if (!_isPredict)
-	   data->clearLabels();
-    
-    // Liberare le immagini dalla CPU
-    data->clearData();
+		data->clearLabels();
+
+	// Liberare le immagini dalla CPU
+	data->clearData();
 }
 
 void Network::cudaInitStruct(Data *data) {
@@ -215,30 +215,30 @@ void Network::printWeightsOnFile(const std::string &filename) {
 		cudaClearAll();
 		exit(1);
 	}
-	
+
 	for (auto l : _layers) {
-	    auto weights = l->getWeights();
-	    auto weightSize = l->getWeightCount();
-	    auto bias = l->getBias();
-	    auto biaSize = l->getNodeCount();
-	    
-	    auto prev = weightSize / biaSize;
-	    
-	    ofs << "Livello" << std::endl << std::endl;
-	    
-	    ofs << "Weights Matrix" << std::endl << std::endl;
-	    	    
-	    printOnFile(weights, prev, ofs);
-	    
-	    ofs << std::endl << std::endl;
-	    
-	    ofs << "Bias Matrix" << std::endl << std::endl;
-	    
-	    printOnFile(bias, biaSize, ofs);
-	    
-	    ofs << std::endl << std::endl << std::endl;
-	}	
-	
+		auto weights = l->getWeights();
+		auto weightSize = l->getWeightCount();
+		auto bias = l->getBias();
+		auto biaSize = l->getNodeCount();
+
+		auto prev = weightSize / biaSize;
+
+		ofs << "Livello" << std::endl << std::endl;
+
+		ofs << "Weights Matrix" << std::endl << std::endl;
+
+		printOnFile(weights, prev, ofs);
+
+		ofs << std::endl << std::endl;
+
+		ofs << "Bias Matrix" << std::endl << std::endl;
+
+		printOnFile(bias, biaSize, ofs);
+
+		ofs << std::endl << std::endl << std::endl;
+	}
+
 	ofs.close();
 }
 
