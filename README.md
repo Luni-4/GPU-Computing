@@ -55,6 +55,7 @@ MICHELE:
 - Famoso database contenente training set e test set di caratteri digitalizzati: http://yann.lecun.com/exdb/mnist/
 - Spiegazione reti neurali: https://mmlind.github.io/
 - Partendo da diverse configurazioni di blocchi e thread iniziali, ottenere i rispettivi indici degli array: http://www.martinpeniak.com/index.php?option=com_content&view=article&id=288:cuda-thread-indexing-explained&catid=17:updates
+- Informazioni utili sull'architettura Fermi e relative capacità computazionali: http://blog.cuvilib.com/2010/06/09/nvidia-cuda-difference-between-fermi-and-previous-architectures/
 
 
 - Esempio di una rete neurale a 3 livelli (input - hidden - output): https://mmlind.github.io/Simple_3-Layer_Neural_Network_for_MNIST_Handwriting_Recognition/
