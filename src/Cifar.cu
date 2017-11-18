@@ -102,11 +102,11 @@ void Cifar::readCifar10(const std::string &datafile) {
 		std::cerr << "Errore nell'apertura del file di Cifar 10 " << datafile << "!!" << std::endl;
 		exit(1);
 	}
-
-	ifs.close();
-	
+		
 	// Leggere il file
 	std::vector<uint8_t> pixel((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+	
+	ifs.close();
 	
 	// Effettuare le varie operazioni
 	for(int i =0; i < cifarTestDim; i++) {
