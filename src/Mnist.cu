@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <vector>
 
 #include "Mnist.h"
 
@@ -97,15 +98,24 @@ void Mnist::readImages(const std::string &datafile) {
 	// Leggere altezza immagini
 	ifs.read(reinterpret_cast<char *>(&_imgHeight), sizeof(_imgHeight));
 	_imgHeight = flipBytes(_imgHeight);
-
-	// Lettura delle immagini
-	std::transform(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>(), std::back_inserter(data),
-		[](const uint8_t &d) -> double { return static_cast<uint8_t>(d); });
-
-	// Conversione delle immagini
-	std::for_each(data.begin(), data.end(), [](double &d) { d = ((d - 127) / 128); });
-
+		
+	std::vector<uint8_t> pixel;
+	
+	// Numero di immagini
+	const int c = 60000 *_imgWidth * _imgHeight;
+	
+	// Lettura dell'immagine
+	std::copy_n(std::istreambuf_iterator<char>(ifs), c, std::back_inserter(pixel)); 
+	
+	// Chiudere il file
 	ifs.close();
+
+	// Impostare data della stessa dell'input
+	data.resize(pixel.size());
+	
+	// Assegnare i valori a data
+	for (std::size_t i = 0; i< pixel.size(); i++)
+	    data[i] = (static_cast<double>(pixel[i]) - 127) / 128;
 }
 
 void Mnist::readLabels(const std::string &datafile) {
@@ -129,7 +139,7 @@ void Mnist::readLabels(const std::string &datafile) {
 	ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp));
 
 	// Lettura delle labels
-	std::copy((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>(), std::back_inserter(labels));
+	std::copy_n(std::istreambuf_iterator<char>(ifs), 60000, std::back_inserter(labels)); 
 
 	ifs.close();
 }
