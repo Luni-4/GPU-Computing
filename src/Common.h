@@ -3,11 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-
-#define threads 64
-
-// Converte un numero intero al multiplo più vicino di 32
-#define ALIGN_UP(a) ((a + (threads - 1)) / threads) * threads
+#include <ctime>
 
 
 #define CHECK(call)                                                            \
@@ -82,7 +78,19 @@ inline void printVector(std::vector<T> &a, const int &dim) {
 	}
 }
 
-inline void printOnFile(std::vector<double> &a, const int &dim, std::ofstream &ofs) {
+inline void printInputData(const double *a, const int &dim) {
+
+    for(int i = 0; i < dim; i++) 
+		std::cout << a[i] << std::endl;
+}  
+
+inline void printInputLabels(const uint8_t *a, const int &dim) {
+
+    for(int i = 0; i < dim; i++) 
+		std::cout << unsigned(a[i]) << std::endl;
+}   
+
+inline void printOnFile(std::vector<double> &a, const int &dim, std::ofstream &ofs) {	
 
 	for (std::size_t i = 0; i < a.size(); i++) {
 		ofs << a[i] << " ";
@@ -97,6 +105,18 @@ inline void printLabels(std::vector<uint8_t> &a) {
 
 	for (auto t : a)
 		std::cout << unsigned(t) << std::endl;
+} 
+
+
+inline void getTime(void (*func)(void), const std::string &fname) {
+    clock_t begin = clock();
+
+    func();
+
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    
+    std::cout <<  fname << " eseguita in " << elapsed_secs << std::endl;
 }
 
 
