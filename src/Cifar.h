@@ -53,7 +53,6 @@ private:
 
 private:
     const std::string _filename;
-    std::vector<uint8_t> _pixel;
     
     uint32_t _imgWidth;
     uint32_t _imgHeight;
