@@ -4,10 +4,10 @@
 #include <vector>
 #include <fstream>
 
-#include "Kernel.h";
+#define threads 64
 
 // Converte un numero intero al multiplo più vicino di 32
-#define ALIGN_UP(a) ((a + (Kernel::threads - 1)) / Kernel::threads) * Kernel::threads
+#define ALIGN_UP(a) ((a + (threads - 1)) / threads) * threads
 
 
 #define CHECK(call)                                                            \

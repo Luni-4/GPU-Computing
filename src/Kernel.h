@@ -8,8 +8,6 @@
 #endif
 
 namespace Kernel {
-	const int threads = 64;
-
 	void initWeightK(dim3 t, dim3 b, double *weight, const int &wDim, curandState *states);
 
 	void initBiasK(dim3 t, dim3 b, double *weight, const int &wDim, curandState *states);

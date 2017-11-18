@@ -127,7 +127,7 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	CHECK(cudaDeviceSynchronize());
 
 	// Inizializzare i bias del livello
-	int t = Kernel::threads;
+	int t = threads;
 	int b = (_alignedNodes / t);
 	Kernel::initBiasK(b, t, bias, _nodes, devStates);
 
@@ -203,7 +203,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 #endif
 
 	// Applicare funzione di attivazione
-	int t = Kernel::threads;
+	int t = threads;
 	int b = (_alignedNodes / t);
 	if (_a == RELU)
 		Kernel::actReluK(b, t, output, _nodes);
