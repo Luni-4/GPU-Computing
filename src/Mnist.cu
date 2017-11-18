@@ -25,13 +25,13 @@ void Mnist::readTrainData(void) {
 		return;
 
 #ifdef TOYINPUT
-	data.resize(6);
+	data.reserve(6);
 	std::fill(data.begin(), data.end(), 1.0);
 
 	std::cout << "\n\nVettore contenente una sola immagine\n\n";
 	printVector<double>(data, 3);
 
-	labels.resize(1);
+	labels.reserve(1);
 	std::fill(labels.begin(), labels.end(), 1);
 
 	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
@@ -93,16 +93,13 @@ void Mnist::readImages(const std::string &datafile) {
 	// Leggere altezza immagini
 	ifs.read(reinterpret_cast<char *>(&_imgHeight), sizeof(_imgHeight));
 	_imgHeight = flipBytes(_imgHeight);
-
-	// Lettura dell'immagine    
-	std::vector<uint8_t> pixel((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
-
-	// Impostare data della stessa dell'input
-	data.resize(pixel.size());
-
-	// Usare una lambda per convertire i pixel nell'intervallo richiesto
-	auto convert = [](const uint8_t &d) -> double { return (static_cast<double>(d) - 127) / 128; };
-	std::transform(pixel.begin(), pixel.end(), data.begin(), convert);
+		
+	// Lettura delle immagini
+	std::transform(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>(), std::back_inserter(data),
+	               [](const uint8_t &d) -> double { return static_cast<uint8_t>(d); });
+	
+	// Conversione delle immagini
+	std::for_each(data.begin(), data.end(), [](double &d) { d = ((d - 127) / 128); });	
 
 	ifs.close();
 }
