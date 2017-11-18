@@ -17,3 +17,5 @@
 
 //scommentare per utilizzare gli ifdef DEBUG
 #define DEBUG
+
+#define exit(n) system("pause"); exit(n);

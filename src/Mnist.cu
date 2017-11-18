@@ -1,3 +1,7 @@
+#ifdef _WIN32
+#include "Windows.h"
+#endif
+
 #ifdef DEBUG
 #include "Common.h"
 #endif
@@ -93,13 +97,13 @@ void Mnist::readImages(const std::string &datafile) {
 	// Leggere altezza immagini
 	ifs.read(reinterpret_cast<char *>(&_imgHeight), sizeof(_imgHeight));
 	_imgHeight = flipBytes(_imgHeight);
-		
+
 	// Lettura delle immagini
 	std::transform(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>(), std::back_inserter(data),
-	               [](const uint8_t &d) -> double { return static_cast<uint8_t>(d); });
-	
+		[](const uint8_t &d) -> double { return static_cast<uint8_t>(d); });
+
 	// Conversione delle immagini
-	std::for_each(data.begin(), data.end(), [](double &d) { d = ((d - 127) / 128); });	
+	std::for_each(data.begin(), data.end(), [](double &d) { d = ((d - 127) / 128); });
 
 	ifs.close();
 }

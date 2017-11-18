@@ -1,3 +1,7 @@
+#ifdef _WIN32
+#include "Windows.h"
+#endif
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -8,11 +12,7 @@
 #include "Common.h"
 #include "Convolutional.h"
 
-#ifdef _WIN32
-#include "Windows.h"
-#endif
-
-__global__ void createSubmatrix(double * sub, const double * prev, const int prevLayerWidth, const int filterWidth, const int nodes) {
+__global__ void createSubmatrix(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
 
 	// Gestione degli indici	
 	const unsigned int blockId = blockIdx.x * blockDim.x + blockIdx.y * blockDim.x * gridDim.x;
@@ -23,18 +23,18 @@ __global__ void createSubmatrix(double * sub, const double * prev, const int pre
 	//blockIdx.y rappresenta la riga da cui inizia la submatrice
 
 	//Estraggo submatrici
-	if (tid < nodes) {
+	if (tid < uniqueNodes) {
 		for (int i = 0; i < filterWidth; i++) {
-			memcpy((sub + i * filterWidth + tid * filterWidth * filterWidth), (prev + blockIdx.x + (blockIdx.y + i) * prevLayerWidth), filterWidth * sizeof(double));
+			memcpy((sub + i * filterWidth + tid * filterWidth * filterWidth), (prevOutput + blockIdx.x * stride + (blockIdx.y * stride + i) * prevLayerWidth), filterWidth * sizeof(double));
 		}
 	}
 }
 
-void createSubmatrixK(dim3 t, dim3 b, double * sub, const double * prev, const int prevLayerWidth, const int filterWidth, const int nodes) {
+void createSubmatrixK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
 #ifdef _WIN32
-	createSubmatrix NvCUDA2(t, b) (sub, prev, prevLayerWidth, filterWidth, nodes);
+	createSubmatrix NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
 #else
-	createSubmatrix << <t, b >> > (sub, prev, prevLayerWidth, filterWidth, nodes);
+	createSubmatrix << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
 #endif
 }
 
@@ -127,9 +127,7 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	CHECK(cudaDeviceSynchronize());
 
 	// Inizializzare i bias del livello
-	int t = threads;
-	int b = (_alignedNodes / t);
-	Kernel::initBiasK(b, t, bias, _nodes, devStates);
+	Kernel::initBiasK((_alignedNodes / THREADS), THREADS, bias, _nodes, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -167,15 +165,13 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	// Tanti blocchi quanti sono i nodi in output (width * height), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
 	dim3 numBlocks(_width, _height, 1);
 
-	createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, uniqueNodes);
+	createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, uniqueNodes);
 	CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
 	std::cout << "\n\nValore submatrici\n\n";
 	printFromCudaFormatted(sub, uniqueNodes * _filterDim, _filterWidth);
 #endif
-
-	//return;
 
 	//Creare l'handle di cuBLAS
 	CHECK_CUBLAS(cublasCreate(&handle));
@@ -203,14 +199,12 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 #endif
 
 	// Applicare funzione di attivazione
-	int t = threads;
-	int b = (_alignedNodes / t);
 	if (_a == RELU)
-		Kernel::actReluK(b, t, output, _nodes);
+		Kernel::actReluK((_alignedNodes / THREADS), THREADS, output, _nodes);
 	else if (_a == SIGMOID)
-		Kernel::actSigmoidK(b, t, output, _nodes);
+		Kernel::actSigmoidK((_alignedNodes / THREADS), THREADS, output, _nodes);
 	else if (_a == TANH)
-		Kernel::actTanhK(b, t, output, _nodes);
+		Kernel::actTanhK((_alignedNodes / THREADS), THREADS, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -240,6 +234,11 @@ void Convolutional::deleteCuda() {
 
 int Convolutional::_calcOutput(int prevLayerWidth, bool withPadding) {
 	//PER ORA NON CONSIDERATO CASO IN CUI SI GENERANO ERRORI (padding numero non intero, filtro più grande dell'input, stride che non combacia, ecc)
+	if (_filterWidth > prevLayerWidth) {
+		std::cerr << "Le dimensioni del filtro superano le dimensioni del livello precedente!!" << std::endl;
+		exit(1);
+	}
+
 	if (withPadding) {
 		_padding = (_filterWidth - 1) / 2;
 		return prevLayerWidth;

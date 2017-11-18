@@ -1,3 +1,7 @@
+#ifdef _WIN32
+#include "Windows.h"
+#endif
+
 #include <iostream>
 #include <fstream>
 
@@ -48,7 +52,6 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		//for (int j = 0; j < 1; j++) {
 		forwardPropagation();
-		return;
 
 		backPropagation(i, learningRate);
 		//}
