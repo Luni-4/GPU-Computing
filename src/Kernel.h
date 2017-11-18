@@ -7,6 +7,12 @@
 #include "Windows.h"
 #endif
 
+// Numero di threads in un blocco
+#define THREADS 64
+
+// Converte un numero intero al multiplo più vicino di 32
+#define ALIGN_UP(a) ((a + (THREADS - 1)) / THREADS) * THREADS
+
 namespace Kernel {
 	void initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states);
 
