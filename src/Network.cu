@@ -27,7 +27,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	setNetwork(data);
 
 	// Dimensione della singola immagine
-#ifdef DEBUG
+#ifdef TOYINPUT
 	_imgDim = 6;
 #else
 	_imgDim = data->getImgDimension();
@@ -48,6 +48,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		//for (int j = 0; j < 1; j++) {
 		forwardPropagation();
+		return;
 
 		backPropagation(i, learningRate);
 		//}
@@ -148,7 +149,7 @@ void Network::cudaDataLoad(Data *data) {
 
 void Network::cudaInitStruct(Data *data) {
 
-#ifdef DEBUG
+#ifdef TOYINPUT
 	_layers.front()->defineCuda(2, 1, 3);
 #else
 	_layers.front()->defineCuda(data->getImgWidth(), data->getImgHeight(), data->getImgDepth());

@@ -127,7 +127,9 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	CHECK(cudaDeviceSynchronize());
 
 	// Inizializzare i bias del livello
-	Kernel::initBiasK(_alignedNodes, 1, bias, _nodes, devStates);
+	int t = Kernel::threads;
+	int b = (_alignedNodes / t);
+	Kernel::initBiasK(b, t, bias, _nodes, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -173,6 +175,8 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	printFromCudaFormatted(sub, uniqueNodes * _filterDim, _filterWidth);
 #endif
 
+	//return;
+
 	//Creare l'handle di cuBLAS
 	CHECK_CUBLAS(cublasCreate(&handle));
 
@@ -199,12 +203,14 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 #endif
 
 	// Applicare funzione di attivazione
+	int t = Kernel::threads;
+	int b = (_alignedNodes / t);
 	if (_a == RELU)
-		Kernel::actReluK(_alignedNodes, 1, output, _nodes);
+		Kernel::actReluK(b, t, output, _nodes);
 	else if (_a == SIGMOID)
-		Kernel::actSigmoidK(_alignedNodes, 1, output, _nodes);
+		Kernel::actSigmoidK(b, t, output, _nodes);
 	else if (_a == TANH)
-		Kernel::actTanhK(_alignedNodes, 1, output, _nodes);
+		Kernel::actTanhK(b, t, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -229,6 +235,7 @@ void Convolutional::deleteCuda() {
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
 	CHECK(cudaFree(error));
+	CHECK(cudaFree(temp));
 }
 
 int Convolutional::_calcOutput(int prevLayerWidth, bool withPadding) {

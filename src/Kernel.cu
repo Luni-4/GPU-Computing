@@ -23,11 +23,11 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 #endif
 }
 
-void Kernel::initWeightK(dim3 t, dim3 b, double *weight, const int &wDim, curandState *states) {
+void Kernel::initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states) {
 #ifdef _WIN32
-	initWeight NvCUDA2(t, b) (weight, wDim, states);
+	initWeight NvCUDA2(b, t) (weight, wDim, states);
 #else
-	initWeight << <t, b >> > (weight, wDim, states);
+	initWeight << <b, t >> > (weight, wDim, states);
 #endif
 }
 
@@ -53,11 +53,11 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 #endif
 }
 
-void Kernel::initBiasK(dim3 t, dim3 b, double *weight, const int &wDim, curandState *states) {
+void Kernel::initBiasK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states) {
 #ifdef _WIN32
-	initBias NvCUDA2(t, b) (weight, wDim, states);
+	initBias NvCUDA2(b, t) (weight, wDim, states);
 #else
-	initBias << <t, b >> > (weight, wDim, states);
+	initBias << <b, t >> > (weight, wDim, states);
 #endif
 }
 
@@ -78,11 +78,11 @@ __global__ void outputError(const double *output, double *error, const uint8_t *
 		error[tid] = trueLabel - output[tid];
 }
 
-void Kernel::outputErrorK(dim3 t, dim3 b, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes) {
+void Kernel::outputErrorK(dim3 b, dim3 t, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes) {
 #ifdef _WIN32
-	outputError NvCUDA2(t, b) (output, error, label, target, nodes);
+	outputError NvCUDA2(b, t) (output, error, label, target, nodes);
 #else
-	outputError << <t, b >> > (output, error, label, target, nodes);
+	outputError << <b, t >> > (output, error, label, target, nodes);
 #endif
 }
 
@@ -109,19 +109,19 @@ __global__ void derivActRelu(const double *output, double *error, const int node
 		error[tid] = error[tid] * (1 / (1 + (exp((-output[tid])))));
 }
 
-void Kernel::actReluK(dim3 t, dim3 b, double *output, const int &nodes) {
+void Kernel::actReluK(dim3 b, dim3 t, double *output, const int &nodes) {
 #ifdef _WIN32
-	actRelu NvCUDA2(t, b) (output, nodes);
+	actRelu NvCUDA2(b, t) (output, nodes);
 #else
-	actRelu << <t, b >> > (output, nodes);
+	actRelu << <b, t >> > (output, nodes);
 #endif 
 }
 
-void Kernel::derivActReluK(dim3 t, dim3 b, const double *output, double *error, const int &nodes) {
+void Kernel::derivActReluK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
-	derivActRelu NvCUDA2(t, b) (output, error, nodes);
+	derivActRelu NvCUDA2(b, t) (output, error, nodes);
 #else
-	derivActRelu << <t, b >> > (output, error, nodes);
+	derivActRelu << <b, t >> > (output, error, nodes);
 #endif 
 }
 
@@ -147,19 +147,19 @@ __global__ void derivActSigmoid(const double *output, double *error, const int n
 		error[tid] = error[tid] * (output[tid] * (1 - output[tid]));
 }
 
-void Kernel::actSigmoidK(dim3 t, dim3 b, double *output, const int &nodes) {
+void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes) {
 #ifdef _WIN32
-	actSigmoid NvCUDA2(t, b) (output, nodes);
+	actSigmoid NvCUDA2(b, t) (output, nodes);
 #else
-	actSigmoid << <t, b >> > (output, nodes);
+	actSigmoid << <b, t >> > (output, nodes);
 #endif 
 }
 
-void Kernel::derivActSigmoidK(dim3 t, dim3 b, const double *output, double *error, const int &nodes) {
+void Kernel::derivActSigmoidK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
-	derivActSigmoid NvCUDA2(t, b) (output, error, nodes);
+	derivActSigmoid NvCUDA2(b, t) (output, error, nodes);
 #else
-	derivActSigmoid << <t, b >> > (output, error, nodes);
+	derivActSigmoid << <b, t >> > (output, error, nodes);
 #endif 
 }
 
@@ -186,18 +186,18 @@ __global__ void derivActTanh(const double *output, double *error, const int node
 		error[tid] = error[tid] * (1 - pow(tanh(output[tid]), 2));
 }
 
-void Kernel::actTanhK(dim3 t, dim3 b, double *output, const int &nodes) {
+void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes) {
 #ifdef _WIN32
-	actTanh NvCUDA2(t, b) (output, nodes);
+	actTanh NvCUDA2(b, t) (output, nodes);
 #else
-	actTanh << <t, b >> > (output, nodes);
+	actTanh << <b, t >> > (output, nodes);
 #endif 
 }
 
-void Kernel::derivActTanhK(dim3 t, dim3 b, const double *output, double *error, const int &nodes) {
+void Kernel::derivActTanhK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
-	derivActTanh NvCUDA2(t, b) (output, error, nodes);
+	derivActTanh NvCUDA2(b, t) (output, error, nodes);
 #else
-	derivActTanh << <t, b >> > (output, error, nodes);
+	derivActTanh << <b, t >> > (output, error, nodes);
 #endif 
 }
