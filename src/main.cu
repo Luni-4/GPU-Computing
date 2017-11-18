@@ -18,9 +18,10 @@
 int main() {
 
 #ifdef DEBUG
-	//test_mnist_input();
+    getTime(&test_mnist_input, "test_mnist_input");
 
-	//test_cifar_input();
+	//getTime(&test_cifar_input, "test_cifar_input");
+	return 0;
 
 	//test_fully();
 #endif
@@ -31,6 +32,7 @@ int main() {
 #else
 	std::unique_ptr<Data> d(new Mnist("data/mnist/"));
 #endif
+
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
 
@@ -50,7 +52,7 @@ int main() {
 
 	// Training
 	nn.train(d.get(), 20, 0.001);
-	
+
 	// Stampa i pesi prodotti dalla rete su un file
 	nn.printWeightsOnFile("Weights.txt");
 
@@ -68,7 +70,6 @@ int main() {
 
 	// Stampare l'errore
 	std::cout << std::endl << std::endl << error << std::endl;
-	
 #ifdef _WIN32
 	system("pause");
 #endif
