@@ -6,7 +6,6 @@
 #include "Common.h"
 #endif
 
-#include <cstdint>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -15,16 +14,14 @@
 
 Cifar::Cifar(const std::string &filename, const bool &isCifar10)
 	: _filename(filename),
-	_imgWidth(32),
-	_imgHeight(32),
-	_imgDepth(3),
-	_isCifar10(isCifar10),
-	_isTrain(false),
-	_isTest(false) {
-
-	_imgDim = _imgWidth * _imgHeight * _imgDepth;
-	_pixel.resize(_imgDim);
-
+	  _imgWidth(32),
+	  _imgHeight(32),
+	  _imgDepth(3),
+	  _isCifar10(isCifar10),
+	  _isTrain(false),
+	  _isTest(false) {
+	  
+	  _imgDim = _imgWidth * _imgHeight * _imgDepth;
 }
 
 
@@ -41,10 +38,10 @@ inline void Cifar::cleanSetData(const int &set) {
 	clearLabels();
 
 	// Dimensione dei dati (training o test)
-	data.resize(_imgDim * set);
-
+	data.reserve(_imgDim * set);
+	
 	// Dimensione delle labels (training o test)
-	labels.resize(set);
+	labels.reserve(set);
 }
 
 void Cifar::readTrainData(void) {
@@ -57,11 +54,9 @@ void Cifar::readTrainData(void) {
 		// Leggere le immagini e le etichette di train di Cifar 10
 		readCifarTrain10(train_cifar10);
 	else
-		// Leggere le immagini e le etichette di train di Cifar 100
-		readCifar100(train_cifar100, cifarTrainDim);
+	    // Leggere le immagini e le etichette di train di Cifar 100
+	    readCifar100(train_cifar100, cifarTrainDim);  
 
-	// Svuotare vettore temporaneo
-	_pixel.clear();
 
 	// Lette le immagini di train ed il test deve essere zero
 	_isTrain = true;
@@ -80,12 +75,10 @@ void Cifar::readTestData(void) {
 		// Leggere le immagini e le etichette di test di Cifar 10
 		readCifar10(test_cifar10);
 	else
-		// Leggere le immagini e le etichette di test di Cifar 100
-		readCifar100(test_cifar100, cifarTestDim);
-
-	// Svuotare vettore temporaneo
-	_pixel.clear();
-
+	    // Leggere le immagini e le etichette di test di Cifar 100
+	    readCifar100(test_cifar100, cifarTestDim);
+	    
+	    
 	// Lette le immagini di test ed il train deve essere zero
 	_isTest = true;
 	_isTrain = false;
@@ -102,56 +95,36 @@ inline void Cifar::readCifarTrain10(const std::vector<std::string> &datafile) {
 
 
 void Cifar::readCifar10(const std::string &datafile) {
-
-	std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary);
+    
+    std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary); 
 
 	if (!ifs.is_open()) {
-		std::cerr << "Errore nell'apertura del file di Cifar 10" << datafile << "!!" << std::endl;
+		std::cerr << "Errore nell'apertura del file di Cifar 10 " << datafile << "!!" << std::endl;
 		exit(1);
 	}
-
-	for (int i = 0; i < cifarTestDim; i++) {
-
-		// Leggere label fine
-		ifs.read(reinterpret_cast<char *>(&labels[i]), sizeof(labels[0]));
-
-		// Lettura dell'immagine    
-		ifs.read(reinterpret_cast<char *>(&_pixel), _imgDim);
-
-		// Usare una lambda per convertire i _pixel nell'intervallo richiesto
-		auto convert = [](const uint8_t &d) -> double { return (static_cast<double>(d) - 127) / 128; };
-		std::transform(_pixel.begin(), _pixel.end(), data.end(), convert);
-	}
-
+		
+	// Leggere il file
+	std::vector<uint8_t> pixel((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+	
 	ifs.close();
+	
+	// Effettuare le varie operazioni
+	for(int i =0; i < cifarTestDim; i++) {
+	
+	    auto index = i * (_imgDim + 1);
+	    
+	    std::copy_n(pixel.begin() + index, 1, std::back_inserter(labels));
+	   
+	    // Lettura delle immagini
+	    std::transform(pixel.begin() + index + 1, pixel.begin() + index + 1 + _imgDim, std::back_inserter(data),
+	               [](const uint8_t &d) -> double { return static_cast<double>(d - 127) / 128; });    
+    }	
 }
 
 void Cifar::readCifar100(const std::string &datafile, const int &iterations) {
 
-	uint8_t temp;
 
-	std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary);
-
-	if (!ifs.is_open()) {
-		std::cerr << "Errore nell'apertura del file di Cifar 100" << datafile << "!!" << std::endl;
-		exit(1);
-	}
-
-	for (int i = 0; i < iterations; i++) {
-
-		// Leggere label coarse
-		ifs.read(reinterpret_cast<char *>(&temp), sizeof(temp));
-
-		// Leggere label fine
-		ifs.read(reinterpret_cast<char *>(&labels[i]), sizeof(labels[0]));
-
-		// Lettura dell'immagine    
-		ifs.read(reinterpret_cast<char *>(&_pixel), _imgDim);
-
-		// Usare una lambda per convertire i _pixel nell'intervallo richiesto
-		auto convert = [](const uint8_t &d) -> double { return (static_cast<double>(d) - 127) / 128; };
-		std::transform(_pixel.begin(), _pixel.end(), data.end(), convert);
-	}
-
-	ifs.close();
-}
+   
+    
+    
+}    

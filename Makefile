@@ -1,6 +1,6 @@
 MAIN = main
 NVCC = nvcc
-CUDAFLAGS = -std=c++11 -Xcompiler -Wall -arch=sm_20
+CUDAFLAGS = -std=c++11 -Xcompiler -Wall -O3 -arch=sm_20
 LIBS = -lcublas
 
 OBJECTS := $(wildcard src/*.cu)

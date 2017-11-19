@@ -119,7 +119,7 @@ inline void getTime(void(*func)(void), const std::string &fname) {
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-	//std::cout << fname << " eseguita in " << elapsed_secs << std::endl;
+	std::cout << fname << " eseguita in " << elapsed_secs << std::endl;
 }
 
 

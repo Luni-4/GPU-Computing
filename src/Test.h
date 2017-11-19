@@ -1,22 +1,49 @@
 #pragma once
 
+inline void printDataInformation(Data *d) {
+    
+    // Informazioni sui dati
+	std::cout << "Width: " << d->getImgWidth() << std::endl;
+	std::cout << "Height: " << d->getImgHeight() << std::endl;
+	std::cout << "Depth: " << d->getImgDepth() << std::endl;
+	std::cout << "Image Dimension: " << d->getImgDimension() << std::endl;
+	
+	std::cout << std::endl;
+	
+	auto dataSize = d->getDataSize();
+	auto labelSize = d->getLabelSize();
+	
+	std::cout << "Data Dimension: " << dataSize << std::endl;
+	std::cout << "Label Dimension: " << labelSize << std::endl;
+	
+	printInputData(d->getData(), dataSize);
+	
+	std::cout << std::endl << std::endl;
+	
+	printInputLabels(d->getLabels(), labelSize);	
+}
+
 void test_mnist_input() {
 	// Leggere i dati
 	Data* d = new Mnist("data/mnist/");
 
 	// Lettura dati di training
 	d->readTrainData();
+	
+	//printDataInformation(d);
 
 	delete d;
 }
 
 void test_cifar_input() {
 	// Leggere i dati
-	Data* d = new Cifar("data/cifar/cifar10");
+	Data* d = new Cifar("data/cifar/cifar10/");
 
 	// Lettura dati di training
 	d->readTrainData();
-
+	
+	//printDataInformation(d);
+	
 	delete d;
 }
 

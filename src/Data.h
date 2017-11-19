@@ -23,8 +23,8 @@ public:
     
     virtual uint32_t getImgDimension(void) const = 0;
     
-    inline const double* getData(void) const { return &data[0]; }
-    inline const uint8_t* getLabels(void) const { return &labels[0]; }
+    inline const double* getData(void) const { return data.data(); }
+    inline const uint8_t* getLabels(void) const { return labels.data(); }
     
     inline size_t getDataSize(void) const { return data.size(); }
     inline size_t getLabelSize(void) const { return labels.size(); }
