@@ -12,12 +12,12 @@
 
 #include "Mnist.h"
 
-Mnist::Mnist(const std::string &filename)
-	: _filename(filename),
-	_isTrain(false),
-	_isTest(false) {
+Mnist::Mnist(const std::string &filePath)
+	: _filePath(filePath),
+	  _isTrain(false),
+	  _isTest(false) {
     
-    _imgDim = imgHeight * imgWidth;
+    _imgDim = imgHeight_m * imgWidth_m;
 }
 
 Mnist::~Mnist() {
@@ -77,15 +77,15 @@ void Mnist::readTestData(void) {
 }
 
 
-void Mnist::readImages(const std::string &datafile) {
+void Mnist::readImages(const std::string &fileName) {
 	
 	// Vettore contenente i pixel
 	std::vector<uint8_t> pixel;
 	
 	// Numero di immagini
-	const int nSize = nImages * _imgDim;
+	const int nSize = nImages_m * _imgDim;
 
-	std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary);
+	std::ifstream ifs((_filePath + fileName).c_str(), std::ios::in | std::ios::binary);
 
 	if (!ifs.is_open()) {
 		std::cerr << "Errore nell'apertura dei dati!!" << std::endl;
@@ -111,9 +111,9 @@ void Mnist::readImages(const std::string &datafile) {
 	ifs.close();
 }
 
-void Mnist::readLabels(const std::string &datafile) {
+void Mnist::readLabels(const std::string &fileName) {
 
-	std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary);
+	std::ifstream ifs((_filePath + fileName).c_str(), std::ios::in | std::ios::binary);
 
 	if (!ifs.is_open()) {
 		std::cerr << "Errore nell'apertura delle labels!!" << std::endl;
@@ -127,7 +127,7 @@ void Mnist::readLabels(const std::string &datafile) {
 	ifs.ignore(8);
 	
 	// Lettura delle labels
-	std::copy_n(std::istreambuf_iterator<char>(ifs), nImages, std::back_inserter(labels)); 
+	std::copy_n(std::istreambuf_iterator<char>(ifs), nImages_m, std::back_inserter(labels)); 
 
 	ifs.close();
 }
@@ -141,8 +141,8 @@ inline void Mnist::cleanSetData(void) {
 	clearLabels();
 
 	// Dimensione dei dati (training o test)
-	data.resize(_imgDim * nImages);
+	data.resize(_imgDim * nImages_m);
 	
 	// Dimensione delle labels (training o test)
-	labels.reserve(nImages);
+	labels.reserve(nImages_m);
 }
