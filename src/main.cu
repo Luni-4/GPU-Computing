@@ -18,10 +18,11 @@
 int main() {
 
 #ifdef DEBUG
-    getTime(&test_mnist_input, "test_mnist_input");
+    //getTime(&test_mnist_input, "test_mnist_input");
 
-	//getTime(&test_cifar_input, "test_cifar_input");
-	return 0;
+	//getTime(&test_cifar10_input, "test_cifar10_input");
+	
+	//getTime(&test_cifar100_input, "test_cifar100_input");
 
 	//test_fully();
 #endif
