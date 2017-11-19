@@ -24,39 +24,40 @@ const std::string train_cifar100 = "train.bin";
 const std::string test_cifar100 = "test.bin";
 
 
-const int cifarTrainDim = 50000;
-const int cifarTestDim = 10000;
+const uint32_t cifarTrainDim = 50000;
+const uint32_t cifarTestDim = 10000;
+
+const uint32_t imgWidth_c = 32;
+const uint32_t imgHeight_c = 32;
+const uint32_t imgDepth_c = 3;  
  
 
 class Cifar : public Data {
 
 public:
-    Cifar(const std::string &filename, const bool &isCifar10 = true);
+    Cifar(const std::string &filePath, const bool &isCifar10 = true);
     virtual ~Cifar();
     
     void readTrainData(void) override;
     void readTestData(void) override;
     
-    uint32_t getImgWidth(void) const override { return _imgWidth; }
-    uint32_t getImgHeight(void) const override { return _imgHeight; }
-    uint32_t getImgDepth(void) const override { return _imgDepth; }
+    uint32_t getImgWidth(void) const override { return imgWidth_c; }
+    uint32_t getImgHeight(void) const override { return imgHeight_c; }
+    uint32_t getImgDepth(void) const override { return imgDepth_c; }
     uint32_t getImgDimension(void) const override { return _imgDim; }
     
     
 private:
-    inline void readCifarTrain10(const std::vector<std::string> &datafile);
+    inline void readCifarTrain10(const std::vector<std::string> &fileName);
     
-    void readCifar10(const std::string &datafile);
-    void readCifar100(const std::string &datafile, const int &iterations);
+    void readCifar10(const std::string &fileName);
+    void readCifar100(const std::string &fileName, const int &iterations);
     
     inline void cleanSetData(const int &set);
 
 private:
-    const std::string _filename;
+    const std::string _filePath;
     
-    uint32_t _imgWidth;
-    uint32_t _imgHeight;
-    uint32_t _imgDepth;
     uint32_t _imgDim;
     
     bool _isCifar10;   
