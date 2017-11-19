@@ -54,6 +54,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 		forwardPropagation();
 
 		backPropagation(i, learningRate);
+		return;
 		//}
 	}
 

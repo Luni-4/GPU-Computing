@@ -50,7 +50,7 @@ int main() {
 
 	// Training
 	nn.train(d.get(), 20, 0.001);
-	
+	/*
 	// Stampa i pesi prodotti dalla rete su un file
 	nn.printWeightsOnFile("Weights.txt");
 
@@ -68,7 +68,7 @@ int main() {
 
 	// Stampare l'errore
 	std::cout << std::endl << std::endl << error << std::endl;
-	
+	*/
 #ifdef _WIN32
 	system("pause");
 #endif
