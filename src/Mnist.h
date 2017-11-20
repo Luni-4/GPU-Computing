@@ -7,7 +7,8 @@ const std::string train_label_file_mnist = "train-labels-idx1-ubyte";
 const std::string test_image_file_mnist  = "t10k-images-idx3-ubyte";
 const std::string test_label_file_mnist  = "t10k-labels-idx1-ubyte";
 
-const uint32_t nImages_m = 60000;
+const uint32_t nTrain_m = 60000;
+const uint32_t nTest_m = 10000;
 const uint32_t imgWidth_m = 28;
 const uint32_t imgHeight_m = 28; 
 
@@ -27,10 +28,10 @@ public:
     
     
 private:
-    void readImages(const std::string &fileName);
-    void readLabels(const std::string &fileName);
+    void readImages(const std::string &fileName, const uint32_t &nImages);
+    void readLabels(const std::string &fileName, const uint32_t &nImages);
     
-    inline void cleanSetData(void);
+    inline void cleanSetData(const uint32_t &nImages);
 
 private:
     const std::string _filePath;

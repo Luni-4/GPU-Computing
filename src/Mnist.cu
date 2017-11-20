@@ -42,13 +42,13 @@ void Mnist::readTrainData(void) {
 	printVector<uint8_t>(labels, 1);
 #else
     // Pulire i vettori e impostare i dati
-    cleanSetData();
+    cleanSetData(nTrain_m);
     
 	// Leggere le immagini di train
-	readImages(train_image_file_mnist);
+	readImages(train_image_file_mnist, nTrain_m);
 
 	// Leggere le etichette di train
-	readLabels(train_label_file_mnist);
+	readLabels(train_label_file_mnist, nTrain_m);
 #endif
 
 	// Lette le immagini di train ed il test deve essere zero
@@ -63,13 +63,13 @@ void Mnist::readTestData(void) {
 		return;
 	
 	// Pulire i vettori e impostare i dati
-	cleanSetData();
+	cleanSetData(nTest_m);
 
 	// Leggere le immagini di test
-	readImages(test_image_file_mnist);
+	readImages(test_image_file_mnist, nTest_m);
 
 	// Leggere le etichette di test
-	readLabels(test_label_file_mnist);
+	readLabels(test_label_file_mnist, nTest_m);
 
 	// Lette le immagini di test ed il train deve essere zero
 	_isTest = true;
@@ -77,13 +77,13 @@ void Mnist::readTestData(void) {
 }
 
 
-void Mnist::readImages(const std::string &fileName) {
+void Mnist::readImages(const std::string &fileName, const uint32_t &nImages) {
 	
 	// Vettore contenente i pixel
 	std::vector<uint8_t> pixel;
 	
 	// Numero di immagini
-	const int nSize = nImages_m * _imgDim;
+	const int nSize = nImages * _imgDim;
 
 	std::ifstream ifs((_filePath + fileName).c_str(), std::ios::in | std::ios::binary);
 
@@ -111,7 +111,7 @@ void Mnist::readImages(const std::string &fileName) {
 	ifs.close();
 }
 
-void Mnist::readLabels(const std::string &fileName) {
+void Mnist::readLabels(const std::string &fileName, const uint32_t &nImages) {
 
 	std::ifstream ifs((_filePath + fileName).c_str(), std::ios::in | std::ios::binary);
 
@@ -127,12 +127,12 @@ void Mnist::readLabels(const std::string &fileName) {
 	ifs.ignore(8);
 	
 	// Lettura delle labels
-	std::copy_n(std::istreambuf_iterator<char>(ifs), nImages_m, std::back_inserter(labels)); 
+	std::copy_n(std::istreambuf_iterator<char>(ifs), nImages, std::back_inserter(labels)); 
 
 	ifs.close();
 }
 
-inline void Mnist::cleanSetData(void) {
+inline void Mnist::cleanSetData(const uint32_t &nImages) {
 
 	// Ripulire i dati
 	clearData();
@@ -141,8 +141,8 @@ inline void Mnist::cleanSetData(void) {
 	clearLabels();
 
 	// Dimensione dei dati (training o test)
-	data.resize(_imgDim * nImages_m);
+	data.resize(_imgDim * nImages);
 	
 	// Dimensione delle labels (training o test)
-	labels.reserve(nImages_m);
+	labels.reserve(nImages);
 }
