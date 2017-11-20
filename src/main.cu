@@ -63,14 +63,9 @@ int main() {
 	// Array contenente le predizioni
 	std::vector<uint8_t> predictions = nn.getPredictions();
 
-	// Errore commesso dalla rete sul test set
-	int error = nn.getTestError();
-
 	// Stampare le predizioni
-	printLabels(predictions);
-
-	// Stampare l'errore
-	std::cout << std::endl << std::endl << error << std::endl;
+	printLabels(predictions);	
+	
 #ifdef _WIN32
 	system("pause");
 #endif
