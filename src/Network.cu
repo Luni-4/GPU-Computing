@@ -90,7 +90,10 @@ void Network::predict(Data *data) {
 
 		predictLabel(i, labels[i]);
 	}
-
+	
+	// Stampare risultati ottenuti in fase di test
+	printNetworkError(data->getLabelSize());
+	
 	// Cancellare il vettore contenente le labels
 	data->clearLabels();
 
@@ -100,30 +103,6 @@ void Network::predict(Data *data) {
 
 	// Pulizia della memoria Cuda e reset del device 
 	cudaClearAll();
-}
-
-inline void Network::predictLabel(const int &index, const uint8_t &label) {
-
-	// Calcolare predizione al livello di output
-	uint8_t prediction = _layers.back()->getPredictionIndex();
-
-	// Salvare la predizione nell'array
-	_predictions[index] = prediction;
-
-	// Verificare che la predizione sia corretta
-	if (prediction != label)
-		_testError++;
-}
-
-void Network::setNetwork(Data *data) {
-	//Leggere i dati dal training set
-	data->readTrainData();
-
-	// Caricare i dati in Cuda
-	cudaDataLoad(data);
-
-	// Inizializzare le strutture della rete
-	cudaInitStruct(data);
 }
 
 
@@ -246,7 +225,43 @@ void Network::printWeightsOnFile(const std::string &filename) {
 	ofs.close();
 }
 
-void Network::cudaClearAll(void) {
+
+inline void Network::setNetwork(Data *data) {
+	//Leggere i dati dal training set
+	data->readTrainData();
+
+	// Caricare i dati in Cuda
+	cudaDataLoad(data);
+
+	// Inizializzare le strutture della rete
+	cudaInitStruct(data);
+}
+
+inline void Network::predictLabel(const int &index, const uint8_t &label) {
+
+	// Calcolare predizione al livello di output
+	uint8_t prediction = _layers.back()->getPredictionIndex();
+
+	// Salvare la predizione nell'array
+	_predictions[index] = prediction;
+
+	// Verificare che la predizione sia corretta
+	if (prediction != label)
+		_testError++;
+}
+
+inline void Network::printNetworkError(const int &nImages) {
+    
+    // Calcolare accuratezza
+    double accuracy = 1 - (static_cast<double>(_testError)/nImages);
+    
+    // Stampare numero di errori commessi
+    std::cout << "Immagini classificate correttamente: " << nImages - _testError << std::endl;
+    std::cout << "Immagini classificate scorrettamente: " << _testError << std::endl;
+    std::cout << "Accuratezza della rete: " << accuracy << std::endl;
+}
+
+inline void Network::cudaClearAll(void) {
 
 	// Liberare il buffer contenente le immagini in input alla rete
 	CHECK(cudaFree(inputImg));
