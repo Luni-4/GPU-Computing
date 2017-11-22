@@ -2,7 +2,7 @@
 #include "Windows.h"
 #endif
 
-#ifdef DEBUG
+#ifdef TOYINPUT
 #include "Common.h"
 #endif
 
@@ -29,13 +29,13 @@ void Mnist::readTrainData(void) {
 		return;
 
 #ifdef TOYINPUT
-	data.reserve(6);
+	data.resize(6);
 	std::fill(data.begin(), data.end(), 1.0);
 
 	std::cout << "\n\nVettore contenente una sola immagine\n\n";
 	printVector<double>(data, 3);
 
-	labels.reserve(1);
+	labels.resize(1);
 	std::fill(labels.begin(), labels.end(), 1);
 
 	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
