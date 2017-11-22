@@ -13,10 +13,10 @@
 
 Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers)
 	: _nImages(0),
-	_imgDim(0),
-	_iBytes(0),
-	_testError(0),
-	_isPredict(false) {
+	  _imgDim(0),
+	  _iBytes(0),
+	  _testRight(0),
+	  _isPredict(false) {
 
 	for (auto& l : layers)
 		_layers.push_back(l.get());
@@ -42,19 +42,21 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 	// Allocare il buffer di input della singola coppia (etichetta,immagine)
 	CHECK(cudaMalloc((void**)&inputImg, _iBytes));
+	
+	// Indice che reperisce la giusta immagine da mandare in input alla rete
+	unsigned int imgIndex = 0;	
+	
+	for (int i = 0; i < _nImages; i++) { 
 
-	// Elabora ogni immagine
-	for (int i = 0; i < _nImages; i++) {
-		int imgIndex = i * _imgDim;
+        // Copia dell'immagine corrente nel buffer
+        CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
-		// Copia dell'immagine corrente nel buffer
-		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
+        forwardPropagation();
 
-		//for (int j = 0; j < 1; j++) {
-		forwardPropagation();
-
-		backPropagation(i, learningRate);
-		//}
+        //backPropagation(i, learningRate);
+		
+		// Incrementare l'indice
+		imgIndex += _imgDim;	    
 	}
 
 	// Cancellare i dati di train dal device
@@ -246,18 +248,18 @@ inline void Network::predictLabel(const int &index, const uint8_t &label) {
 	_predictions[index] = prediction;
 
 	// Verificare che la predizione sia corretta
-	if (prediction != label)
-		_testError++;
+	if (prediction == label)
+		_testRight++;
 }
 
 inline void Network::printNetworkError(const int &nImages) {
     
     // Calcolare accuratezza
-    double accuracy = 1 - (static_cast<double>(_testError)/nImages);
+    double accuracy = (static_cast<double>(_testRight)/nImages) * 100;
     
     // Stampare numero di errori commessi
-    std::cout << "Immagini classificate correttamente: " << nImages - _testError << std::endl;
-    std::cout << "Immagini classificate scorrettamente: " << _testError << std::endl;
+    std::cout << "Immagini classificate correttamente: " << _testRight << std::endl;
+    std::cout << "Immagini classificate scorrettamente: " << nImages - _testRight << std::endl;
     std::cout << "Accuratezza della rete: " << accuracy << std::endl;
 }
 

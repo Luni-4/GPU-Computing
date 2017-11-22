@@ -17,7 +17,7 @@ public:
 	void printWeightsOnFile(const std::string &filename);
 	
 	inline std::vector<uint8_t> getPredictions(void) const { return _predictions; }
-	inline int getTestError(void) const { return _testError; } 
+	inline int getTestRight(void) const { return _testRight; } 
 
 private:
 	void cudaDataLoad(Data *data);
@@ -37,7 +37,7 @@ private:
 	int _nImages;
 	int _imgDim;
 	int _iBytes;
-	int _testError;
+	int _testRight;
 	bool _isPredict;
 	
 	// Cuda
