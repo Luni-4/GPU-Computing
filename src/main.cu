@@ -43,28 +43,38 @@ int main() {
 	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 	//layers.emplace_back(new FullyConnected(10, SIGMOID));
 #else
-	layers.emplace_back(new FullyConnected(4, SIGMOID));
-	layers.emplace_back(new FullyConnected(3, SIGMOID));
-	layers.emplace_back(new FullyConnected(2, SIGMOID));
+	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	//layers.emplace_back(new FullyConnected(10, SIGMOID));
 #endif
 
 	// Creare la rete
 	Network nn(layers);
+	
+//#ifdef DEBUG
+    auto start = std::chrono::high_resolution_clock::now();  
+//#endif
 
 	// Training
-	nn.train(d.get(), 20, 0.001);
+	nn.train(d.get(), 1, 0.1);
+
+//#ifdef DEBUG
+    auto finish = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+    std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
+//#endif
+    
 
 	// Stampa i pesi prodotti dalla rete su un file
-	nn.printWeightsOnFile("Weights.txt");
+	//nn.printWeightsOnFile("Weights.txt");
 
 	// Test
-	nn.predict(d.get());
+	/*nn.predict(d.get());
 
 	// Array contenente le predizioni
 	std::vector<uint8_t> predictions = nn.getPredictions();
 
 	// Stampare le predizioni
-	printLabels(predictions);	
+	printLabels(predictions);*/	
 	
 #ifdef _WIN32
 	system("pause");
