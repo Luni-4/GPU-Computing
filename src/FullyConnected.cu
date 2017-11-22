@@ -132,19 +132,21 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	CHECK_CUBLAS(
-		cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));
-
+		cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, _prevLayerDim,
+		            &alpha, prevOutput, 1, weight, _prevLayerDim, &beta, output, 1));
+    
+    // CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+	
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi senza bias\n\n";
 	pettyPrintCuda(output, _nodes, 1);
 #endif
 
-	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
-
 	// Somma con il bias
 	CHECK_CUBLAS(
-		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
+		cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));
+		
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -156,11 +158,11 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel::actReluK(1, _alignedNodes, output, _nodes);
+		Kernel::actReluK(_alignedNodes / THREADS, _alignedNodes, output, _nodes);
 	else if (_a == SIGMOID)
-		Kernel::actSigmoidK(1, _alignedNodes, output, _nodes);
+		Kernel::actSigmoidK(_alignedNodes / THREADS, _alignedNodes, output, _nodes);
 	else if (_a == TANH)
-		Kernel::actTanhK(1, _alignedNodes, output, _nodes);
+		Kernel::actTanhK(_alignedNodes / THREADS, _alignedNodes, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
