@@ -15,6 +15,10 @@
 #include "Test.h"
 #endif
 
+#ifdef TOYINPUT
+#include "ToyInput.h"
+#endif
+
 int main() {
 
 #ifdef DEBUG
@@ -29,9 +33,18 @@ int main() {
 
 	// Leggere i dati
 #ifdef _WIN32
+
 	std::unique_ptr<Data> d(new Mnist("../data/mnist/"));
+	
+#else
+
+#ifdef TOYINPUT
+    std::unique_ptr<Data> d(new ToyInput());
 #else
 	std::unique_ptr<Data> d(new Mnist("data/mnist/"));
+#endif
+
+
 #endif
 
 	// Vettore contenente i livelli della rete

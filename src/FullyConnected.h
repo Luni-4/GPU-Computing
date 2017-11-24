@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cuda_runtime.h>
-#include "cublas_v2.h"
+#include <cublas_v2.h>
 
 #include "LayerDefinition.h"
 
@@ -39,7 +39,8 @@ private:
 	int _wBytes;
 	int _nodes;
 	int _prevLayerDim;
-	int _alignedNodes;	
+	int _alignedNodes;
+	int _nStreams;	
 	
 	// Fattori dei prodotti
 	const double alpha = 1.0f;
@@ -53,5 +54,8 @@ private:
 
 	// Handle per cuBlas
 	cublasHandle_t handle;
+	
+	// Array di streams
+	cudaStream_t *streams;
 
 };

@@ -31,11 +31,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	setNetwork(data);
 
 	// Dimensione della singola immagine
-#ifdef TOYINPUT
-	_imgDim = 6;
-#else
 	_imgDim = data->getImgDimension();
-#endif
 
 	// Quantità di dati da allocare e copiare
 	_iBytes = _imgDim * sizeof(double);
@@ -46,17 +42,18 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
 	unsigned int imgIndex = 0;	
 	
-	for (int i = 0; i < _nImages; i++) { 
+	for (int i = 0; i < _nImages; i++) {
 
         // Copia dell'immagine corrente nel buffer
         CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
         forwardPropagation();
 
-        //backPropagation(i, learningRate);
+        backPropagation(i, learningRate);
 		
 		// Incrementare l'indice
-		imgIndex += _imgDim;	    
+		imgIndex += _imgDim;
+	    	    
 	}
 
 	// Cancellare i dati di train dal device
@@ -133,11 +130,7 @@ void Network::cudaDataLoad(Data *data) {
 
 void Network::cudaInitStruct(Data *data) {
 
-#ifdef TOYINPUT
-	_layers.front()->defineCuda(2, 1, 3);
-#else
 	_layers.front()->defineCuda(data->getImgWidth(), data->getImgHeight(), data->getImgDepth());
-#endif
 
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
 		auto pv = std::prev(it, 1);
