@@ -8,7 +8,7 @@
 #endif
 
 // Numero di threads in un blocco
-#define THREADS 64
+#define THREADS 32
 
 // Converte un numero intero al multiplo più vicino di 32
 #define ALIGN_UP(a) ((a + (THREADS - 1)) / THREADS) * THREADS
@@ -16,7 +16,7 @@
 namespace Kernel {
 	void initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states);
 
-	void initBiasK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states);
+	void initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandState *states);
 
 	void outputErrorK(dim3 b, dim3 t, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes);
 

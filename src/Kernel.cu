@@ -17,7 +17,7 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 
 	if (tid < wDim)
 #ifdef TOYINPUT
-		weight[tid] = 1.0;
+		weight[tid] = 1.0f;
 #else
 		weight[tid] = 0.4 * r;
 #endif
@@ -37,27 +37,29 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
+	/*curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
 	double r = curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
-		r = -r;
+		r = -r;*/
 
-	if (tid < node)
-#ifdef TOYINPUT
-		bias[tid] = 1.0;
-#else
-		bias[tid] = 0.4 * r;
-#endif
+	if (tid < node) {
+	    bias[tid] = 1;
+	}
+//#ifdef TOYINPUT
+		//bias[tid] = 1.0f;}
+//#else
+		//bias[tid] = 0.4 * r;
+//#endif
 }
 
-void Kernel::initBiasK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states) {
+void Kernel::initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandState *states) {
 #ifdef _WIN32
-	initBias NvCUDA2(b, t) (weight, wDim, states);
+	initBias NvCUDA2(b, t) (bias, wDim, states);
 #else
-	initBias << <b, t >> > (weight, wDim, states);
+	initBias << <b, t >> > (bias, wDim, states);
 #endif
 }
 
