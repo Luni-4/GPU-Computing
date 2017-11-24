@@ -28,19 +28,6 @@ void Mnist::readTrainData(void) {
 	if (_isTrain)
 		return;
 
-#ifdef TOYINPUT
-	data.resize(6);
-	std::fill(data.begin(), data.end(), 1.0);
-
-	std::cout << "\n\nVettore contenente una sola immagine\n\n";
-	printVector<double>(data, 3);
-
-	labels.resize(1);
-	std::fill(labels.begin(), labels.end(), 1);
-
-	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
-	printVector<uint8_t>(labels, 1);
-#else
     // Pulire i vettori e impostare i dati
     cleanSetData(nTrain_m);
     
@@ -49,7 +36,6 @@ void Mnist::readTrainData(void) {
 
 	// Leggere le etichette di train
 	readLabels(train_label_file_mnist, nTrain_m);
-#endif
 
 	// Lette le immagini di train ed il test deve essere zero
 	_isTrain = true;
