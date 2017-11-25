@@ -196,7 +196,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel::actReluK(1, _alignedNodes, output, _nodes);
+		Kernel::actReluK(1, _alignedNodes, output, temp, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::actSigmoidK(1, _alignedNodes, output, _nodes);
 	else if (_a == TANH)
@@ -274,7 +274,7 @@ void FullyConnected::calcBackPropagation(const double *prevOutput, const double 
 
     // Applicare derivata della funzione di attivazione
 	if (_a == RELU)
-		Kernel::derivActReluK(_alignedNodes / THREADS, _alignedNodes, output, error, _nodes);
+		Kernel::derivActReluK(_alignedNodes / THREADS, _alignedNodes, output, error, temp, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::derivActSigmoidK(_alignedNodes / THREADS, _alignedNodes, output, error, _nodes);
 	else if (_a == TANH)

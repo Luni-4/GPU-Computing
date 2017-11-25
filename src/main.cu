@@ -8,7 +8,7 @@
 #include "Mnist.h"
 #include "Cifar.h"
 #include "FullyConnected.h"
-#include "Convolutional.h"
+//#include "Convolutional.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -53,7 +53,7 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 	//layers.emplace_back(new FullyConnected(10, SIGMOID));
 #else
 	layers.emplace_back(new FullyConnected(300, SIGMOID));

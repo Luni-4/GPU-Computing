@@ -37,22 +37,20 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	// Sequenza di rand diversa per ogni thread
-	/*curand_init(tid, 0, 0, &states[tid]);
+	curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
 	double r = curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
-		r = -r;*/
+		r = -r;
 
-	if (tid < node) {
-	    bias[tid] = 1;
-	}
-//#ifdef TOYINPUT
-		//bias[tid] = 1.0f;}
-//#else
-		//bias[tid] = 0.4 * r;
-//#endif
+	if (tid < node)
+#ifdef TOYINPUT
+        bias[tid] = 1.0f;
+#else
+		bias[tid] = 0.4 * r;
+#endif
 }
 
 void Kernel::initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandState *states) {
@@ -93,37 +91,39 @@ void Kernel::outputErrorK(dim3 b, dim3 t, const double *output, double *error, c
 
 /* Funzione di attivazione del Sigmoide e derivata */
 
-__global__ void actRelu(double *output, const int node) {
+__global__ void actRelu(double *output, double *temp, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (tid < node)
+	if (tid < node) {
+	    temp[tid] = output[tid];
 		output[tid] = log(1 + exp((output[tid])));
+	}
 }
 
-__global__ void derivActRelu(const double *output, double *error, const int node) {
+__global__ void derivActRelu(const double *output, double *error, double *temp, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node)
-		error[tid] = error[tid] * (1 / (1 + (exp((-output[tid])))));
+		error[tid] = error[tid] * (1 / (1 + (exp((-temp[tid])))));
 }
 
-void Kernel::actReluK(dim3 b, dim3 t, double *output, const int &nodes) {
+void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &nodes) {
 #ifdef _WIN32
-	actRelu NvCUDA2(b, t) (output, nodes);
+	actRelu NvCUDA2(b, t) (output, temp, nodes);
 #else
-	actRelu << <b, t >> > (output, nodes);
+	actRelu << <b, t >> > (output, temp, nodes);
 #endif 
 }
 
-void Kernel::derivActReluK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
+void Kernel::derivActReluK(dim3 b, dim3 t, const double *output, double *error, double *temp, const int &nodes) {
 #ifdef _WIN32
-	derivActRelu NvCUDA2(b, t) (output, error, nodes);
+	derivActRelu NvCUDA2(b, t) (output, error, temp, nodes);
 #else
-	derivActRelu << <b, t >> > (output, error, nodes);
+	derivActRelu << <b, t >> > (output, error, temp, nodes);
 #endif 
 }
 
@@ -166,8 +166,6 @@ void Kernel::derivActSigmoidK(dim3 b, dim3 t, const double *output, double *erro
 }
 
 
-
-
 /* Funzione di attivazione della Tanh e derivata */
 
 __global__ void actTanh(double *output, const int node) {
@@ -185,7 +183,7 @@ __global__ void derivActTanh(const double *output, double *error, const int node
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node)
-		error[tid] = error[tid] * (1 - pow(tanh(output[tid]), 2));
+		error[tid] = error[tid] * (1 - pow(output[tid], 2));
 }
 
 void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes) {
