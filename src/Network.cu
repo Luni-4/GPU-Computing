@@ -49,7 +49,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
         forwardPropagation();
 
-        backPropagation(i, learningRate);
+        //backPropagation(i, learningRate);
 		
 		// Incrementare l'indice
 		imgIndex += _imgDim;
@@ -59,6 +59,8 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Cancellare i dati di train dal device
 	CHECK(cudaFree(cudaData));
 	CHECK(cudaFree(cudaLabels));
+	
+	cudaClearAll();
 
 }
 

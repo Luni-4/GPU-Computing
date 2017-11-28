@@ -65,14 +65,15 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	cudaDeviceSetCacheConfig(cudaFuncCachePreferShared);
 	
 	// Numero degli stream
-	//_nStreams = 15;
+	_nStreams = 10;
 	
 	// Creazione degli stream
-	//streams = (cudaStream_t *)malloc(_nStreams * sizeof(cudaStream_t));
+	streams = (cudaStream_t *)malloc(_nStreams * sizeof(cudaStream_t));
 	
-	/*for(int i = 0; i < _nStreams; i++) {
+	for(int i = 0; i < _nStreams; i++) {
 		CHECK(cudaStreamCreate(&(streams[i])));
-	}*/
+		//CHECK(cudaStreamCreateWithFlags(&streams[i],cudaStreamNonBlocking));
+	}
 
 	// Dimensione matrice dei pesi
 	_wDim = prevLayerWidth * prevLayerHeight * prevLayerDepth * _nodes;
@@ -143,18 +144,22 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 
 void FullyConnected::forward_propagation(const double *prevOutput) {
+   
+   const int matrix = _nodes / _nStreams;
     
-   /* for(int i = 0; i < _nStreams; i++) {
-        CHECK_CUBLAS(cublasSetStream(handle,streams[i]));    
+   for(int i = 0; i < _nStreams; i++) {
+        int indexW = i * matrix * _prevLayerDim;
+        int indexO = i * matrix;
+        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));    
         CHECK_CUBLAS(
-               cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nStreams, &alpha, weight + (i * _nStreams), _prevLayerDim, prevOutput, 1, &beta, output + (i * _nStreams), 1));
-    //}*/
+               cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, matrix, &alpha, weight + indexW, _prevLayerDim, prevOutput, 1, &beta, output + indexO, 1));
+    }
     
-    CHECK_CUBLAS(
-        cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));
+    /*CHECK_CUBLAS(
+        cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));*/
         
     // CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+	//CHECK(cudaDeviceSynchronize());
     
     /*for(int i = 0; i < _nStreams; i++) {
         CHECK(cudaStreamSynchronize(streams[i]));    
@@ -171,7 +176,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 		            &alpha, prevOutput, 1, 0,
 		            weight, _prevLayerDim, _prevLayerDim * 30, &beta,
 		            output, 1, 30,
-		            10));*/
+		            10));
 	
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi senza bias\n\n";
@@ -187,7 +192,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 		
 
 	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+	//CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con bias sommato\n\n";
@@ -196,11 +201,11 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel::actReluK(1, _alignedNodes, output, temp, _nodes);
+		Kernel::actReluK(_alignedNodes / THREADS, _alignedNodes, output, temp, _nodes);
 	else if (_a == SIGMOID)
-		Kernel::actSigmoidK(1, _alignedNodes, output, _nodes);
+		Kernel::actSigmoidK(_alignedNodes / THREADS, _alignedNodes, output, _nodes);
 	else if (_a == TANH)
-		Kernel::actTanhK(1, _alignedNodes, output, _nodes);
+		Kernel::actTanhK(_alignedNodes / THREADS, _alignedNodes, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -208,7 +213,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con funzione di attivazione\n\n";
 	pettyPrintCuda(output, _nodes, 1);
-#endif
+#endif*/
 }
 
 void FullyConnected::back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) {
@@ -256,9 +261,9 @@ void FullyConnected::deleteCuda(void) {
 
 	CHECK_CUBLAS(cublasDestroy(handle));
 	
-	/*for(int i = 0; i < _nStreams; i++){
+	for(int i = 0; i < _nStreams; i++){
 		CHECK(cudaStreamDestroy(streams[i]));
-	}*/
+	}
 	
 	CHECK(cudaFree(weight));
 	CHECK(cudaFree(bias));
@@ -266,7 +271,7 @@ void FullyConnected::deleteCuda(void) {
 	CHECK(cudaFree(error));
 	CHECK(cudaFree(temp));
 	
-	//free(streams);
+	free(streams);
 	
 }
 
