@@ -231,7 +231,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel::actReluK((_alignedNodes / THREADS), THREADS, output, _nodes);
+		Kernel::actReluK((_alignedNodes / THREADS), THREADS, output, temp, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::actSigmoidK((_alignedNodes / THREADS), THREADS, output, _nodes);
 	else if (_a == TANH)
@@ -344,11 +344,11 @@ void Convolutional::calcBackPropagation(const double *prevOutput, const double &
 
 	// Applicare derivata della funzione di attivazione
 	if (_a == RELU)
-		Kernel::derivActReluK(1, _alignedNodes, output, error, _nodes);
+		Kernel::derivActReluK((_alignedNodes / THREADS), THREADS, output, error, temp, _nodes);
 	else if (_a == SIGMOID)
-		Kernel::derivActSigmoidK(1, _alignedNodes, output, error, _nodes);
+		Kernel::derivActSigmoidK((_alignedNodes / THREADS), THREADS, output, error, _nodes);
 	else if (_a == TANH)
-		Kernel::derivActTanhK(1, _alignedNodes, output, error, _nodes);
+		Kernel::derivActTanhK((_alignedNodes / THREADS), THREADS, output, error, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());

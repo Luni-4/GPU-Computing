@@ -47,7 +47,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 
 	if (tid < node)
 #ifdef TOYINPUT
-        bias[tid] = 1.0f;
+		bias[tid] = 1.0f;
 #else
 		bias[tid] = 0.4 * r;
 #endif
@@ -97,7 +97,7 @@ __global__ void actRelu(double *output, double *temp, const int node) {
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node) {
-	    temp[tid] = output[tid];
+		temp[tid] = output[tid];
 		output[tid] = log(1 + exp((output[tid])));
 	}
 }

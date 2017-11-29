@@ -13,10 +13,10 @@
 
 Network::Network(const std::vector<std::unique_ptr<LayerDefinition>> &layers)
 	: _nImages(0),
-	  _imgDim(0),
-	  _iBytes(0),
-	  _testRight(0),
-	  _isPredict(false) {
+	_imgDim(0),
+	_iBytes(0),
+	_testRight(0),
+	_isPredict(false) {
 
 	for (auto& l : layers)
 		_layers.push_back(l.get());
@@ -38,28 +38,29 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 	// Allocare il buffer di input della singola coppia (etichetta,immagine)
 	CHECK(cudaMalloc((void**)&inputImg, _iBytes));
-	
+
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
-	unsigned int imgIndex = 0;	
-	
+	unsigned int imgIndex = 0;
+
 	for (int i = 0; i < _nImages; i++) {
 
-        // Copia dell'immagine corrente nel buffer
-        CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
+		// Copia dell'immagine corrente nel buffer
+		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
-        forwardPropagation();
+		forwardPropagation();
 
-        //backPropagation(i, learningRate);
-		
+		backPropagation(i, learningRate);
+		return;
+
 		// Incrementare l'indice
 		imgIndex += _imgDim;
-	    	    
+
 	}
 
 	// Cancellare i dati di train dal device
 	CHECK(cudaFree(cudaData));
 	CHECK(cudaFree(cudaLabels));
-	
+
 	cudaClearAll();
 
 }
@@ -91,10 +92,10 @@ void Network::predict(Data *data) {
 
 		predictLabel(i, labels[i]);
 	}
-	
+
 	// Stampare risultati ottenuti in fase di test
 	printNetworkError(data->getLabelSize());
-	
+
 	// Cancellare il vettore contenente le labels
 	data->clearLabels();
 
@@ -248,14 +249,14 @@ inline void Network::predictLabel(const int &index, const uint8_t &label) {
 }
 
 inline void Network::printNetworkError(const int &nImages) {
-    
-    // Calcolare accuratezza
-    double accuracy = (static_cast<double>(_testRight)/nImages) * 100;
-    
-    // Stampare numero di errori commessi
-    std::cout << "Immagini classificate correttamente: " << _testRight << std::endl;
-    std::cout << "Immagini classificate scorrettamente: " << nImages - _testRight << std::endl;
-    std::cout << "Accuratezza della rete: " << accuracy << std::endl;
+
+	// Calcolare accuratezza
+	double accuracy = (static_cast<double>(_testRight) / nImages) * 100;
+
+	// Stampare numero di errori commessi
+	std::cout << "Immagini classificate correttamente: " << _testRight << std::endl;
+	std::cout << "Immagini classificate scorrettamente: " << nImages - _testRight << std::endl;
+	std::cout << "Accuratezza della rete: " << accuracy << std::endl;
 }
 
 inline void Network::cudaClearAll(void) {
