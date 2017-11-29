@@ -3,12 +3,12 @@
 inline void printDataInformation(Data *d) {
     
     // Informazioni sui dati
-	std::cout << "Width: " << d->getImgWidth() << std::endl;
+	/*std::cout << "Width: " << d->getImgWidth() << std::endl;
 	std::cout << "Height: " << d->getImgHeight() << std::endl;
 	std::cout << "Depth: " << d->getImgDepth() << std::endl;
 	std::cout << "Image Dimension: " << d->getImgDimension() << std::endl;
 	
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 	
 	auto dataSize = d->getDataSize();
 	auto labelSize = d->getLabelSize();
@@ -16,11 +16,11 @@ inline void printDataInformation(Data *d) {
 	std::cout << "Data Dimension: " << dataSize << std::endl;
 	std::cout << "Label Dimension: " << labelSize << std::endl;
 	
-	printInputData(d->getData(), dataSize);
+	//printInputData(d->getData(), dataSize);
 	
-	std::cout << std::endl << std::endl;
+	//std::cout << std::endl << std::endl;
 	
-	printInputLabels(d->getLabels(), labelSize);	
+	//printInputLabels(d->getLabels(), labelSize);	
 }
 
 void test_mnist_input() {
@@ -29,24 +29,33 @@ void test_mnist_input() {
 
 	// Lettura dati di training
 	d->readTrainData();
-	
-	//printDataInformation(d);
 
 	delete d;
 }
 
-void test_cifar_input() {
+void test_cifar10_input() {
 	// Leggere i dati
 	Data* d = new Cifar("data/cifar/cifar10/");
 
 	// Lettura dati di training
 	d->readTrainData();
 	
-	//printDataInformation(d);
-	
+	printDataInformation(d);
+
 	delete d;
 }
 
+void test_cifar100_input() {
+	// Leggere i dati
+	Data* d = new Cifar("data/cifar/cifar100/", false);
+
+	// Lettura dati di training
+	d->readTrainData();
+	
+	//printDataInformation(d);
+
+	delete d;
+}
 
 void test_fully() {
 	LayerDefinition* layer = new FullyConnected(10, RELU);

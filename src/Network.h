@@ -14,20 +14,22 @@ public:
 	void train(Data *data, const int &epoch, const double &learningRate);
 	void predict(Data *data);
 	
-	inline std::vector<uint8_t> getPredictions(void) const { return _predictions; }
-	inline int getTestError(void) const { return _testError; } 
 	void printWeightsOnFile(const std::string &filename);
+	
+	inline std::vector<uint8_t> getPredictions(void) const { return _predictions; }
+	inline int getTestRight(void) const { return _testRight; } 
 
 private:
 	void cudaDataLoad(Data *data);
 	void cudaInitStruct(Data *data);
-	void setNetwork(Data *data);
-	void predictLabel(const int &index, const uint8_t &label);
-
+	
 	void forwardPropagation(void);
 	void backPropagation(const int &target, const double &learningRate);
 	
-    void cudaClearAll(void);
+	inline void setNetwork(Data *data);
+    inline void predictLabel(const int &index, const uint8_t &label);
+    inline void printNetworkError(const int &nImages);
+    inline void cudaClearAll(void);
 
 private:
 	std::vector<LayerDefinition*> _layers;
@@ -35,7 +37,7 @@ private:
 	int _nImages;
 	int _imgDim;
 	int _iBytes;
-	int _testError;
+	int _testRight;
 	bool _isPredict;
 	
 	// Cuda

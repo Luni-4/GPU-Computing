@@ -6,8 +6,10 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include <fstream>
 #include <ctime>
+#include <chrono>
 
 #define CHECK(call)                                                            \
 {                                                                              \
@@ -112,14 +114,12 @@ inline void printLabels(std::vector<uint8_t> &a) {
 
 
 inline void getTime(void(*func)(void), const std::string &fname) {
-	clock_t begin = clock();
+	auto start = std::chrono::high_resolution_clock::now();
 
 	func();
 
-	clock_t end = clock();
-	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-
-	std::cout << fname.c_str() << " eseguita in " << elapsed_secs << std::endl;
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::cout << fname << " eseguita in " << (finish - start).count() << std::endl;
 }
 
 

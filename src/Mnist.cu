@@ -2,22 +2,23 @@
 #include "Windows.h"
 #endif
 
-#ifdef DEBUG
+#ifdef TOYINPUT
 #include "Common.h"
 #endif
 
 #include <iostream>
 #include <fstream>
+#include <iterator>
 #include <algorithm>
 
 #include "Mnist.h"
 
-Mnist::Mnist(const std::string &filename)
-	: _filename(filename),
+Mnist::Mnist(const std::string &filePath)
+	: _filePath(filePath),
 	_isTrain(false),
 	_isTest(false) {
 
-	_imgDim = imgHeight * imgWidth;
+	_imgDim = imgHeight_m * imgWidth_m;
 }
 
 Mnist::~Mnist() {
@@ -28,28 +29,14 @@ void Mnist::readTrainData(void) {
 	if (_isTrain)
 		return;
 
-#ifdef TOYINPUT
-	data.reserve(6);
-	std::fill(data.begin(), data.end(), 1.0);
-
-	std::cout << "\n\nVettore contenente una sola immagine\n\n";
-	printVector<double>(data, 3);
-
-	labels.reserve(1);
-	std::fill(labels.begin(), labels.end(), 1);
-
-	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
-	printVector<uint8_t>(labels, 1);
-#else
 	// Pulire i vettori e impostare i dati
-	cleanSetData();
+	cleanSetData(nTrain_m);
 
 	// Leggere le immagini di train
-	readImages(train_image_file_mnist);
+	readImages(train_image_file_mnist, nTrain_m);
 
 	// Leggere le etichette di train
-	readLabels(train_label_file_mnist);
-#endif
+	readLabels(train_label_file_mnist, nTrain_m);
 
 	// Lette le immagini di train ed il test deve essere zero
 	_isTrain = true;
@@ -63,13 +50,13 @@ void Mnist::readTestData(void) {
 		return;
 
 	// Pulire i vettori e impostare i dati
-	cleanSetData();
+	cleanSetData(nTest_m);
 
 	// Leggere le immagini di test
-	readImages(test_image_file_mnist);
+	readImages(test_image_file_mnist, nTest_m);
 
 	// Leggere le etichette di test
-	readLabels(test_label_file_mnist);
+	readLabels(test_label_file_mnist, nTest_m);
 
 	// Lette le immagini di test ed il train deve essere zero
 	_isTest = true;
@@ -77,15 +64,14 @@ void Mnist::readTestData(void) {
 }
 
 
-void Mnist::readImages(const std::string &datafile) {
-
+void Mnist::readImages(const std::string &fileName, const uint32_t &nImages) {
 	// Vettore contenente i pixel
 	std::vector<uint8_t> pixel;
 
 	// Numero di immagini
 	const int nSize = nImages * _imgDim;
 
-	std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary);
+	std::ifstream ifs((_filePath + fileName).c_str(), std::ios::in | std::ios::binary);
 
 	if (!ifs.is_open()) {
 		std::cerr << "Errore nell'apertura dei dati!!" << std::endl;
@@ -111,9 +97,9 @@ void Mnist::readImages(const std::string &datafile) {
 	ifs.close();
 }
 
-void Mnist::readLabels(const std::string &datafile) {
+void Mnist::readLabels(const std::string &fileName, const uint32_t &nImages) {
 
-	std::ifstream ifs((_filename + datafile).c_str(), std::ios::in | std::ios::binary);
+	std::ifstream ifs((_filePath + fileName).c_str(), std::ios::in | std::ios::binary);
 
 	if (!ifs.is_open()) {
 		std::cerr << "Errore nell'apertura delle labels!!" << std::endl;
@@ -132,7 +118,7 @@ void Mnist::readLabels(const std::string &datafile) {
 	ifs.close();
 }
 
-inline void Mnist::cleanSetData(void) {
+inline void Mnist::cleanSetData(const uint32_t &nImages) {
 
 	// Ripulire i dati
 	clearData();
