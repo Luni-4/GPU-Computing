@@ -16,8 +16,8 @@ Mnist::Mnist(const std::string &filename)
 	: _filename(filename),
 	_isTrain(false),
 	_isTest(false) {
-    
-    _imgDim = imgHeight * imgWidth;
+
+	_imgDim = imgHeight * imgWidth;
 }
 
 Mnist::~Mnist() {
@@ -41,9 +41,9 @@ void Mnist::readTrainData(void) {
 	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
 	printVector<uint8_t>(labels, 1);
 #else
-    // Pulire i vettori e impostare i dati
-    cleanSetData();
-    
+	// Pulire i vettori e impostare i dati
+	cleanSetData();
+
 	// Leggere le immagini di train
 	readImages(train_image_file_mnist);
 
@@ -61,7 +61,7 @@ void Mnist::readTrainData(void) {
 void Mnist::readTestData(void) {
 	if (_isTest)
 		return;
-	
+
 	// Pulire i vettori e impostare i dati
 	cleanSetData();
 
@@ -78,10 +78,10 @@ void Mnist::readTestData(void) {
 
 
 void Mnist::readImages(const std::string &datafile) {
-	
+
 	// Vettore contenente i pixel
 	std::vector<uint8_t> pixel;
-	
+
 	// Numero di immagini
 	const int nSize = nImages * _imgDim;
 
@@ -92,21 +92,21 @@ void Mnist::readImages(const std::string &datafile) {
 		exit(1);
 	}
 
-	/* 
+	/*
 	   Leggere Magic Number (4 bytes)
 	   Leggere numero massimo di immagini (4 bytes)
 	   Leggere larghezza immagini (4 bytes)
-	   Leggere altezza immagini (4 bytes)	
-	*/	
-	ifs.ignore(16);	
-	
+	   Leggere altezza immagini (4 bytes)
+	*/
+	ifs.ignore(16);
+
 	// Lettura dell'immagine
-	std::copy_n(std::istreambuf_iterator<char>(ifs), nSize, std::back_inserter(pixel)); 
-	
+	std::copy_n(std::istreambuf_iterator<char>(ifs), nSize, std::back_inserter(pixel));
+
 	// Assegnare i valori a data
 	for (std::size_t i = 0; i < pixel.size(); i++)
-	    data[i] = (static_cast<double>(pixel[i]) - 127) / 128;
-	
+		data[i] = (static_cast<double>(pixel[i]) - 127) / 128;
+
 	// Chiudere il file
 	ifs.close();
 }
@@ -119,15 +119,15 @@ void Mnist::readLabels(const std::string &datafile) {
 		std::cerr << "Errore nell'apertura delle labels!!" << std::endl;
 		exit(1);
 	}
-	
-	/* 
+
+	/*
 	   Leggere Magic Number (4 bytes)
 	   Leggere numero massimo di labels (4 bytes)
 	*/
 	ifs.ignore(8);
-	
+
 	// Lettura delle labels
-	std::copy_n(std::istreambuf_iterator<char>(ifs), nImages, std::back_inserter(labels)); 
+	std::copy_n(std::istreambuf_iterator<char>(ifs), nImages, std::back_inserter(labels));
 
 	ifs.close();
 }
@@ -142,7 +142,7 @@ inline void Mnist::cleanSetData(void) {
 
 	// Dimensione dei dati (training o test)
 	data.resize(_imgDim * nImages);
-	
+
 	// Dimensione delle labels (training o test)
 	labels.reserve(nImages);
 }

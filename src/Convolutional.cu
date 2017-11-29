@@ -38,6 +38,23 @@ void createSubmatrixK(dim3 b, dim3 t, double * sub, const double * prevOutput, c
 #endif
 }
 
+__global__ void zeroPadding(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+	//blockIdx.y rappresenta la riga 
+	const unsigned int p = forwardFilterWidth - 1;
+	const unsigned int d = forwardErrorWidth + (p * 2);
+	const unsigned int tid = ((blockIdx.y + p) * d) + p;
+
+	memcpy((error + tid), (forwardError + blockIdx.y * forwardErrorWidth), (forwardErrorWidth * sizeof(double)));
+}
+
+void zeroPaddingK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+#ifdef _WIN32
+	zeroPadding NvCUDA2(b, t) (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+#else
+	zeroPadding << <b, t >> > (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+#endif
+}
+
 Convolutional::Convolutional(const int &filterWidth, const int &depth, const int &stride, const ActFctType &a)
 	: LayerDefinition(0, 0, depth, CONVOLUTIONAL, a) {
 	this->_filterWidth = filterWidth;
@@ -50,16 +67,29 @@ Convolutional::Convolutional(const int &filterWidth, const int &depth, const int
 Convolutional::~Convolutional() {
 }
 
+// TEST
 std::vector<double> Convolutional::getWeights() {
-	return std::vector<double>();
+	std::vector<double> wCPU(_wDim);
+	CHECK(cudaMemcpy(&wCPU[0], weight, _wBytes, cudaMemcpyDeviceToHost));
+	return wCPU;
 }
 
+// TEST
 std::vector<double> Convolutional::getBias() {
-	return std::vector<double>();
+	std::vector<double> bCPU(_nodes);
+	CHECK(cudaMemcpy(&bCPU[0], bias, _nodes * sizeof(double), cudaMemcpyDeviceToHost));
+	return bCPU;
 }
 
+// TEST
 uint8_t Convolutional::getPredictionIndex(void) {
-	return uint8_t();
+	int maxIndex;
+
+	// Individuare indice (classe) che corrisponde al valore massimo di output
+	CHECK_CUBLAS(
+		cublasIdamax(handle, _nodes, output, 1, &maxIndex));
+
+	return maxIndex;
 }
 
 void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
@@ -68,9 +98,9 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 
 	//numero di nodi dipende da filtro e nodi livello precedente
 	//width
-	_width = _calcOutput(prevLayerWidth, false);
+	_width = _calcOutput(false);
 	//height
-	_height = _calcOutput(prevLayerHeight, false);
+	_height = _calcOutput(false);
 	//depth = numero di filtri
 
 	this->_nodes = _width * _height * _depth;
@@ -166,6 +196,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	dim3 numBlocks(_width, _height, 1);
 
 	createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, uniqueNodes);
+
 	CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
@@ -218,10 +249,189 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 }
 
 void Convolutional::back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) {
+
+	const int forwardErrorWidth = 20;
+	const int forwardFilterWidth = 5;
+	const int forwardStride = 1;
+	const int forwardDepth = 1;
+
+#ifdef DEBUG
+	std::cout << "\n\nForward error\n\n";
+	printFromCudaFormatted(forwardError, forwardErrorWidth * forwardErrorWidth, forwardErrorWidth);
+#endif
+
+	// matrice temporanea inizializzata a 0 per zero padding
+	double *padding;
+	const int pBytes = (forwardFilterWidth - 1) * 2 + forwardErrorWidth;
+	CHECK(cudaMalloc((void**)&padding, pBytes * pBytes * sizeof(double)));
+	CHECK(cudaMemset(padding, 0, pBytes * pBytes * sizeof(double)));
+
+	// Blocchi bidimensionali contenenti tanti thread quanti il numero di filtri
+	dim3 threadBlocks(_depth, 1, 1);//????????????????????????????
+
+	// Tanti blocchi quante sono le righe di forwardError, in questo modo nel kernel sfrutto gli id.y per righe
+	dim3 numBlocks(1, forwardErrorWidth, 1);
+
+	zeroPaddingK(numBlocks, threadBlocks, padding, forwardError, forwardErrorWidth, forwardFilterWidth);
+
+#ifdef DEBUG
+	std::cout << "\n\nForward error con zero padding\n\n";
+	printFromCudaFormatted(padding, pBytes * pBytes, pBytes);
+#endif
+
+	double *sub; // Submatrici
+
+	// Dimensione insieme submatrici in byte = creo una submatrice per ogni nodo di output
+	const int uniqueNodes = _width * _height;
+	const int forwardFilterDim = forwardFilterWidth * forwardFilterWidth;
+	const unsigned int subBytes = uniqueNodes * forwardFilterDim * sizeof(double);
+
+	// Alloco submatrice
+	CHECK(cudaMalloc((void**)&sub, subBytes));
+
+	// Blocchi bidimensionali contenenti tanti thread quanti il depth del livello precedente
+	threadBlocks = dim3(_prevLayerDepth, 1, 1);
+
+	// Tanti blocchi quanti sono i nodi in output (width * height), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
+	numBlocks = dim3(_width, _height, 1);
+
+	createSubmatrixK(numBlocks, threadBlocks, sub, padding, pBytes, forwardFilterWidth, forwardStride, uniqueNodes);
+
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nValore submatrici zero padding\n\n";
+	printFromCudaFormatted(sub, uniqueNodes * forwardFilterDim, forwardFilterWidth);
+#endif
+
+	//ora sono in una situazione simile alla convoluzione
+	for (int i = 0; i < _depth; i++) { //?????????????????????????????
+		CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, forwardFilterDim, uniqueNodes, &alpha, sub, forwardFilterDim, forwardWeight + (i * forwardFilterDim), 1, &beta, error + (i * uniqueNodes), 1));
+	}
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
+	printFromCudaFormatted(error, _nodes, _width);
+#endif
+
+	CHECK(cudaFree(sub));
+	CHECK(cudaFree(padding));
+
+	// Calcolo della Back Propagation
+	calcBackPropagation(prevOutput, learningRate);
 }
 
-void Convolutional::back_propagation_output(const double * prev, const uint8_t * labels, const int & target, const double & learningRate) {
+void Convolutional::back_propagation_output(const double * prevOutput, const uint8_t * labels, const int & target, const double & learningRate) {
+	// Calcolo dell'errore per ogni nodo
+	Kernel::outputErrorK((_alignedNodes / THREADS), THREADS, output, error, labels, target, _nodes);
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nErrore commesso sui nodi back propagation output\n\n";
+	printFromCudaFormatted(error, _nodes, _width);
+#endif
+
+	// Calcolo della Back Propagation
+	calcBackPropagation(prevOutput, learningRate);
 }
+
+void Convolutional::calcBackPropagation(const double *prevOutput, const double &learningRate) {
+
+	// Applicare derivata della funzione di attivazione
+	if (_a == RELU)
+		Kernel::derivActReluK(1, _alignedNodes, output, error, _nodes);
+	else if (_a == SIGMOID)
+		Kernel::derivActSigmoidK(1, _alignedNodes, output, error, _nodes);
+	else if (_a == TANH)
+		Kernel::derivActTanhK(1, _alignedNodes, output, error, _nodes);
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nErrore commesso sui nodi con relativa derivata\n\n";
+	printFromCudaFormatted(error, _nodes, _width);
+#endif
+
+	// Aggiornare i pesi (da mettere in funzione)    
+	updateWeights(prevOutput, learningRate);
+}
+
+void Convolutional::updateWeights(const double *prevOutput, const double &learningRate) {
+
+	double *sub; // Submatrici
+
+	// Dimensione insieme submatrici in byte = creo una submatrice per ogni nodo di filtro
+	//(prima genero sottomatrici grandi quanto _filterDim e ne genero tante quante uniqueNodes,
+	// ora genero sottomatrici grandi quanto uniqueNodes e ne genero tante quante _filterDim)
+	int uniqueNodes = _width * _height;
+	const unsigned int subBytes = uniqueNodes * _filterDim * sizeof(double);
+
+	// Alloco submatrice
+	CHECK(cudaMalloc((void**)&sub, subBytes));
+
+	// Blocchi bidimensionali contenenti tanti thread quanti il numero di filtri
+	dim3 threadBlocks(_depth, 1, 1);
+
+	// Tanti blocchi quanti sono i nodi dei filtri (_filterWidth * _filterWidth), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
+	dim3 numBlocks(_filterWidth, _filterWidth, 1);
+
+	createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _width, _stride, _filterDim);
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nValore submatrici backpropagation\n\n";
+	printFromCudaFormatted(sub, uniqueNodes * _filterDim, _width);
+#endif
+
+	// Riempire la matrice temporanea di 0
+	CHECK(cudaMemset(temp, 0, _wBytes));
+
+	//ora sono in una situazione simile al fully connected
+	for (int i = 0; i < _depth; i++) {
+		CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, uniqueNodes, _filterDim, &alpha, sub, uniqueNodes, error + (i * uniqueNodes), 1, &beta, temp + (i * _filterDim), 1));
+	}
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
+	printFromCudaFormatted(temp, _wDim, _filterWidth);
+#endif
+
+	// Aggiornamento effettivo dei pesi 
+	CHECK_CUBLAS(
+		cublasDaxpy(handle, _wDim, &learningRate, temp, 1, weight, 1));
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nMatrice dei pesi aggiornata\n\n";
+	printFromCudaFormatted(weight, _wDim, _filterWidth);
+#endif
+
+	// Aggiornamento del bias 
+	CHECK_CUBLAS(
+		cublasDaxpy(handle, _nodes, &learningRate, error, 1, bias, 1));
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nVettore del bias aggiornato\n\n";
+	printFromCudaFormatted(bias, _nodes, _width);
+#endif
+
+	CHECK(cudaFree(sub));
+}
+
 
 void Convolutional::deleteCuda() {
 	CHECK_CUBLAS(cublasDestroy(handle));
@@ -232,16 +442,18 @@ void Convolutional::deleteCuda() {
 	CHECK(cudaFree(temp));
 }
 
-int Convolutional::_calcOutput(int prevLayerWidth, bool withPadding) {
+int Convolutional::_calcOutput(bool withPadding) {
 	//PER ORA NON CONSIDERATO CASO IN CUI SI GENERANO ERRORI (padding numero non intero, filtro più grande dell'input, stride che non combacia, ecc)
-	if (_filterWidth > prevLayerWidth) {
+	if (_filterWidth > _prevLayerWidth) {
 		std::cerr << "Le dimensioni del filtro superano le dimensioni del livello precedente!!" << std::endl;
 		exit(1);
 	}
 
 	if (withPadding) {
 		_padding = (_filterWidth - 1) / 2;
-		return prevLayerWidth;
+		return _prevLayerWidth;
 	}
-	return ((prevLayerWidth - _filterWidth + 0) / _stride) + 1;
+
+	//+(_stride - 1)) serve per aggiornare per eccesso
+	return ((_prevLayerWidth - _filterWidth + (_stride - 1)) / _stride) + 1;
 }

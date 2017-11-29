@@ -54,6 +54,9 @@ private:
 	// Handle per cuBlas
 	cublasHandle_t handle;
 
-	int _calcOutput(int prevLayerWidth, bool withPadding);
+private:
+	void updateWeights(const double *prevOutput, const double &learningRate);
+	void calcBackPropagation(const double *prevOutput, const double &learningRate);
+	int _calcOutput(bool withPadding);
 };
 
