@@ -115,11 +115,11 @@ void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &n
     for(int i = 0; i < nStreams; i++) {
         int indexO = i * t.x;
 #ifdef _WIN32
-	    actRelu NvCUDA2(b, t, 0, streams[i]) (output + indexO, temp + indexO, nodes);
+	    actRelu NvCUDA4(b, t, 0, streams[i]) (output + indexO, temp + indexO, nodes);
 #else
-	    actRelu << <b, t, 0, streams[i] >> > (output + indexO, temp + indexO, nodes);
-    }
-#endif 
+	    actRelu << <b, t, 0, streams[i] >> > (output + indexO, temp + indexO, nodes);    
+#endif
+    } 
 }
 
 void Kernel::derivActReluK(dim3 b, dim3 t, const double *output, double *error, double *temp, const int &nodes) {
@@ -156,7 +156,7 @@ void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes, const
     for(int i = 0; i < nStreams; i++) {
         int indexO = i * t.x;
 #ifdef _WIN32
-	    actSigmoid NvCUDA2(b, t, 0, streams[i]) (output + indexO, nodes);
+	    actSigmoid NvCUDA4(b, t, 0, streams[i]) (output + indexO, nodes);
 #else
 	    actSigmoid << <b, t, 0, streams[i] >> > (output + indexO, nodes);
 #endif
@@ -196,7 +196,7 @@ void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes, const cu
     for(int i = 0; i < nStreams; i++) {
         int indexO = i * t.x;
 #ifdef _WIN32
-	    actTanh NvCUDA2(b, t, 0, streams[i]) (output + indexO, nodes);
+	    actTanh NvCUDA4(b, t, 0, streams[i]) (output + indexO, nodes);
 #else
 	    actTanh << <b, t, 0, streams[i] >> > (output + indexO, nodes);
 #endif
