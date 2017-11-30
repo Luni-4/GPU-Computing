@@ -65,7 +65,13 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	cudaDeviceSetCacheConfig(cudaFuncCachePreferShared);
 	
 	// Numero degli stream
-	_nStreams = 5;
+	_nStreams = 4;
+	
+	// Numero di elementi che uno stream deve elaborare
+	_matrix = _nodes / _nStreams;
+	
+	// Numero di elementi elaborati da uno stream come multipli di THREADS
+    _alignedMatrix = ALIGN_UP(_matrix);
 	
 	// Creazione degli stream
 	streams = (cudaStream_t *)malloc(_nStreams * sizeof(cudaStream_t));
@@ -143,77 +149,43 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 
 void FullyConnected::forward_propagation(const double *prevOutput) {
-   
-   const int matrix = _nodes / _nStreams;
     
    for(int i = 0; i < _nStreams; i++) {
-        int indexW = i * matrix * _prevLayerDim;
-        int indexO = i * matrix;
+        int indexW = i * _matrix * _prevLayerDim;
+        int indexO = i * _matrix;
         CHECK_CUBLAS(cublasSetStream(handle, streams[i]));    
         CHECK_CUBLAS(
-               cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, matrix, &alpha, weight + indexW, _prevLayerDim, prevOutput, 1, &beta, output + indexO, 1));
+               cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _matrix, &alpha, weight + indexW, _prevLayerDim, prevOutput, 1, &beta, output + indexO, 1));
     }
-    
-    /*CHECK_CUBLAS(
-        cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));*/
-        
-    // CPU deve attendere che esecuzione della funzione finisca
-	//CHECK(cudaDeviceSynchronize());
-    
-    /*for(int i = 0; i < _nStreams; i++) {
-        CHECK(cudaStreamSynchronize(streams[i]));    
-    }*/
-               
-	/*CHECK_CUBLAS(
-			cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, _prevLayerDim,
-		            &alpha, prevOutput, 1,
-		            weight, _prevLayerDim, &beta,
-		            output, 1));*/
-    
-    /*CHECK_CUBLAS(
-            cublasDgemmStridedBatched(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, 30, _prevLayerDim,
-		            &alpha, prevOutput, 1, 0,
-		            weight, _prevLayerDim, _prevLayerDim * 30, &beta,
-		            output, 1, 30,
-		            10));*/
 	
 #ifdef DEBUG
+    // CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nOutput dei nodi senza bias\n\n";
 	pettyPrintCuda(output, _nodes, 1);
 #endif
 
-    /*CHECK_CUBLAS(
-               cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));*/
      for(int i = 0; i < _nStreams; i++) {        
-        int indexO = i * matrix;
+        int indexO = i * _matrix;
         CHECK_CUBLAS(cublasSetStream(handle, streams[i]));  
         CHECK_CUBLAS(
-               cublasDaxpy(handle, matrix, &alpha, bias + indexO, 1, output + indexO, 1));      
+               cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _matrix, &alpha, bias + indexO, 1, &alpha, output + indexO, 1, output + indexO, 1));      
     }
 
-	// Somma con il bias
-	//CHECK_CUBLAS(
-		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));
-		
-
-	// CPU deve attendere che esecuzione della funzione finisca
-	//CHECK(cudaDeviceSynchronize());
-
 #ifdef DEBUG
+    // CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nOutput dei nodi con bias sommato\n\n";
 	pettyPrintCuda(output, _nodes, 1);
-#endif
-
-
-    int alignMatrix = ALIGN_UP(matrix);
+#endif    
     
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel::actReluK(1, alignMatrix, output, temp, _nodes, streams, _nStreams);
+		Kernel::actReluK(1, _alignedMatrix, output, temp, _nodes, streams, _nStreams);
 	else if (_a == SIGMOID)
-		Kernel::actSigmoidK(1, alignMatrix, output, _nodes, streams, _nStreams);
+		Kernel::actSigmoidK(1, _alignedMatrix, output, _nodes, streams, _nStreams);
 	else if (_a == TANH)
-		Kernel::actTanhK(1, alignMatrix, output, _nodes, streams, _nStreams);
+		Kernel::actTanhK(1, _alignedMatrix, output, _nodes, streams, _nStreams);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());

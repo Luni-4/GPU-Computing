@@ -40,7 +40,11 @@ private:
 	int _nodes;
 	int _prevLayerDim;
 	int _alignedNodes;
-	int _nStreams;	
+	
+	
+	int _nStreams;
+	int _matrix;
+	int _alignedMatrix;	
 	
 	// Fattori dei prodotti
 	const double alpha = 1.0f;
