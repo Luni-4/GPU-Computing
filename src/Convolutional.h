@@ -45,6 +45,7 @@ private:
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
 	double *temp; // Matrice temporanea usata per l'aggiornamento dei pesi
+	double *tempOutput; // Matrice temporanea usata per l'aggiornamento dei pesi
 
 	int _filterWidth;
 	int _filterDim;

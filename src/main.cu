@@ -66,7 +66,7 @@ int main() {
 	//#endif
 
 		// Training
-	nn.train(d.get(), 1, 0.1);
+	nn.train(d.get(), 1, 0.001);
 
 	//#ifdef DEBUG
 	auto finish = std::chrono::high_resolution_clock::now();

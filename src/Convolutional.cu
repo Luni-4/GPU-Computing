@@ -131,6 +131,7 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	CHECK(cudaMalloc((void**)&output, Bytes));
 	CHECK(cudaMalloc((void**)&error, Bytes));
 	CHECK(cudaMalloc((void**)&temp, _wBytes));
+	CHECK(cudaMalloc((void**)&tempOutput, Bytes));
 
 	// Rendere i blocchi multipli di 32
 	const int aligned = ALIGN_UP(_filterDim);
@@ -231,7 +232,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel::actReluK((_alignedNodes / THREADS), THREADS, output, temp, _nodes);
+		Kernel::actReluK((_alignedNodes / THREADS), THREADS, output, tempOutput, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::actSigmoidK((_alignedNodes / THREADS), THREADS, output, _nodes);
 	else if (_a == TANH)
@@ -344,7 +345,7 @@ void Convolutional::calcBackPropagation(const double *prevOutput, const double &
 
 	// Applicare derivata della funzione di attivazione
 	if (_a == RELU)
-		Kernel::derivActReluK((_alignedNodes / THREADS), THREADS, output, error, temp, _nodes);
+		Kernel::derivActReluK((_alignedNodes / THREADS), THREADS, output, error, tempOutput, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::derivActSigmoidK((_alignedNodes / THREADS), THREADS, output, error, _nodes);
 	else if (_a == TANH)
@@ -358,7 +359,9 @@ void Convolutional::calcBackPropagation(const double *prevOutput, const double &
 	printFromCudaFormatted(error, _nodes, _width);
 #endif
 
-	// Aggiornare i pesi (da mettere in funzione)    
+	CHECK(cudaFree(tempOutput));
+
+	// Aggiornare i pesi (da mettere in funzione)   
 	updateWeights(prevOutput, learningRate);
 }
 
