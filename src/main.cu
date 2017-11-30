@@ -8,7 +8,7 @@
 #include "Mnist.h"
 #include "Cifar.h"
 #include "FullyConnected.h"
-#include "Convolutional.h"
+//#include "Convolutional.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -65,7 +65,7 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 	//#endif
 
-		// Training
+    // Training
 	nn.train(d.get(), 1, 0.001);
 
 	//#ifdef DEBUG
