@@ -111,11 +111,14 @@ __global__ void derivActRelu(const double *output, double *error, double *temp, 
 		error[tid] = error[tid] * (1 / (1 + (exp((-temp[tid])))));
 }
 
-void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &nodes) {
+void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &nodes, const cudaStream_t *streams, const int &nStreams) {
+    for(int i = 0; i < nStreams; i++) {
+        int indexO = i * t.x;
 #ifdef _WIN32
-	actRelu NvCUDA2(b, t) (output, temp, nodes);
+	    actRelu NvCUDA2(b, t, 0, streams[i]) (output + indexO, temp + indexO, nodes);
 #else
-	actRelu << <b, t >> > (output, temp, nodes);
+	    actRelu << <b, t, 0, streams[i] >> > (output + indexO, temp + indexO, nodes);
+    }
 #endif 
 }
 
@@ -149,12 +152,15 @@ __global__ void derivActSigmoid(const double *output, double *error, const int n
 		error[tid] = error[tid] * (output[tid] * (1 - output[tid]));
 }
 
-void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes) {
+void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes, const cudaStream_t *streams, const int &nStreams) {
+    for(int i = 0; i < nStreams; i++) {
+        int indexO = i * t.x;
 #ifdef _WIN32
-	actSigmoid NvCUDA2(b, t) (output, nodes);
+	    actSigmoid NvCUDA2(b, t, 0, streams[i]) (output + indexO, nodes);
 #else
-	actSigmoid << <b, t >> > (output, nodes);
-#endif 
+	    actSigmoid << <b, t, 0, streams[i] >> > (output + indexO, nodes);
+#endif
+    } 
 }
 
 void Kernel::derivActSigmoidK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
@@ -186,12 +192,15 @@ __global__ void derivActTanh(const double *output, double *error, const int node
 		error[tid] = error[tid] * (1 - pow(output[tid], 2));
 }
 
-void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes) {
+void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes, const cudaStream_t *streams, const int &nStreams) {
+    for(int i = 0; i < nStreams; i++) {
+        int indexO = i * t.x;
 #ifdef _WIN32
-	actTanh NvCUDA2(b, t) (output, nodes);
+	    actTanh NvCUDA2(b, t, 0, streams[i]) (output + indexO, nodes);
 #else
-	actTanh << <b, t >> > (output, nodes);
-#endif 
+	    actTanh << <b, t, 0, streams[i] >> > (output + indexO, nodes);
+#endif
+    }
 }
 
 void Kernel::derivActTanhK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
