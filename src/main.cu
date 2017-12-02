@@ -54,8 +54,8 @@ int main() {
 	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 #else
-	layers.emplace_back(new FullyConnected(300, SIGMOID));
-	//layers.emplace_back(new FullyConnected(10, SIGMOID));
+	layers.emplace_back(new FullyConnected(300, NONE));
+	layers.emplace_back(new FullyConnected(10, NONE));
 #endif
 
 	// Creare la rete
