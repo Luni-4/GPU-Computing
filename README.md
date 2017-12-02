@@ -79,11 +79,11 @@ MICHELE:
 
 
 - link utili convoluzione
-http://cs231n.github.io/optimization-2/
-http://www.simon-hohberg.de/2014/10/10/conv-net.html
-http://andrew.gibiansky.com/blog/machine-learning/convolutional-neural-networks/
-https://grzegorzgwardys.wordpress.com/2016/04/22/8/
-http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/
+    - http://cs231n.github.io/optimization-2/
+    - http://www.simon-hohberg.de/2014/10/10/conv-net.html
+    - http://andrew.gibiansky.com/blog/machine-learning/convolutional-neural-networks/
+    - https://grzegorzgwardys.wordpress.com/2016/04/22/8/
+    - http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/
 
 # 3. Considerazioni
 
