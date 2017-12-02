@@ -44,8 +44,21 @@ migliori (es. dimensione del blocco, uso di stream ecc...)
 
 NICHOLAS:
 
+- Dubbio correlazione e convoluzione
+- Controllare con sm_50 se i risultati sono corretti
+- Test per vedere quanto la rete impara
+- Inserimento della depth nella backpropagation
+- Risolvere i problemi su tutti i memcpy per velocizzare la rete
+- Inserire gli stream
+- Possibile implementazione di stride (???)
+
 
 MICHELE:
+
+- Aggiungere la funzione calcError come ho scritto in Network
+- Togliere l'output inutile da Relu
+- Fixare alignedNodes e THREADS
+- Gestire la velocità della forward
 
 ## 2.4. Link Utili
 
