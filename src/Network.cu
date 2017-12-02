@@ -49,7 +49,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		forwardPropagation();
 
-		//backPropagation(i, learningRate);
+		backPropagation(i, learningRate);
 
 		// Incrementare l'indice
 		imgIndex += _imgDim;
@@ -172,18 +172,21 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 		auto fw = std::prev(it, 1);
 
 		auto prev = (*pv)->getCudaOutputPointer();
-		auto forwardWeight = (*fw)->getCudaWeightPointer();
-		auto forwardError = (*fw)->getCudaErrorPointer();
-		auto forwardNodes = (*fw)->getNodeCount();
-		(*it)->back_propagation(prev, forwardWeight, forwardError, forwardNodes, learningRate);
+		auto currentError = (*it)->getCudaErrorPointer();
+		auto currentNodes = (*it)->getNodeCount();
+		
+		(*fw)->calcError(currentError, currentNodes);
+		
+		(*it)->back_propagation(prev, learningRate);
 	}
 
 	// Back Propagation al primo livello (solo input precedente a lui)
-	auto fw = std::next(_layers.begin(), 1);
-	auto forwardWeight = (*fw)->getCudaWeightPointer();
-	auto forwardError = (*fw)->getCudaErrorPointer();
-	auto forwardNodes = (*fw)->getNodeCount();
-	_layers.front()->back_propagation(inputImg, forwardWeight, forwardError, forwardNodes, learningRate);
+	auto fw = std::next(_layers.begin(), 1);	
+	auto currentError = _layers.front()->getCudaErrorPointer();
+	auto currentNodes = _layers.front()->getNodeCount();
+		
+	(*fw)->calcError(currentError, currentNodes);
+	_layers.front()->back_propagation(inputImg, learningRate);
 }
 
 void Network::printWeightsOnFile(const std::string &filename) {

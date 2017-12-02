@@ -17,7 +17,8 @@ FullyConnected::FullyConnected(const int &width, const int &height, const ActFct
 	: LayerDefinition(width, height, 1, FULLY_CONNECTED, a) {
 
 	this->_nodes = width * height;
-	this->_alignedNodes = ALIGN_UP(_nodes);
+	
+	initStreams();
 
 }
 
@@ -25,7 +26,7 @@ FullyConnected::FullyConnected(const int &width, const ActFctType &a)
 	: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a),
 	_nodes(width) {
 
-	this->_alignedNodes = ALIGN_UP(_nodes);
+	initStreams();
 
 }
 
@@ -64,15 +65,6 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	// Impostazioni della cache
 	cudaDeviceSetCacheConfig(cudaFuncCachePreferShared);
 	
-	// Numero degli stream
-	_nStreams = 4;
-	
-	// Numero di elementi che uno stream deve elaborare
-	_matrix = _nodes / _nStreams;
-	
-	// Numero di elementi elaborati da uno stream come multipli di THREADS
-    _alignedMatrix = ALIGN_UP(_matrix);
-	
 	// Creazione degli stream
 	streams = (cudaStream_t *)malloc(_nStreams * sizeof(cudaStream_t));
 	
@@ -106,7 +98,7 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	CHECK(cudaMalloc((void**)&temp, _wBytes));
 
 	// Rendere i blocchi multipli di 32
-	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight);
+	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight, THREADS);
 
 	// Tanti blocchi quanto sono i nodi e la profondità del layer precedente
 	dim3 numBlocks(_nodes, prevLayerDepth, 1);
@@ -196,24 +188,33 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 #endif
 }
 
-void FullyConnected::back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) {
-    
+void FullyConnected::calcError(double *prevError, const int &prevNodes) {
+
+    int m = ALIGN_UP(prevNodes, _nStreams) / _nStreams;
+
     // Propagazione dell'errore dal livello successivo
-    CHECK_CUBLAS(
-		cublasDgemv(handle, CUBLAS_OP_N, _nodes ,forwardNodes, &alpha, forwardWeight, _nodes, forwardError, 1, &beta, error, 1));
-	
-	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+    for(int i = 0; i < _nStreams; i++) {
+        int indexW = i * m * _nodes ;
+        int indexO = i * m;
+        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));
+        CHECK_CUBLAS(
+		    cublasDgemv(handle, CUBLAS_OP_N, m, _nodes, &alpha, weight + indexW, m, error, 1, &beta, prevError + indexO, 1));
+    }
 
 #ifdef DEBUG
+    CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nForward weight\n\n";
-	pettyPrintCuda(forwardWeight, _nodes * forwardNodes, forwardNodes);
+	pettyPrintCuda(weight, _wDim, prevNodes);
 	std::cout << "\n\nForward error\n\n";
-	pettyPrintCuda(forwardError, forwardNodes, 1);
-	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
 	pettyPrintCuda(error, _nodes, 1);
+	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
+	pettyPrintCuda(prevError, prevNodes, 1);
 #endif
-		
+}
+
+
+void FullyConnected::back_propagation(const double *prevOutput, const double &learningRate) {
+    
 	// Calcolo della Back Propagation
 	calcBackPropagation(prevOutput, learningRate);   
 
@@ -222,10 +223,9 @@ void FullyConnected::back_propagation(const double *prevOutput, const double *fo
 void FullyConnected::back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) {
     
     // Calcolo dell'errore per ogni nodo
-    Kernel::outputErrorK(_alignedNodes / THREADS, _alignedNodes, output, error, labels, target, _nodes);
+    Kernel::outputErrorK(_alignedNodes / THREADS, THREADS, output, error, labels, target, _nodes);
     
-    // CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+    CHECK(cudaDeviceSynchronize());
 	
 #ifdef DEBUG
 	std::cout << "\n\nErrore commesso sui nodi back propagation output\n\n";
@@ -237,44 +237,25 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 
 }
 
-void FullyConnected::deleteCuda(void) {
-
-	CHECK_CUBLAS(cublasDestroy(handle));
-	
-	for(int i = 0; i < _nStreams; i++){
-		CHECK(cudaStreamDestroy(streams[i]));
-	}
-	
-	CHECK(cudaFree(weight));
-	CHECK(cudaFree(bias));
-	CHECK(cudaFree(output));
-	CHECK(cudaFree(error));
-	CHECK(cudaFree(temp));
-	
-	free(streams);
-	
-}
-
-void FullyConnected::calcBackPropagation(const double *prevOutput, const double &learningRate) {
+inline void FullyConnected::calcBackPropagation(const double *prevOutput, const double &learningRate) {
 
     // Applicare derivata della funzione di attivazione
 	if (_a == RELU)
-		Kernel::derivActReluK(_alignedNodes / THREADS, _alignedNodes, output, error, temp, _nodes);
+		Kernel::derivActReluK(1, _alignedMatrix, error, temp, _nodes, streams, _nStreams);
 	else if (_a == SIGMOID)
-		Kernel::derivActSigmoidK(_alignedNodes / THREADS, _alignedNodes, output, error, _nodes);
+		Kernel::derivActSigmoidK(1, _alignedMatrix, output, error, _nodes, streams, _nStreams);
 	else if (_a == TANH)
-		Kernel::derivActTanhK(_alignedNodes / THREADS, _alignedNodes, output, error, _nodes);
-		
-	// CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());
+		Kernel::derivActTanhK(1, _alignedMatrix, output, error, _nodes, streams, _nStreams);
     
 #ifdef DEBUG
+    CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nErrore commesso sui nodi con relativa derivata\n\n";
 	pettyPrintCuda(error, _nodes, 1);
 #endif
     
     // Aggiornare i pesi (da mettere in funzione)    
-    updateWeights(prevOutput, learningRate);
+    //updateWeights(prevOutput, learningRate);
+    CHECK(cudaDeviceSynchronize());
 }
 
 void FullyConnected::updateWeights(const double *prevOutput, const double &learningRate) {
@@ -329,4 +310,35 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	std::cout << "\n\nVettore del bias aggiornato\n\n";
 	pettyPrintCuda(bias, _nodes, 1);
 #endif
+}
+
+inline void FullyConnected::initStreams(void) {
+
+    this->_alignedNodes = ALIGN_UP(_nodes, THREADS);
+	
+	// Numero degli stream
+	this->_nStreams = 4;
+	
+	// Numero di elementi che uno stream deve elaborare
+	this->_matrix = ALIGN_UP(_nodes, _nStreams) / _nStreams;
+	
+	// Numero di elementi elaborati da uno stream come multipli di THREADS
+    this->_alignedMatrix = ALIGN_UP(_matrix, THREADS);
+}
+
+void FullyConnected::deleteCuda(void) {
+
+	CHECK_CUBLAS(cublasDestroy(handle));
+	
+	for(int i = 0; i < _nStreams; i++){
+		CHECK(cudaStreamDestroy(streams[i]));
+	}
+	
+	CHECK(cudaFree(weight));
+	CHECK(cudaFree(bias));
+	CHECK(cudaFree(output));
+	CHECK(cudaFree(error));
+	CHECK(cudaFree(temp));
+	
+	free(streams);	
 }

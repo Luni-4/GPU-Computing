@@ -19,8 +19,10 @@ public:
 	uint8_t getPredictionIndex(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
+	
+	void calcError(double *prevError, const int &prevNodes) override;
 
-	void back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) override;
+	void back_propagation(const double *prevOutput, const double &learningRate) override;
 	void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
@@ -32,7 +34,9 @@ public:
 	
 private:
     void updateWeights(const double *prevOutput, const double &learningRate);
-    void calcBackPropagation(const double *prevOutput, const double &learningRate);
+    
+    inline void calcBackPropagation(const double *prevOutput, const double &learningRate);    
+    inline void initStreams(void);
 
 private:
 	int _wDim;
