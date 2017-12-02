@@ -65,6 +65,13 @@ MICHELE:
 - Seconda rete neurale convoluzionale per il riconoscimento dei caratteri con video YouTube: https://github.com/can1357/simple_cnn
 
 
+- link utili convoluzione
+http://cs231n.github.io/optimization-2/
+http://www.simon-hohberg.de/2014/10/10/conv-net.html
+http://andrew.gibiansky.com/blog/machine-learning/convolutional-neural-networks/
+https://grzegorzgwardys.wordpress.com/2016/04/22/8/
+http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/
+
 # 3. Considerazioni
 
 - La dnn **originale** risulta più veloce perché utilizza uno stride pari a 2 nei livelli convoluzionali e non usa le epoche
