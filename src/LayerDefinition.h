@@ -28,8 +28,9 @@ public:
 	virtual uint8_t getPredictionIndex(void) = 0;
 
 	virtual void forward_propagation(const double *prevOutput) = 0;
-
-	virtual void back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) = 0;
+	
+	virtual void calcError(double *prevError, const int &prevNodes) = 0;
+	virtual void back_propagation(const double *prevOutput, const double &learningRate) = 0;
 	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
