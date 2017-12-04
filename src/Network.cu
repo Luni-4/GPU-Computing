@@ -50,9 +50,9 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		forwardPropagation();
 
+		if (i >= 0) return;
 		backPropagation(i, learningRate);
 
-		if (i >= 1000) return;
 
 		// Incrementare l'indice
 		imgIndex += _imgDim;
@@ -176,17 +176,17 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 		auto prev = (*pv)->getCudaOutputPointer();
 		auto currentError = (*it)->getCudaErrorPointer();
 		auto currentNodes = (*it)->getNodeCount();
-		
+
 		(*fw)->calcError(currentError, currentNodes);
-		
+
 		(*it)->back_propagation(prev, learningRate);
 	}
 
 	// Back Propagation al primo livello (solo input precedente a lui)
-	auto fw = std::next(_layers.begin(), 1);	
+	auto fw = std::next(_layers.begin(), 1);
 	auto currentError = _layers.front()->getCudaErrorPointer();
 	auto currentNodes = _layers.front()->getNodeCount();
-		
+
 	(*fw)->calcError(currentError, currentNodes);
 	_layers.front()->back_propagation(inputImg, learningRate);
 }

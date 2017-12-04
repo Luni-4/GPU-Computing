@@ -7,12 +7,12 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "Cifar.h"
-#include "FullyConnected.h"
-//#include "Convolutional.h"
+//#include "FullyConnected.h"
+#include "Convolutional.h"
 #include "Network.h"
 
 #ifdef DEBUG
-#include "Test.h"
+//#include "Test.h"
 #endif
 
 #ifdef TOYINPUT
@@ -51,9 +51,9 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(13, 1, 1, RELU));
-	layers.emplace_back(new Convolutional(13, 1, 1, RELU));
-	layers.emplace_back(new Convolutional(2, 1, 1, RELU));
+	layers.emplace_back(new Convolutional(5, 2, 1, RELU));
+	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	//layers.emplace_back(new Convolutional(2, 1, 1, RELU));
 #else
 	layers.emplace_back(new FullyConnected(300, NONE));
 	layers.emplace_back(new FullyConnected(10, NONE));
@@ -66,7 +66,7 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 	//#endif
 
-    // Training
+	// Training
 	nn.train(d.get(), 1, 0.001);
 
 	//#ifdef DEBUG

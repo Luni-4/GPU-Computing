@@ -19,7 +19,7 @@ public:
 	uint8_t getPredictionIndex(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
-	
+
 	void calcError(double *prevError, const int &prevNodes) override;
 
 	void back_propagation(const double *prevOutput, const double &learningRate) override;
@@ -27,16 +27,16 @@ public:
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda(void) override;
-	
-	double* getCudaOutputPointer(void) const override { return output;}
+
+	double* getCudaOutputPointer(void) const override { return output; }
 	double* getCudaWeightPointer(void) const override { return weight; }
 	double* getCudaErrorPointer(void) const override { return error; }
-	
+
 private:
-    void updateWeights(const double *prevOutput, const double &learningRate);
-    
-    inline void calcBackPropagation(const double *prevOutput, const double &learningRate);    
-    inline void initStreams(void);
+	void updateWeights(const double *prevOutput, const double &learningRate);
+
+	inline void calcBackPropagation(const double *prevOutput, const double &learningRate);
+	inline void initStreams(void);
 
 private:
 	int _wDim;
@@ -44,12 +44,12 @@ private:
 	int _nodes;
 	int _prevLayerDim;
 	int _alignedNodes;
-	
-	
+
+
 	int _nStreams;
 	int _matrix;
-	int _alignedMatrix;	
-	
+	int _alignedMatrix;
+
 	// Fattori dei prodotti
 	const double alpha = 1.0f;
 	const double beta = 0.0f;
@@ -62,7 +62,7 @@ private:
 
 	// Handle per cuBlas
 	cublasHandle_t handle;
-	
+
 	// Array di streams
 	cudaStream_t *streams;
 
