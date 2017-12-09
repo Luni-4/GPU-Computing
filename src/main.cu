@@ -51,7 +51,7 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(5, 2, 1, RELU));
+	layers.emplace_back(new Convolutional(5, 3, 1, RELU));
 	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 	//layers.emplace_back(new Convolutional(2, 1, 1, RELU));
 #else

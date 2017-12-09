@@ -34,6 +34,7 @@ private:
 	int _wDim;
 	int _wBytes;
 	int _nodes;
+	int _uniqueNodes;
 	int _prevLayerWidth;
 	int _prevLayerDepth;
 	int _alignedNodes;
@@ -47,7 +48,8 @@ private:
 	double *bias; // Matrice per i bias in Cuda
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
-	double *temp; // Matrice temporanea usata per l'aggiornamento dei pesi
+	double *errorRot; // Matrice degli errori ruotata
+	double *tempWeight; // Matrice temporanea usata per l'aggiornamento dei pesi
 	double *tempOutput; // Matrice temporanea usata per l'aggiornamento dei pesi
 
 	int _filterWidth;
