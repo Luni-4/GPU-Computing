@@ -17,9 +17,9 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 
 	if (tid < wDim)
 #ifdef TOYINPUT
-		weight[tid] = 1.0f;
+		weight[tid] = tid;
 #else
-		weight[tid] = 0.4 * r;
+		weight[tid] = 0.4f * r;
 #endif
 }
 
@@ -49,7 +49,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 #ifdef TOYINPUT
 		bias[tid] = 1.0f;
 #else
-		bias[tid] = 0.4 * r;
+		bias[tid] = r;
 #endif
 }
 
@@ -137,16 +137,20 @@ __global__ void actSigmoid(double *output, const int node) {
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node)
-		output[tid] = 1 / (1 + (exp((-output[tid]))));
+		output[tid] = 1 / (1 + (exp((-output[tid])) ));
 }
 
 __global__ void derivActSigmoid(const double *output, double *error, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	
+	double r;
 
-	if (tid < node)
-		error[tid] = error[tid] * (output[tid] * (1 - output[tid]));
+	if (tid < node) {
+	    r = output[tid] * (1 - output[tid]);
+		error[tid] = error[tid] * r; 
+	}
 }
 
 void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes) {
@@ -199,5 +203,28 @@ void Kernel::derivActTanhK(dim3 b, dim3 t, const double *output, double *error, 
 	derivActTanh NvCUDA2(b, t) (output, error, nodes);
 #else
 	derivActTanh << <b, t >> > (output, error, nodes);
+#endif
+}
+
+
+
+__global__ void errorPrevOutput(double *temp, const double *prevOutput, const double *error, const int node, const int prevDim) {
+
+	// Gestione degli indici	
+	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	
+	const unsigned int column = tid % prevDim;
+	const unsigned int row = (tid - column) / prevDim;	
+
+	if (tid < node)
+		temp[tid] = error[row] * prevOutput[column];
+}
+
+
+void Kernel::errorPrevOutputK(dim3 b, dim3 t, double *temp, const double *prevOutput, const double *error, const int &nodes, const int &dim, const int &prevDim) {
+#ifdef _WIN32
+	    errorPrevOutput NvCUDA2(b, t) (temp, prevOutput, error, dim, prevDim);
+#else
+        errorPrevOutput << <b, t >> > (temp, prevOutput, error, dim, prevDim);
 #endif
 }

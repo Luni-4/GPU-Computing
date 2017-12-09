@@ -8,7 +8,7 @@
 #include "Common.h"
 
 // Cuda Kernel
-#include "Kernel2.h"
+#include "Kernel.h"
 
 // Classi
 #include "FullyConnected.h"
@@ -17,8 +17,8 @@ FullyConnected::FullyConnected(const int &width, const int &height, const ActFct
 	: LayerDefinition(width, height, 1, FULLY_CONNECTED, a) {
 
 	this->_nodes = width * height;
+	this->_alignedNodes = ALIGN_UP(_nodes, THREADS);
 	
-	initStreams();
 
 }
 
@@ -26,8 +26,7 @@ FullyConnected::FullyConnected(const int &width, const ActFctType &a)
 	: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a),
 	_nodes(width) {
 
-	initStreams();
-
+    this->_alignedNodes = ALIGN_UP(_nodes, THREADS);
 }
 
 FullyConnected::~FullyConnected() {
@@ -47,14 +46,14 @@ std::vector<double> FullyConnected::getBias(void) {
 	return bCPU;
 }
 
-uint8_t FullyConnected::getPredictionIndex(void) {
+int FullyConnected::getPredictionIndex(void) {
 	int maxIndex;
 	
 	// Individuare indice (classe) che corrisponde al valore massimo di output
 	CHECK_CUBLAS(
 		cublasIdamax(handle, _nodes, output, 1, &maxIndex));
 	
-	return maxIndex;
+	return maxIndex - 1;
 }
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
@@ -64,13 +63,6 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	
 	// Impostazioni della cache
 	cudaDeviceSetCacheConfig(cudaFuncCachePreferShared);
-	
-	// Creazione degli stream
-	streams = (cudaStream_t *)malloc(_nStreams * sizeof(cudaStream_t));
-	
-	for(int i = 0; i < _nStreams; i++) {
-		CHECK(cudaStreamCreate(&(streams[i])));
-	}
 
 	// Dimensione matrice dei pesi
 	_wDim = prevLayerWidth * prevLayerHeight * prevLayerDepth * _nodes;
@@ -116,13 +108,10 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandState)));
 
 	// Inizializzare i weight del livello
-	Kernel2::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
-
-	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+	Kernel::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
 
 	// Inizializzare i bias del livello
-	Kernel2::initBiasK(1, _alignedNodes, bias, _nodes, devStates);
+	Kernel::initBiasK(_alignedNodes / THREADS, THREADS, bias, _nodes, devStates);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -141,28 +130,21 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 
 void FullyConnected::forward_propagation(const double *prevOutput) {
-    
-   for(int i = 0; i < _nStreams; i++) {
-        int indexW = i * _alignedMatrix * _prevLayerDim;
-        int indexO = i * _alignedMatrix;
-        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));    
-        CHECK_CUBLAS(
-               cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _alignedMatrix, &alpha, weight + indexW, _prevLayerDim, prevOutput, 1, &beta, output + indexO, 1));
-    }
-	
+
+   CHECK_CUBLAS(
+        cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));   
+
 #ifdef DEBUG
     // CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
+	std::cout << "\n\nImmagine di input\n\n";
+	pettyPrintCuda(prevOutput, _prevLayerDim, 1);
 	std::cout << "\n\nOutput dei nodi senza bias\n\n";
 	pettyPrintCuda(output, _nodes, 1);
 #endif
-
-     for(int i = 0; i < _nStreams; i++) {        
-        int indexO = i * _alignedMatrix;
-        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));  
-        CHECK_CUBLAS(
-               cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _alignedMatrix, &alpha, bias + indexO, 1, &alpha, output + indexO, 1, output + indexO, 1));      
-    }
+ 
+    CHECK_CUBLAS(
+               cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));      
 
 #ifdef DEBUG
     // CPU deve attendere che esecuzione della funzione finisca
@@ -173,11 +155,11 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
     
 	// Applicare funzione di attivazione
 	if (_a == RELU)
-		Kernel2::actReluK(1, _alignedMatrix, output, temp, _nodes, streams, _nStreams);
+		Kernel::actReluK(_alignedNodes / THREADS, THREADS, output, temp, _nodes);
 	else if (_a == SIGMOID)
-		Kernel2::actSigmoidK(1, _alignedMatrix, output, _nodes, streams, _nStreams);
+		Kernel::actSigmoidK(_alignedNodes / THREADS, THREADS, output, _nodes);
 	else if (_a == TANH)
-		Kernel2::actTanhK(1, _alignedMatrix, output, _nodes, streams, _nStreams);
+		Kernel::actTanhK(_alignedNodes / THREADS, THREADS, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -190,16 +172,9 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 void FullyConnected::calcError(double *prevError, const int &prevNodes) {
 
-    int m = ALIGN_UP(prevNodes, _nStreams) / _nStreams;
-
     // Propagazione dell'errore dal livello successivo
-    for(int i = 0; i < _nStreams; i++) {
-        int indexW = i * m * _nodes ;
-        int indexO = i * m;
-        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));
-        CHECK_CUBLAS(
-		    cublasDgemv(handle, CUBLAS_OP_N, m, _nodes, &alpha, weight + indexW, m, error, 1, &beta, prevError + indexO, 1));
-    }
+    CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, prevNodes, _nodes, &alpha, weight, prevNodes, error, 1, &beta, prevError, 1));
+
 
 #ifdef DEBUG
     CHECK(cudaDeviceSynchronize());
@@ -223,7 +198,7 @@ void FullyConnected::back_propagation(const double *prevOutput, const double &le
 void FullyConnected::back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) {
     
     // Calcolo dell'errore per ogni nodo
-    Kernel2::outputErrorK(_alignedNodes / THREADS, THREADS, output, error, labels, target, _nodes);
+    Kernel::outputErrorK(_alignedNodes / THREADS, THREADS, output, error, labels, target, _nodes);
     
     CHECK(cudaDeviceSynchronize());
 	
@@ -241,11 +216,12 @@ inline void FullyConnected::calcBackPropagation(const double *prevOutput, const 
 
     // Applicare derivata della funzione di attivazione
 	if (_a == RELU)
-		Kernel2::derivActReluK(1, _alignedMatrix, error, temp, _nodes, streams, _nStreams);
+		Kernel::derivActReluK(_alignedNodes / THREADS, THREADS, error, temp, _nodes);
 	else if (_a == SIGMOID)
-		Kernel2::derivActSigmoidK(1, _alignedMatrix, output, error, _nodes, streams, _nStreams);
+		Kernel::derivActSigmoidK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
 	else if (_a == TANH)
-		Kernel2::derivActTanhK(1, _alignedMatrix, output, error, _nodes, streams, _nStreams);
+		Kernel::derivActTanhK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
+	
     
 #ifdef DEBUG
     CHECK(cudaDeviceSynchronize());
@@ -258,61 +234,26 @@ inline void FullyConnected::calcBackPropagation(const double *prevOutput, const 
 }
 
 void FullyConnected::updateWeights(const double *prevOutput, const double &learningRate) {	
-	
-	/*for (int i = 0; i < _nodes; i++){
-	    CHECK_CUBLAS(
-		    cublasDaxpy(handle, _prevLayerDim, &error[i], prevOutput, 1, temp + (i * _prevLayerDim), 1));   
-        
-        // CPU deve attendere che esecuzione della funzione finisca
-        CHECK(cudaDeviceSynchronize());
-    }*/
     
-    int dim = ALIGN_UP(_alignedMatrix * _prevLayerDim, THREADS);
+    int dim = ALIGN_UP(_nodes * _prevLayerDim, THREADS);
     
-    Kernel2::errorPrevOutputK(dim / THREADS, THREADS, temp, prevOutput, error, _alignedMatrix, _alignedMatrix * _prevLayerDim, _prevLayerDim, streams, _nStreams);
-    
-      //CHECK_CUBLAS(
-               //cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _alignedMatrix, &alpha, bias + indexO, 1, &alpha, output + indexO, 1, output + indexO, 1)); 
+    Kernel::errorPrevOutputK(dim / THREADS, THREADS, temp, prevOutput, error, _nodes, _nodes * _prevLayerDim, _prevLayerDim); 
 
 #ifdef DEBUG
     CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
 	pettyPrintCuda(temp, _wDim, _prevLayerDim);
-#endif
+#endif		
 
-    // Deve ricevere lo scalare dall'host
-	//cublasSetPointerMode(handle, CUBLAS_POINTER_MODE_HOST);    
-    
-    // Aggiornamento effettivo dei pesi 
-    //CHECK_CUBLAS(
-		//+cublasDaxpy(handle, _wDim, &learningRate, temp, 1, weight, 1));
-		
-	for(int i = 0; i < _nStreams; i++) {        
-        int indexW = i * _alignedMatrix * _prevLayerDim;
-        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));  
-        CHECK_CUBLAS(
-               cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _alignedMatrix, _prevLayerDim, &learningRate, temp + indexW, _alignedMatrix, &alpha, weight + indexW, _alignedMatrix, weight + indexW, _alignedMatrix));      
-    }
-		
-    // CPU deve attendere che esecuzione della funzione finisca
-    //CHECK(cudaDeviceSynchronize());
+    CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _nodes, _prevLayerDim, &learningRate, temp, _nodes, &alpha, weight, _nodes, weight, _nodes));      
 
 #ifdef DEBUG
     CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nMatrice dei pesi aggiornata\n\n";
 	pettyPrintCuda(weight, _wDim, _prevLayerDim);
-#endif
+#endif	
 	
-	// Aggiornamento del bias 
-    //CHECK_CUBLAS(
-		//cublasDaxpy(handle, _nodes, &learningRate, error, 1, bias, 1));
-	
-	for(int i = 0; i < _nStreams; i++) {        
-        int indexO = i * _alignedMatrix;
-        CHECK_CUBLAS(cublasSetStream(handle, streams[i]));  
-        CHECK_CUBLAS(
-               cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _alignedMatrix, &learningRate, error + indexO, 1, &alpha, bias + indexO, 1, bias + indexO, 1));      
-    }
+    CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, error, 1, &alpha, bias, 1, bias, 1));      
 		
     // CPU deve attendere che esecuzione della funzione finisca
     CHECK(cudaDeviceSynchronize());
@@ -323,30 +264,12 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 #endif
 }
 
-inline void FullyConnected::initStreams(void) {
-
-    this->_alignedNodes = ALIGN_UP(_nodes, THREADS);
-	
-	// Numero degli stream
-	this->_nStreams = 4;
-	
-	// Numero di elementi che uno stream deve elaborare
-	this->_alignedMatrix = ALIGN_UP(ALIGN_UP(_nodes, _nStreams) / _nStreams, THREADS);
-}
-
 void FullyConnected::deleteCuda(void) {
 
-	CHECK_CUBLAS(cublasDestroy(handle));
-	
-	for(int i = 0; i < _nStreams; i++){
-		CHECK(cudaStreamDestroy(streams[i]));
-	}
-	
+	CHECK_CUBLAS(cublasDestroy(handle));	
 	CHECK(cudaFree(weight));
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
 	CHECK(cudaFree(error));
-	CHECK(cudaFree(temp));
-	
-	free(streams);	
+	CHECK(cudaFree(temp));	
 }

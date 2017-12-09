@@ -16,7 +16,7 @@ public:
 	int getWeightCount(void) const override { return _wDim; }
 	std::vector<double> getWeights(void) override;
 	std::vector<double> getBias(void) override;
-	uint8_t getPredictionIndex(void) override;
+	int getPredictionIndex(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
 	
@@ -35,20 +35,14 @@ public:
 private:
     void updateWeights(const double *prevOutput, const double &learningRate);
     
-    inline void calcBackPropagation(const double *prevOutput, const double &learningRate);    
-    inline void initStreams(void);
+    inline void calcBackPropagation(const double *prevOutput, const double &learningRate);
 
 private:
 	int _wDim;
 	int _wBytes;
 	int _nodes;
 	int _prevLayerDim;
-	int _alignedNodes;
-	
-	
-	int _nStreams;
-	int _matrix;
-	int _alignedMatrix;	
+	int _alignedNodes;	
 	
 	// Fattori dei prodotti
 	const double alpha = 1.0f;
@@ -62,8 +56,4 @@ private:
 
 	// Handle per cuBlas
 	cublasHandle_t handle;
-	
-	// Array di streams
-	cudaStream_t *streams;
-
 };

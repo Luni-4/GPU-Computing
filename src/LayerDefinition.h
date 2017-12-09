@@ -25,7 +25,7 @@ public:
 	virtual int getWeightCount(void) const = 0;
 	virtual std::vector<double> getWeights(void) = 0;
 	virtual std::vector<double> getBias(void) = 0;
-	virtual uint8_t getPredictionIndex(void) = 0;
+	virtual int getPredictionIndex(void) = 0;
 
 	virtual void forward_propagation(const double *prevOutput) = 0;
 	
