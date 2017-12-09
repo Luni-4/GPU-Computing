@@ -53,10 +53,11 @@ int main() {
 	//dim_filtro, n_filtri, stride
 	layers.emplace_back(new Convolutional(5, 3, 1, RELU));
 	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
-	//layers.emplace_back(new Convolutional(2, 1, 1, RELU));
+	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	//layers.emplace_back(new FullyConnected(10, NONE));
 #else
-	layers.emplace_back(new FullyConnected(300, NONE));
-	layers.emplace_back(new FullyConnected(10, NONE));
+	layers.emplace_back(new FullyConnected(10, SIGMOID));
+	//layers.emplace_back(new FullyConnected(10, NONE));
 #endif
 
 	// Creare la rete
@@ -66,8 +67,10 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 	//#endif
 
+	double learningRate = 1.0;
+
 	// Training
-	nn.train(d.get(), 1, 0.001);
+	nn.train(d.get(), 1, learningRate);
 
 	//#ifdef DEBUG
 	auto finish = std::chrono::high_resolution_clock::now();
@@ -76,16 +79,10 @@ int main() {
 	//#endif
 
 	// Stampa i pesi prodotti dalla rete su un file
-	//nn.printWeightsOnFile("Weights.txt");
+	nn.printWeightsOnFile("Weights.txt");
 
 	// Test
-	//nn.predict(d.get());
-
-	// Array contenente le predizioni
-	//std::vector<uint8_t> predictions = nn.getPredictions();
-
-	// Stampare le predizioni
-	//printLabels(predictions);
+	nn.predict(d.get());
 
 #ifdef _WIN32
 	system("pause");

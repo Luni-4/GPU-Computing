@@ -19,6 +19,7 @@ public:
     
 private:    
     inline void cleanSetData(const uint32_t &nImages);
+    inline void process(void);
 
 private:
     uint32_t _imgWidth;

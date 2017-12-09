@@ -27,6 +27,9 @@ Network::~Network() {
 }
 
 void Network::train(Data *data, const int &epoch, const double &learningRate) {
+
+	std::cout.precision(64);
+
 	// Definire la rete
 	setNetwork(data);
 
@@ -77,11 +80,13 @@ void Network::predict(Data *data) {
 	const uint8_t *labels = data->getLabels();
 
 	// Definire dimensione dell'array delle predizioni
-	_predictions.resize(_nImages);
+	_predictions.reserve(_nImages);
+
+	// Indice che reperisce la giusta immagine da mandare in input alla rete
+	unsigned int imgIndex = 0;
 
 	// Elabora ogni immagine
 	for (int i = 0; i < _nImages; i++) {
-
 		std::cout << i << " of " << _nImages << "\r";
 
 		int imgIndex = i * _imgDim;
@@ -92,6 +97,9 @@ void Network::predict(Data *data) {
 		forwardPropagation();
 
 		predictLabel(i, labels[i]);
+
+		// Incrementare l'indice
+		imgIndex += _imgDim;
 	}
 
 	// Stampare risultati ottenuti in fase di test
@@ -110,6 +118,11 @@ void Network::predict(Data *data) {
 
 
 void Network::cudaDataLoad(Data *data) {
+
+	// Impone a Null i puntatori
+	cudaData = NULL;
+	cudaLabels = NULL;
+
 	// Numero di esempi presenti
 	_nImages = data->getLabelSize();
 
@@ -242,7 +255,12 @@ inline void Network::setNetwork(Data *data) {
 inline void Network::predictLabel(const int &index, const uint8_t &label) {
 
 	// Calcolare predizione al livello di output
-	uint8_t prediction = _layers.back()->getPredictionIndex();
+	int prediction = _layers.back()->getPredictionIndex();
+
+#ifdef DEBUG	
+	std::cout << "\n\nPredizione: " << prediction << std::endl;
+	std::cout << "Etichetta: " << unsigned(label) << std::endl << std::endl << std::endl;
+#endif
 
 	// Salvare la predizione nell'array
 	_predictions[index] = prediction;
