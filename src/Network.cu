@@ -28,8 +28,6 @@ Network::~Network() {
 
 void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
-	std::cout.precision(64);
-
 	// Definire la rete
 	setNetwork(data);
 
@@ -55,11 +53,8 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		backPropagation(i, learningRate);
 
-		if (i >= 0) return;
-
 		// Incrementare l'indice
 		imgIndex += _imgDim;
-
 	}
 
 	// Cancellare i dati di train dal device
