@@ -1,5 +1,9 @@
 #include <iostream>
 
+#ifdef _WIN32
+#include "Windows.h"
+#endif
+
 // Funzioni comuni
 #include "Common.h"
 

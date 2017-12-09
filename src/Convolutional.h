@@ -14,7 +14,7 @@ public:
 	int getWeightCount(void) const override { return _wDim; }
 	std::vector<double> getWeights(void) override;
 	std::vector<double> getBias(void) override;
-	uint8_t getPredictionIndex(void) override;
+	int getPredictionIndex(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
 

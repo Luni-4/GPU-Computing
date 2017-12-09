@@ -7,7 +7,7 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "Cifar.h"
-//#include "FullyConnected.h"
+#include "FullyConnected.h"
 #include "Convolutional.h"
 #include "Network.h"
 
@@ -42,7 +42,6 @@ int main() {
 	std::unique_ptr<Data> d(new Mnist("data/mnist/"));
 #endif
 
-
 #endif
 
 	// Vettore contenente i livelli della rete
@@ -51,10 +50,11 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(5, 3, 1, RELU));
-	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	//layers.emplace_back(new Convolutional(5, 3, 1, RELU));
 	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
-	//layers.emplace_back(new FullyConnected(10, NONE));
+	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	layers.emplace_back(new FullyConnected(10, RELU));
+	// MEMO: learning rate base 0.001
 #else
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 	//layers.emplace_back(new FullyConnected(10, NONE));
@@ -79,7 +79,7 @@ int main() {
 	//#endif
 
 	// Stampa i pesi prodotti dalla rete su un file
-	nn.printWeightsOnFile("Weights.txt");
+	//nn.printWeightsOnFile("Weights.txt");
 
 	// Test
 	nn.predict(d.get());
@@ -87,5 +87,4 @@ int main() {
 #ifdef _WIN32
 	system("pause");
 #endif
-
 }

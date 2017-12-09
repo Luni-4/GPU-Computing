@@ -119,7 +119,7 @@ std::vector<double> Convolutional::getBias() {
 }
 
 // TEST
-uint8_t Convolutional::getPredictionIndex(void) {
+int Convolutional::getPredictionIndex(void) {
 	int maxIndex;
 
 	// Individuare indice (classe) che corrisponde al valore massimo di output

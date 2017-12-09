@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef _WIN32
-#include "Windows.h"
-#endif
-
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
 
@@ -58,6 +54,6 @@ private:
 	double *error; // Matrice degli errori
 	double *temp; // Matrice temporanea usata per l'aggiornamento dei pesi
 
-	// Handle per cuBlas
+				  // Handle per cuBlas
 	cublasHandle_t handle;
 };

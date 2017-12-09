@@ -1,4 +1,4 @@
-#include "Kernel.h"
+Ôªø#include "Kernel.h"
 
 __global__ void initWeight(double *weight, const int wDim, curandState *states) {
 
@@ -9,7 +9,7 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
 
-	// Variabile che conterr‡ il valore casuale
+	// Variabile che conterr√† il valore casuale
 	double r = curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
@@ -39,7 +39,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
 
-	// Variabile che conterr‡ il valore casuale
+	// Variabile che conterr√† il valore casuale
 	double r = curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
@@ -68,12 +68,12 @@ __global__ void outputError(const double *output, double *error, const uint8_t *
 
 	int trueLabel = 0;
 
-	/* Il predittore dovrebbe predire con probabilit‡ 1 solo la label passata alla funzione, quindi la variabile
-	trueLabel contiene il valore che ci si aspetterebbe dal predittore, cioË 1 */
+	/* Il predittore dovrebbe predire con probabilit√† 1 solo la label passata alla funzione, quindi la variabile
+	trueLabel contiene il valore che ci si aspetterebbe dal predittore, cio√® 1 */
 	if (tid == label[target])
 		trueLabel = 1;
 
-	// L'errore commesso Ë dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
+	// L'errore commesso √® dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
 	if (tid < node)
 		error[tid] = trueLabel - output[tid];
 }
@@ -137,19 +137,19 @@ __global__ void actSigmoid(double *output, const int node) {
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node)
-		output[tid] = 1 / (1 + (exp((-output[tid])) ));
+		output[tid] = 1 / (1 + (exp((-output[tid]))));
 }
 
 __global__ void derivActSigmoid(const double *output, double *error, const int node) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-	
+
 	double r;
 
 	if (tid < node) {
-	    r = output[tid] * (1 - output[tid]);
-		error[tid] = error[tid] * r; 
+		r = output[tid] * (1 - output[tid]);
+		error[tid] = error[tid] * r;
 	}
 }
 
@@ -212,9 +212,9 @@ __global__ void errorPrevOutput(double *temp, const double *prevOutput, const do
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-	
+
 	const unsigned int column = tid % prevDim;
-	const unsigned int row = (tid - column) / prevDim;	
+	const unsigned int row = (tid - column) / prevDim;
 
 	if (tid < node)
 		temp[tid] = error[row] * prevOutput[column];
@@ -223,8 +223,8 @@ __global__ void errorPrevOutput(double *temp, const double *prevOutput, const do
 
 void Kernel::errorPrevOutputK(dim3 b, dim3 t, double *temp, const double *prevOutput, const double *error, const int &nodes, const int &dim, const int &prevDim) {
 #ifdef _WIN32
-	    errorPrevOutput NvCUDA2(b, t) (temp, prevOutput, error, dim, prevDim);
+	errorPrevOutput NvCUDA2(b, t) (temp, prevOutput, error, dim, prevDim);
 #else
-        errorPrevOutput << <b, t >> > (temp, prevOutput, error, dim, prevDim);
+	errorPrevOutput << <b, t >> > (temp, prevOutput, error, dim, prevDim);
 #endif
 }
