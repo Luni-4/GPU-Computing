@@ -77,10 +77,10 @@ __global__ void rot180(const double * forwardWeight, double * forwardWeightRot, 
 
 	// Gestione degli indici
 	const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
-	const unsigned int tid = blockId + (threadIdx.x + threadIdx.y * (blockDim.y - (blockDim.y - blockDim.x))) * filterDim;
+	const unsigned int tid = blockId + (threadIdx.x + threadIdx.y * blockDim.x) * filterDim;
 
 
-	const int plus = filterDim + (threadIdx.x + threadIdx.y * (blockDim.y - (blockDim.y - blockDim.x))) * filterDim - 1;
+	const int plus = filterDim + (threadIdx.x + threadIdx.y *  blockDim.x) * filterDim - 1;
 	memcpy((forwardWeightRot + tid), (forwardWeight + plus - blockId), (sizeof(double)));
 }
 

@@ -89,8 +89,6 @@ void Network::predict(Data *data) {
 	for (int i = 0; i < _nImages; i++) {
 		std::cout << i << " of " << _nImages << "\r";
 
-		int imgIndex = i * _imgDim;
-
 		// Copia dell'immagine corrente nel buffer
 		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
