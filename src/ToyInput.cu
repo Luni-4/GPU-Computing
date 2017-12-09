@@ -6,8 +6,8 @@
 
 ToyInput::ToyInput()
 	: _imgWidth(2),
-	  _imgHeight(1),
-	  _imgDepth(3),
+	  _imgHeight(2),
+	  _imgDepth(1),
 	  _isTrain(false),
 	  _isTest(false) {
     
@@ -22,18 +22,7 @@ void ToyInput::readTrainData(void) {
 	if (_isTrain)
 		return;
 		
-	// Pulire i vettori e impostare i dati
-    cleanSetData(1);
-
-	std::fill(data.begin(), data.end(), 1.0);
-
-	std::cout << "\n\nVettore contenente una sola immagine\n\n";
-	printVector<double>(data, _imgDepth);
-
-	std::fill(labels.begin(), labels.end(), 1);
-
-	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
-	printVector<uint8_t>(labels, 1);    
+	process();
 	
 	// Lette le immagini di train ed il test deve essere zero
 	_isTrain = true;
@@ -46,8 +35,7 @@ void ToyInput::readTestData(void) {
 	if (_isTest)
 		return;
 	
-	// Pulire i vettori e impostare i dati
-	cleanSetData(1);
+    process();
 
 	// Lette le immagini di test ed il train deve essere zero
 	_isTest = true;
@@ -67,4 +55,24 @@ inline void ToyInput::cleanSetData(const uint32_t &nImages) {
 	
 	// Dimensione delle labels (training o test)
 	labels.resize(nImages);
+}
+
+inline void ToyInput::process(void) {
+
+    // Pulire i vettori e impostare i dati
+    cleanSetData(4);
+    
+    for(std::size_t i = 0; i < labels.size(); i++)
+        for(uint32_t j = 0; j < _imgDim; j++)
+	        data[(i * _imgDim) + j] = ((i * _imgDim) + j) + 1;
+
+	std::cout << "\n\nVettore contenente una sola immagine\n\n";
+	printVector<double>(data, _imgDepth);
+    
+    for(std::size_t i = 0; i < labels.size(); i++)
+	    labels[i] = i;	
+
+	std::cout << "\n\nVettore contenente l'etichetta dell'immagine\n\n";
+	for(std::size_t i = 0; i < labels.size(); i++)
+	    std::cout << unsigned(labels[i]) << std::endl;
 }
