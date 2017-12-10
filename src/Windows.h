@@ -16,6 +16,7 @@
 #include <cstdint>
 
 //scommentare per utilizzare gli ifdef DEBUG
-#define DEBUG
+//#define DEBUG
+//#define DEBUG_SUB
 
 #define exit(n) system("pause"); exit(n);

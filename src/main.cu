@@ -8,11 +8,11 @@
 #include "Mnist.h"
 #include "Cifar.h"
 #include "FullyConnected.h"
-//#include "Convolutional.h"
+#include "Convolutional.h"
 #include "Network.h"
 
 #ifdef DEBUG
-#include "Test.h"
+//#include "Test.h"
 #endif
 
 #ifdef TOYINPUT
@@ -42,7 +42,6 @@ int main() {
 	std::unique_ptr<Data> d(new Mnist("data/mnist/"));
 #endif
 
-
 #endif
 
 	// Vettore contenente i livelli della rete
@@ -51,9 +50,14 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(5, 1, 1, RELU));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new FullyConnected(10, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
-	//layers.emplace_back(new FullyConnected(10, NONE));
+
+	// MEMO: learning rate base 0.001
 #else
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 	//layers.emplace_back(new FullyConnected(10, NONE));
@@ -65,10 +69,11 @@ int main() {
 	//#ifdef DEBUG
 	auto start = std::chrono::high_resolution_clock::now();
 	//#endif
-	
-	double learningRate = 1.0;
 
-    // Training
+	//std::cout.precision(64);
+	double learningRate = 0.1;
+
+	// Training
 	nn.train(d.get(), 1, learningRate);
 
 	//#ifdef DEBUG
@@ -78,7 +83,7 @@ int main() {
 	//#endif
 
 	// Stampa i pesi prodotti dalla rete su un file
-	nn.printWeightsOnFile("Weights.txt");
+	//nn.printWeightsOnFile("Weights.txt");
 
 	// Test
 	nn.predict(d.get());
@@ -86,5 +91,4 @@ int main() {
 #ifdef _WIN32
 	system("pause");
 #endif
-
 }

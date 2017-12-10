@@ -14,11 +14,13 @@ public:
 	int getWeightCount(void) const override { return _wDim; }
 	std::vector<double> getWeights(void) override;
 	std::vector<double> getBias(void) override;
-	uint8_t getPredictionIndex(void) override;
+	int getPredictionIndex(void) override;
 
 	void forward_propagation(const double *prevOutput) override;
 
-	void back_propagation(const double *prevOutput, const double *forwardWeight, const double *forwardError, const int &forwardNodes, const double &learningRate) override;
+	void calcError(double *prevError, const int &prevNodes) override;
+
+	void back_propagation(const double *prevOutput, const double &learningRate) override;
 	void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
@@ -32,6 +34,7 @@ private:
 	int _wDim;
 	int _wBytes;
 	int _nodes;
+	int _uniqueNodes;
 	int _prevLayerWidth;
 	int _prevLayerDepth;
 	int _alignedNodes;
@@ -41,10 +44,12 @@ private:
 	const double beta = 0.0f;
 
 	double *weight; // Matrice dei pesi in Cuda
+	double *weightRot; // Matrice dei pesi in Cuda
 	double *bias; // Matrice per i bias in Cuda
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
-	double *temp; // Matrice temporanea usata per l'aggiornamento dei pesi
+	double *errorRot; // Matrice degli errori ruotata
+	double *tempWeight; // Matrice temporanea usata per l'aggiornamento dei pesi
 	double *tempOutput; // Matrice temporanea usata per l'aggiornamento dei pesi
 
 	int _filterWidth;
