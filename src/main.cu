@@ -70,8 +70,7 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 	//#endif
 
-	//std::cout.precision(64);
-	double learningRate = 0.1;
+	double learningRate = 1.0;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);
