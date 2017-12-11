@@ -91,7 +91,7 @@ void Mnist::readImages(const std::string &fileName, const uint32_t &nImages) {
 
 	// Assegnare i valori a data
 	for (std::size_t i = 0; i < pixel.size(); i++)
-		data[i] = (static_cast<double>(pixel[i]) - 127) / 128;
+		data[i] = static_cast<double>(pixel[i]) / 255.0; //(static_cast<double>(pixel[i]) - 127) / 128;
 
 	// Chiudere il file
 	ifs.close();

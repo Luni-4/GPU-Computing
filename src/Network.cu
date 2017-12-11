@@ -81,7 +81,7 @@ void Network::predict(Data *data) {
 	unsigned int imgIndex = 0;
 
 	// Elabora ogni immagine
-	for (int i = 0; i < _nImages; i++) {
+	for (int i = 0; i < _nImages; i++) { 
 		std::cout << i << " of " << _nImages << "\r";
 
 		// Copia dell'immagine corrente nel buffer
