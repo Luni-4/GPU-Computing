@@ -59,8 +59,8 @@ int main() {
 
 	// MEMO: learning rate base 0.001
 #else
+	layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
-	//layers.emplace_back(new FullyConnected(10, NONE));
 #endif
 
 	// Creare la rete
