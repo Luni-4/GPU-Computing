@@ -1,4 +1,5 @@
 #include "Kernel.h"
+#include "math_constants.h"
 
 
 /*  INIZIALIZZAZIONE DEI PESI */
@@ -16,7 +17,7 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 	double r = curand_normal_double(&states[tid]); //curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
-		r = -r;
+		r = -r;	
 
 	if (tid < wDim)
 #ifdef TOYINPUT
