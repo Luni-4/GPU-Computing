@@ -99,13 +99,14 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	dim3 threadBlocks(aligned, 1, 1);
 
 	// Inizializza array per numeri casuali
-	curandState *devStates;
+	curandStateXORWOW_t *devStates;
+	//curandState *devStates;
 
 	// Numero di sequenze diverse per il rand
 	const int numRand = _nodes * prevLayerDepth * aligned;
 
 	// Alloca la memoria
-	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandState)));
+	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandStateXORWOW_t)));
 
 	// Inizializzare i weight del livello
 	Kernel::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
@@ -162,7 +163,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 		Kernel::actTanhK(_alignedNodes / THREADS, THREADS, output, _nodes);
 
 	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());     
+	CHECK(cudaDeviceSynchronize());
     
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con funzione di attivazione\n\n";
@@ -173,7 +174,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 void FullyConnected::calcError(double *prevError, const int &prevNodes) {
 
 	// Propagazione dell'errore dal livello successivo
-	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, prevNodes, _nodes, &alpha, weight, prevNodes, error, 1, &beta, prevError, 1));
+	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _nodes, prevNodes, &alpha, weight, _nodes, error, 1, &beta, prevError, 1));
 
 
 #ifdef DEBUG
@@ -190,7 +191,7 @@ void FullyConnected::calcError(double *prevError, const int &prevNodes) {
 
 void FullyConnected::back_propagation(const double *prevOutput, const double &learningRate) {
 
-	// Calcolo della Back Propagation
+	// Aggiornare i pesi (da mettere in funzione)    
 	calcBackPropagation(prevOutput, learningRate);
 
 }
