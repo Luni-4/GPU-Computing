@@ -13,14 +13,14 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 	curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
-	double r = curand_uniform_double(&states[tid]);
+	double r = curand_normal_double(&states[tid]); //curand_uniform_double(&states[tid]);
 
 	if (tid % 2 == 0)
 		r = -r;
 
 	if (tid < wDim)
 #ifdef TOYINPUT
-		weight[tid] = tid;
+		weight[tid] = 1.0;
 #else
 		weight[tid] = 0.4 * r;
 #endif
@@ -43,7 +43,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 	curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
-	double r = curand_uniform_double(&states[tid]);
+	double r = curand_normal_double(&states[tid]);
 
 	if (tid % 2 == 0)
 		r = -r;
@@ -86,7 +86,7 @@ __global__ void outputError(const double *output, double *error, const uint8_t *
 
 	// L'errore commesso è dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
 	if (tid < node)
-		error[tid] = trueLabel - output[tid]; //__dsub_rn (trueLabel, output[tid] );
+		error[tid] = trueLabel - output[tid];
 }
 
 void Kernel::outputErrorK(dim3 b, dim3 t, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes) {
