@@ -44,7 +44,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	unsigned int imgIndex = 0;
 
 	for (int i = 0; i < _nImages; i++) {
-		std::cout << i << " of " << _nImages << "\r";
+		//std::cout << i << " of " << _nImages << "\r";
 
 		// Copia dell'immagine corrente nel buffer
 		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
@@ -84,7 +84,7 @@ void Network::predict(Data *data) {
 
 	// Elabora ogni immagine
 	for (int i = 0; i < _nImages; i++) {
-		std::cout << i << " of " << _nImages << "\r";
+		//std::cout << i << " of " << _nImages << "\r";
 
 		// Copia dell'immagine corrente nel buffer
 		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
@@ -161,6 +161,7 @@ void Network::forwardPropagation(void) {
 		auto pv = std::prev(it, 1);
 		auto *outputPointer = (*pv)->getCudaOutputPointer();
 		(*it)->forward_propagation(outputPointer);
+		//std::cout << std::endl << "------" << std::endl;
 	}
 }
 
