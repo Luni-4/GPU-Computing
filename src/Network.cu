@@ -53,6 +53,8 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		backPropagation(i, learningRate);
 
+		//if (i > 10000) return;
+
 		// Incrementare l'indice
 		imgIndex += _imgDim;
 	}
@@ -286,4 +288,9 @@ inline void Network::cudaClearAll(void) {
 	// Liberare la memoria del device
 	CHECK(cudaDeviceReset());
 
+}
+
+void Network::printW() {
+	for (auto l : _layers)
+		l->printW();
 }

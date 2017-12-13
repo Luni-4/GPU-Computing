@@ -30,6 +30,8 @@ public:
 	double* getCudaWeightPointer() const override { return weight; }
 	double* getCudaErrorPointer() const override { return error; }
 
+	void printW() override;
+
 private:
 	int _wDim;
 	int _wBytes;

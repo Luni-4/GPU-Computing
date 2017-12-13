@@ -236,6 +236,8 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 
 void Convolutional::forward_propagation(const double * prevOutput) {
 
+	//printW();
+
 #ifdef DEBUG
 	std::cout << "\n\nValore dell'input\n\n";
 	printFromCudaFormatted(prevOutput, _prevLayerWidth * _prevLayerWidth * _prevLayerDepth, _prevLayerWidth);
@@ -536,6 +538,10 @@ void Convolutional::deleteCuda() {
 	CHECK(cudaFree(errorRot));
 	CHECK(cudaFree(tempWeight));
 	CHECK(cudaFree(tempOutput));
+}
+
+void Convolutional::printW() {
+	printFromCudaFormatted(weight, _wDim, _filterWidth);
 }
 
 int Convolutional::_calcOutput(bool withPadding) {
