@@ -40,6 +40,8 @@ private:
 	int _testRight;
 	bool _isPredict;
 	
+	unsigned int _imgIndex;
+	
 	// Cuda
 	double *cudaData;
     uint8_t *cudaLabels;
