@@ -132,6 +132,9 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 void FullyConnected::forward_propagation(const double *prevOutput) {
 
+	//std::cout << "\n\n\nFORWARD\n";
+	//printW();
+
 	CHECK_CUBLAS(
 		cublasDgemv(handle, CUBLAS_OP_T, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, prevOutput, 1, &beta, output, 1));
 
@@ -273,4 +276,8 @@ void FullyConnected::deleteCuda(void) {
 	CHECK(cudaFree(output));
 	CHECK(cudaFree(error));
 	CHECK(cudaFree(temp));
+}
+
+void FullyConnected::printW() {
+	printFromCudaFormatted(weight, _wDim, _prevLayerDim);
 }

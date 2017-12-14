@@ -50,12 +50,14 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
+	//layers.emplace_back(new Convolutional(5, 1, 1, NONE));
+	//layers.emplace_back(new Convolutional(5, 1, 1, NONE));
+	//layers.emplace_back(new FullyConnected(300, NONE));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, RELU));
 
 	// MEMO: learning rate base 0.001
 #else
@@ -70,7 +72,8 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 	//#endif
 
-	double learningRate = 1.0;
+	//std::cout.precision(64);
+	double learningRate = 0.05;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);
@@ -81,6 +84,7 @@ int main() {
 	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
 	//#endif
 
+	nn.printW();
 	// Stampa i pesi prodotti dalla rete su un file
 	//nn.printWeightsOnFile("Weights.txt");
 

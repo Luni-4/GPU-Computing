@@ -12,9 +12,9 @@ public:
 		_height(height),
 		_depth(depth),
 		_l(l),
-		_a(a) 
-		{}
-		
+		_a(a) {
+	}
+
 	virtual ~LayerDefinition() {}
 
 	// Impedisce che vengano fatte copie e assegnamenti alla classe
@@ -28,14 +28,14 @@ public:
 	virtual int getPredictionIndex(void) = 0;
 
 	virtual void forward_propagation(const double *prevOutput) = 0;
-	
+
 	virtual void calcError(double *prevError, const int &prevNodes) = 0;
 	virtual void back_propagation(const double *prevOutput, const double &learningRate) = 0;
 	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
 	virtual void deleteCuda(void) = 0;
-	
+
 	virtual double* getCudaOutputPointer(void) const = 0;
 	virtual double* getCudaWeightPointer(void) const = 0;
 	virtual double* getCudaErrorPointer(void) const = 0;
@@ -46,6 +46,7 @@ public:
 	inline int getDepth(void) const { return _depth; }
 	inline ActFctType getActivationFunction(void) const { return _a; }
 
+	virtual void printW() = 0;
 
 protected:
 	LayerType _l;

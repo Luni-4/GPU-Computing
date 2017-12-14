@@ -32,6 +32,8 @@ public:
 	double* getCudaWeightPointer(void) const override { return weight; }
 	double* getCudaErrorPointer(void) const override { return error; }
 
+	void printW() override;
+
 private:
 	void updateWeights(const double *prevOutput, const double &learningRate);
 

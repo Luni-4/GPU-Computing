@@ -272,3 +272,8 @@ inline void Network::cudaClearAll(void) {
 	CHECK(cudaDeviceReset());
 
 }
+
+void Network::printW() {
+	for (auto l : _layers)
+		l->printW();
+}
