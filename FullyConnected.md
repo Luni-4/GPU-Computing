@@ -11,6 +11,8 @@ compatibile con lo xorwow
 - In cuda non esiste lo xorshift128, per cui dovrei implementarlo e mi sembra inutile avendo già lo xorwow. Per migliorare l'accuratezza della
 rete preferirei concentrarmi sul learning rate o sui valori (tipo lo 0.4 nel fullyconnected) che moltiplicano i pesi casuali
 
+- Link che spiega gli algoritmi xorshift128 e xorwow con relativi codici scritti in C (https://www.google.it/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiDsZrvmIrYAhXK2RoKHQp2DOMQFggxMAA&url=https%3A%2F%2Fwww.jstatsoft.org%2Farticle%2Fview%2Fv008i14%2Fxorshift.pdf&usg=AOvVaw0BPuy1unBMwZ0igdHgDD8H)
+
 
 # Risultati Ottenuti
 
