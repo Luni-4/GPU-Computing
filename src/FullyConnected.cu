@@ -100,7 +100,6 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 	// Inizializza array per numeri casuali
 	curandStateXORWOW_t *devStates;
-	//curandState *devStates;
 
 	// Numero di sequenze diverse per il rand
 	const int numRand = _nodes * prevLayerDepth * aligned;
@@ -116,6 +115,7 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
+
 
 #ifdef DEBUG
 	std::cout << "\n\nValore dei pesi\n\n";

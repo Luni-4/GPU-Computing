@@ -14,9 +14,9 @@
 #define ALIGN_UP(a, b) ((a + (b - 1)) / b) * b
 
 namespace Kernel {
-	void initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states);
+	void initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandStateXORWOW_t *states);
 
-	void initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandState *states);
+	void initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandStateXORWOW_t *states);
 
 	void outputErrorK(dim3 b, dim3 t, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes);
 

@@ -41,6 +41,8 @@ private:
 	int _iBytes;
 	int _testRight;
 	bool _isPredict;
+	
+	unsigned int _imgIndex;
 
 	// Cuda
 	double *cudaData;

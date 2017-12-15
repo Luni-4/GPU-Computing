@@ -1,10 +1,12 @@
 #include "Kernel.h"
-#include "math_constants.h"
+#include <math_constants.h>
+
+#include <cstdio>
 
 
 /*  INIZIALIZZAZIONE DEI PESI */
 
-__global__ void initWeight(double *weight, const int wDim, curandState *states) {
+__global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *states) {
 
 	// Gestione degli indici	
 	const unsigned int blockId = blockIdx.y * gridDim.x + blockIdx.x;
@@ -14,10 +16,10 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 	curand_init(tid, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
-	double r = curand_normal_double(&states[tid]); //curand_uniform_double(&states[tid]);
+	double r = curand_normal_double(&states[tid]);
 
 	if (tid % 2 == 0)
-		r = -r;	
+		r = -r;
 
 	if (tid < wDim)
 #ifdef TOYINPUT
@@ -27,7 +29,7 @@ __global__ void initWeight(double *weight, const int wDim, curandState *states) 
 #endif
 }
 
-void Kernel::initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states) {
+void Kernel::initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandStateXORWOW_t *states) {
 #ifdef _WIN32
 	initWeight NvCUDA2(b, t) (weight, wDim, states);
 #else
@@ -35,7 +37,7 @@ void Kernel::initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curand
 #endif
 }
 
-__global__ void initBias(double *bias, const int node, curandState *states) {
+__global__ void initBias(double *bias, const int node, curandStateXORWOW_t *states) {
 
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -57,7 +59,7 @@ __global__ void initBias(double *bias, const int node, curandState *states) {
 #endif
 }
 
-void Kernel::initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandState *states) {
+void Kernel::initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandStateXORWOW_t *states) {
 #ifdef _WIN32
 	initBias NvCUDA2(b, t) (bias, wDim, states);
 #else

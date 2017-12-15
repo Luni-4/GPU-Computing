@@ -55,10 +55,10 @@ NICHOLAS:
 
 MICHELE:
 
-- Aggiungere la funzione calcError come ho scritto in Network
-- Togliere l'output inutile da Relu
-- Fixare alignedNodes e THREADS
-- Gestire la velocità della forward
+- Aggiungere la Pinned Memory
+- Testare la rete con diversi valori del learning rate
+- Testare Cifar su livelli FullyConnected
+- Aggiungere Streams (facoltativo)
 
 ## 2.4. Link Utili
 

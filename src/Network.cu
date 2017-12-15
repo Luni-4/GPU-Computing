@@ -34,29 +34,21 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Dimensione della singola immagine
 	_imgDim = data->getImgDimension();
 
-	// Quantità di dati da allocare e copiare
-	_iBytes = _imgDim * sizeof(double);
-
-	// Allocare il buffer di input della singola coppia (etichetta,immagine)
-	CHECK(cudaMalloc((void**)&inputImg, _iBytes));
-
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
-	unsigned int imgIndex = 0;
+	_imgIndex = 0;
 
 	for (int i = 0; i < _nImages; i++) {
 		std::cout << i << " of " << _nImages << "\r";
 
 		// Copia dell'immagine corrente nel buffer
-		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
+		//CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
 		forwardPropagation();
 
 		backPropagation(i, learningRate);
 
-		//if (i > 10000) return;
-
 		// Incrementare l'indice
-		imgIndex += _imgDim;
+		_imgIndex += _imgDim;
 	}
 
 	// Cancellare i dati di train dal device
@@ -80,21 +72,21 @@ void Network::predict(Data *data) {
 	_predictions.reserve(_nImages);
 
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
-	unsigned int imgIndex = 0;
+	_imgIndex = 0;
 
 	// Elabora ogni immagine
 	for (int i = 0; i < _nImages; i++) {
 		std::cout << i << " of " << _nImages << "\r";
 
 		// Copia dell'immagine corrente nel buffer
-		CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
+		//CHECK(cudaMemcpy(inputImg, (cudaData + imgIndex), _iBytes, cudaMemcpyDeviceToDevice));
 
 		forwardPropagation();
 
 		predictLabel(i, labels[i]);
 
 		// Incrementare l'indice
-		imgIndex += _imgDim;
+		_imgIndex += _imgDim;
 	}
 
 	// Stampare risultati ottenuti in fase di test
@@ -155,20 +147,19 @@ void Network::cudaInitStruct(Data *data) {
 
 void Network::forwardPropagation(void) {
 
-	_layers.front()->forward_propagation(inputImg);
+	_layers.front()->forward_propagation(cudaData + _imgIndex);
 
 	for (auto it = _layers.begin() + 1; it != _layers.end(); ++it) {
 		auto pv = std::prev(it, 1);
 		auto *outputPointer = (*pv)->getCudaOutputPointer();
 		(*it)->forward_propagation(outputPointer);
-		//std::cout << std::endl << "------" << std::endl;
 	}
 }
 
 void Network::backPropagation(const int &target, const double &learningRate) {
 	// Caso in cui ci sia solo un livello
 	if (_layers.size() == 1) {
-		_layers.back()->back_propagation_output(inputImg, cudaLabels, target, learningRate);
+		_layers.back()->back_propagation_output(cudaData + _imgIndex, cudaLabels, target, learningRate);
 		return;
 	}
 
@@ -197,7 +188,7 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 	auto currentNodes = _layers.front()->getNodeCount();
 
 	(*fw)->calcError(currentError, currentNodes);
-	_layers.front()->back_propagation(inputImg, learningRate);
+	_layers.front()->back_propagation(cudaData + _imgIndex, learningRate);
 }
 
 void Network::printWeightsOnFile(const std::string &filename) {
@@ -278,9 +269,6 @@ inline void Network::printNetworkError(const int &nImages) {
 }
 
 inline void Network::cudaClearAll(void) {
-
-	// Liberare il buffer contenente le immagini in input alla rete
-	CHECK(cudaFree(inputImg));
 
 	// Liberare la memoria cuda associata ad ogni layer
 	for (auto l : _layers)
