@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 
 // Cuda
 #include <cuda_runtime.h>
@@ -100,23 +101,34 @@ void Network::predict(Data *data) {
 
 void Network::cudaDataLoad(Data *data) {
 
-	// Impone a Null i puntatori
+	// Impone a Null i puntatori Cuda
 	cudaData = NULL;
 	cudaLabels = NULL;
+	
+	double *cudaDataHost = NULL;
+	double *cudaLabelsHost = NULL;
 
 	// Numero di esempi presenti
 	_nImages = data->getLabelSize();
 
 	const int dBytes = data->getDataSize() * sizeof(double);
 	const int lBytes = _nImages * sizeof(uint8_t);
+	
+	// Allocare la memoria Pinned
+	CHECK(cudaMallocHost((void**)&cudaDataHost, dBytes)); 
+    CHECK(cudaMallocHost((void**)&cudaLabelsHost, lBytes));
+    
+    // Copiare i dati
+    memcpy(cudaDataHost, data->getData(), dBytes);
+    memcpy(cudaLabelsHost, data->getLabels(), lBytes);
 
-	// Allocare le matrici
+	// Allocare le matrici in GPU
 	CHECK(cudaMalloc((void**)&cudaData, dBytes));
 	CHECK(cudaMalloc((void**)&cudaLabels, lBytes));
 
 	// Passare i dati
-	CHECK(cudaMemcpy(cudaData, data->getData(), dBytes, cudaMemcpyHostToDevice));
-	CHECK(cudaMemcpy(cudaLabels, data->getLabels(), lBytes, cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(cudaData, cudaDataHost, dBytes, cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(cudaLabels, cudaLabelsHost, lBytes, cudaMemcpyHostToDevice));
 
 	// Liberare le label dalla CPU (solo in fase di train) 
 	if (!_isPredict)
@@ -124,6 +136,10 @@ void Network::cudaDataLoad(Data *data) {
 
 	// Liberare le immagini dalla CPU
 	data->clearData();
+	
+	// Liberare la Pinned Memory
+	CHECK(cudaFreeHost(cudaDataHost)); 
+	CHECK(cudaFreeHost(cudaLabelsHost)); 
 }
 
 void Network::cudaInitStruct(Data *data) {
