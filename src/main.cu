@@ -50,9 +50,6 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	//layers.emplace_back(new Convolutional(5, 1, 1, NONE));
-	//layers.emplace_back(new Convolutional(5, 1, 1, NONE));
-	//layers.emplace_back(new FullyConnected(300, NONE));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
@@ -84,12 +81,12 @@ int main() {
 	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
 	//#endif
 
-	nn.printW();
+	//nn.printW();
 	// Stampa i pesi prodotti dalla rete su un file
 	//nn.printWeightsOnFile("Weights.txt");
 
 	// Test
-	nn.predict(d.get());
+	//nn.predict(d.get());
 
 #ifdef _WIN32
 	system("pause");
