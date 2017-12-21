@@ -167,7 +167,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
-    
+
 #ifdef DEBUG
 	std::cout << "\n\nOutput dei nodi con funzione di attivazione\n\n";
 	pettyPrintCuda(output, _nodes, 1);
@@ -256,12 +256,12 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	std::cout << "\n\nMatrice dei pesi aggiornata\n\n";
 	pettyPrintCuda(weight, _wDim, _prevLayerDim);
 #endif	
-	
-    CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, error, 1, &alpha, bias, 1, bias, 1));
-		
-    // CPU deve attendere che esecuzione della funzione finisca
-    CHECK(cudaDeviceSynchronize());
-    
+
+	CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, error, 1, &alpha, bias, 1, bias, 1));
+
+	// CPU deve attendere che esecuzione della funzione finisca
+	CHECK(cudaDeviceSynchronize());
+
 #ifdef DEBUG
 	std::cout << "\n\nVettore del bias aggiornato\n\n";
 	pettyPrintCuda(bias, _nodes, 1);
