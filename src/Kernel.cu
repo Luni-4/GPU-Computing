@@ -25,7 +25,7 @@ __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *
 #ifdef TOYINPUT
 		weight[tid] = 1.0;
 #else
-		weight[tid] = 0.4 * r;
+		weight[tid] = 0.2 * r;
 #endif
 }
 
