@@ -45,7 +45,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		backPropagation(i, learningRate);
 
-		//if (i > 1000)return;
+		//if (i > 10000)return;
 
 		// Incrementare l'indice
 		_imgIndex += _imgDim;
