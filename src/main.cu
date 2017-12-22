@@ -50,11 +50,11 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(5, 1, 1, TANH));
-	layers.emplace_back(new Convolutional(5, 1, 1, TANH));
-	layers.emplace_back(new Convolutional(5, 1, 1, TANH));
-	layers.emplace_back(new Convolutional(5, 1, 1, TANH));
-	layers.emplace_back(new FullyConnected(10, TANH));
+	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new FullyConnected(10, SIGMOID));
 
 	// MEMO: learning rate base 0.001
 #else
@@ -86,7 +86,7 @@ int main() {
 	//nn.printWeightsOnFile("Weights.txt");
 
 	// Test
-	//nn.predict(d.get());
+	nn.predict(d.get());
 
 #ifdef _WIN32
 	system("pause");

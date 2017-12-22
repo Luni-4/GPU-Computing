@@ -380,6 +380,8 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	// Somma con il bias
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
+	//CHECK_CUBLAS(
+		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));
 
 #ifdef DEBUG
 	std::cout << "\n\nValore output prima di funzione di attivazione\n\n";
@@ -398,7 +400,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
-	std::cout << "\n\nValore output\n\n";
+	std::cout << "\n\nValore output *************************************************\n\n";
 	printFromCudaFormatted(output, _nodes, _width);
 #endif
 
@@ -622,6 +624,9 @@ void Convolutional::updateWeights(const double *prevOutput, const double &learni
 	// Aggiornamento effettivo dei pesi 
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _wDim, &learningRate, tempWeight, 1, weight, 1));
+	//CHECK_CUBLAS(
+		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _wDim, _depth, &learningRate, tempWeight, _wDim, &alpha, weight, _wDim, weight, _wDim));
+
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
@@ -654,6 +659,8 @@ void Convolutional::updateWeights(const double *prevOutput, const double &learni
 	// Aggiornamento del bias 
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &learningRate, errorRot, 1, bias, 1));
+	//CHECK_CUBLAS(
+		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, errorRot, 1, &alpha, bias, 1, bias, 1));
 
 	// CPU deve attendere che esecuzione della funzione finisca
 	CHECK(cudaDeviceSynchronize());
