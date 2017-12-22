@@ -70,7 +70,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 0.1;
+	double learningRate = 0.18;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);
@@ -81,7 +81,7 @@ int main() {
 	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
 	//#endif
 
-	nn.printW();
+	//nn.printW();
 	// Stampa i pesi prodotti dalla rete su un file
 	//nn.printWeightsOnFile("Weights.txt");
 

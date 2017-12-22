@@ -158,10 +158,10 @@ inline void pettyPrintCuda(const double *deb, const int wdim, const int &dim) {
 	CHECK(cudaMemcpy(&outputC[0], deb, wdim * sizeof(double), cudaMemcpyDeviceToHost));
 
 	for (std::size_t i = 0; i < outputC.size(); i++) {
-		std::cout << outputC[i] << " ";
-		if ((i + 1) % dim == 0)
+		std::cout << outputC[i] << std::endl; //<< " ";
+		/*if ((i + 1) % dim == 0)
 			std::cout << " :" << i + 1 << std::endl;
 		if ((i + 1) % (dim * dim) == 0)
-			std::cout << std::endl;
+			std::cout << std::endl;*/
 	}
 }
