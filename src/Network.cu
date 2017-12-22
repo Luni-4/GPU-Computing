@@ -45,6 +45,8 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		backPropagation(i, learningRate);
 
+		//if (i > 1000)return;
+
 		// Incrementare l'indice
 		_imgIndex += _imgDim;
 	}
@@ -104,7 +106,7 @@ void Network::cudaDataLoad(Data *data) {
 	// Impone a Null i puntatori Cuda
 	cudaData = NULL;
 	cudaLabels = NULL;
-	
+
 	double *cudaDataHost = NULL;
 	double *cudaLabelsHost = NULL;
 
@@ -113,14 +115,14 @@ void Network::cudaDataLoad(Data *data) {
 
 	const int dBytes = data->getDataSize() * sizeof(double);
 	const int lBytes = _nImages * sizeof(uint8_t);
-	
+
 	// Allocare la memoria Pinned
-	CHECK(cudaMallocHost((void**)&cudaDataHost, dBytes)); 
-    CHECK(cudaMallocHost((void**)&cudaLabelsHost, lBytes));
-    
-    // Copiare i dati
-    memcpy(cudaDataHost, data->getData(), dBytes);
-    memcpy(cudaLabelsHost, data->getLabels(), lBytes);
+	CHECK(cudaMallocHost((void**)&cudaDataHost, dBytes));
+	CHECK(cudaMallocHost((void**)&cudaLabelsHost, lBytes));
+
+	// Copiare i dati
+	memcpy(cudaDataHost, data->getData(), dBytes);
+	memcpy(cudaLabelsHost, data->getLabels(), lBytes);
 
 	// Allocare le matrici in GPU
 	CHECK(cudaMalloc((void**)&cudaData, dBytes));
@@ -136,10 +138,10 @@ void Network::cudaDataLoad(Data *data) {
 
 	// Liberare le immagini dalla CPU
 	data->clearData();
-	
+
 	// Liberare la Pinned Memory
-	CHECK(cudaFreeHost(cudaDataHost)); 
-	CHECK(cudaFreeHost(cudaLabelsHost)); 
+	CHECK(cudaFreeHost(cudaDataHost));
+	CHECK(cudaFreeHost(cudaLabelsHost));
 }
 
 void Network::cudaInitStruct(Data *data) {
