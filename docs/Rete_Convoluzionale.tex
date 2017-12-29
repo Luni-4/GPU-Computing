@@ -1,0 +1,96 @@
+\documentclass[
+   %handout
+ ]{beamer}
+ 
+\usetheme{simple}
+\usepackage{lmodern}
+\usepackage[scale=2]{ccicons}
+
+%Codifica dei font di input e di output
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Converte file eps in pdf
+\usepackage{epstopdf}
+
+% Consente di impostare le virgolette del discorso diretto
+\usepackage{dirtytalk}
+
+% Consente di impostare i commenti multiline
+\usepackage{verbatim}
+
+% Consente di disegnare grafi
+\usepackage{tikz}
+
+% Libreria per disegnare cerchi e frecce di tikz
+\usetikzlibrary{arrows}
+
+% Definizione della cartella contenente le immagini da usare
+\graphicspath{{img/}}
+
+% Disabilitare la trasparenza sulla pause
+\setbeamercovered{invisible}
+
+
+% TODO
+% Migliorare la spiegazione delle slide
+
+
+% Watermark background (simple theme)
+
+%\setwatermark{\includegraphics[height=8cm]{img/Heckert_GNU_white.png}}
+
+
+\title{Implementazione di una \\ 
+       Rete Convoluzionale in CUDA 
+       \texorpdfstring{\bigskip}{Lg}
+      }
+      
+\author{\hspace*{0.01em} {\Large Michele Valsesia} 
+                         \texorpdfstring{\\ \bigskip}{Lg}
+        \hspace*{-0.11em}{\Large Nicholas Aspes}
+       }
+       
+\date{\Large Anno accademico 2018/2019}
+%\institute{\url{http://github.com/famuvie}}
+
+\begin{document}
+
+\maketitle
+
+
+
+% //////////////////////////////// Introduzione ////////////////////////////////////////
+\begin{frame}{Introduzione}
+    \framesubtitle{Obiettivi}  
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Descrivere brevemente il funzionamento di una \emph{Rete Neurale Convoluzionale}
+        \item \large Motivare le scelte implementative effettuate durante la realizzazione della rete
+        \item \large Valutare l'accuratezza e lo speed-up ottenuto rispetto ad un'implementazione sequenziale
+       
+    \end{itemize}  
+\end{frame}
+
+
+\begin{frame}[c]
+  \centering
+  \bigskip \bigskip    
+  \Huge Reti Neurali Convoluzionali
+\end{frame}
+
+\begin{frame}[c]
+  \centering
+  \bigskip \bigskip    
+  \Huge Analisi Implementativa
+\end{frame}
+
+\begin{frame}[c]
+  \centering
+  \bigskip \bigskip    
+  \Huge Analisi dei Risultati
+\end{frame}
+
+
+\end{document}
