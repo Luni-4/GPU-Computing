@@ -225,11 +225,41 @@
     \framesubtitle{Rete Neurale}
     
     \begin{block}{Definizione} 
-        \large Una \emph{Rete Neurale} è composta da un insieme di neuroni connessi in un grafo aciclico. I neuroni sono organizzati come una serie di livelli (layer) distinti.
+        \large Una \emph{Rete Neurale} è composta da un insieme di neuroni connessi tra loro in un grafo aciclico
     \end{block}\pause
+    
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Attraverso un meccanismo di eccitazione ed inibizione i pesi sinaptici controllano quanto un neurone sia influenzato dagli altri
+        \item \large  I neuroni sono organizzati in insiemi distinti chiamati \emph{livelli} o \emph{layer}
+        \item \large I livelli vengono posti uno di seguito all'altro in modo da formare una sequenza
+        \item \large I livelli intermedi prendono il nome di \emph{hidden}
+        \item \large L'output dei neuroni di un livello diventano l'input dei neuroni del livello successivo        
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Rete Neurale}
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Quando si effettua il conteggio dei livelli di una rete non si considera il livello di input
+        \item \large Una rete a \emph{singolo livello} non presenta livelli hidden    
+        \item \large Per determinare la grandezza di una rete ci si concentra sul numero di neuroni e sui relativi pesi ad essi associati
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Livello Fully-Connected}
+    
+    \begin{block}{Definizione} 
+        \large Un livello è di tipo \emph{Fully-Connected} quando i neuroni di due livelli adiacenti sono completamente connessi tra loro ed i neuroni che formano un livello non condividono nessuna connessione 
+    \end{block}\pause
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large I pesi associati ai neuroni di un livello sono salvati in matrici
+        \item \large Le righe della matrice corrispondono ai neuroni del livello mentre le colonne ai pesi di ciascun neurone
+        \item \large Le reti neurali sono organizzate con una struttura a livelli perché risulta più facile ed efficiente fare operazioni matriciali
     \end{itemize}
 \end{frame}
 
