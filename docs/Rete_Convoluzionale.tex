@@ -82,7 +82,7 @@
 \end{frame}
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Motivazioni Biologiche}
+    \framesubtitle{Significato Biologico}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large Una \emph{Rete Neurale} ha come scopo quello di modellare una rete neurale biologica
@@ -95,7 +95,7 @@
     \framesubtitle{Neurone}
     
     \begin{center}
-      \includegraphics[scale = 0.4]{neuron_model.jpeg}
+      \includegraphics[scale = 0.35]{neuron_model.jpeg}
     \end{center}
   
     \bigskip 
@@ -111,14 +111,115 @@
     \framesubtitle{Funzionamento Neurone}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Attraverso un meccanismo di eccitazione ed inibizione i pesi sinaptici controllano quanto un neurone sia influenzato dagli altri
+        \item \large Attraverso un meccanismo di eccitazione ed inibizione i pesi sinaptici controllano quanto un neurone venga influenzato dagli altri
        \item \large I segnali pesati dalle differenti sinapsi vengono trasportati dai dendriti all'interno del neurone e sommati tra loro
        \item \large Se la somma supera una certa soglia, il neurone \emph{spara} un segnale lungo l'assone 
        \item \large La \emph{frequenza di sparo} del neurone viene modellata con una funzione di attivazione $f$       
     \end{itemize}
 \end{frame}
 
-% Funzioni di attivazione
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Funzioni di Attivazione}
+    \begin{block}{Definizione} 
+        \large Una \emph{funzione di attivazione} è una funzione matematica non lineare usata per calcolare l'output di un neurone. Riceve come input la somma pesata dei segnali in ingresso al neurone
+    \end{block}\pause
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \emph{\large Sigmoide}
+        \item \emph{\large Tangente Iperbolica}
+        \item \emph{\large Softplus}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Sigmoide}
+    \begin{block}{Definizione} 
+        \large La \emph{Sigmoide} $\sigma: \mathbb{R} \rightarrow [0, 1]$ è definita come $\sigma(x) = \frac{1}{(1 + e^{-x})}$ 
+    \end{block}\pause
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Per elevati valori negativi di input la sigmoide restituisce 0: il neurone non spara affatto
+        \item \large Per elevati valori positivi di input la sigmoide restituisce 1: il neurone satura e spara con una frequenza di sparo pari a 1
+        \item \large La sua derivata è uguale a $\sigma^{\prime}(x) = 1 - \sigma(x)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Sigmoide}
+    
+    \begin{center}
+      \includegraphics[scale = 0.6]{sigmoid.jpeg}
+    \end{center}
+  
+    \bigskip 
+  
+  \begin{itemize}
+    \setlength\itemsep{1em}
+    \item[] \large \emph{Rappresentazione grafica Sigmoide}
+  \end{itemize}       
+\end{frame} 
+
+
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Tangente Iperbolica}
+    \begin{block}{Definizione} 
+        \large La \emph{Tangente Iperbolica} $\tanh: \mathbb{R} \rightarrow [-1, 1]$ è definita come $\tanh(x) = 2\sigma(2x) - 1$ 
+    \end{block}\pause
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large La tangente iperbolica è una sigmoide scalata 
+        \item \large La sua derivata è uguale a $\tanh^{\prime}(x) = 1 - \tanh^{2}(x)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Tangente Iperbolica}
+    
+    \begin{center}
+      \includegraphics[scale = 0.6]{tanh.jpeg}
+    \end{center}
+  
+    \bigskip 
+  
+  \begin{itemize}
+    \setlength\itemsep{1em}
+    \item[] \large \emph{Rappresentazione grafica Tangente Iperbolica}
+  \end{itemize}       
+\end{frame} 
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Softplus}
+    \begin{block}{Definizione} 
+        \large La \emph{Softplus} $s: \mathbb{R} \rightarrow [0, +\infty]$ è definita come $s(x) = \log(1 + e^x)$ 
+    \end{block}\pause
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large La softplus è un approssimazione della \emph{Rectifier Linear Unit (ReLU)}
+        \item \large Viene usata per sostituire la ReLU che presenta un punto di discontinuità in 0
+        \item \large La sua derivata è uguale a $s^{\prime}(x) = \frac{1}{(1 + e^{-x})}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Softplus}
+    
+    \begin{center}
+      \includegraphics[scale = 0.45]{softplus_vs_rectifier.png}
+    \end{center}
+  
+    \smallskip
+  
+  \begin{itemize}
+    \setlength\itemsep{1em}
+    \item[] \large \emph{Confronto grafico tra ReLU e Softplus}
+  \end{itemize}       
+\end{frame} 
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Rete Neurale}
@@ -129,9 +230,6 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large Attraverso un meccanismo di eccitazione ed inibizione i pesi sinaptici controllano quanto un neurone sia influenzato dagli altri
-       \item \large I segnali pesati dalle differenti sinapsi vengono trasportati dai dendriti all'interno del neurone e sommati tra loro
-       \item \large Se la somma supera una certa soglia, il neurone \emph{spara} un segnale lungo l'assone 
-       \item \large La \emph{frequenza di sparo} del neurone viene modellata con una funzione di attivazione $f$       
     \end{itemize}
 \end{frame}
 
