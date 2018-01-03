@@ -44,19 +44,15 @@ migliori (es. dimensione del blocco, uso di stream ecc...)
 
 NICHOLAS:
 
-- Dubbio correlazione e convoluzione
-- Controllare con sm_50 se i risultati sono corretti
-- Test per vedere quanto la rete impara
-- Inserimento della depth nella backpropagation
-- Risolvere i problemi su tutti i memcpy per velocizzare la rete
-- Inserire gli stream
+- Testare accuracy rete
+- Testare velocità rete
+- Inserire gli stream (facoltativo)
 - Possibile implementazione di stride (???)
 
 
 MICHELE:
 
-- Aggiungere la Pinned Memory
-- Testare la rete con diversi valori del learning rate
+- Scrivere Documentazione
 - Testare Cifar su livelli FullyConnected
 - Aggiungere Streams (facoltativo)
 

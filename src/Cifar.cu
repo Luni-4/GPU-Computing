@@ -115,7 +115,7 @@ void Cifar::readCifar10(const std::string &fileName) {
 	   
 	    // Lettura delle immagini
 	    std::transform(dataFile.begin() + (index - _imgDim), dataFile.begin() + index, std::back_inserter(data),
-	               [](const uint8_t &d) -> double { return static_cast<double>(d) / 255.0; }); //(d - 127) / 128; });    
+	               [](const uint8_t &d) -> double { return static_cast<double>(d) / 255.0; });  
     }
     
     ifs.close(); 
@@ -145,7 +145,7 @@ void Cifar::readCifar100(const std::string &fileName, const int &iterations) {
 	   
 	    // Lettura delle immagini
 	    std::transform(dataFile.begin() + (index - _imgDim - 1), dataFile.begin() + (index - 1), std::back_inserter(data),
-	               [](const uint8_t &d) -> double { return static_cast<double>(d) / 255.0; }); //(d - 127) / 128; }); 
+	               [](const uint8_t &d) -> double { return static_cast<double>(d) / 255.0; }); 
 	       
     }
     
