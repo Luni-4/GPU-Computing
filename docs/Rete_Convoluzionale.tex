@@ -374,7 +374,7 @@
     
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Un neonato non riesce a distinguere i vari oggetti presenti nel mondo: la rete neurale biologica non ha ancora appreso nulla   
+        \item \large Al momento della nascita gli esseri umani non sono in grado di discriminare nessun tipo di oggetto a causa del mancato addestramento della loro rete neurale biologica
         \item \large Per riprodurre questo comportamento, all'inizio della fase di training, i pesi sinaptici $w_i$ di ciascun livello vengono inizializzati in maniera casuale     
     \end{itemize}
 \end{frame}
@@ -384,14 +384,48 @@
 \begin{frame}{Reti Neurali}
     \framesubtitle{Forward Propagation}
     
+    \begin{block}{Definizione} 
+        \large La \emph{Forward Propagation} è il meccanismo utilizzato da una rete neurale per associare un'immagine ad una determinata classe
+    \end{block}\pause
+        
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large L'output dei neuroni del livello $i$ viene moltiplicato per la matrice dei pesi del livello $i+1$ ottenendo un vettore $v$
-        \item \large  Al vettore $v$ viene aggiunto il vettore contenente i bias del livello $i+1$
-        \item \large Ad ogni elemento del vettore $v$ aggiornato viene applicata la funzione di attivazione $f$
-        \item \large Le operazioni precedenti vengono effettuate per ogni livello ad eccezione dell'ultimo 
+        \item \large L'output dei neuroni del livello $i$ viene moltiplicato per la matrice dei pesi del livello $i+1$ ottenendo il vettore $v$
+        \item \large Al vettore $v$ viene aggiunto il vettore dei bias del livello $i+1$
+        \item \large L'output del livello $i+1$ si ottiene applicando la funzione di attivazione $f$ ad ogni entry del vettore $v$
+        \item \large Le operazioni precedenti sono svolte per tutti i livelli ad eccezione dell'ultimo
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Funzione di perdita}
+    
+    \begin{block}{Definizione} 
+        \large Una \emph{funzione di perdita} $L$ serve per determinare l'errore di classificazione di una rete neurale
+    \end{block}\pause
+        
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large La funzione di perdita più usata è la \emph{Mean Squared Error (MSE)} $L = \frac{1}{2} \sum (target - output)^{2}$
+        \item \large Per ridurre l'errore di una rete neurale è necessario minimizzare la funzione $L$
+        \item \large Il valore minimo di $L$ si ottiene calcolando la sua derivata rispetto ai pesi, il cosiddetto \emph{gradiente} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Funzione di perdita}
+    
+    \begin{center}
+      \includegraphics[scale = 0.8]{Loss.png}
+    \end{center}
+  
+    \smallskip
+  
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Mean Squared Error (MSE). I pesi $w_1$ e $w_2$ sono le variabili indipendenti mentre la variabile dipendente è la funzione di perdita $L$}
+    \end{itemize}       
+\end{frame} 
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Back Propagation}
