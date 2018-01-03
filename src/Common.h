@@ -141,8 +141,9 @@ inline void printFromCudaFormatted(const double *deb, const int wdim, const int 
 	CHECK(cudaMemcpy(&outputC[0], deb, wdim * sizeof(double), cudaMemcpyDeviceToHost));
 
 	for (std::size_t i = 0; i < outputC.size(); i++) {
-		int cut = (outputC[i] * 100);
-		double o = (static_cast<double>(cut)) / 100;
+		double n = 100;
+		int cut = (outputC[i] * n);
+		double o = (static_cast<double>(cut)) / n;
 		std::cout << o << " ";
 		if ((i + 1) % dim == 0)
 			std::cout << " :" << i << std::endl;

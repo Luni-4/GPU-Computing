@@ -70,7 +70,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 0.18;
+	double learningRate = 1;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);

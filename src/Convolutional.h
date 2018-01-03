@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cuda_runtime.h>
-#include "cublas_v2.h"
+#include <cublas_v2.h>
 
 #include "LayerDefinition.h"
 
@@ -26,11 +26,16 @@ public:
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda(void) override;
 
-	double* getCudaOutputPointer() const override { return output; }
-	double* getCudaWeightPointer() const override { return weight; }
-	double* getCudaErrorPointer() const override { return error; }
+	double* getCudaOutputPointer(void) const override { return output; }
+	double* getCudaWeightPointer(void) const override { return weight; }
+	double* getCudaErrorPointer(void) const override { return error; }
 
 	void printW() override;
+
+private:
+	void updateWeights(const double *prevOutput, const double &learningRate);
+	void calcBackPropagation(const double *prevOutput, const double &learningRate);
+	int _calcOutput(bool withPadding);
 
 private:
 	int _wDim;
@@ -61,10 +66,5 @@ private:
 
 	// Handle per cuBlas
 	cublasHandle_t handle;
-
-private:
-	void updateWeights(const double *prevOutput, const double &learningRate);
-	void calcBackPropagation(const double *prevOutput, const double &learningRate);
-	int _calcOutput(bool withPadding);
 };
 
