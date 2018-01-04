@@ -401,14 +401,15 @@
     \framesubtitle{Funzione di perdita}
     
     \begin{block}{Definizione} 
-        \large Una \emph{funzione di perdita} $L$ serve per determinare l'errore di classificazione di una rete neurale
+        \large Una \emph{funzione di perdita} $L$ viene utilizzata per determinare l'errore di classificazione di una rete neurale
     \end{block}\pause
         
     \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
-        \item \large La funzione di perdita più usata è la \emph{Mean Squared Error (MSE)} $L = \frac{1}{2} \sum (target - output)^{2}$
-        \item \large Per ridurre l'errore di una rete neurale è necessario minimizzare la funzione $L$
-        \item \large Il valore minimo di $L$ si ottiene calcolando la sua derivata rispetto ai pesi, il cosiddetto \emph{gradiente} 
+        \setlength\itemsep{1em}
+        \item \large La funzione di perdita più usata è la \emph{Mean Squared Error (MSE)} $L = \frac{1}{2} \sum (y - o)^{2}$
+        \item \large $y$ identifica l'output della rete mentre $o$ l'etichetta dell'esempio considerato
+        \item \large Minimizzando la funzione di perdita $L$ si riduce l'errore di una rete neurale
+        \item \large Zalcolando la derivata di $L$ in funzione dei pesi $w_i$ si individua il minimo globale della funzione di perdita
     \end{itemize}
 \end{frame}
 
@@ -416,25 +417,156 @@
     \framesubtitle{Funzione di perdita}
     
     \begin{center}
-      \includegraphics[scale = 0.8]{Loss.png}
+      \includegraphics[scale = 0.7]{Loss.png}
     \end{center}
   
     \smallskip
   
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item[] \large \emph{Mean Squared Error (MSE). I pesi $w_1$ e $w_2$ sono le variabili indipendenti mentre la variabile dipendente è la funzione di perdita $L$}
+        \item[] \large \emph{Mean Squared Error (MSE). I pesi $w_1$ e $w_2$ sono le variabili indipendenti. La funzione di perdita $L$ è la variabile dipendente}
     \end{itemize}       
 \end{frame} 
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Back Propagation}
     
+    \begin{block}{Definizione} 
+        \large La \emph{Back Propagation} è il meccanismo utilizzato da una rete neurale per correggere gli errori di classificazione. Si individuano i pesi $w_i$ che hanno influenzato maggiormente l'errore commesso e si aggiusta il loro valore in modo da ridurre la funzione di perdita
+    \end{block}\pause
+    
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Lo scopo della back propagation consiste nel trovare, per ogni livello, i pesi $w$ che minimizzino una funzione di perdita $L$
+        \item \large Per calcolare la derivata della funzione $L$ in funzione dei pesi $w_i$ viene usata la \emph{regola della catena (chain rule)}
+        \item \large Questa regola viene usata per trovare la derivata di una funzione composta
+    \end{itemize}      
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Aggiornamento dei Pesi e Learning Rate}
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Il nuovo valore del peso $w_i$ è dato da  $w_i = w_i - \eta\frac{\partial L}{\partial w_i} = w_i + \Delta w_i$
+        \item \large Il \emph{learning rate} $\eta$ è un parametro usato per controllare la velocità di convergenza della rete al valore minimo. Un learning rate alto comporta step elevati nell'aggiornamento dei pesi, un tempo di esecuzione più basso, ma una maggiore probabilità di terminare in un minimo locale
+    \end{itemize}      
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation}
+    
+    \begin{center}
+      \includegraphics[scale = 0.35]{back1.png}
+    \end{center}
+    
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{equation*}
+                z_j^{h} = \sum_{i=0}^{n} w_{ij}^{h}x_i
+            \end{equation*}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{equation*}
+                z^{o} = \sum_{j=0}^{m} w_{j}^{o}h_j
+            \end{equation*}
+        \end{column}
+    \end{columns}
+    
+    \smallskip
+    
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{equation*}
+                h_j = f(z_j^{h})
+            \end{equation*}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{equation*}
+                o = f(z^{o})
+            \end{equation*}
+        \end{column}
+    \end{columns}    
+\end{frame} 
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Dato il neurone $o$ appartenente all'ultimo livello della rete neurale
+        \begin{center}
+         \large $ \frac{\partial L}{\partial w_j^{o}} =  \frac{\partial L}{\partial o} \cdot \frac{\partial o}{\partial z^{o}} \cdot \frac{\partial z^{o}}{\partial w_j}$         
+         \end{center}
+         
+         \setbeamertemplate{itemize items}[square]
+         \begin{itemize}
+            \setlength\itemsep{2em}
+            \item \large $\frac{\partial L}{\partial o} = \frac{\partial}{\partial o} [ \frac{1}{2}(y - o)^{2} ] = -(y - o)$
+            \item \large $\frac{\partial o}{\partial z^{o}} = f^{\prime}(z^{o})$
+            \item \large $\frac{\partial z^{o}}{\partial w_j^{o}} = h_j$ 
+         \end{itemize}
     \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Derivata della funzione $L$ in funzione del peso $w_j^{o}$ 
+        \begin{center}
+         \large $ \frac{\partial L}{\partial w_j^{o}} =  -(y - o) \cdot f^{\prime}(z^{o}) \cdot h_j = -\delta_j^{o}h_j$         
+         \end{center}
+         \item \large Aggiornamento del peso $w_j^{o}$
+         \begin{center}
+         \large $ \Delta w_j^{o} = \eta\delta_j^{o}h_j$         
+         \end{center}       
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation}
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{back2.png}
+    \end{center}
+    
+    \bigskip  
+
+     \begin{equation*}
+         \frac{\partial L}{\partial w_{ij}^{h}} =  \frac{\partial L}{\partial o} \cdot \frac{\partial o}{\partial z^{o}} \cdot \frac{\partial z^{o}}{\partial h_j} \cdot \frac{\partial h_j}{\partial z_j^{h}} \cdot \frac{\partial z_j^{h}}{\partial w_{ij}^{h}}
+     \end{equation*}            
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        
+        \item[] \large \begin{center} $\frac{\partial L}{\partial o} = \frac{\partial}{\partial o} [ \frac{1}{2}(y - o)^{2} ] = -(y - o)$ \end{center}
+        \item[] \large \begin{center} $\frac{\partial o}{\partial z^{o}} = f^{\prime}(z^{o})$ \end{center}
+        \item[] \large \begin{center} $\frac{\partial z^{o}}{\partial h_j} = w_j^{o}$ \end{center}
+        \item[] \large \begin{center} $\frac{\partial h_j}{\partial z_j^{h}} = f^{\prime}(z_j^{h})$ \end{center}
+        \item[] \large \begin{center} $\frac{\partial z_j^{h}}{\partial w_{ij}^{h}} = x_i$ \end{center}          
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Derivata della funzione $L$ in funzione del peso $w_{ij}^{h}$ 
+        \begin{center}
+         \large $ \frac{\partial L}{\partial w_{ij}^{h}} =  -(y - o) \cdot f^{\prime}(z^{o}) \cdot w_j^{o} \cdot f^{\prime}(z_j^{h}) \cdot x_i = -\delta_j^{h}x_i$         
+         \end{center}
+         \item \large Aggiornamento del peso $w_{ij}^{h}$
+         \begin{center}
+         \large $ \Delta w_{ij}^{h} = \eta\delta_j^{h}x_i$         
+         \end{center}       
+    \end{itemize}
+\end{frame} 
+
+
 
 
 
