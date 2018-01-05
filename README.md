@@ -72,6 +72,7 @@ MICHELE:
 - Spiegazione della rete LeCun Net (meglio conosciuta come LeNet) per il riconoscimento dei caratteri: https://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
 - Rete neurale convoluzionale LeCun Net per il riconoscimento di caratteri sequenziale: https://github.com/tatsy/educnn
 - Seconda rete neurale convoluzionale per il riconoscimento dei caratteri con video YouTube: https://github.com/can1357/simple_cnn
+- Batch Normalization: http://yeephycho.github.io/2016/08/03/Normalizations-in-neural-networks/
 
 
 - link utili convoluzione
