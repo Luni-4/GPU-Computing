@@ -81,7 +81,7 @@
     \framesubtitle{Obiettivi}  
     
     \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
+        \setlength\itemsep{3em}
         \item \large Descrivere brevemente l'architettura ed il funzionamento di una \emph{Rete Neurale}
         \item \large Motivare le differenti scelte implementative adottate durante lo svolgimento del progetto
         \item \large Valutare l'accuratezza e lo speed-up della rete rispetto ad una sua implementazione sequenziale       
@@ -101,57 +101,60 @@
     \framesubtitle{Scopo}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Le \emph{Reti Neurali} vengono principalmente usate per la classificazione delle immagini
-       \item \large Il processo di classificazione consiste nell'associare ad un'immagine un'etichetta che identifica nel miglior modo possibile il suo contenuto semantico
-       \item \large Una \emph{classe} non è altro che l'etichetta di un'immagine
+        \item \large Le \emph{Reti Neurali} vengono principalmente usate per la classificazione di immagini
+       \item \large Il processo di classificazione consiste nell'assegnare ad un immagine un'etichetta che identifichi nel miglior modo possibile il suo contenuto semantico
+       \item \large L'insieme delle immagini che hanno tutte la stessa etichetta costituiscono una \emph{classe}
        \item \large Le reti neurali ricevono in input un'immagine e forniscono in output la relativa classe 
     \end{itemize}
 \end{frame} 
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Apprendimento}
+    \framesubtitle{Funzionamento}
     \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
-        \item \large Per poter classificare, una rete neurale deve \emph{imparare} ad associare correttamente le immagini alle varie classi
-        \item \large Il \emph{training set} ed il \emph{test set} sono due insiemi composti da coppie (immagini, etichette) chiamate \emph{esempi}
-        \item \large Le etichette di ciascun esempio vengono assegnate in maniera soggettiva da personale umano 
+        \setlength\itemsep{1em}
+        \item \large Una rete neurale deve \emph{apprendere} come assegnare correttamente le immagini alle varie classi
+        \item \large Un \emph{esempio} è una coppia (immagine, etichetta)
+        \item \large Un team di persone valuta il contenuto semantico di ciascuna immagine e assegna all'esempio l'etichetta corrispondente
+        \item \large Il \emph{training set} ed il \emph{test set} sono insiemi di esempi
+        \item \large Il training set viene usato per l'addestramento (training) della rete
+        \item \large Il test set serve a controllare che la rete abbia imparato a discriminare correttamente le immagini
+       
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Training Set}
+    \framesubtitle{Training}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Il training set viene usato durante la fase di apprendimento della rete
         \item \large Per ognuno degli esempi del training set
         
-        \smallskip
+        \bigskip
+        \bigskip
         
         \setbeamertemplate{itemize items}[square] 
         \begin{itemize} 
-        \setlength\itemsep{1em}
-            \item \large La rete riceve in input l'immagine dell'esempio considerato e l'associa ad una delle classi presenti
-            \item \large Se la classe di output non corrisponde all'etichetta dell'esempio, la rete corregge i suoi parametri interni e passa all'immagine successiva
+        \setlength\itemsep{3em}
+            \item \large La rete riceve in input l'immagine relativa all'esempio considerato e l'associa ad una delle classi presenti
+            \item \large Se la classe in output è diversa dall'etichetta dell'esempio, la rete corregge i suoi parametri interni e passa all'immagine successiva
         \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Test Set}
+    \framesubtitle{Testing}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Il test set verifica che la rete abbia imparato a discriminare correttamente le immagini
-        \item \large Viene valutata l'\emph{accuratezza} della rete come il rapporto tra il numero di esempi classificati scorrettamente ed il numero totale di esempi
+        \item \large L'\emph{accuratezza} della rete è data dal rapporto tra il numero di esempi classificati scorrettamente ed il numero totale di esempi
         
         \item \large Per ognuno degli esempi del test set
         
-        \smallskip
+        \bigskip
         
         \setbeamertemplate{itemize items}[square] 
         \begin{itemize} 
-        \setlength\itemsep{1em}
+        \setlength\itemsep{2em}
             \item \large La rete riceve in input l'immagine dell'esempio considerato e l'associa ad una delle classi presenti
-            \item \large Ogni volta che l'output della rete non corrisponde all'etichetta dell'esempio, viene incrementato un contatore, necessario al calcolo dell'accuratezza
+            \item \large Ogni volta che l'output della rete non corrisponde all'etichetta dell'esempio viene incrementato un contatore, necessario per il calcolo dell'accuratezza
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -159,7 +162,7 @@
 \begin{frame}{Reti Neurali}
     \framesubtitle{Significato Biologico}
     \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
+        \setlength\itemsep{3em}
         \item \large Le \emph{Reti Neurali} nascono con lo scopo di modellare una rete neurale biologica
        \item \large Una rete neurale biologica si compone di unità cellulari di base: i \emph{neuroni}
        \item \large I neuroni sono collegati tra loro per mezzo di specifiche giunture chiamate \emph{sinapsi}
@@ -186,9 +189,9 @@
     \framesubtitle{Funzionamento Neurone}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Attraverso un meccanismo di eccitazione ed inibizione i pesi sinaptici controllano quanto un neurone venga influenzato dagli altri
-       \item \large I segnali pesati dalle differenti sinapsi vengono trasportati dai dendriti all'interno del neurone e sommati tra loro
-       \item \large Se la somma supera una certa soglia, il neurone \emph{spara} un segnale lungo l'assone 
+        \item \large Attraverso un meccanismo di eccitazione ed inibizione i pesi sinaptici controllano quanto un neurone sia influenzato dagli altri
+       \item \large I segnali in ingresso al neurone vengono pesati dalle differenti sinapsi, trasportati dai dendriti all'interno del corpo cellulare e sommati tra loro
+       \item \large Quando la somma supera una certa soglia, il neurone \emph{spara} un segnale lungo l'assone 
        \item \large La \emph{frequenza di sparo} del neurone viene modellata con una funzione di attivazione $f$       
     \end{itemize}
 \end{frame}
@@ -197,8 +200,10 @@
 \begin{frame}{Reti Neurali}
     \framesubtitle{Funzioni di Attivazione}
     \begin{block}{Definizione} 
-        \large Una \emph{funzione di attivazione} è una funzione matematica non lineare usata per calcolare l'output di un neurone. Riceve come input la somma pesata dei segnali in ingresso al neurone
+        \large Una \emph{funzione di attivazione} è una funzione matematica non lineare usata per calcolare l'output di un neurone. Il suo input equivale alla somma pesata dei segnali in ingresso al neurone
     \end{block}\pause
+    
+    \bigskip
     
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
@@ -214,10 +219,12 @@
         \large La \emph{Sigmoide} $\sigma: \mathbb{R} \rightarrow [0, 1]$ è definita come $\sigma(x) = \frac{1}{(1 + e^{-x})}$ 
     \end{block}\pause
     
+    \bigskip
+    
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large Per elevati valori negativi di input la sigmoide restituisce 0: il neurone non spara affatto
-        \item \large Per elevati valori positivi di input la sigmoide restituisce 1: il neurone satura e spara con una frequenza di sparo pari a 1
+        \item \large Per elevati valori positivi la sigmoide restituisce 1: il neurone satura e spara con frequenza di sparo pari a 1
         \item \large La sua derivata è uguale a $\sigma^{\prime}(x) = 1 - \sigma(x)$
     \end{itemize}
 \end{frame}
@@ -244,6 +251,8 @@
     \begin{block}{Definizione} 
         \large La \emph{Tangente Iperbolica} $\tanh: \mathbb{R} \rightarrow [-1, 1]$ è definita come $\tanh(x) = 2\sigma(2x) - 1$ 
     \end{block}\pause
+    
+    \bigskip
     
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
@@ -273,10 +282,12 @@
         \large La \emph{Softplus} $s: \mathbb{R} \rightarrow [0, +\infty]$ è definita come $s(x) = \log(1 + e^x)$ 
     \end{block}\pause
     
+    \bigskip
+    
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large La softplus è un approssimazione della \emph{Rectifier Linear Unit (ReLU)}
-        \item \large Viene usata per sostituire la ReLU che presenta un punto di discontinuità in 0
+        \item \large È solitamente usata per sostituire la ReLU che presenta un punto di discontinuità in 0
         \item \large La sua derivata è uguale a $s^{\prime}(x) = \frac{1}{(1 + e^{-x})}$
     \end{itemize}
 \end{frame}
@@ -448,7 +459,9 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large Il nuovo valore del peso $w_i$ è dato da  $w_i = w_i - \eta\frac{\partial L}{\partial w_i} = w_i + \Delta w_i$
-        \item \large Il \emph{learning rate} $\eta$ è un parametro usato per controllare la velocità di convergenza della rete al valore minimo. Un learning rate alto comporta step elevati nell'aggiornamento dei pesi, un tempo di esecuzione più basso, ma una maggiore probabilità di terminare in un minimo locale
+        \item \large Il \emph{learning rate} $\eta$ è un parametro usato per controllare la velocità aggiornamento dei pesi. 
+        \item \large Un learning rate alto comporta aggiornamenti rapidi, un tempo di esecuzione più basso, ma una maggiore probabilità di terminare in un minimo locale
+        \item \large Al contrario, un basso learning rate diminuisce la probabilità di terminare in un minimo locale, ma i tempi di esecuzione si allungano notevolmente
     \end{itemize}      
 \end{frame}
 
