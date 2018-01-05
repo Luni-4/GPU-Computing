@@ -145,6 +145,7 @@ inline void printFromCudaFormatted(const double *deb, const int wdim, const int 
 		int cut = (outputC[i] * n);
 		double o = (static_cast<double>(cut)) / n;
 		std::cout << o << " ";
+		//std::cout << outputC[i] << " ";
 		if ((i + 1) % dim == 0)
 			std::cout << " :" << i << std::endl;
 		if ((i + 1) % (dim * dim) == 0)
