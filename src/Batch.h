@@ -63,6 +63,14 @@ private:
 	int _stride;
 	int _padding;
 
+	double *subForward; // Submatrici
+	double *subCalcError; // Submatrici
+	double *subBack; // Submatrici
+
+	int paddingWidth;
+	int paddingSize;
+	double *padding;
+
 	// Handle per cuBlas
 	cublasHandle_t handle;
 };
