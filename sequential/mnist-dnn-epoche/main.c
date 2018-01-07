@@ -193,8 +193,8 @@ int main(int argc, const char * argv[]) {
 	Network *nn = createNetwork(numberOfLayers, layerDefs);
 
 	// Define additional hyper-parameters (optional)
-	nn->learningRate = 0.0050;
-	//nn->learningRate = 1.0;
+	//nn->learningRate = 0.0050;
+	nn->learningRate = 1.0;
 
 	// Train the network
 	trainNetwork(nn);

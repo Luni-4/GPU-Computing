@@ -51,11 +51,11 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	layers.emplace_back(new Batch(5, 1, 1));
-	layers.emplace_back(new Batch(5, 1, 1));
+	//layers.emplace_back(new Batch(5, 1, 1));
+	//layers.emplace_back(new Batch(5, 1, 1));
 	//layers.emplace_back(new FullyConnected(500, SIGMOID));
 	//layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
@@ -74,7 +74,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 1.0;
+	double learningRate = 0.005;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);

@@ -134,11 +134,7 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	// Tanti blocchi quante sono le righe e le colonne di forwardError
 	numBlocks = dim3(_filterWidth, _filterWidth, 1);
 
-#ifdef BIS
 	Kernel::rot180BisK(numBlocks, threadBlocks, weight, weightRot, _filterDim);
-#else
-	Kernel::rot180K(numBlocks, threadBlocks, weight, weightRot, _filterDim);
-#endif
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -166,7 +162,6 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	// Alloco submatrice
 	CHECK(cudaMalloc((void**)&sub, subBytes));
 
-#ifdef BIS
 	// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
 	dim3 threadBlocks(_filterWidth, _filterWidth, 1);
 
@@ -174,15 +169,6 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	dim3 numBlocks(_width, _height, _prevLayerDepth);
 
 	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
-#else
-	// Blocchi bidimensionali contenenti tanti thread quanti il depth del livello precedente
-	dim3 threadBlocks(_prevLayerDepth, 1, 1);
-
-	// Tanti blocchi quanti sono i nodi in output (width * height), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
-	dim3 numBlocks(_width, _height, 1);
-
-	Kernel::createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
-#endif
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
@@ -249,7 +235,6 @@ void Convolutional::calcError(double *prevError, const int &prevNodes) {
 	CHECK(cudaMalloc((void**)&padding, paddingSize * sizeof(double)));
 	CHECK(cudaMemset(padding, 0, paddingSize * sizeof(double)));
 
-#ifdef BIS
 	// Blocchi bidimensionali contenenti tanti thread quanti sono i nodi in output
 	dim3 threadBlocks(_height, _width, 1);
 
@@ -257,15 +242,6 @@ void Convolutional::calcError(double *prevError, const int &prevNodes) {
 	dim3 numBlocks(1, 1, _depth);
 
 	Kernel::zeroPaddingBisK(numBlocks, threadBlocks, padding, error, _width, _filterWidth);
-#else
-	// Blocchi bidimensionali contenenti tanti thread quanti il numero di filtri
-	dim3 threadBlocks(_depth, 1, 1);
-
-	// Tanti blocchi quante sono le righe di forwardError, in questo modo nel kernel sfrutto gli id.y per righe
-	dim3 numBlocks(1, _width, 1);
-
-	Kernel::zeroPaddingK(numBlocks, threadBlocks, padding, error, _width, _filterWidth);
-#endif
 
 #ifdef DEBUG
 	std::cout << "\n\nerror con zero padding\n\n";
@@ -281,7 +257,6 @@ void Convolutional::calcError(double *prevError, const int &prevNodes) {
 	// Alloco submatrice
 	CHECK(cudaMalloc((void**)&sub, subBytes));
 
-#ifdef BIS
 	// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
 	threadBlocks = dim3(_filterWidth, _filterWidth, 1);
 
@@ -289,15 +264,6 @@ void Convolutional::calcError(double *prevError, const int &prevNodes) {
 	numBlocks = dim3(sqrt(prevUniqueNodes), sqrt(prevUniqueNodes), _prevLayerDepth);
 
 	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, sub, padding, paddingWidth, _filterWidth, _stride, prevUniqueNodes);
-#else
-	// Blocchi bidimensionali contenenti tanti thread quanti il depth del livello precedente
-	threadBlocks = dim3(_depth, 1, 1);
-
-	// Tanti blocchi quanti sono i nodi in output (width * height), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
-	numBlocks = dim3(sqrt(prevUniqueNodes), sqrt(prevUniqueNodes), 1);
-
-	Kernel::createSubmatrixK(numBlocks, threadBlocks, sub, padding, paddingWidth, _filterWidth, _stride, prevUniqueNodes);
-#endif
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
@@ -349,11 +315,7 @@ void Convolutional::calcBackPropagation(const double *prevOutput, const double &
 	// Tanti blocchi quante sono le righe e le colonne di error
 	dim3 numBlocks(_width, _height, 1);
 
-#ifdef BIS
 	Kernel::rot180BisK(numBlocks, threadBlocks, error, errorRot, _uniqueNodes);
-#else
-	Kernel::rot180K(numBlocks, threadBlocks, error, errorRot, _uniqueNodes);
-#endif
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -390,7 +352,6 @@ void Convolutional::updateWeights(const double *prevOutput, const double &learni
 	// Alloco submatrice
 	CHECK(cudaMalloc((void**)&sub, subBytes));
 
-#ifdef BIS
 	// Blocchi tridimensionali contenenti tanti thread quanti sono i nodi in output
 	dim3 threadBlocks(_width, _height, 1);
 
@@ -398,16 +359,6 @@ void Convolutional::updateWeights(const double *prevOutput, const double &learni
 	dim3 numBlocks(_filterWidth, _filterWidth, _prevLayerDepth);
 
 	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _width, _stride, _filterDim);
-#else
-	// Blocchi bidimensionali contenenti tanti thread quanti il numero di filtri
-	dim3 threadBlocks(_prevLayerDepth, 1, 1);
-
-	// Tanti blocchi quanti sono i nodi dei filtri (_filterWidth * _filterWidth), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
-	dim3 numBlocks(_filterWidth, _filterWidth, 1);
-
-	// come in forward ma sostituendo filterWidth con width e uniquenodes con filterdim
-	Kernel::createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _width, _stride, _filterDim);
-#endif
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
@@ -451,11 +402,7 @@ void Convolutional::updateWeights(const double *prevOutput, const double &learni
 	// Tanti blocchi quante sono le righe e le colonne di forwardError
 	numBlocks = dim3(_filterWidth, _filterWidth, 1);
 
-#ifdef BIS
 	Kernel::rot180BisK(numBlocks, threadBlocks, weight, weightRot, _filterDim);
-#else
-	Kernel::rot180K(numBlocks, threadBlocks, weight, weightRot, _filterDim);
-#endif
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -510,3 +457,26 @@ int Convolutional::_calcOutput(bool withPadding) {
 	//+(_stride - 1)) serve per aggiornare per eccesso
 	return ((_prevLayerWidth - _filterWidth + (_stride - 1)) / _stride) + 1;
 }
+
+
+/*
+ESEMPIO DIFFERENZA UTILIZZO METODI BIS E NON:
+
+// Blocchi bidimensionali contenenti tanti thread quanti il depth del livello precedente
+dim3 threadBlocks(_prevLayerDepth, 1, 1);
+
+// Tanti blocchi quanti sono i nodi in output (width * height), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
+dim3 numBlocks(_width, _height, 1);
+
+Kernel::createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
+
+**************************************
+
+// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
+dim3 threadBlocks(_filterWidth, _filterWidth, 1);
+
+// Tanti blocchi quanti sono i nodi in output e il depth del livello precedente
+dim3 numBlocks(_width, _height, _prevLayerDepth);
+
+Kernel::createSubmatrixBisK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
+*/
