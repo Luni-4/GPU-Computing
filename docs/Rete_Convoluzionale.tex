@@ -630,12 +630,7 @@
          \large $ \Delta w_{ij}^{h} = \eta\delta_j^{h}x_i$         
          \end{center}       
     \end{itemize}
-\end{frame} 
-
-
-
-
-
+\end{frame}
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Rete Neurale Convoluzionale}  
@@ -647,6 +642,96 @@
   \bigskip \bigskip    
   \Huge Implementazione della Rete
 \end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Obiettivo}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Si vuole costruire una rete neurale convoluzionale che permetta il riconoscimento di cifre numeriche scritte a mano
+        \item \large Le cifre da riconoscere sono salvate come immagini in scala di grigio a 8 bit. Un pixel può assumere solo i valori che sono compresi nell'intervallo $[0,255]$
+        \item \large L'output della rete è dato dalle 10 cifre numeriche che si vogliono riconoscere
+        \item \large La rete riceve in input un'immagine e le associa la cifra numerica corrispondente
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Dati}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large Le immagini che identificano gli esempi del training e del test set hanno una dimensione di $28 \times 28$ mentre le etichette rappresentano le cifre corrispondenti alle immagini
+        \item \large Il training ed il test set provengono dal database \emph{MNIST} e contengono rispettativamente $60000$ esempi di train e $10000$ di test 
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Struttura}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2.5em}
+        \item \large La rete neurale convoluzionale sviluppata si compone di 3 livelli
+        \item \large Due livelli hidden di tipo convoluzionale ed un livello di output di tipo fully connected
+        \item \large La struttura si basa su una rete neurale convoluzionale chiamata \emph{Dnn} 
+        \item \large La Dnn è scritta in linguaggio C e adotta un approccio di tipo sequenziale
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Struttura}
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c | c | c |}
+           \hline
+           & Input & Hidden 1 & Hidden 2 & Output \\
+           \hline
+           \emph{Dimensione} & $28 \times 28$ & $24 \times 24$ & $20 \times 20$ & $10 \times 1$ \\ 
+           \hline         
+           \emph{Numero di Nodi} & 784 & 2880 & 2000 & 10 \\
+           \hline
+           \emph{Profondità} & 1 & 1 & 1 & 1 \\
+           \hline
+           \emph{Dimensione filtro} & & 5 & 5 & \\
+           \hline
+        \end{tabular}
+    \caption{Struttura Rete Neurale}
+    \end{table}
+    
+    %\bigskip 
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c | c | c |}
+           \hline
+           & Input & Hidden 1 & Hidden 2 & Output \\
+           \hline
+           \emph{Sigmoide} & & \checkmark & \checkmark & \checkmark \\ 
+           \hline         
+           \emph{Tanh} & & \checkmark & \checkmark & \checkmark \\
+           \hline
+           \emph{Softplus} & & \checkmark & \checkmark & \checkmark \\
+           \hline          
+        \end{tabular}
+    \caption{Funzioni di attivazione per livello}
+    \end{table} 
+     
+    
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Considerazioni}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{1em}
+        \item \large I calcoli interni alla rete sono svolti usando il formato di dato \emph{double} in modo da non perdere precisione numerica nei vari passaggi
+        \item \large All'inizio della fase di training i pixel delle immagini vengono riscalati nell'intervallo $[0,1]$ per poter essere compatibili con il formato di dato usato dalla rete
+        \item \large Tutti i dati e le strutture dati necessarie al funzionamento della rete vengono allocate all'inizio dell'esecuzione e deallocate al suo termine
+        \item \large In modo da poter confrontare tra loro i risultati ottenuti le funzioni di attivazione utilizzate sono le stesse della rete sequenziale
+    \end{itemize} 
+    
+\end{frame}
+
+
 
 \begin{frame}[c]
   \centering
