@@ -43,12 +43,12 @@ int main(int argc, char** argv) {
     layers[2] = new FullyConnectedLayer(rng, 2420, 10);  
     
 
-    Network network(layers, train_data, train_label, 50);
+    Network network(layers, train_data, train_label, 1);
     
 
     Timer timer;
     timer.start();
-    network.train(20, 0.1, 0.5);
+    network.train(1, 0.1, 0);
     printf("Time: %f sec\n", timer.stop());
 
     Matrix test_data = mnist::test_data();
