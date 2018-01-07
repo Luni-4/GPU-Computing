@@ -6,7 +6,7 @@
  */
 
 
-// Include external libraries
+ // Include external libraries
 #include <string.h>
 
 // Include project libraries
@@ -23,20 +23,20 @@
  * @param col Column of terminal screen
  */
 
-void displayImageFrame(int row, int col){
-    
-    if (col!=0 && row!=0) locateCursor(row, col);
+void displayImageFrame(int row, int col) {
 
-    printf("------------------------------\n");
-    
-    for (int i=0; i<MNIST_IMG_HEIGHT; i++){
-        for (int o=0; o<col-1; o++) printf(" ");
-        printf("|                            |\n");
-    }
+	if (col != 0 && row != 0) locateCursor(row, col);
 
-    for (int o=0; o<col-1; o++) printf(" ");
-    printf("------------------------------\n");
-    
+	printf("------------------------------\n");
+
+	for (int i = 0; i < MNIST_IMG_HEIGHT; i++) {
+		for (int o = 0; o < col - 1; o++) printf(" ");
+		printf("|                            |\n");
+	}
+
+	for (int o = 0; o < col - 1; o++) printf(" ");
+	printf("------------------------------\n");
+
 }
 
 
@@ -51,29 +51,29 @@ void displayImageFrame(int row, int col){
  * @param col Column on screen (y-coordinate) where to display the image
  */
 
-void displayImage(MNIST_Image *img, int lbl, int cls, int row, int col){
+void displayImage(MNIST_Image *img, int lbl, int cls, int row, int col) {
 
 
-    char imgStr[(MNIST_IMG_HEIGHT * MNIST_IMG_WIDTH)+((col+1)*MNIST_IMG_HEIGHT)+1];
-    strcpy(imgStr, "");
-    
-    for (int y=0; y<MNIST_IMG_HEIGHT; y++){
-        
-        for (int o=0; o<col-2; o++) strcat(imgStr," ");
-//        strcat(imgStr,"|");
-        
-        for (int x=0; x<MNIST_IMG_WIDTH; x++){
-            strcat(imgStr, img->pixel[y*MNIST_IMG_HEIGHT+x] ? "X" : "." );
-        }
-        strcat(imgStr,"\n");
-    }
-    
-    if (col!=0 && row!=0) locateCursor(row, 0);
-    printf("%s",imgStr);
-  
+	char imgStr[(MNIST_IMG_HEIGHT * MNIST_IMG_WIDTH) + ((col + 1)*MNIST_IMG_HEIGHT) + 1];
+	strcpy(imgStr, "");
 
-    printf("     Label:%d   Classification:%d\n\n",lbl,cls);
-    
+	for (int y = 0; y < MNIST_IMG_HEIGHT; y++) {
+
+		for (int o = 0; o < col - 2; o++) strcat(imgStr, " ");
+		//        strcat(imgStr,"|");
+
+		for (int x = 0; x < MNIST_IMG_WIDTH; x++) {
+			strcat(imgStr, img->pixel[y*MNIST_IMG_HEIGHT + x] ? "X" : ".");
+		}
+		strcat(imgStr, "\n");
+	}
+
+	if (col != 0 && row != 0) locateCursor(row, 0);
+	printf("%s", imgStr);
+
+
+	printf("     Label:%d   Classification:%d\n\n", lbl, cls);
+
 }
 
 
@@ -85,18 +85,19 @@ void displayImage(MNIST_Image *img, int lbl, int cls, int row, int col){
  * @param errCount Number of errors (images incorrectly classified)
  */
 
-void displayTrainingProgress(int imgCount, int errCount){
-    
-    double progress = (double)(imgCount+1)/(double)(MNIST_MAX_TRAINING_IMAGES)*100;
-    
-    moveCursorTo(0);
-    
-    printf("Training: Reading image No. %'6d of %'6d images [%3d%%]  ",(imgCount+1),MNIST_MAX_TRAINING_IMAGES,(int)progress);
-    
-    double accuracy = 1 - ((double)errCount/(double)(imgCount+1));
-    
-    printf("Result: Correct=%'6d  Incorrect=%'6d  Accuracy=%5.2f%%",imgCount+1-errCount, errCount, accuracy*100);
-    
+void displayTrainingProgress(int imgCount, int errCount) {
+
+	double progress = (double)(imgCount + 1) / (double)(MNIST_MAX_TRAINING_IMAGES) * 100;
+
+	moveCursorTo(0);
+
+	printf("Training: Reading image No. %'6d of %'6d images [%3d%%]  ", (imgCount + 1), MNIST_MAX_TRAINING_IMAGES, (int)progress);
+
+	double accuracy = 1 - ((double)errCount / (double)(imgCount + 1));
+
+	printf("Result: Correct=%'6d  Incorrect=%'6d  Accuracy=%5.2f%%", imgCount + 1 - errCount, errCount, accuracy * 100);
+	printf("\r");
+
 }
 
 
@@ -108,18 +109,19 @@ void displayTrainingProgress(int imgCount, int errCount){
  * @param errCount Number of errors (images incorrectly classified)
  */
 
-void displayTestingProgress(int imgCount, int errCount){
-    
-    double progress = (double)(imgCount+1)/(double)(MNIST_MAX_TESTING_IMAGES)*100;
-    
-    moveCursorTo(0);
-    
-    printf("Testing:  Reading image No. %'6d of %'6d images [%3d%%]  ",(imgCount+1),MNIST_MAX_TESTING_IMAGES,(int)progress);
-    
-    double accuracy = 1 - ((double)errCount/(double)(imgCount+1));
-    
-    printf("Result: Correct=%'6d  Incorrect=%'6d  Accuracy=%5.2f%%",imgCount+1-errCount, errCount, accuracy*100);
-    
+void displayTestingProgress(int imgCount, int errCount) {
+
+	double progress = (double)(imgCount + 1) / (double)(MNIST_MAX_TESTING_IMAGES) * 100;
+
+	moveCursorTo(0);
+
+	printf("Testing:  Reading image No. %'6d of %'6d images [%3d%%]  ", (imgCount + 1), MNIST_MAX_TESTING_IMAGES, (int)progress);
+
+	double accuracy = 1 - ((double)errCount / (double)(imgCount + 1));
+
+	printf("Result: Correct=%'6d  Incorrect=%'6d  Accuracy=%5.2f%%", imgCount + 1 - errCount, errCount, accuracy * 100);
+	printf("\r");
+
 }
 
 
