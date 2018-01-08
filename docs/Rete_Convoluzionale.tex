@@ -633,9 +633,116 @@
 \end{frame}
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Rete Neurale Convoluzionale}  
+    \framesubtitle{Rete Neurale Convoluzionale}
+    
+    \begin{block}{Definizione}  
+    Una \emph{Rete Neurale Convoluzionale} si differenzia da una rete neurale classica per la presenza di un nuovo tipo di livello: il \emph{livello Convoluzionale}
+    \end{block}\pause
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{1.5em}
+        \item \large Un livello convoluzionale è composto da diversi \emph{filtri}
+        \item \large Ogni filtro ricerca all'interno delle immagini della rete una o più \emph{feature}: linee, curve, pattern
+        \item \large La \emph{profondità (depth)} di un livello è pari dal numero di filtri che lo compongono
+        \item \large I filtri equivalgono alle matrici dei pesi dei livelli fully-connected e la loro dimensione è inferiore all'output del livello precendente
+    \end{itemize}    
+\end{frame}
+
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Livello Convoluzionale}  
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large La rete deve individuare feature sempre più complesse per apprendere nel miglior modo possibile il contenuto semantico di un'immagine
+        \item \large Le feature più complesse si ottengono mettendo in sequenza più livelli convoluzionali tra loro
+        \item \large L'output di un generico livello convoluzionale $i$ diventa l'input del successivo livello $i+1$. Le feature prodotte da $i$ sono meno complesse di quelle ottenute da $i+1$
+    \end{itemize}   
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Funzionamento}
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large I pesi dei filtri di un livello convoluzionale sono inizializzati in maniera casuale
+        \item \large Vengono utilizzate le stesse funzioni di attivazione e le stesse funzioni di perdita dei livelli fully-connected
+        \item \large La forward e la back propagation sono le uniche fasi che subiscono modifiche     
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Forward Propagation} 
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{1em}
+        \item \large All'inizio della forward il filtro viene sovrapposto alla parte superiore sinistra della matrice di input
+        \item \large Si effettua la \emph{convoluzione} tra le due sottomatrici e il risultato ottenuto viene salvato nella matrice di output 
+        \item \large Il filtro viene spostato di una posizione verso destra e viene rieseguita nuovamente la convoluzione  
+        \item \large Al termine della riga il filtro viene risposizionato nella parte sinistra della matrice di input, ma spostato in basso di una riga
+        \item \large Gli ultimi due passaggi vengono ripetuti fino a riempire tutta la matrice di output  
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Forward Propagation} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.7]{forward_conv.png}
+    \end{center}
+  
+    \smallskip
+    
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Esempio di Forward Propagation. La matrice di input è un $7 \times 7$. Il filtro è un $3 \times 3$ e l'output è un $5 \times 5$}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Considerazioni Forward Propagation} 
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large La dimensione della matrice di output viene ricavata da questa formula $O = (W - K) + 1$
+        \item \large $O$ rappresenta l'altezza e la larghezza della matrice di output, $W$ quella della matrice di input e $K$ la dimensione del filtro
+        %\item \large La matrice di output risultante è più piccola rispetto a quella di input
+        %\item \large Una sequenza di diversi livelli convoluzionali comporta la perdita di una grande quantità di informazione spaziale
+        %\item \large Il \emph{padding} è il meccanismo per mezzo del quale è possibile avere una matrice di output della stessa dimensione di quella di input 
+    \end{itemize}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Padding} 
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{1em}
+        \item \large Il padding si ottiene aggiungendo un certo numero di zeri in cima ed in fondo alle righe e alle colonne della matrice di input
+        \item \large L'operazione viene fatta prima che effettuata la convoluzione con i vari filtri del livello
+        \item \large Il numero di zeri da aggiungere è dato da $P = \frac{(K - 1)}{2}$
+        \item \large La dimensione della matrice di output è uguale a
+         \bigskip            
+         \begin{center} 
+             $O = (W - K + 2P) + 1$ \\
+             \bigskip
+             $O = (W - K + 2 \cdot \frac{(K - 1)}{2}) + 1$ \\
+             \bigskip
+             $O = W$ 
+         \end{center}
+                     
+    \end{itemize}
+\end{frame}
+\end{comment}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Back Propagation}  
     Una \emph{Rete Neurale Convoluzionale} si differenzia da una più classica in quanto assume che l'input della rete sia un'immagine
-\end{frame}   
+\end{frame}
+
+
+
+   
 
 \begin{frame}[c]
   \centering
@@ -670,7 +777,7 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{2.5em}
         \item \large La rete neurale convoluzionale sviluppata si compone di 3 livelli
-        \item \large Due livelli hidden di tipo convoluzionale ed un livello di output di tipo fully connected
+        \item \large Due livelli hidden di tipo convoluzionale ed un livello di output di tipo fully-connected
         \item \large La struttura si basa su una rete neurale convoluzionale chiamata \emph{Dnn} 
         \item \large La Dnn è scritta in linguaggio C e adotta un approccio di tipo sequenziale
     \end{itemize}
@@ -695,9 +802,7 @@
            \hline
         \end{tabular}
     \caption{Struttura Rete Neurale}
-    \end{table}
-    
-    %\bigskip 
+    \end{table} 
     
     \begin{table}
         \centering
