@@ -636,25 +636,28 @@
     \framesubtitle{Rete Neurale Convoluzionale}
     
     \begin{block}{Definizione}  
-    Una \emph{Rete Neurale Convoluzionale} si differenzia da una rete neurale classica per la presenza di un nuovo tipo di livello: il \emph{livello Convoluzionale}
+    Una \emph{Rete Neurale Convoluzionale} è una variante di una rete neurale classica. Permette la condivisione dei pesi sinaptici tra i neuroni di un livello e consente di discriminare le varie feature che compongono un'immagine
     \end{block}\pause
     
+    \bigskip
+    
     \begin{itemize} [<+->]
-        \setlength\itemsep{1.5em}
-        \item \large Un livello convoluzionale è composto da diversi \emph{filtri}
-        \item \large Ogni filtro ricerca all'interno delle immagini della rete una o più \emph{feature}: linee, curve, pattern
-        \item \large La \emph{profondità (depth)} di un livello è pari dal numero di filtri che lo compongono
-        \item \large I filtri equivalgono alle matrici dei pesi dei livelli fully-connected e la loro dimensione è inferiore all'output del livello precendente
+        \setlength\itemsep{1em}
+        \item \large Viene definito un nuovo tipo di livello: il \emph{Livello Convoluzionale}
+        \item \large Un livello convoluzionale è formato da diversi \emph{filtri}
+        \item \large La \emph{profondità (depth)} di un livello convoluzionale è data dal numero di filtri che lo compongono
     \end{itemize}    
 \end{frame}
 
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Livello Convoluzionale}  
+    \framesubtitle{Filtri e Livelli Convoluzionali}  
     \begin{itemize} [<+->]
-        \setlength\itemsep{3em}
-        \item \large La rete deve individuare feature sempre più complesse per apprendere nel miglior modo possibile il contenuto semantico di un'immagine
-        \item \large Le feature più complesse si ottengono mettendo in sequenza più livelli convoluzionali tra loro
+        \setlength\itemsep{1em}
+         \item \large I filtri sono le matrici contenenti i pesi sinaptici del livello convoluzionale
+        \item \large Ogni filtro ricerca all'interno delle immagini della rete una o più \emph{feature}: linee, curve, pattern
+        \item \large Per apprendere nel miglior modo possibile il contenuto semantico di un'immagine, la rete deve saper ricercare feature sempre più complesse
+        \item \large Mettendo in sequenza più livelli convoluzionali si possono ottenere feature complesse
         \item \large L'output di un generico livello convoluzionale $i$ diventa l'input del successivo livello $i+1$. Le feature prodotte da $i$ sono meno complesse di quelle ottenute da $i+1$
     \end{itemize}   
 \end{frame}
@@ -666,8 +669,34 @@
         \setlength\itemsep{3em}
         \item \large I pesi dei filtri di un livello convoluzionale sono inizializzati in maniera casuale
         \item \large Vengono utilizzate le stesse funzioni di attivazione e le stesse funzioni di perdita dei livelli fully-connected
-        \item \large La forward e la back propagation sono le uniche fasi che subiscono modifiche     
+        \item \large La forward e la back propagation sono le uniche fasi definite diversamente
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Forward Propagation} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{fCNN1.png}
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Forward Propagation} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.7]{forward_conv1.png}
+    \end{center}
+  
+    \smallskip
+    
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Le matrici di input e di output di un livello convoluzionale prendono il nome di \emph{feature map}
+        \item \large I filtri sono meglio conosciuti con il nome di \emph{kernel}
+    \end{itemize}
+    
 \end{frame}
 
 
@@ -676,13 +705,46 @@
     
     \begin{itemize} [<+->]
         \setlength\itemsep{1em}
-        \item \large All'inizio della forward il filtro viene sovrapposto alla parte superiore sinistra della matrice di input
-        \item \large Si effettua la \emph{convoluzione} tra le due sottomatrici e il risultato ottenuto viene salvato nella matrice di output 
-        \item \large Il filtro viene spostato di una posizione verso destra e viene rieseguita nuovamente la convoluzione  
-        \item \large Al termine della riga il filtro viene risposizionato nella parte sinistra della matrice di input, ma spostato in basso di una riga
-        \item \large Gli ultimi due passaggi vengono ripetuti fino a riempire tutta la matrice di output  
+        \item \large All'inizio della forward propagation, il kernel viene sovrapposto alla parte superiore sinistra della feature map di input
+        \item \large Viene eseguita la \emph{convoluzione} tra le due sottomatrici ed il risultato ottenuto viene salvato nella feature map di output 
+        \item \large Il kernel viene spostato di una posizione verso destra e viene rieseguita nuovamente la convoluzione  
+        \item \large Terminata la riga, il kernel viene posizionato nuovamente nella parte sinistra della feature map di input, ma una riga più in basso
+        \item \large Gli ultimi due passaggi vengono ripetuti fino a quando non è stata riempita completamente tutta la feature map di output
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Forward Propagation} 
+    
+    \bigskip
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{forward_flipped.png}
+    \end{center}
+  
+    \bigskip \smallskip
+        
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Il kernel deve essere ruotato di $180^\circ$ per poter eseguire l'operazione di convoluzione}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Forward Propagation} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.35]{forward_conv2.png}
+    \end{center}
+        
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Forward Propagation di un livello convoluzionale}
+    \end{itemize}
+\end{frame}
+
+
+\begin{comment}
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Esempio Forward Propagation} 
@@ -699,13 +761,16 @@
     \end{itemize}
 \end{frame}
 
+\end{comment}
+
 \begin{frame}{Reti Neurali}
     \framesubtitle{Considerazioni Forward Propagation} 
     
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
-        \item \large La dimensione della matrice di output viene ricavata da questa formula $O = (W - K) + 1$
-        \item \large $O$ rappresenta l'altezza e la larghezza della matrice di output, $W$ quella della matrice di input e $K$ la dimensione del filtro
+        \item \large Terminata la forward propagation, viene applicata la funzione di attivazione $f$ ad ogni entry della feature map di output
+        \item \large La dimensione della feature map di output è data da $O = (W - K) + 1$
+        \item \large $O$ rappresenta sia l'altezza che la larghezza della feature map di output, $W$ quella della feature map di input e $K$ la dimensione del kernel
         %\item \large La matrice di output risultante è più piccola rispetto a quella di input
         %\item \large Una sequenza di diversi livelli convoluzionali comporta la perdita di una grande quantità di informazione spaziale
         %\item \large Il \emph{padding} è il meccanismo per mezzo del quale è possibile avere una matrice di output della stessa dimensione di quella di input 
