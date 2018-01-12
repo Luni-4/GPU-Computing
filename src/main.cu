@@ -8,7 +8,7 @@
 #include "Mnist.h"
 #include "Cifar.h"
 #include "FullyConnected.h"
-#include "FullyConnected_Stream.h"
+#include "FullyConnectedStream.h"
 #include "Convolutional.h"
 #include "Network.h"
 
