@@ -506,8 +506,8 @@
         \setlength\itemsep{1.5em}
         \item \large Il nuovo valore del peso $w_i$ è dato dalla regola di aggiornamento  $w_i = w_i - \eta\frac{\partial L}{\partial w_i} = w_i + \Delta w_i$
         \item \large Il \emph{learning rate} $\eta$ è un parametro usato per controllare la velocità di aggiornamento dei pesi 
-        \item \large Un learning rate alto comporta aggiornamenti rapidi, un tempo di esecuzione più basso, ma una maggiore probabilità di terminare in un minimo locale
-        \item \large Al contrario, un basso learning rate riduce la probabilità di terminare in un minimo locale, ma i tempi di esecuzione si allungano notevolmente
+        \item \large Un learning rate alto comporta aggiornamenti rapidi, un tempo di esecuzione più basso, ma una maggiore probabilità di finire in un minimo locale
+        \item \large Un learning rate basso diminuisce la probabilità di finire in un minimo locale, ma allunga notevolmente i tempi di esecuzione
     \end{itemize}      
 \end{frame}
 
@@ -518,33 +518,27 @@
       \includegraphics[scale = 0.35]{back1.png}
     \end{center}
     
-    \begin{columns}
-        \begin{column}{0.48\textwidth}
-            \begin{equation*}
-                z_j^{h} = \sum_{i=0}^{n} w_{ij}^{h}x_i
-            \end{equation*}
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \begin{equation*}
-                z^{o} = \sum_{j=0}^{m} w_{j}^{o}h_j
-            \end{equation*}
-        \end{column}
-    \end{columns}
-    
-    \smallskip
+    \vspace{-1em}
     
     \begin{columns}
         \begin{column}{0.48\textwidth}
             \begin{equation*}
-                h_j = f(z_j^{h})
-            \end{equation*}
+                 \begin{split}
+                    & z_j^{h} = \sum_{i=0}^{n} w_{ij}^{h}x_i \\[5pt]
+                    & h_j = f(z_j^{h})
+                \end{split}
+            \end{equation*}            
         \end{column}
         \begin{column}{0.48\textwidth}
             \begin{equation*}
-                o = f(z^{o})
+                \begin{split}
+                    & z^{o} = \sum_{j=0}^{m} w_{j}^{o}h_j \\[5pt]
+                    & o = f(z^{o})
+                \end{split}
             \end{equation*}
         \end{column}
     \end{columns}    
+    
 \end{frame} 
 
 \begin{frame}{Reti Neurali}
@@ -726,7 +720,7 @@
         
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item[] \large \emph{Il kernel deve essere ruotato di $180^\circ$ per poter eseguire la convoluzione}
+        \item[] \large \emph{Il kernel viene ruotato di $180^\circ$ per poter eseguire la convoluzione}
     \end{itemize}
 \end{frame}
 
@@ -768,9 +762,10 @@
     
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
-        \item \large Terminata la forward propagation, viene applicata la funzione di attivazione $f$ ad ogni entry della feature map di output
-        \item \large La dimensione della feature map di output è data da $O = (W - K) + 1$
-        \item \large $O$ rappresenta sia l'altezza che la larghezza della feature map di output, $W$ quella della feature map di input e $K$ la dimensione del kernel
+        \item \large Al termine della forward propagation, la funzione di attivazione $f$ viene applicata ad ogni elemento della feature map di output
+        \item \large Un kernel è una matrice quadrata di dimensione $K \times K$
+        \item \large La feature map di input ha dimensione $W \times H$ con $W = H$ 
+        \item \large La feature map di output è una matrice quadrata di dimensione $O \times O$ con $O = (W - K) + 1$
         %\item \large La matrice di output risultante è più piccola rispetto a quella di input
         %\item \large Una sequenza di diversi livelli convoluzionali comporta la perdita di una grande quantità di informazione spaziale
         %\item \large Il \emph{padding} è il meccanismo per mezzo del quale è possibile avere una matrice di output della stessa dimensione di quella di input 
@@ -817,7 +812,7 @@
         
         \setbeamertemplate{itemize items}[square] 
         \begin{itemize} [<+->] 
-        \setlength\itemsep{1em}
+        \setlength\itemsep{1.5em}
             \item \large Il calcolo della matrice degli errori $\delta$
             \item \large L'aggiornamento dei pesi del kernel                     
         \end{itemize}
@@ -845,31 +840,33 @@
      \begin{itemize} [<+->]
          \setlength\itemsep{2em}
          \item \large L'influenza del pixel $x_{i^{\prime},j^{\prime}}$ sulla funzione di perdita $L$ è data da
-         \begin{equation*}
-             \delta_{i^{\prime},j^{\prime}}^l = \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^l}         
-         \end{equation*}         
+         
+         \vspace{-0.7em}
+         
+         \begin{align*}
+         \hspace{-1cm}         
+               \delta_{i^{\prime},j^{\prime}}^l = \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^l}                 
+         \end{align*}         
          
          \item \large Applicando la regola della catena si ottiene
      
-    \begin{equation*}
-        \begin{split}
+    \begin{align*}        
            \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^{l}} &= \sum_{m = 0}^{k_1 -1} \sum_{n = 0}^{k_2 -1} \frac{\partial L}{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}\frac{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}{\partial x_{i^{\prime},j^{\prime}}^l} \\[10pt]            
-              &= \sum_{m = 0}^{k_1 -1} \sum_{n = 0}^{k_2 -1} \delta^{l+1}_{i^{\prime}-m, j^{\prime}-n} \frac{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}{\partial x_{i^{\prime},j^{\prime}}^l} 
-        \end{split}   
-     \end{equation*}    
+              &= \sum_{m = 0}^{k_1 -1} \sum_{n = 0}^{k_2 -1} \delta^{l+1}_{i^{\prime}-m, j^{\prime}-n} \frac{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}{\partial x_{i^{\prime},j^{\prime}}^l}       
+     \end{align*}    
     \end{itemize}     
 \end{frame}
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Calcolo matrice dei $\delta$}
+   
      
-    \begin{equation*}
-        \begin{split}
+    \begin{align*}
+        \hspace{2em}          
           \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^{l}} &= \sum_{m = 0}^{k_1 - 1} \sum_{n = 0}^{k_2 - 1} \delta^{l+1}_{i^{\prime} - m,j^{\prime} - n} w_{m,n}^{l+1} f'\left(x_{i',j'}^{l}\right) \\[10pt]
 & = \text{rot}_{180^\circ} \left\{ \sum_{m = 0}^{k_1 - 1} \sum_{n = 0}^{k_2 - 1} \delta^{l+1}_{i^{\prime} + m,j^{\prime} + n} w_{m,n}^{l+1} \right\} f'\left(x_{i',j'}^{l}\right) \\[10pt]
-&= \delta^{l+1}_{i',j'} \ast \text{rot}_{180^\circ} \left\{ w_{m,n}^{l+1} \right\} f'\left(x_{i',j'}^{l} \right)
-        \end{split}   
-     \end{equation*}        
+&= \delta^{l+1}_{i',j'} \ast \text{rot}_{180^\circ} \left\{ w_{m,n}^{l+1} \right\} f'\left(x_{i',j'}^{l} \right)  
+     \end{align*}        
 \end{frame}
 
 \begin{frame}{Reti Neurali}
