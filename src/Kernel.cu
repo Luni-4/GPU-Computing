@@ -3,412 +3,415 @@
 
 #include <cstdio>
 
+namespace Kernel {
 
-/*  INIZIALIZZAZIONE DEI PESI */
 
-__global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *states) {
+	/*  INIZIALIZZAZIONE DEI PESI */
 
-	// Gestione degli indici	
-	const unsigned int blockId = blockIdx.y * gridDim.x + blockIdx.x;
-	const unsigned int tid = blockId * blockDim.x + threadIdx.x;
+	__global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *states) {
 
-	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
+		// Gestione degli indici	
+		const unsigned int blockId = blockIdx.y * gridDim.x + blockIdx.x;
+		const unsigned int tid = blockId * blockDim.x + threadIdx.x;
 
-	// Variabile che conterrà il valore casuale
-	double r = curand_normal_double(&states[tid]);
+		// Sequenza di rand diversa per ogni thread
+		curand_init(tid, 0, 0, &states[tid]);
 
-	if (tid % 2 == 0)
-		r = -r;
+		// Variabile che conterrà il valore casuale
+		double r = curand_normal_double(&states[tid]);
 
-	if (tid < wDim)
+		if (tid % 2 == 0)
+			r = -r;
+
+		if (tid < wDim)
 #ifdef TOYINPUT
-		weight[tid] = 1.0;
+			weight[tid] = 1.0;
 #else
-		weight[tid] = 0.2 * r;
-	//weight[tid] = 0.1;
+			weight[tid] = 0.2 * r;
+		//weight[tid] = 0.1;
 #endif
-}
+	}
 
-void Kernel::initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandStateXORWOW_t *states) {
+	void Kernel::initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandStateXORWOW_t *states) {
 #ifdef _WIN32
-	initWeight NvCUDA2(b, t) (weight, wDim, states);
+		initWeight NvCUDA2(b, t) (weight, wDim, states);
 #else
-	initWeight << <b, t >> > (weight, wDim, states);
+		initWeight << <b, t >> > (weight, wDim, states);
 #endif
-}
+	}
 
-__global__ void initBias(double *bias, const int node, curandStateXORWOW_t *states) {
+	__global__ void initBias(double *bias, const int node, curandStateXORWOW_t *states) {
 
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
-	// Sequenza di rand diversa per ogni thread
-	curand_init(tid, 0, 0, &states[tid]);
+		// Sequenza di rand diversa per ogni thread
+		curand_init(tid, 0, 0, &states[tid]);
 
-	// Variabile che conterrà il valore casuale
-	double r = curand_normal_double(&states[tid]);
+		// Variabile che conterrà il valore casuale
+		double r = curand_normal_double(&states[tid]);
 
-	if (tid % 2 == 0)
-		r = -r;
+		if (tid % 2 == 0)
+			r = -r;
 
-	if (tid < node)
+		if (tid < node)
 #ifdef TOYINPUT
-		bias[tid] = 1.0;
+			bias[tid] = 1.0;
 #else
-		bias[tid] = r;
-	//bias[tid] = 0.0;
+			bias[tid] = r;
+		//bias[tid] = 0.0;
 #endif
-}
-
-void Kernel::initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandStateXORWOW_t *states) {
-#ifdef _WIN32
-	initBias NvCUDA2(b, t) (bias, wDim, states);
-#else
-	initBias << <b, t >> > (bias, wDim, states);
-#endif
-}
-
-
-
-
-
-
-
-/* CALCOLO DEL DELTA */
-
-__global__ void outputError(const double *output, double *error, const uint8_t *label, const int target, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	double trueLabel = 0.0;
-
-	/* Il predittore dovrebbe predire con probabilità 1 solo la label passata alla funzione, quindi la variabile
-	trueLabel contiene il valore che ci si aspetterebbe dal predittore, cioè 1 */
-	if (tid == label[target])
-		trueLabel = 1.0;
-
-	// L'errore commesso è dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
-	if (tid < node)
-		error[tid] = trueLabel - output[tid];
-}
-
-void Kernel::outputErrorK(dim3 b, dim3 t, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes) {
-#ifdef _WIN32
-	outputError NvCUDA2(b, t) (output, error, label, target, nodes);
-#else
-	outputError << <b, t >> > (output, error, label, target, nodes);
-#endif
-}
-
-
-
-
-/* FUNZIONI DI ATTIVAZIONE E RELATIVE DERIVATE */
-
-
-__global__ void actRelu(double *output, double *temp, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	if (tid < node) {
-		temp[tid] = output[tid];
-		output[tid] = log(1 + exp((output[tid])));
 	}
-}
 
-__global__ void derivActRelu(double *error, double *temp, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	if (tid < node)
-		error[tid] = error[tid] * (1 / (1 + (exp((-temp[tid])))));
-}
-
-void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &nodes) {
+	void Kernel::initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandStateXORWOW_t *states) {
 #ifdef _WIN32
-	actRelu NvCUDA2(b, t) (output, temp, nodes);
+		initBias NvCUDA2(b, t) (bias, wDim, states);
 #else
-	actRelu << <b, t >> > (output, temp, nodes);
+		initBias << <b, t >> > (bias, wDim, states);
 #endif
-}
-
-void Kernel::derivActReluK(dim3 b, dim3 t, double *error, double *temp, const int &nodes) {
-#ifdef _WIN32
-	derivActRelu NvCUDA2(b, t) (error, temp, nodes);
-#else
-	derivActRelu << <b, t >> > (error, temp, nodes);
-#endif 
-}
-
-
-
-/* Funzione di attivazione del Sigmoide e derivata */
-
-__global__ void actSigmoid(double *output, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	if (tid < node)
-		output[tid] = 1 / (1 + (exp((-output[tid]))));
-}
-
-__global__ void derivActSigmoid(const double *output, double *error, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	double r;
-
-	if (tid < node) {
-		r = output[tid] * (1 - output[tid]);
-		error[tid] = error[tid] * r;
 	}
-}
 
-void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes) {
+
+
+
+
+
+
+	/* CALCOLO DEL DELTA */
+
+	__global__ void outputError(const double *output, double *error, const uint8_t *label, const int target, const int node) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		double trueLabel = 0.0;
+
+		/* Il predittore dovrebbe predire con probabilità 1 solo la label passata alla funzione, quindi la variabile
+		trueLabel contiene il valore che ci si aspetterebbe dal predittore, cioè 1 */
+		if (tid == label[target])
+			trueLabel = 1.0;
+
+		// L'errore commesso è dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
+		if (tid < node)
+			error[tid] = trueLabel - output[tid];
+	}
+
+	void Kernel::outputErrorK(dim3 b, dim3 t, const double *output, double *error, const uint8_t *label, const int &target, const int &nodes) {
 #ifdef _WIN32
-	actSigmoid NvCUDA2(b, t) (output, nodes);
+		outputError NvCUDA2(b, t) (output, error, label, target, nodes);
 #else
-	actSigmoid << <b, t >> > (output, nodes);
+		outputError << <b, t >> > (output, error, label, target, nodes);
 #endif
-}
-
-void Kernel::derivActSigmoidK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
-#ifdef _WIN32
-	derivActSigmoid NvCUDA2(b, t) (output, error, nodes);
-#else
-	derivActSigmoid << <b, t >> > (output, error, nodes);
-#endif
-}
-
-
-/* Funzione di attivazione della Tanh e derivata */
-
-__global__ void actTanh(double *output, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	if (tid < node)
-		output[tid] = tanh(output[tid]);
-}
-
-__global__ void derivActTanh(const double *output, double *error, const int node) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	if (tid < node)
-		error[tid] = error[tid] * (1 - pow(output[tid], 2));
-}
-
-void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes) {
-#ifdef _WIN32
-	actTanh NvCUDA2(b, t) (output, nodes);
-#else
-	actTanh << <b, t >> > (output, nodes);
-#endif
-}
-
-void Kernel::derivActTanhK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
-#ifdef _WIN32
-	derivActTanh NvCUDA2(b, t) (output, error, nodes);
-#else
-	derivActTanh << <b, t >> > (output, error, nodes);
-#endif
-}
+	}
 
 
 
 
-
-/* AGGIORNAMENTO DEI PESI FULLY CONNECTED*/
-
-__global__ void errorPrevOutput(double *temp, const double *prevOutput, const double *error, const int node, const int prevDim) {
-
-	// Gestione degli indici	
-	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	const unsigned int column = tid % prevDim;
-	const unsigned int row = (tid - column) / prevDim;
-
-	if (tid < node)
-		temp[tid] = error[row] * prevOutput[column];
-}
+	/* FUNZIONI DI ATTIVAZIONE E RELATIVE DERIVATE */
 
 
-void Kernel::errorPrevOutputK(dim3 b, dim3 t, double *temp, const double *prevOutput, const double *error, const int &nodes, const int &dim, const int &prevDim) {
-#ifdef _WIN32
-	errorPrevOutput NvCUDA2(b, t) (temp, prevOutput, error, dim, prevDim);
-#else
-	errorPrevOutput << <b, t >> > (temp, prevOutput, error, dim, prevDim);
-#endif
-}
+	__global__ void actRelu(double *output, double *temp, const int node) {
 
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
-/* METODI CONVOLUZIONALE */
-
-__global__ void createSubmatrixBis(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
-
-	// es 24x24 * 1 sottomatrici di 5x5 (ho input di 28x28) 
-	// lancio thread di grandezza 5x5 e blocchi di grandezza 24x24
-	// tid va da 0 a 24*24*5*5 = 14400
-	// blockIdx.x e blockIdx.y rappresentano la sottomatrice
-	// blockIdx.z rappresenta la profondità del livello precedente
-	// blockDim.x è il numero di thread nel blocco in orizzontale, 5
-	// gridDim.x è il numero di blocchi, 24
-	// ad ogni tid corrisponde una posizione dell'input, pTid
-	//printf("tid %d, blockId %d, blockIdx.x %d, blockIdx.y %d, gridDim.x %d\n", tid, blockId, blockIdx.x, blockIdx.y, gridDim.x);
-
-	const unsigned int gDim = (gridDim.x * gridDim.y);
-	const unsigned int bDim = (blockDim.x * blockDim.y);
-	const unsigned int depth = blockIdx.z * gDim * bDim;
-	const unsigned int blockId = depth + (blockIdx.y * gridDim.x + blockIdx.x) * bDim;
-	const unsigned int tid = blockId + threadIdx.y * blockDim.x + threadIdx.x;
-
-	const unsigned int pDepth = blockIdx.z * prevLayerWidth * prevLayerWidth;
-	const unsigned int pBlockId = pDepth + (blockIdx.y * stride) * prevLayerWidth + blockIdx.x * stride;
-	const unsigned int pTid = pBlockId + threadIdx.y * prevLayerWidth + threadIdx.x;
-
-	sub[tid] = prevOutput[pTid];
-}
-
-void Kernel::createSubmatrixBisK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
-#ifdef _WIN32
-	createSubmatrixBis NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
-#else
-	createSubmatrixBis << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
-#endif
-}
-
-__global__ void createSubmatrix(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
-
-	// es 20x20 * 2 sottomatrici di 5x5 (ho due input di 24x24) 
-	// lancio thread di grandezza 2 e blocchi di grandezza 20x20
-	// tid va da 0 a 20*20*2 = 800
-	// blockIdx.x rappresenta la colonna da cui inizia la submatrice, va da 0 a 20
-	// blockIdx.y rappresenta la riga da cui inizia la submatrice, va da 0 a 20
-	// blockDim.x è il numero di thread nel blocco, 2
-	// gridDim.x è il numero di blocchi, 20
-	// printf("tid %d, blockIdx.x %d, blockDim.x %d, blockIdx.y %d, gridDim.x %d\n", tid, blockIdx.x, blockDim.x, blockIdx.y, gridDim.x);
-
-	// Gestione degli indici	
-	const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
-	const unsigned int tid = blockId + threadIdx.x * uniqueNodes;
-
-	//blockIdx.x rappresenta la colonna da cui inizia la submatrice
-	//blockIdx.y rappresenta la riga da cui inizia la submatrice
-
-	//Estraggo submatrici
-	if (tid < uniqueNodes * blockDim.x) {
-		for (int i = 0; i < filterWidth; i++) {
-			memcpy((sub + tid * filterWidth * filterWidth + i * filterWidth), (prevOutput + (threadIdx.x * prevLayerWidth * prevLayerWidth) + (blockIdx.y * stride + i) * prevLayerWidth + blockIdx.x * stride), filterWidth * sizeof(double));
+		if (tid < node) {
+			temp[tid] = output[tid];
+			output[tid] = log(1 + exp((output[tid])));
 		}
 	}
-}
 
-void Kernel::createSubmatrixK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+	__global__ void derivActRelu(double *error, double *temp, const int node) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		if (tid < node)
+			error[tid] = error[tid] * (1 / (1 + (exp((-temp[tid])))));
+	}
+
+	void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &nodes) {
 #ifdef _WIN32
-	createSubmatrix NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+		actRelu NvCUDA2(b, t) (output, temp, nodes);
 #else
-	createSubmatrix << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+		actRelu << <b, t >> > (output, temp, nodes);
 #endif
-}
+	}
 
-__global__ void zeroPaddingBis(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
-	//threadIdx.y rappresenta la riga 
-	//threadIdx.x rappresenta la colonna
-	const unsigned int paddingLeft = forwardFilterWidth - 1;
-	const unsigned int widthWithPadding = forwardErrorWidth + (paddingLeft * 2);
-	const unsigned int paddingTop = blockIdx.z * widthWithPadding * widthWithPadding + paddingLeft * widthWithPadding;
-
-	const unsigned int tid = paddingTop + threadIdx.y * widthWithPadding + paddingLeft + threadIdx.x;
-	const unsigned int pTid = blockIdx.z * forwardErrorWidth * forwardErrorWidth + threadIdx.y * forwardErrorWidth + threadIdx.x;
-
-	error[tid] = forwardError[pTid];
-}
-
-void Kernel::zeroPaddingBisK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+	void Kernel::derivActReluK(dim3 b, dim3 t, double *error, double *temp, const int &nodes) {
 #ifdef _WIN32
-	zeroPaddingBis NvCUDA2(b, t) (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+		derivActRelu NvCUDA2(b, t) (error, temp, nodes);
 #else
-	zeroPaddingBis << <b, t >> > (error, forwardError, forwardErrorWidth, forwardFilterWidth);
-#endif
-}
+		derivActRelu << <b, t >> > (error, temp, nodes);
+#endif 
+	}
 
-__global__ void zeroPadding(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
-	//blockIdx.y rappresenta la riga 
-	const unsigned int paddingLeft = forwardFilterWidth - 1;
-	const unsigned int widthWithPadding = forwardErrorWidth + (paddingLeft * 2);
-	const unsigned int tid = ((blockIdx.y + paddingLeft) * widthWithPadding) + (widthWithPadding * widthWithPadding * threadIdx.x) + paddingLeft;
 
-	memcpy((error + tid), (forwardError + blockIdx.y * forwardErrorWidth + forwardErrorWidth * forwardErrorWidth * threadIdx.x), (forwardErrorWidth * sizeof(double)));
-}
 
-void Kernel::zeroPaddingK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+	/* Funzione di attivazione del Sigmoide e derivata */
+
+	__global__ void actSigmoid(double *output, const int node) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		if (tid < node)
+			output[tid] = 1 / (1 + (exp((-output[tid]))));
+	}
+
+	__global__ void derivActSigmoid(const double *output, double *error, const int node) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		double r;
+
+		if (tid < node) {
+			r = output[tid] * (1 - output[tid]);
+			error[tid] = error[tid] * r;
+		}
+	}
+
+	void Kernel::actSigmoidK(dim3 b, dim3 t, double *output, const int &nodes) {
 #ifdef _WIN32
-	zeroPadding NvCUDA2(b, t) (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+		actSigmoid NvCUDA2(b, t) (output, nodes);
 #else
-	zeroPadding << <b, t >> > (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+		actSigmoid << <b, t >> > (output, nodes);
 #endif
-}
+	}
 
-__global__ void rot180Bis(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
-
-	// es 2 filtri di 5x5
-	// per ora lancio thread di grandezza 2 e blocchi di grandezza 5x5
-	// tid va da 0 a 5*5*2 = 50
-	// blockIdx.x rappresenta la colonna da cui inizia la submatrice, va da 0 a 5
-	// blockIdx.y rappresenta la riga da cui inizia la submatrice, va da 0 a 5
-	// blockDim.x è il numero di thread nel blocco, 2
-	// gridDim.x è il numero di blocchi, 5
-	//printf("tid %d, threadIdx.x %d, threadIdx.x %d, blockIdx.x %d, blockDim.x %d, blockIdx.y %d, blockDim.y %d, gridDim.x %d\n", tid, threadIdx.x, threadIdx.y, blockIdx.x, blockDim.x, blockIdx.y, blockDim.y, gridDim.x);
-
-	// Gestione degli indici
-	const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
-	const unsigned int tid = blockId + (threadIdx.x + threadIdx.y * blockDim.x) * filterDim;
-
-	const int plus = filterDim + (threadIdx.x + threadIdx.y *  blockDim.x) * filterDim - 1;
-	forwardWeightRot[tid] = forwardWeight[plus - blockId];
-}
-
-void Kernel::rot180BisK(dim3 b, dim3 t, const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+	void Kernel::derivActSigmoidK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
 #ifdef _WIN32
-	rot180Bis NvCUDA2(b, t) (forwardWeight, forwardWeightRot, filterDim);
+		derivActSigmoid NvCUDA2(b, t) (output, error, nodes);
 #else
-	rot180Bis << <b, t >> > (forwardWeight, forwardWeightRot, filterDim);
+		derivActSigmoid << <b, t >> > (output, error, nodes);
 #endif
-}
-
-__global__ void rot180(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
-
-	// es 2 filtri di 5x5
-	// per ora lancio thread di grandezza 2 e blocchi di grandezza 5x5
-	// tid va da 0 a 5*5*2 = 50
-	// blockIdx.x rappresenta la colonna da cui inizia la submatrice, va da 0 a 5
-	// blockIdx.y rappresenta la riga da cui inizia la submatrice, va da 0 a 5
-	// blockDim.x è il numero di thread nel blocco, 2
-	// gridDim.x è il numero di blocchi, 5
-	//printf("tid %d, threadIdx.x %d, threadIdx.x %d, blockIdx.x %d, blockDim.x %d, blockIdx.y %d, blockDim.y %d, gridDim.x %d\n", tid, threadIdx.x, threadIdx.y, blockIdx.x, blockDim.x, blockIdx.y, blockDim.y, gridDim.x);
-
-	// Gestione degli indici
-	const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
-	const unsigned int tid = blockId + (threadIdx.x + threadIdx.y * blockDim.x) * filterDim;
+	}
 
 
-	const int plus = filterDim + (threadIdx.x + threadIdx.y *  blockDim.x) * filterDim - 1;
-	memcpy((forwardWeightRot + tid), (forwardWeight + plus - blockId), (sizeof(double)));
-}
+	/* Funzione di attivazione della Tanh e derivata */
 
-void Kernel::rot180K(dim3 b, dim3 t, const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+	__global__ void actTanh(double *output, const int node) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		if (tid < node)
+			output[tid] = tanh(output[tid]);
+	}
+
+	__global__ void derivActTanh(const double *output, double *error, const int node) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		if (tid < node)
+			error[tid] = error[tid] * (1 - pow(output[tid], 2));
+	}
+
+	void Kernel::actTanhK(dim3 b, dim3 t, double *output, const int &nodes) {
 #ifdef _WIN32
-	rot180 NvCUDA2(b, t) (forwardWeight, forwardWeightRot, filterDim);
+		actTanh NvCUDA2(b, t) (output, nodes);
 #else
-	rot180 << <b, t >> > (forwardWeight, forwardWeightRot, filterDim);
+		actTanh << <b, t >> > (output, nodes);
 #endif
+	}
+
+	void Kernel::derivActTanhK(dim3 b, dim3 t, const double *output, double *error, const int &nodes) {
+#ifdef _WIN32
+		derivActTanh NvCUDA2(b, t) (output, error, nodes);
+#else
+		derivActTanh << <b, t >> > (output, error, nodes);
+#endif
+	}
+
+
+
+
+
+	/* AGGIORNAMENTO DEI PESI FULLY CONNECTED*/
+
+	__global__ void errorPrevOutput(double *temp, const double *prevOutput, const double *error, const int node, const int prevDim) {
+
+		// Gestione degli indici	
+		const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+		const unsigned int column = tid % prevDim;
+		const unsigned int row = (tid - column) / prevDim;
+
+		if (tid < node)
+			temp[tid] = error[row] * prevOutput[column];
+	}
+
+
+	void Kernel::errorPrevOutputK(dim3 b, dim3 t, double *temp, const double *prevOutput, const double *error, const int &nodes, const int &dim, const int &prevDim) {
+#ifdef _WIN32
+		errorPrevOutput NvCUDA2(b, t) (temp, prevOutput, error, dim, prevDim);
+#else
+		errorPrevOutput << <b, t >> > (temp, prevOutput, error, dim, prevDim);
+#endif
+	}
+
+
+	/* METODI CONVOLUZIONALE */
+
+	__global__ void createSubmatrixBis(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+
+		// es 24x24 * 1 sottomatrici di 5x5 (ho input di 28x28) 
+		// lancio thread di grandezza 5x5 e blocchi di grandezza 24x24
+		// tid va da 0 a 24*24*5*5 = 14400
+		// blockIdx.x e blockIdx.y rappresentano la sottomatrice
+		// blockIdx.z rappresenta la profondità del livello precedente
+		// blockDim.x è il numero di thread nel blocco in orizzontale, 5
+		// gridDim.x è il numero di blocchi, 24
+		// ad ogni tid corrisponde una posizione dell'input, pTid
+		//printf("tid %d, blockId %d, blockIdx.x %d, blockIdx.y %d, gridDim.x %d\n", tid, blockId, blockIdx.x, blockIdx.y, gridDim.x);
+
+		const unsigned int gDim = (gridDim.x * gridDim.y);
+		const unsigned int bDim = (blockDim.x * blockDim.y);
+		const unsigned int depth = blockIdx.z * gDim * bDim;
+		const unsigned int blockId = depth + (blockIdx.y * gridDim.x + blockIdx.x) * bDim;
+		const unsigned int tid = blockId + threadIdx.y * blockDim.x + threadIdx.x;
+
+		const unsigned int pDepth = blockIdx.z * prevLayerWidth * prevLayerWidth;
+		const unsigned int pBlockId = pDepth + (blockIdx.y * stride) * prevLayerWidth + blockIdx.x * stride;
+		const unsigned int pTid = pBlockId + threadIdx.y * prevLayerWidth + threadIdx.x;
+
+		sub[tid] = prevOutput[pTid];
+	}
+
+	void Kernel::createSubmatrixBisK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+#ifdef _WIN32
+		createSubmatrixBis NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+#else
+		createSubmatrixBis << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+#endif
+	}
+
+	__global__ void createSubmatrix(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+
+		// es 20x20 * 2 sottomatrici di 5x5 (ho due input di 24x24) 
+		// lancio thread di grandezza 2 e blocchi di grandezza 20x20
+		// tid va da 0 a 20*20*2 = 800
+		// blockIdx.x rappresenta la colonna da cui inizia la submatrice, va da 0 a 20
+		// blockIdx.y rappresenta la riga da cui inizia la submatrice, va da 0 a 20
+		// blockDim.x è il numero di thread nel blocco, 2
+		// gridDim.x è il numero di blocchi, 20
+		// printf("tid %d, blockIdx.x %d, blockDim.x %d, blockIdx.y %d, gridDim.x %d\n", tid, blockIdx.x, blockDim.x, blockIdx.y, gridDim.x);
+
+		// Gestione degli indici	
+		const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
+		const unsigned int tid = blockId + threadIdx.x * uniqueNodes;
+
+		//blockIdx.x rappresenta la colonna da cui inizia la submatrice
+		//blockIdx.y rappresenta la riga da cui inizia la submatrice
+
+		//Estraggo submatrici
+		if (tid < uniqueNodes * blockDim.x) {
+			for (int i = 0; i < filterWidth; i++) {
+				memcpy((sub + tid * filterWidth * filterWidth + i * filterWidth), (prevOutput + (threadIdx.x * prevLayerWidth * prevLayerWidth) + (blockIdx.y * stride + i) * prevLayerWidth + blockIdx.x * stride), filterWidth * sizeof(double));
+			}
+		}
+	}
+
+	void Kernel::createSubmatrixK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+#ifdef _WIN32
+		createSubmatrix NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+#else
+		createSubmatrix << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+#endif
+	}
+
+	__global__ void zeroPaddingBis(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+		//threadIdx.y rappresenta la riga 
+		//threadIdx.x rappresenta la colonna
+		const unsigned int paddingLeft = forwardFilterWidth - 1;
+		const unsigned int widthWithPadding = forwardErrorWidth + (paddingLeft * 2);
+		const unsigned int paddingTop = blockIdx.z * widthWithPadding * widthWithPadding + paddingLeft * widthWithPadding;
+
+		const unsigned int tid = paddingTop + threadIdx.y * widthWithPadding + paddingLeft + threadIdx.x;
+		const unsigned int pTid = blockIdx.z * forwardErrorWidth * forwardErrorWidth + threadIdx.y * forwardErrorWidth + threadIdx.x;
+
+		error[tid] = forwardError[pTid];
+	}
+
+	void Kernel::zeroPaddingBisK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+#ifdef _WIN32
+		zeroPaddingBis NvCUDA2(b, t) (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+#else
+		zeroPaddingBis << <b, t >> > (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+#endif
+	}
+
+	__global__ void zeroPadding(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+		//blockIdx.y rappresenta la riga 
+		const unsigned int paddingLeft = forwardFilterWidth - 1;
+		const unsigned int widthWithPadding = forwardErrorWidth + (paddingLeft * 2);
+		const unsigned int tid = ((blockIdx.y + paddingLeft) * widthWithPadding) + (widthWithPadding * widthWithPadding * threadIdx.x) + paddingLeft;
+
+		memcpy((error + tid), (forwardError + blockIdx.y * forwardErrorWidth + forwardErrorWidth * forwardErrorWidth * threadIdx.x), (forwardErrorWidth * sizeof(double)));
+	}
+
+	void Kernel::zeroPaddingK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+#ifdef _WIN32
+		zeroPadding NvCUDA2(b, t) (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+#else
+		zeroPadding << <b, t >> > (error, forwardError, forwardErrorWidth, forwardFilterWidth);
+#endif
+	}
+
+	__global__ void rot180Bis(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+
+		// es 2 filtri di 5x5
+		// per ora lancio thread di grandezza 2 e blocchi di grandezza 5x5
+		// tid va da 0 a 5*5*2 = 50
+		// blockIdx.x rappresenta la colonna da cui inizia la submatrice, va da 0 a 5
+		// blockIdx.y rappresenta la riga da cui inizia la submatrice, va da 0 a 5
+		// blockDim.x è il numero di thread nel blocco, 2
+		// gridDim.x è il numero di blocchi, 5
+		//printf("tid %d, threadIdx.x %d, threadIdx.x %d, blockIdx.x %d, blockDim.x %d, blockIdx.y %d, blockDim.y %d, gridDim.x %d\n", tid, threadIdx.x, threadIdx.y, blockIdx.x, blockDim.x, blockIdx.y, blockDim.y, gridDim.x);
+
+		// Gestione degli indici
+		const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
+		const unsigned int tid = blockId + (threadIdx.x + threadIdx.y * blockDim.x) * filterDim;
+
+		const int plus = filterDim + (threadIdx.x + threadIdx.y *  blockDim.x) * filterDim - 1;
+		forwardWeightRot[tid] = forwardWeight[plus - blockId];
+	}
+
+	void Kernel::rot180BisK(dim3 b, dim3 t, const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+#ifdef _WIN32
+		rot180Bis NvCUDA2(b, t) (forwardWeight, forwardWeightRot, filterDim);
+#else
+		rot180Bis << <b, t >> > (forwardWeight, forwardWeightRot, filterDim);
+#endif
+	}
+
+	__global__ void rot180(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+
+		// es 2 filtri di 5x5
+		// per ora lancio thread di grandezza 2 e blocchi di grandezza 5x5
+		// tid va da 0 a 5*5*2 = 50
+		// blockIdx.x rappresenta la colonna da cui inizia la submatrice, va da 0 a 5
+		// blockIdx.y rappresenta la riga da cui inizia la submatrice, va da 0 a 5
+		// blockDim.x è il numero di thread nel blocco, 2
+		// gridDim.x è il numero di blocchi, 5
+		//printf("tid %d, threadIdx.x %d, threadIdx.x %d, blockIdx.x %d, blockDim.x %d, blockIdx.y %d, blockDim.y %d, gridDim.x %d\n", tid, threadIdx.x, threadIdx.y, blockIdx.x, blockDim.x, blockIdx.y, blockDim.y, gridDim.x);
+
+		// Gestione degli indici
+		const unsigned int blockId = blockIdx.x + blockIdx.y * gridDim.x;
+		const unsigned int tid = blockId + (threadIdx.x + threadIdx.y * blockDim.x) * filterDim;
+
+
+		const int plus = filterDim + (threadIdx.x + threadIdx.y *  blockDim.x) * filterDim - 1;
+		memcpy((forwardWeightRot + tid), (forwardWeight + plus - blockId), (sizeof(double)));
+	}
+
+	void Kernel::rot180K(dim3 b, dim3 t, const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+#ifdef _WIN32
+		rot180 NvCUDA2(b, t) (forwardWeight, forwardWeightRot, filterDim);
+#else
+		rot180 << <b, t >> > (forwardWeight, forwardWeightRot, filterDim);
+#endif
+	}
 }

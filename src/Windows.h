@@ -1,5 +1,7 @@
 #pragma once
 
+//#define CUDA_API_PER_THREAD_DEFAULT_STREAM
+
 #ifdef __CUDACC__
 #define NvCUDA2(grid, block) <<< grid, block >>>
 #define NvCUDA3(grid, block, sh_mem) <<< grid, block, sh_mem >>>
