@@ -726,7 +726,7 @@
         
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item[] \large \emph{Il kernel deve essere ruotato di $180^\circ$ per poter eseguire l'operazione di convoluzione}
+        \item[] \large \emph{Il kernel deve essere ruotato di $180^\circ$ per poter eseguire la convoluzione}
     \end{itemize}
 \end{frame}
 
@@ -801,13 +801,161 @@
 \end{comment}
 
 \begin{frame}{Reti Neurali}
-    \framesubtitle{Back Propagation}  
-    Una \emph{Rete Neurale Convoluzionale} si differenzia da una più classica in quanto assume che l'input della rete sia un'immagine
+    \framesubtitle{Back Propagation}
+    
+    \begin{block}{Definizione}
+    La Back Propagation di una rete neurale convoluzionale ha come obiettivo l'aggiornamento dei pesi contenuti nei kernel di un livello. Per ciascuno dei pesi di un kernel viene calcolata la derivata parziale $\frac{\partial L}{\partial w_{m^{\prime}, n^{\prime}}^l}$ che rappresenta l'influenza del peso $w_{m^{\prime}, n^{\prime}}^l$ sulla funzione di perdita $L$
+    \end{block}\pause
+    
+    \bigskip
+    
+     \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large La Back Propagation viene suddivisa in due fasi distinte
+        
+        \bigskip
+        
+        \setbeamertemplate{itemize items}[square] 
+        \begin{itemize} [<+->] 
+        \setlength\itemsep{1em}
+            \item \large Il calcolo della matrice degli errori $\delta$
+            \item \large L'aggiornamento dei pesi del kernel                     
+        \end{itemize}
+    \end{itemize}     
 \end{frame}
 
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Calcolo matrice dei $\delta$} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{back_conv1.png}
+    \end{center}
+  
+    \smallskip
+    
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Le linee tratteggiate presenti nella feature map di output individuano la regione dei pixel influenzati dal pixel $x_{i^{\prime},j^{\prime}}$. \\ $k_1$ e $k_2$ definiscono la grandezza della regione considerata}
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Calcolo matrice dei $\delta$}
+    
+     \begin{itemize} [<+->]
+         \setlength\itemsep{2em}
+         \item \large L'influenza del pixel $x_{i^{\prime},j^{\prime}}$ sulla funzione di perdita $L$ è data da
+         \begin{equation*}
+             \delta_{i^{\prime},j^{\prime}}^l = \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^l}         
+         \end{equation*}         
+         
+         \item \large Applicando la regola della catena si ottiene
+     
+    \begin{equation*}
+        \begin{split}
+           \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^{l}} &= \sum_{m = 0}^{k_1 -1} \sum_{n = 0}^{k_2 -1} \frac{\partial L}{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}\frac{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}{\partial x_{i^{\prime},j^{\prime}}^l} \\[10pt]            
+              &= \sum_{m = 0}^{k_1 -1} \sum_{n = 0}^{k_2 -1} \delta^{l+1}_{i^{\prime}-m, j^{\prime}-n} \frac{\partial x_{i^{\prime}-m, j^{\prime}-n}^{l+1}}{\partial x_{i^{\prime},j^{\prime}}^l} 
+        \end{split}   
+     \end{equation*}    
+    \end{itemize}     
+\end{frame}
 
-   
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Calcolo matrice dei $\delta$}
+     
+    \begin{equation*}
+        \begin{split}
+          \frac{\partial L}{\partial x_{i^{\prime},j^{\prime}}^{l}} &= \sum_{m = 0}^{k_1 - 1} \sum_{n = 0}^{k_2 - 1} \delta^{l+1}_{i^{\prime} - m,j^{\prime} - n} w_{m,n}^{l+1} f'\left(x_{i',j'}^{l}\right) \\[10pt]
+& = \text{rot}_{180^\circ} \left\{ \sum_{m = 0}^{k_1 - 1} \sum_{n = 0}^{k_2 - 1} \delta^{l+1}_{i^{\prime} + m,j^{\prime} + n} w_{m,n}^{l+1} \right\} f'\left(x_{i',j'}^{l}\right) \\[10pt]
+&= \delta^{l+1}_{i',j'} \ast \text{rot}_{180^\circ} \left\{ w_{m,n}^{l+1} \right\} f'\left(x_{i',j'}^{l} \right)
+        \end{split}   
+     \end{equation*}        
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Aggiornamento dei pesi} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{back_conv.png}
+    \end{center}
+  
+    \smallskip
+    
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Durante la fase di forward propagation, il peso $w_{m^{\prime}, n^{\prime}}$ ha contribuito a calcolare tutti i valori che costituiscono la feature map di output}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Aggiornamento dei pesi}
+     \smallskip
+     \begin{itemize} [<+->]
+     \setlength\itemsep{1em}
+     \item \large Il calcolo di $\frac{\partial L}{\partial w_{m^{\prime}, n^{\prime}}^l}$ usando la regola della catena è dato da
+     
+    \begin{equation*}
+        \begin{split}
+            \frac{\partial L}{\partial w_{m^{\prime}, n^{\prime}}^l} & = \sum_{i=0}^{W-K} \sum_{j=0}^{W-K} \frac{\partial L}{\partial x_{i,j}^{l}} \frac{\partial x_{i,j}^{l}}{\partial w_{m^{\prime},n^{\prime}}^l} \\[10pt]
+           & = \sum_{i = 0}^{W - K}\sum_{j = 0}^{W - K} \delta_{i,j}^l \cdot o_{i + m^{\prime},j + n^{\prime}}^{l-1} \\[10pt]            
+           & = rot_{180^\circ} \{ \delta_{i,j}^l \} * o_{m^{\prime},n^{\prime}}^{l-1} 
+        \end{split}          
+    \end{equation*} 
+             
+    \item \large $o_{m^{\prime},n^{\prime}}^{l-1} = f(x_{i^{\prime},j^{\prime}}^{l-1})$
+    \item \large La feature map di output ha una dimensione pari a $(W - K + 1)$ sia in altezza che in larghezza   
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Aggiornamento dei pesi}
+    
+    \bigskip
+    
+     \begin{itemize} [<+->]
+     \setlength\itemsep{3em}
+    \item \large Il risultato della convoluzione tra $\delta_{i,j}^l$ e $o_{m^{\prime},n^{\prime}}^{l-1}$ individua il nuovo valore del peso $w_{m^{\prime}, n^{\prime}}^l$
+    \item \large La convoluzione è svolta per ciascuno dei pesi che costituiscono un kernel     
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Back Propagation} 
+    
+    \bigskip
+    
+    \begin{center}
+      \includegraphics[scale = 0.6]{back_flipped.png}
+    \end{center}
+  
+    \bigskip \smallskip
+        
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{La matrice degli errori $\delta$ deve essere ruotata di $180^\circ$ per poter eseguire la convoluzione}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{back_conv4.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Back Propagation} 
+    
+    \begin{center}
+      \includegraphics[scale = 0.4]{back_conv3.png}
+    \end{center}
+        
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Il kernel aggiornato viene ricavato dalla convoluzione tra la matrice degli errori $\delta$ e la feature map di input}
+    \end{itemize}
+\end{frame}   
 
 \begin{frame}[c]
   \centering
