@@ -1,5 +1,5 @@
 #include "KernelStreamCPU.h"
-#include "Kernel.cuh"
+#include "Kernel.h"
 
 	/*  INIZIALIZZAZIONE DEI PESI */
 

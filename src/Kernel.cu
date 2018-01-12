@@ -1,7 +1,7 @@
 #include <math_constants.h>
 #include <cstdio>
 
-#include "Kernel.cuh"
+#include "Kernel.h"
 
 /*  INIZIALIZZAZIONE DEI PESI */
 
