@@ -9,7 +9,6 @@
 #include "Cifar.h"
 #include "FullyConnected.h"
 #include "FullyConnected_Stream.h"
-#include "Batch.h"
 #include "Convolutional.h"
 #include "Network.h"
 
@@ -66,7 +65,11 @@ int main() {
 	// MEMO: learning rate base 0.001
 #else
 	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
+	//layers.emplace_back(new FullyConnected_Stream(500, SIGMOID));
+	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
 	// Creare la rete
@@ -77,7 +80,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 0.005;
+	double learningRate = 0.18;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);
