@@ -8,7 +8,7 @@
 #include "Common.h"
 
 // Cuda Kernel
-#include "Kernel.h"
+#include "KernelCPU.h"
 
 // Classi
 #include "FullyConnected.h"

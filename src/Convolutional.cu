@@ -6,7 +6,7 @@
 #include "Common.h"
 
 // Cuda Kernel
-#include "Kernel.h"
+#include "KernelCPU.h"
 
 #include "Convolutional.h"
 

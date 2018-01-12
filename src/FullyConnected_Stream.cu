@@ -8,7 +8,7 @@
 #include "Common.h"
 
 // Cuda Kernel
-#include "Kernel_Stream.h"
+#include "KernelStreamCPU.h"
 
 // Classi
 #include "FullyConnected_Stream.h"
