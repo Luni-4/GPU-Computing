@@ -52,6 +52,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "sources/CMakeFiles/test_configurazione2.dir/DependInfo.cmake"
   "sources/CMakeFiles/test_neural.dir/DependInfo.cmake"
   "sources/CMakeFiles/test_lecun.dir/DependInfo.cmake"
+  "sources/CMakeFiles/test_configurazione4.dir/DependInfo.cmake"
   "sources/CMakeFiles/test_dnn.dir/DependInfo.cmake"
   "sources/CMakeFiles/test_configurazione1.dir/DependInfo.cmake"
   )

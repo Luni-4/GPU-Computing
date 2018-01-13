@@ -171,6 +171,21 @@ test_lecun/fast:
 .PHONY : test_lecun/fast
 
 # Convenience name for target.
+sources/CMakeFiles/test_configurazione4.dir/rule:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione4.dir/rule
+.PHONY : sources/CMakeFiles/test_configurazione4.dir/rule
+
+# Convenience name for target.
+test_configurazione4: sources/CMakeFiles/test_configurazione4.dir/rule
+
+.PHONY : test_configurazione4
+
+# fast build rule for target.
+test_configurazione4/fast:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione4.dir/build.make sources/CMakeFiles/test_configurazione4.dir/build
+.PHONY : test_configurazione4/fast
+
+# Convenience name for target.
 sources/CMakeFiles/test_dnn.dir/rule:
 	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_dnn.dir/rule
 .PHONY : sources/CMakeFiles/test_dnn.dir/rule
@@ -281,6 +296,33 @@ test_configurazione3.cpp.s:
 	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/test_configurazione3.cpp.s
 .PHONY : test_configurazione3.cpp.s
 
+test_configurazione4.o: test_configurazione4.cpp.o
+
+.PHONY : test_configurazione4.o
+
+# target to build an object file
+test_configurazione4.cpp.o:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione4.dir/build.make sources/CMakeFiles/test_configurazione4.dir/test_configurazione4.cpp.o
+.PHONY : test_configurazione4.cpp.o
+
+test_configurazione4.i: test_configurazione4.cpp.i
+
+.PHONY : test_configurazione4.i
+
+# target to preprocess a source file
+test_configurazione4.cpp.i:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione4.dir/build.make sources/CMakeFiles/test_configurazione4.dir/test_configurazione4.cpp.i
+.PHONY : test_configurazione4.cpp.i
+
+test_configurazione4.s: test_configurazione4.cpp.s
+
+.PHONY : test_configurazione4.s
+
+# target to generate assembly for a file
+test_configurazione4.cpp.s:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione4.dir/build.make sources/CMakeFiles/test_configurazione4.dir/test_configurazione4.cpp.s
+.PHONY : test_configurazione4.cpp.s
+
 test_dnn.o: test_dnn.cpp.o
 
 .PHONY : test_dnn.o
@@ -373,6 +415,7 @@ help:
 	@echo "... test_configurazione2"
 	@echo "... test_neural"
 	@echo "... test_lecun"
+	@echo "... test_configurazione4"
 	@echo "... test_dnn"
 	@echo "... rebuild_cache"
 	@echo "... test_configurazione1"
@@ -385,6 +428,9 @@ help:
 	@echo "... test_configurazione3.o"
 	@echo "... test_configurazione3.i"
 	@echo "... test_configurazione3.s"
+	@echo "... test_configurazione4.o"
+	@echo "... test_configurazione4.i"
+	@echo "... test_configurazione4.s"
 	@echo "... test_dnn.o"
 	@echo "... test_dnn.i"
 	@echo "... test_dnn.s"

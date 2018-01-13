@@ -10,9 +10,10 @@ int main(int argc, char** argv) {
     Random* rng = new Random((unsigned int)time(0));    
    
 
-    std::vector<AbstractLayer*> layers(2);
+    std::vector<AbstractLayer*> layers(3);
     layers[0] = new ConvolutionLayer(rng, Size(28, 28), Size(5, 5), 1, 1);
-    layers[1] = new FullyConnectedLayer(rng, 576, 10);  
+    layers[1] = new FullyConnectedLayer(rng, 576, 300);
+    layers[2] = new FullyConnectedLayer(rng, 300, 10); 
     
 
     Network network(layers, train_data, train_label, 1);    

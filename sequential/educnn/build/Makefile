@@ -163,6 +163,19 @@ test_lecun/fast:
 .PHONY : test_lecun/fast
 
 #=============================================================================
+# Target rules for targets named test_configurazione4
+
+# Build rule for target.
+test_configurazione4: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_configurazione4
+.PHONY : test_configurazione4
+
+# fast build rule for target.
+test_configurazione4/fast:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione4.dir/build.make sources/CMakeFiles/test_configurazione4.dir/build
+.PHONY : test_configurazione4/fast
+
+#=============================================================================
 # Target rules for targets named test_dnn
 
 # Build rule for target.
@@ -200,6 +213,7 @@ help:
 	@echo "... test_configurazione2"
 	@echo "... test_neural"
 	@echo "... test_lecun"
+	@echo "... test_configurazione4"
 	@echo "... test_dnn"
 	@echo "... test_configurazione1"
 .PHONY : help
