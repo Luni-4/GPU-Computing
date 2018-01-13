@@ -1069,7 +1069,7 @@
         \setlength\itemsep{2em}
         \item \large Il testing della rete viene effettuato combinando tra loro differenti tipi di livelli
         \item \large Le diverse combinazioni vengono chiamate \emph{Configurazioni}
-        \item \large Per studiare il comportamento della rete vengono definite tre configurazioni
+        \item \large Per studiare il comportamento della rete vengono definite quattro configurazioni
         \item \large Il numero di nodi e di livelli di ciascuna configurazione viene scelto tenendo conto della componentistica hardware utilizzata per eseguire i test
     \end{itemize}     
 \end{frame}
@@ -1091,7 +1091,7 @@
     \caption{Configurazione 1}
     \end{table}
     
-    \bigskip 
+    \bigskip
     
     \begin{table}
         \centering
@@ -1100,24 +1100,21 @@
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
            \hline
            Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
-           \hline         
-           Convoluzionale & $22 \times 22$ & $5 \times 5 \times 1$   \\
-           \hline
+           \hline 
            Fully Connected & $10 \times 1$ & \ding{55} \\
            \hline          
         \end{tabular}
     \caption{Configurazione 2}
     \end{table}
     
+    
+    
 \end{frame}
 
 
 \begin{frame}{Implementazione della Rete}
-    \framesubtitle{Configurazioni}
+    \framesubtitle{Configurazioni}   
     
-    \bigskip
-    \bigskip
-  
     \begin{table}
         \centering
         \begin{tabular}{| c | c | c |}
@@ -1125,8 +1122,6 @@
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
            \hline
            Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
-           \hline         
-           Convoluzionale & $22 \times 22$ & $5 \times 5 \times 1$   \\
            \hline
            Fully Connected & $300 \times 1$ & \ding{55} \\
            \hline 
@@ -1136,10 +1131,25 @@
     \caption{Configurazione 3}
     \end{table}
     
+    \bigskip    
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           \hline         
+           Convoluzionale & $22 \times 22$ & $5 \times 5 \times 1$   \\
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline          
+        \end{tabular}
+    \caption{Configurazione 4}
+    \end{table}     
+    
 \end{frame}
-
-
-
 
 
 \begin{frame}[c]
