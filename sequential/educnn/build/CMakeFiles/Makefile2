@@ -63,16 +63,22 @@ CMAKE_BINARY_DIR = /home/mik/Documenti/GPU-Computing/sequential/educnn/build
 # Directory level rules for directory sources
 
 # Convenience name for "all" pass in the directory.
+sources/all: sources/CMakeFiles/test_configurazione3.dir/all
+sources/all: sources/CMakeFiles/test_configurazione2.dir/all
 sources/all: sources/CMakeFiles/test_neural.dir/all
 sources/all: sources/CMakeFiles/test_lecun.dir/all
 sources/all: sources/CMakeFiles/test_dnn.dir/all
+sources/all: sources/CMakeFiles/test_configurazione1.dir/all
 
 .PHONY : sources/all
 
 # Convenience name for "clean" pass in the directory.
+sources/clean: sources/CMakeFiles/test_configurazione3.dir/clean
+sources/clean: sources/CMakeFiles/test_configurazione2.dir/clean
 sources/clean: sources/CMakeFiles/test_neural.dir/clean
 sources/clean: sources/CMakeFiles/test_lecun.dir/clean
 sources/clean: sources/CMakeFiles/test_dnn.dir/clean
+sources/clean: sources/CMakeFiles/test_configurazione1.dir/clean
 
 .PHONY : sources/clean
 
@@ -82,13 +88,87 @@ sources/preinstall:
 .PHONY : sources/preinstall
 
 #=============================================================================
+# Target rules for target sources/CMakeFiles/test_configurazione3.dir
+
+# All Build rule for target.
+sources/CMakeFiles/test_configurazione3.dir/all:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/depend
+	$(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=5,6 "Built target test_configurazione3"
+.PHONY : sources/CMakeFiles/test_configurazione3.dir/all
+
+# Include target in all.
+all: sources/CMakeFiles/test_configurazione3.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sources/CMakeFiles/test_configurazione3.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione3.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles 0
+.PHONY : sources/CMakeFiles/test_configurazione3.dir/rule
+
+# Convenience name for target.
+test_configurazione3: sources/CMakeFiles/test_configurazione3.dir/rule
+
+.PHONY : test_configurazione3
+
+# clean rule for target.
+sources/CMakeFiles/test_configurazione3.dir/clean:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/clean
+.PHONY : sources/CMakeFiles/test_configurazione3.dir/clean
+
+# clean rule for target.
+clean: sources/CMakeFiles/test_configurazione3.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target sources/CMakeFiles/test_configurazione2.dir
+
+# All Build rule for target.
+sources/CMakeFiles/test_configurazione2.dir/all:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/depend
+	$(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=3,4 "Built target test_configurazione2"
+.PHONY : sources/CMakeFiles/test_configurazione2.dir/all
+
+# Include target in all.
+all: sources/CMakeFiles/test_configurazione2.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sources/CMakeFiles/test_configurazione2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles 0
+.PHONY : sources/CMakeFiles/test_configurazione2.dir/rule
+
+# Convenience name for target.
+test_configurazione2: sources/CMakeFiles/test_configurazione2.dir/rule
+
+.PHONY : test_configurazione2
+
+# clean rule for target.
+sources/CMakeFiles/test_configurazione2.dir/clean:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/clean
+.PHONY : sources/CMakeFiles/test_configurazione2.dir/clean
+
+# clean rule for target.
+clean: sources/CMakeFiles/test_configurazione2.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target sources/CMakeFiles/test_neural.dir
 
 # All Build rule for target.
 sources/CMakeFiles/test_neural.dir/all:
 	$(MAKE) -f sources/CMakeFiles/test_neural.dir/build.make sources/CMakeFiles/test_neural.dir/depend
 	$(MAKE) -f sources/CMakeFiles/test_neural.dir/build.make sources/CMakeFiles/test_neural.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=5,6 "Built target test_neural"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=11,12 "Built target test_neural"
 .PHONY : sources/CMakeFiles/test_neural.dir/all
 
 # Include target in all.
@@ -125,7 +205,7 @@ clean: sources/CMakeFiles/test_neural.dir/clean
 sources/CMakeFiles/test_lecun.dir/all:
 	$(MAKE) -f sources/CMakeFiles/test_lecun.dir/build.make sources/CMakeFiles/test_lecun.dir/depend
 	$(MAKE) -f sources/CMakeFiles/test_lecun.dir/build.make sources/CMakeFiles/test_lecun.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=3,4 "Built target test_lecun"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=9,10 "Built target test_lecun"
 .PHONY : sources/CMakeFiles/test_lecun.dir/all
 
 # Include target in all.
@@ -162,7 +242,7 @@ clean: sources/CMakeFiles/test_lecun.dir/clean
 sources/CMakeFiles/test_dnn.dir/all:
 	$(MAKE) -f sources/CMakeFiles/test_dnn.dir/build.make sources/CMakeFiles/test_dnn.dir/depend
 	$(MAKE) -f sources/CMakeFiles/test_dnn.dir/build.make sources/CMakeFiles/test_dnn.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=1,2 "Built target test_dnn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=7,8 "Built target test_dnn"
 .PHONY : sources/CMakeFiles/test_dnn.dir/all
 
 # Include target in all.
@@ -189,6 +269,43 @@ sources/CMakeFiles/test_dnn.dir/clean:
 
 # clean rule for target.
 clean: sources/CMakeFiles/test_dnn.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target sources/CMakeFiles/test_configurazione1.dir
+
+# All Build rule for target.
+sources/CMakeFiles/test_configurazione1.dir/all:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/depend
+	$(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles --progress-num=1,2 "Built target test_configurazione1"
+.PHONY : sources/CMakeFiles/test_configurazione1.dir/all
+
+# Include target in all.
+all: sources/CMakeFiles/test_configurazione1.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sources/CMakeFiles/test_configurazione1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles 0
+.PHONY : sources/CMakeFiles/test_configurazione1.dir/rule
+
+# Convenience name for target.
+test_configurazione1: sources/CMakeFiles/test_configurazione1.dir/rule
+
+.PHONY : test_configurazione1
+
+# clean rule for target.
+sources/CMakeFiles/test_configurazione1.dir/clean:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/clean
+.PHONY : sources/CMakeFiles/test_configurazione1.dir/clean
+
+# clean rule for target.
+clean: sources/CMakeFiles/test_configurazione1.dir/clean
 
 .PHONY : clean
 

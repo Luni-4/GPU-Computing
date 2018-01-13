@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/mik/Documenti/GPU-Computing/sequential/educnn/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -109,6 +109,36 @@ preinstall/fast:
 depend:
 	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+sources/CMakeFiles/test_configurazione3.dir/rule:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione3.dir/rule
+.PHONY : sources/CMakeFiles/test_configurazione3.dir/rule
+
+# Convenience name for target.
+test_configurazione3: sources/CMakeFiles/test_configurazione3.dir/rule
+
+.PHONY : test_configurazione3
+
+# fast build rule for target.
+test_configurazione3/fast:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/build
+.PHONY : test_configurazione3/fast
+
+# Convenience name for target.
+sources/CMakeFiles/test_configurazione2.dir/rule:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione2.dir/rule
+.PHONY : sources/CMakeFiles/test_configurazione2.dir/rule
+
+# Convenience name for target.
+test_configurazione2: sources/CMakeFiles/test_configurazione2.dir/rule
+
+.PHONY : test_configurazione2
+
+# fast build rule for target.
+test_configurazione2/fast:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/build
+.PHONY : test_configurazione2/fast
 
 # Convenience name for target.
 sources/CMakeFiles/test_neural.dir/rule:
@@ -154,6 +184,102 @@ test_dnn: sources/CMakeFiles/test_dnn.dir/rule
 test_dnn/fast:
 	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_dnn.dir/build.make sources/CMakeFiles/test_dnn.dir/build
 .PHONY : test_dnn/fast
+
+# Convenience name for target.
+sources/CMakeFiles/test_configurazione1.dir/rule:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f CMakeFiles/Makefile2 sources/CMakeFiles/test_configurazione1.dir/rule
+.PHONY : sources/CMakeFiles/test_configurazione1.dir/rule
+
+# Convenience name for target.
+test_configurazione1: sources/CMakeFiles/test_configurazione1.dir/rule
+
+.PHONY : test_configurazione1
+
+# fast build rule for target.
+test_configurazione1/fast:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/build
+.PHONY : test_configurazione1/fast
+
+test_configurazione1.o: test_configurazione1.cpp.o
+
+.PHONY : test_configurazione1.o
+
+# target to build an object file
+test_configurazione1.cpp.o:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/test_configurazione1.cpp.o
+.PHONY : test_configurazione1.cpp.o
+
+test_configurazione1.i: test_configurazione1.cpp.i
+
+.PHONY : test_configurazione1.i
+
+# target to preprocess a source file
+test_configurazione1.cpp.i:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/test_configurazione1.cpp.i
+.PHONY : test_configurazione1.cpp.i
+
+test_configurazione1.s: test_configurazione1.cpp.s
+
+.PHONY : test_configurazione1.s
+
+# target to generate assembly for a file
+test_configurazione1.cpp.s:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/test_configurazione1.cpp.s
+.PHONY : test_configurazione1.cpp.s
+
+test_configurazione2.o: test_configurazione2.cpp.o
+
+.PHONY : test_configurazione2.o
+
+# target to build an object file
+test_configurazione2.cpp.o:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/test_configurazione2.cpp.o
+.PHONY : test_configurazione2.cpp.o
+
+test_configurazione2.i: test_configurazione2.cpp.i
+
+.PHONY : test_configurazione2.i
+
+# target to preprocess a source file
+test_configurazione2.cpp.i:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/test_configurazione2.cpp.i
+.PHONY : test_configurazione2.cpp.i
+
+test_configurazione2.s: test_configurazione2.cpp.s
+
+.PHONY : test_configurazione2.s
+
+# target to generate assembly for a file
+test_configurazione2.cpp.s:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/test_configurazione2.cpp.s
+.PHONY : test_configurazione2.cpp.s
+
+test_configurazione3.o: test_configurazione3.cpp.o
+
+.PHONY : test_configurazione3.o
+
+# target to build an object file
+test_configurazione3.cpp.o:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/test_configurazione3.cpp.o
+.PHONY : test_configurazione3.cpp.o
+
+test_configurazione3.i: test_configurazione3.cpp.i
+
+.PHONY : test_configurazione3.i
+
+# target to preprocess a source file
+test_configurazione3.cpp.i:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/test_configurazione3.cpp.i
+.PHONY : test_configurazione3.cpp.i
+
+test_configurazione3.s: test_configurazione3.cpp.s
+
+.PHONY : test_configurazione3.s
+
+# target to generate assembly for a file
+test_configurazione3.cpp.s:
+	cd /home/mik/Documenti/GPU-Computing/sequential/educnn/build && $(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/test_configurazione3.cpp.s
+.PHONY : test_configurazione3.cpp.s
 
 test_dnn.o: test_dnn.cpp.o
 
@@ -242,11 +368,23 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... test_configurazione3"
+	@echo "... test_configurazione2"
 	@echo "... test_neural"
 	@echo "... test_lecun"
 	@echo "... test_dnn"
-	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+	@echo "... test_configurazione1"
+	@echo "... test_configurazione1.o"
+	@echo "... test_configurazione1.i"
+	@echo "... test_configurazione1.s"
+	@echo "... test_configurazione2.o"
+	@echo "... test_configurazione2.i"
+	@echo "... test_configurazione2.s"
+	@echo "... test_configurazione3.o"
+	@echo "... test_configurazione3.i"
+	@echo "... test_configurazione3.s"
 	@echo "... test_dnn.o"
 	@echo "... test_dnn.i"
 	@echo "... test_dnn.s"

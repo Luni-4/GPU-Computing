@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_configurazione3
+
+# Build rule for target.
+test_configurazione3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_configurazione3
+.PHONY : test_configurazione3
+
+# fast build rule for target.
+test_configurazione3/fast:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione3.dir/build.make sources/CMakeFiles/test_configurazione3.dir/build
+.PHONY : test_configurazione3/fast
+
+#=============================================================================
+# Target rules for targets named test_configurazione2
+
+# Build rule for target.
+test_configurazione2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_configurazione2
+.PHONY : test_configurazione2
+
+# fast build rule for target.
+test_configurazione2/fast:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione2.dir/build.make sources/CMakeFiles/test_configurazione2.dir/build
+.PHONY : test_configurazione2/fast
+
+#=============================================================================
 # Target rules for targets named test_neural
 
 # Build rule for target.
@@ -149,6 +175,19 @@ test_dnn/fast:
 	$(MAKE) -f sources/CMakeFiles/test_dnn.dir/build.make sources/CMakeFiles/test_dnn.dir/build
 .PHONY : test_dnn/fast
 
+#=============================================================================
+# Target rules for targets named test_configurazione1
+
+# Build rule for target.
+test_configurazione1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_configurazione1
+.PHONY : test_configurazione1
+
+# fast build rule for target.
+test_configurazione1/fast:
+	$(MAKE) -f sources/CMakeFiles/test_configurazione1.dir/build.make sources/CMakeFiles/test_configurazione1.dir/build
+.PHONY : test_configurazione1/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -157,9 +196,12 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test_configurazione3"
+	@echo "... test_configurazione2"
 	@echo "... test_neural"
 	@echo "... test_lecun"
 	@echo "... test_dnn"
+	@echo "... test_configurazione1"
 .PHONY : help
 
 

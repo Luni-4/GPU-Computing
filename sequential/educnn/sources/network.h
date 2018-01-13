@@ -55,7 +55,7 @@ public:
                 const Matrix& output = forward_propagation(batches_[j]);
                 back_propagation(labels_[j] - output, eta, lambda);
                 double cost = negative_log_likelihood(labels_[j], output);
-                printf("Epoch %03d-%03d: %f\n", i + 1, j + 1, cost);
+                //printf("Epoch %03d-%03d: %f\n", i + 1, j + 1, cost);
             }
         }
     }

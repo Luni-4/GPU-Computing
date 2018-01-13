@@ -1,7 +1,10 @@
 /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles/rebuild_cache.dir
 /home/mik/Documenti/GPU-Computing/sequential/educnn/build/CMakeFiles/edit_cache.dir
-/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/rebuild_cache.dir
+/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/edit_cache.dir
+/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/test_configurazione3.dir
+/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/test_configurazione2.dir
 /home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/test_neural.dir
 /home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/test_lecun.dir
 /home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/test_dnn.dir
-/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/edit_cache.dir
+/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/rebuild_cache.dir
+/home/mik/Documenti/GPU-Computing/sequential/educnn/build/sources/CMakeFiles/test_configurazione1.dir
