@@ -1,0 +1,48 @@
+Configurazione: 1
+Learning Rate: 0.010000
+
+Configurazione: 2
+Learning Rate: 0.060000
+
+Configurazione: 3
+Learning Rate: 0.110000
+
+Configurazione: 4
+Learning Rate: 0.160000
+
+Configurazione: 5
+Learning Rate: 0.210000
+
+Configurazione: 6
+Learning Rate: 0.260000
+
+Configurazione: 7
+Learning Rate: 0.310000
+
+Configurazione: 8
+Learning Rate: 0.360000
+
+Configurazione: 9
+Learning Rate: 0.410000
+
+Configurazione: 10
+Learning Rate: 0.460000
+
+Configurazione: 11
+Learning Rate: 0.510000
+
+Configurazione: 12
+Learning Rate: 0.560000
+
+Configurazione: 13
+Learning Rate: 0.610000
+
+Configurazione: 14
+Learning Rate: 0.660000
+
+Configurazione: 15
+Learning Rate: 0.710000
+
+Configurazione: 16
+Learning Rate: 0.760000
+

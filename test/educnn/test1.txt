@@ -1,0 +1,80 @@
+Configurazione: 1
+
+Time: 191.289000 sec
+Ratio: 88.720000 %
+
+Configurazione: 2
+
+Time: 151.512000 sec
+Ratio: 92.680000 %
+
+Configurazione: 3
+
+Time: 151.513000 sec
+Ratio: 94.990000 %
+
+Configurazione: 4
+
+Time: 151.542000 sec
+Ratio: 96.270000 %
+
+Configurazione: 5
+
+Time: 151.597000 sec
+Ratio: 96.620000 %
+
+Configurazione: 6
+
+Time: 151.429000 sec
+Ratio: 97.070000 %
+
+Configurazione: 7
+
+Time: 149.243000 sec
+Ratio: 97.100000 %
+
+Configurazione: 8
+
+Time: 122.226000 sec
+Ratio: 97.440000 %
+
+Configurazione: 9
+
+Time: 121.065000 sec
+Ratio: 97.330000 %
+
+Configurazione: 10
+
+Time: 121.156000 sec
+Ratio: 97.390000 %
+
+Configurazione: 11
+
+Time: 121.133000 sec
+Ratio: 97.460000 %
+
+Configurazione: 12
+
+Time: 121.117000 sec
+Ratio: 97.600000 %
+
+Configurazione: 13
+
+Time: 121.111000 sec
+Ratio: 97.520000 %
+
+Configurazione: 14
+
+Time: 121.173000 sec
+Ratio: 97.280000 %
+
+Configurazione: 15
+
+Time: 121.006000 sec
+Ratio: 97.320000 %
+
+Configurazione: 16
+
+Time: 120.950000 sec
+Ratio: 97.480000 %
+
