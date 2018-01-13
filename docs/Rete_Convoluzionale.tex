@@ -13,6 +13,9 @@
 % Converte file eps in pdf
 \usepackage{epstopdf}
 
+% Consente di rappresentare i simboli di check e di cross
+\usepackage{pifont}
+
 % Consente di rappresentare la funzione identità
 \usepackage{dsfont}
 
@@ -976,12 +979,24 @@
     \framesubtitle{Dati}
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
-        \item \large Le immagini che identificano gli esempi del training e del test set hanno una dimensione di $28 \times 28$ mentre le etichette rappresentano le cifre corrispondenti alle immagini
+        \item \large La dimensione delle immagini che costituiscono gli esempi del training e del test set hanno una dimensione di $28 \times 28$
+        \item \large Le etichette sono numeri interi positivi e consentono di associare una classe ad una determinata immagine 
         \item \large Il training ed il test set provengono dal database \emph{MNIST} e contengono rispettativamente $60000$ esempi di train e $10000$ di test 
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Rete Sequenziale}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large La rete sequenziale utilizzata per il confronto dei tempi di esecuzione è chiamata \emph{EduCNN}
+        \item \large Ammette sia livelli di tipo fully-connected che convoluzionali
+        \item \large La funzione di attivazione scelta è la sigmoide
+        \item \large La rete è stata implementata usando il linguaggio di programmazione C++  
+    \end{itemize}
+\end{frame}
 
+\begin{comment}
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Struttura}
     \begin{itemize} [<+->]
@@ -1032,19 +1047,98 @@
      
     
 \end{frame}
+\end{comment}
 
 
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Considerazioni}
     \begin{itemize} [<+->]
-        \setlength\itemsep{1em}
-        \item \large I calcoli interni alla rete sono svolti usando il formato di dato \emph{double} in modo da non perdere precisione numerica nei vari passaggi
+        \setlength\itemsep{1.5em}
+        \item \large I calcoli interni alla rete vengono svolti usando il formato di dato \emph{double} in modo da non perdere precisione numerica tra i vari passaggi
         \item \large All'inizio della fase di training i pixel delle immagini vengono riscalati nell'intervallo $[0,1]$ per poter essere compatibili con il formato di dato usato dalla rete
-        \item \large Tutti i dati e le strutture dati necessarie al funzionamento della rete vengono allocate all'inizio dell'esecuzione e deallocate al suo termine
-        \item \large In modo da poter confrontare tra loro i risultati ottenuti le funzioni di attivazione utilizzate sono le stesse della rete sequenziale
+        \item \large Tutti i dati e le strutture necessarie al funzionamento della rete vengono allocate all'inizio dell'esecuzione e deallocate al suo termine
+        \item \large Le funzioni di attivazione utilizzate dalla rete CUDA sono le stesse della rete sequenziale
     \end{itemize} 
     
 \end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Il testing della rete viene effettuato combinando tra loro differenti tipi di livelli
+        \item \large Le diverse combinazioni vengono chiamate \emph{Configurazioni}
+        \item \large Per studiare il comportamento della rete vengono definite tre configurazioni
+        \item \large Il numero di nodi e di livelli di ciascuna configurazione viene scelto tenendo conto della componentistica hardware utilizzata per eseguire i test
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}
+    
+     \begin{table}
+        \centering
+        \begin{tabular}{| c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} \\
+           \hline
+           Fully Connected & $300 \times 1$  \\ 
+           \hline         
+           Fully Connected & $10 \times 1$ \\
+           \hline
+        \end{tabular}
+    \caption{Configurazione 1}
+    \end{table}
+    
+    \bigskip 
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           \hline         
+           Convoluzionale & $22 \times 22$ & $5 \times 5 \times 1$   \\
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline          
+        \end{tabular}
+    \caption{Configurazione 2}
+    \end{table}
+    
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}
+    
+    \bigskip
+    \bigskip
+  
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           \hline         
+           Convoluzionale & $22 \times 22$ & $5 \times 5 \times 1$   \\
+           \hline
+           Fully Connected & $300 \times 1$ & \ding{55} \\
+           \hline 
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline          
+        \end{tabular}
+    \caption{Configurazione 3}
+    \end{table}
+    
+\end{frame}
+
+
 
 
 
