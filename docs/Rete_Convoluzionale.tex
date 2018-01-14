@@ -16,6 +16,9 @@
 % Consente di rappresentare i simboli di check e di cross
 \usepackage{pifont}
 
+% Consente di suddividere una colonna in due righe
+\usepackage{multirow}
+
 % Consente di rappresentare la funzione identità
 \usepackage{dsfont}
 
@@ -1180,7 +1183,31 @@
 
 \begin{frame}{Analisi dei Risultati}
     \framesubtitle{Risultati}
-        TABELLA    
+    \bigskip
+    \bigskip
+        \begin{table}
+            \centering
+            \renewcommand\arraystretch{1.2} 
+            \begin{tabular}{| c | c | c | c | c |}
+                \hline
+                \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} \\
+                \hline
+                \multirow{2}{*}{1} & EduCNN & 0.18 & 90\% & 20 \\ \cline{2-5} 
+                                   & CUDA   & 0.20 & 80\% & 20 \\                
+                \hline
+                \multirow{2}{*}{2} & EduCNN & 0.18 & 90\% & 20 \\ \cline{2-5} 
+                                   & CUDA   & 0.20 & 80\% & 20 \\
+                \hline
+                \multirow{2}{*}{3} & EduCNN & 0.18 & 90\% & 20 \\ \cline{2-5} 
+                                   & CUDA   & 0.20 & 80\% & 20 \\
+                \hline
+                \multirow{2}{*}{4} & EduCNN & 0.18 & 90\% & 20 \\ \cline{2-5} 
+                                   & CUDA   & 0.20 & 80\% & 20 \\
+                \hline
+            \end{tabular}
+            \caption
+    {\tabular[t]{@{}l@{}}Risultati delle configurazioni che hanno ottenuto il miglior \\ valore di accuratezza per un determinato learning rate $\eta$\endtabular}          
+        \end{table}    
 \end{frame}
 
 
