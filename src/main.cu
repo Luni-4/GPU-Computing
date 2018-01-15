@@ -52,7 +52,7 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(4, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(7, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(3, 1, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStream(5, 1, 1, SIGMOID));
@@ -60,7 +60,7 @@ int main() {
 	//layers.emplace_back(new Batch(5, 1, 1));
 	//layers.emplace_back(new Batch(5, 1, 1));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
-	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	//layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 	//layers.emplace_back(new FullyConnected_Stream(500, SIGMOID));
 	//layers.emplace_back(new FullyConnectedStream(300, SIGMOID));
@@ -76,32 +76,36 @@ int main() {
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
+	for (double i = 0.10; i < 0.20; i += 0.01) {
+
 		// Creare la rete
-	Network nn(layers);
+		Network nn(layers);
 
-	//#ifdef DEBUG
-	auto start = std::chrono::high_resolution_clock::now();
-	//#endif
+		//#ifdef DEBUG
+		auto start = std::chrono::high_resolution_clock::now();
+		//#endif
 
-	//std::cout.precision(64);
-	double learningRate = 0.208;
-	std::cout << "learningRate:" << learningRate << std::endl;
+		//std::cout.precision(64);
+		//double learningRate = 0.208;
+		double learningRate = i;
+		std::cout << "\nlearningRate:" << learningRate << std::endl;
 
-	// Training
-	nn.train(d.get(), 1, learningRate);
+		// Training
+		nn.train(d.get(), 1, learningRate);
 
-	//#ifdef DEBUG
-	auto finish = std::chrono::high_resolution_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
-	//#endif
+		//#ifdef DEBUG
+		auto finish = std::chrono::high_resolution_clock::now();
+		auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+		std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
+		//#endif
 
-	//nn.printW();
-	// Stampa i pesi prodotti dalla rete su un file
-	//nn.printWeightsOnFile("Weights.txt");
+		//nn.printW();
+		// Stampa i pesi prodotti dalla rete su un file
+		//nn.printWeightsOnFile("Weights.txt");
 
-	// Test
-	nn.predict(d.get());
+		// Test
+		nn.predict(d.get());
+	}
 
 #ifdef _WIN32
 	system("pause");

@@ -1,0 +1,34 @@
+1 CONV + 1 FULLY
+
+------filtro 7x7 10
+
+learningRate:0.19
+Tempo di esecuzione della funzione di train: 42
+Immagini classificate correttamente: 6548
+Immagini classificate scorrettamente: 3452
+Accuratezza della rete: 65.48
+
+------filtro 6x6 10
+
+learningRate:0.07
+Tempo di esecuzione della funzione di train: 44
+Immagini classificate correttamente: 7573
+Immagini classificate scorrettamente: 2427
+Accuratezza della rete: 75.73
+
+------filtro 5x5 10
+
+learningRate:0.11
+Tempo di esecuzione della funzione di train: 45
+Immagini classificate correttamente: 7952
+Immagini classificate scorrettamente: 2048
+Accuratezza della rete: 79.52
+
+------filtro 4x4 10
+
+learningRate:0.17
+Tempo di esecuzione della funzione di train: 43
+Immagini classificate correttamente: 7684
+Immagini classificate scorrettamente: 2316
+Accuratezza della rete: 76.84
+
