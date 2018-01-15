@@ -1125,7 +1125,7 @@
            \hline
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
            \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           Convoluzionale & $22 \times 22$ & $7 \times 7 \times 1$   \\  
            \hline
            Fully Connected & $300 \times 1$ & \ding{55} \\
            \hline 
@@ -1143,9 +1143,9 @@
            \hline
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
            \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           Convoluzionale & $26 \times 26$ & $3 \times 3 \times 1$   \\  
            \hline         
-           Convoluzionale & $22 \times 22$ & $5 \times 5 \times 1$   \\
+           Convoluzionale & $24 \times 24$ & $3 \times 3 \times 1$   \\
            \hline
            Fully Connected & $10 \times 1$ & \ding{55} \\
            \hline          
@@ -1185,7 +1185,7 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2.5em}
-        \item \large I diversi valori del learning rate $\eta$ utilizzati per testare la rete si ottengono campionando l'intervallo $[0.001, 0.8]$ con uno step di $0.05$
+        \item \large I diversi valori del learning rate $\eta$ utilizzati per testare la rete si ottengono campionando l'intervallo $[0.001, 0.8]$ a step variabili
         \item \large Per ciascuna configurazione vengono ricavati i tempi di computazione sequenziali, paralleli ed il relativo speedup
         \item \large Le configurazioni mostrate nei risultati sono quelle che hanno ottenuto il massimo valore di accuratezza in entrambe le reti
     \end{itemize}     
@@ -1197,7 +1197,8 @@
     \bigskip
         \begin{table}
             \centering
-            \renewcommand\arraystretch{1.2} 
+            \renewcommand\arraystretch{1.3}
+            \small
             \begin{tabular}{| c | c | c | c | c | c |}
                 \hline
                 \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
@@ -1208,17 +1209,47 @@
                 \multirow{2}{*}{2} & EduCNN & 0.21 & 90.64\% & 14 & \multirow{2}{*}{1.17} \\ \cline{2-5}
                                    & CUDA   & 0.20 & 84.93\% & 12 & \\
                 \hline
-                \multirow{2}{*}{3} & EduCNN & 0.18 & 90\% & 20 & \multirow{2}{*}{1.17} \\ \cline{2-5} 
-                                   & CUDA   & 0.20 & 80\% & 20 & \\
+                \multirow{2}{*}{3} & EduCNN & 0.16 & 95.58\% & 213 & \multirow{2}{*}{3.44} \\ \cline{2-5} 
+                                   & CUDA   & 0.16 & 92.65\% & 62 & \\
                 \hline
-                \multirow{2}{*}{4} & EduCNN & 0.18 & 90\% & 20 & \multirow{2}{*}{1.17} \\ \cline{2-5}
-                                   & CUDA   & 0.20 & 80\% & 20 & \\
+                \multirow{2}{*}{4} & EduCNN & 0.18 & 90.30\% & 25 & \multirow{2}{*}{0.66} \\ \cline{2-5}
+                                   & CUDA   & 0.04 & 84.05\% & 38 & \\
                 \hline                
             \end{tabular}
             \caption
     {\tabular[t]{@{}l@{}}Risultati delle configurazioni che hanno ottenuto il miglior \\ valore di accuratezza per un determinato learning rate $\eta$\endtabular}          
         \end{table}    
 \end{frame}
+
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Analisi}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large La massima differenza tra le accuratezze delle reti è del 6\%. Questa differenza è dovuta ai diversi algoritmi utilizzati dalla GPU e dalla CPU per generare i pesi casuali iniziali. A parità di pesi iniziali e di learning rate entrambe le reti producono lo stesso livello di accuratezza
+        \item \large Lo speedup è significativo nelle configurazioni 1 e 3, ma inesistente o nullo nelle altre. Con kernel e livelli fully-connected di grossa taglia si ottiene un notevole vantaggio utilizzando il parallelismo, mentre per livelli più piccoli risulta migliore un approccio di tipo sequenziale
+    \end{itemize}     
+\end{frame}
+
+
+\begin{frame}[c]
+  \centering
+  \bigskip \bigskip    
+  \Huge Conclusioni
+\end{frame}
+
+\begin{frame}{Conclusioni}
+    \framesubtitle{Conclusioni}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large La rete CUDA risulta una buona soluzione quando si vogliono creare reti neurali semplici e convoluzionali che necessitano di grossi livelli di tipo fully-connected o convoluzionali
+        \item \large Può essere utilizzata con livelli di piccole dimensioni al posto della rete sequenziale quando è richiesto che la CPU non venga troppo caricata di processi
+        \item \large Non dipende da librerie di terze parti e può essere eseguita anche sui sistemi operativi Windows ed OSX
+    \end{itemize}     
+\end{frame}
+
+
 
 
 \end{document}
