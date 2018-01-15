@@ -13,7 +13,7 @@
 // Converte un numero intero al multiplo più vicino di 32
 #define ALIGN_UP(a, b) ((a + (b - 1)) / b) * b
 
-namespace Kernel_Stream {
+namespace KernelStream {
 	void initWeightK(dim3 b, dim3 t, double *weight, const int &wDim, curandState *states);
 
 	void initBiasK(dim3 b, dim3 t, double *bias, const int &wDim, curandState *states);

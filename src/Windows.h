@@ -21,4 +21,7 @@
 //#define DEBUG
 //#define DEBUG_SUB
 
+#define STREAM
+//#define CUBLAS_STREAM
+
 #define exit(n) system("pause"); exit(n);

@@ -1,0 +1,24 @@
+
+2 CONV + 1 FULLY
+
+------filtro 5x5 5x5 10
+
+Time: 46.054000 sec
+Learning rate: 0.120000
+Ratio: 89.880000 %
+
+------filtro 3x3 3x3 10
+
+Time: 24.849000 sec
+Learning rate: 0.185000
+Ratio: 90.300000 %
+
+1 CONV + 2 FULLY
+
+------filtro 7x7 300 10
+
+Time: 212.809000 sec
+Learning rate: 0.160000
+Ratio: 95.580000 %
+
+------filtro 5x5 300 10

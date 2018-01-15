@@ -10,6 +10,7 @@
 #include "FullyConnected.h"
 #include "FullyConnectedStream.h"
 #include "Convolutional.h"
+#include "ConvolutionalStream.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -51,16 +52,19 @@ int main() {
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	//layers.emplace_back(new Convolutional(7, 1, 1, SIGMOID));
+	//layers.emplace_back(new Convolutional(3, 1, 1, SIGMOID));
+	//layers.emplace_back(new ConvolutionalStream(5, 1, 1, SIGMOID));
+	//layers.emplace_back(new ConvolutionalStream(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Batch(5, 1, 1));
 	//layers.emplace_back(new Batch(5, 1, 1));
-	//layers.emplace_back(new FullyConnected(500, SIGMOID));
-	//layers.emplace_back(new FullyConnected(300, SIGMOID));
-	layers.emplace_back(new FullyConnected_Stream(500, SIGMOID));
-	layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
+	//layers.emplace_back(new FullyConnected(100, SIGMOID));
+	layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
+	//layers.emplace_back(new FullyConnected_Stream(500, SIGMOID));
+	//layers.emplace_back(new FullyConnectedStream(300, SIGMOID));
+	//layers.emplace_back(new FullyConnectedStream(10, SIGMOID));
 
 	// MEMO: learning rate base 0.001
 #else
@@ -72,7 +76,7 @@ int main() {
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
-	// Creare la rete
+		// Creare la rete
 	Network nn(layers);
 
 	//#ifdef DEBUG
@@ -80,7 +84,8 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 0.18;
+	double learningRate = 0.208;
+	std::cout << "learningRate:" << learningRate << std::endl;
 
 	// Training
 	nn.train(d.get(), 1, learningRate);

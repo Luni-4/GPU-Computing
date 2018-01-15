@@ -5,12 +5,12 @@
 
 #include "LayerDefinition.h"
 
-class FullyConnected_Stream : public LayerDefinition {
+class FullyConnectedStream : public LayerDefinition {
 
 public:
-	FullyConnected_Stream(const int &width, const int &height, const ActFctType &a);
-	FullyConnected_Stream(const int &width, const ActFctType &a);
-	~FullyConnected_Stream();
+	FullyConnectedStream(const int &width, const int &height, const ActFctType &a);
+	FullyConnectedStream(const int &width, const ActFctType &a);
+	~FullyConnectedStream();
 
 	int getNodeCount(void) const override { return _nodes; }
 	int getWeightCount(void) const override { return _wDim; }

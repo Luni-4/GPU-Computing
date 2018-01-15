@@ -1,0 +1,66 @@
+
+2 CONV + 1 FULLY
+
+------filtro 5x5 5x5 10
+
+learningRate:0.032
+Tempo di esecuzione della funzione di train: 54 ---- TEMPO SENZA STAMPE: 38 secondi
+Immagini classificate correttamente: 7662
+Immagini classificate scorrettamente: 2338
+Accuratezza della rete: 76.62
+
+------filtro 6x6 6x6 10
+
+learningRate:0.088
+Tempo di esecuzione della funzione di train: 53
+Immagini classificate correttamente: 7851
+Immagini classificate scorrettamente: 2149
+Accuratezza della rete: 78.51
+
+------filtro 7x7 7x7 10
+
+learningRate:0.065
+Tempo di esecuzione della funzione di train: 54
+Immagini classificate correttamente: 7954
+Immagini classificate scorrettamente: 2046
+Accuratezza della rete: 79.54
+
+------filtro 4x4 4x4 10
+
+learningRate:0.104
+Tempo di esecuzione della funzione di train: 53
+Immagini classificate correttamente: 8087
+Immagini classificate scorrettamente: 1913
+Accuratezza della rete: 80.87
+
+------filtro 3x3 3x3 10
+
+learningRate:0.038
+Tempo di esecuzione della funzione di train: 54 ---- TEMPO SENZA STAMPE: 38 secondi
+Immagini classificate correttamente: 8405
+Immagini classificate scorrettamente: 1595
+Accuratezza della rete: 84.05
+
+------filtro 6x6 3x3 10
+
+learningRate:0.081
+Tempo di esecuzione della funzione di train: 53
+Immagini classificate correttamente: 8154
+Immagini classificate scorrettamente: 1846
+Accuratezza della rete: 81.54
+
+------filtro 5x5 3x3 10
+
+learningRate:0.08
+Tempo di esecuzione della funzione di train: 52
+Immagini classificate correttamente: 8091
+Immagini classificate scorrettamente: 1909
+Accuratezza della rete: 80.91
+
+------filtro 7x7 3x3 10
+
+learningRate:0.077
+Tempo di esecuzione della funzione di train: 51
+Immagini classificate correttamente: 8188
+Immagini classificate scorrettamente: 1812
+Accuratezza della rete: 81.88
