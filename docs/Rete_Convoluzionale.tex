@@ -115,7 +115,7 @@
         \item \large Le \emph{Reti Neurali} vengono principalmente usate per la classificazione di immagini
        \item \large Il processo di classificazione consiste nell'assegnare ad un immagine un'etichetta che identifichi nel miglior modo possibile il suo contenuto semantico
        \item \large Un'etichetta è meglio conosciuta con il nome di \emph{classe}
-       \item \large Le reti neurali ricevono in input un'immagine e forniscono in output la relativa classe 
+       \item \large Le reti neurali ricevono in input un'immagine e restituiscono in output la relativa classe 
     \end{itemize}
 \end{frame} 
 
@@ -125,7 +125,7 @@
         \setlength\itemsep{1em}
         \item \large Una rete neurale deve \emph{apprendere} come assegnare correttamente alle immagini le varie classi
         \item \large Un \emph{esempio} è una coppia (immagine, etichetta)
-        \item \large Un team di persone valuta il contenuto semantico di ciascuna immagine e assegna all'esempio l'etichetta corrispondente
+        \item \large Un esempio viene creato da un team di persone che valuta il contenuto semantico di un immagine e le associa l'etichetta più adatta 
         \item \large Il \emph{training set} ed il \emph{test set} sono insiemi di esempi
         \item \large Il training set viene usato per l'addestramento (training) della rete
         \item \large Il test set serve a controllare che la rete abbia imparato a discriminare correttamente le immagini       
@@ -301,7 +301,7 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large La tangente iperbolica è una sigmoide scalata
-        \item \large A differenza della sigmoide passa dall'origine con $x = 0$ 
+        \item \large A differenza della sigmoide passa dall'origine per $x = 0$ 
         \item \large La sua derivata è uguale a $\tanh^{\prime}(x) = 1 - \tanh^{2}(x)$
     \end{itemize}
 \end{frame}
@@ -382,7 +382,7 @@
     \framesubtitle{Livello Fully-Connected}
     
     \begin{block}{Definizione} 
-        \large Un livello è di tipo \emph{Fully-Connected} quando i neuroni appartenenti a due livelli adiacenti sono completamente connessi tra loro mentre i neuroni associati ad un singolo livello non condividono nessuna connessione 
+        \large Un livello è di tipo \emph{Fully-Connected} quando i neuroni che lo compongono sono completamente connessi ai neuroni del livello successivo e non sono collegati tra loro internamente 
     \end{block}\pause
     
     \begin{itemize} [<+->]
@@ -445,7 +445,7 @@
     \framesubtitle{Forward Propagation}
     
     \begin{block}{Definizione} 
-        \large La \emph{Forward Propagation} è il meccanismo utilizzato da una rete neurale per associare un'immagine ad una determinata classe
+        \large La \emph{Forward Propagation} è il meccanismo utilizzato da una rete neurale per associare ad un'immagine una determinata classe
     \end{block}\pause
     
     \smallskip
@@ -469,9 +469,9 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{1em}
         \item \large La funzione di perdita più usata è la \emph{Mean Squared Error (MSE)} $L = \frac{1}{2} \sum (y - o)^{2}$
-        \item \large $y$ identifica l'output della rete mentre $o$ l'etichetta dell'esempio considerato
+        \item \large $y$ identifica l'etichetta dell'esempio considerato mentre $o$ l'output della rete 
         \item \large Minimizzando la funzione di perdita $L$ si riduce l'errore di una rete neurale
-        \item \large Calcolando la derivata di $L$ in funzione dei pesi $w_i$ si individua il minimo globale della funzione di perdita
+        \item \large Calcolando la derivata di $L$ in funzione dei pesi $w_i$ si cerca di individuare il minimo globale della funzione di perdita
     \end{itemize}
 \end{frame}
 
@@ -511,12 +511,31 @@
     
     \begin{itemize} [<+->]
         \setlength\itemsep{1.5em}
-        \item \large Il nuovo valore del peso $w_i$ è dato dalla regola di aggiornamento  $w_i = w_i - \eta\frac{\partial L}{\partial w_i} = w_i + \Delta w_i$
+        \item \large Il nuovo valore del peso $w_i$ è dato dalla regola di aggiornamento  $w_i = w_i - \eta\frac{\partial L}{\partial w_i} = w_i + \Delta w_i$ con $\eta > 0$
         \item \large Il \emph{learning rate} $\eta$ è un parametro usato per controllare la velocità di aggiornamento dei pesi 
         \item \large Un learning rate alto comporta aggiornamenti rapidi, un tempo di esecuzione più basso, ma una maggiore probabilità di finire in un minimo locale
         \item \large Un learning rate basso diminuisce la probabilità di finire in un minimo locale, ma allunga notevolmente i tempi di esecuzione
     \end{itemize}      
 \end{frame}
+
+\begin{comment}
+\begin{frame}{Reti Neurali}
+    \framesubtitle{Esempio Learning Rate}
+    
+    \begin{center}
+      \includegraphics[scale = 0.6]{HighLR.png}
+    \end{center}
+    
+    \bigskip
+    \smallskip
+    
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item[] \large \emph{Un learning rate $\eta$ elevato comporta ampi salti e finisce rapidamente in un minimo locale}
+    \end{itemize}    
+\end{frame} 
+
+\end{comment}
 
 \begin{frame}{Reti Neurali}
     \framesubtitle{Esempio Back Propagation}
@@ -552,7 +571,7 @@
     \framesubtitle{Esempio Back Propagation}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Derivata della funzione $L$ in funzione del peso $w_j^{o}$ 
+        \item \large Derivata di $L$ in funzione del peso $w_j^{o}$ 
         
         \bigskip
         \begin{center}
@@ -575,7 +594,7 @@
     \framesubtitle{Esempio Back Propagation}
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
-        \item \large Risultato della derivata della funzione $L$ in funzione del peso $w_j^{o}$
+        \item \large Risultato della derivata di $L$ in funzione del peso $w_j^{o}$
         \bigskip
         \begin{center}
          \large $ \frac{\partial L}{\partial w_j^{o}} =  -(y - o) \cdot f^{\prime}(z^{o}) \cdot h_j = -\delta_j^{o}h_j$         
@@ -620,7 +639,7 @@
     \framesubtitle{Esempio Back Propagation}
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
-        \item \large Risultato della derivata della funzione $L$ in funzione del peso $w_{ij}^{h}$
+        \item \large Risultato della derivata di $L$ in funzione del peso $w_{ij}^{h}$
         \bigskip 
         \begin{center}
          \large $ \frac{\partial L}{\partial w_{ij}^{h}} =  -(y - o) \cdot f^{\prime}(z^{o}) \cdot w_j^{o} \cdot f^{\prime}(z_j^{h}) \cdot x_i = -\delta_j^{h}x_i$         
@@ -905,9 +924,11 @@
            & = rot_{180^\circ} \{ \delta_{i,j}^l \} * o_{m^{\prime},n^{\prime}}^{l-1} 
         \end{split}          
     \end{equation*} 
-             
-    \item \large $o_{m^{\prime},n^{\prime}}^{l-1} = f(x_{i^{\prime},j^{\prime}}^{l-1})$
-    \item \large La feature map di output ha una dimensione pari a $(W - K + 1)$ sia in altezza che in larghezza   
+    
+    \bigskip
+    
+    \item \large $x_{i,j}^l = \sum_{m} \sum_{n} w_{m,n}^{l}o_{i+m, j+n}^{l-1} + b^l$         
+    \item \large $o_{m^{\prime},n^{\prime}}^{l-1} = f(x_{i^{\prime},j^{\prime}}^{l-1})$    
     \end{itemize}     
 \end{frame}
 
@@ -984,7 +1005,7 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
         \item \large La dimensione delle immagini che costituiscono gli esempi del training e del test set hanno una dimensione di $28 \times 28$
-        \item \large Le etichette sono numeri interi positivi e consentono di associare una classe ad una determinata immagine 
+        \item \large Le etichette sono rappresentate da numeri interi positivi
         \item \large Il training ed il test set provengono dal database \emph{MNIST} e contengono rispettativamente $60000$ esempi di train e $10000$ di test 
     \end{itemize}
 \end{frame}
@@ -1245,7 +1266,7 @@
         \setlength\itemsep{3em}
         \item \large La rete CUDA risulta una buona soluzione quando si vogliono creare reti neurali semplici e convoluzionali che necessitano di grossi livelli di tipo fully-connected o convoluzionali
         \item \large Può essere utilizzata con livelli di piccole dimensioni al posto della rete sequenziale quando è richiesto che la CPU non venga troppo caricata di processi
-        \item \large Non dipende da librerie di terze parti e può essere eseguita anche sui sistemi operativi Windows ed OSX
+        \item \large Non dipende da librerie di terze parti e può essere eseguita anche sui sistemi operativi Windows ed macOS
     \end{itemize}     
 \end{frame}
 
