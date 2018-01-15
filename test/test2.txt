@@ -1,0 +1,11416 @@
+Configurazione: 1
+
+Time: 12 sec
+Learning rate: 0.0001
+Accuratezza della rete: 9.8%
+
+Configurazione: 2
+
+Time: 12 sec
+Learning rate: 0.0006
+Accuratezza della rete: 9.8%
+
+Configurazione: 3
+
+Time: 12 sec
+Learning rate: 0.0011
+Accuratezza della rete: 9.8%
+
+Configurazione: 4
+
+Time: 12 sec
+Learning rate: 0.0016
+Accuratezza della rete: 9.8%
+
+Configurazione: 5
+
+Time: 12 sec
+Learning rate: 0.0021
+Accuratezza della rete: 9.8%
+
+Configurazione: 6
+
+Time: 12 sec
+Learning rate: 0.0026
+Accuratezza della rete: 9.8%
+
+Configurazione: 7
+
+Time: 12 sec
+Learning rate: 0.0031
+Accuratezza della rete: 9.8%
+
+Configurazione: 8
+
+Time: 12 sec
+Learning rate: 0.0036
+Accuratezza della rete: 9.8%
+
+Configurazione: 9
+
+Time: 12 sec
+Learning rate: 0.0041
+Accuratezza della rete: 9.8%
+
+Configurazione: 10
+
+Time: 12 sec
+Learning rate: 0.0046
+Accuratezza della rete: 9.8%
+
+Configurazione: 11
+
+Time: 12 sec
+Learning rate: 0.0051
+Accuratezza della rete: 9.8%
+
+Configurazione: 12
+
+Time: 12 sec
+Learning rate: 0.0056
+Accuratezza della rete: 9.8%
+
+Configurazione: 13
+
+Time: 12 sec
+Learning rate: 0.0061
+Accuratezza della rete: 9.8%
+
+Configurazione: 14
+
+Time: 12 sec
+Learning rate: 0.0066
+Accuratezza della rete: 9.8%
+
+Configurazione: 15
+
+Time: 12 sec
+Learning rate: 0.0071
+Accuratezza della rete: 9.8%
+
+Configurazione: 16
+
+Time: 12 sec
+Learning rate: 0.0076
+Accuratezza della rete: 9.8%
+
+Configurazione: 17
+
+Time: 12 sec
+Learning rate: 0.0081
+Accuratezza della rete: 9.8%
+
+Configurazione: 18
+
+Time: 12 sec
+Learning rate: 0.0086
+Accuratezza della rete: 9.8%
+
+Configurazione: 19
+
+Time: 12 sec
+Learning rate: 0.0091
+Accuratezza della rete: 9.8%
+
+Configurazione: 20
+
+Time: 12 sec
+Learning rate: 0.0096
+Accuratezza della rete: 9.8%
+
+Configurazione: 21
+
+Time: 12 sec
+Learning rate: 0.0101
+Accuratezza della rete: 9.8%
+
+Configurazione: 22
+
+Time: 12 sec
+Learning rate: 0.0106
+Accuratezza della rete: 9.8%
+
+Configurazione: 23
+
+Time: 12 sec
+Learning rate: 0.0111
+Accuratezza della rete: 9.8%
+
+Configurazione: 24
+
+Time: 12 sec
+Learning rate: 0.0116
+Accuratezza della rete: 9.8%
+
+Configurazione: 25
+
+Time: 12 sec
+Learning rate: 0.0121
+Accuratezza della rete: 9.8%
+
+Configurazione: 26
+
+Time: 12 sec
+Learning rate: 0.0126
+Accuratezza della rete: 9.8%
+
+Configurazione: 27
+
+Time: 12 sec
+Learning rate: 0.0131
+Accuratezza della rete: 9.8%
+
+Configurazione: 28
+
+Time: 12 sec
+Learning rate: 0.0136
+Accuratezza della rete: 9.8%
+
+Configurazione: 29
+
+Time: 12 sec
+Learning rate: 0.0141
+Accuratezza della rete: 9.8%
+
+Configurazione: 30
+
+Time: 12 sec
+Learning rate: 0.0146
+Accuratezza della rete: 9.8%
+
+Configurazione: 31
+
+Time: 12 sec
+Learning rate: 0.0151
+Accuratezza della rete: 9.8%
+
+Configurazione: 32
+
+Time: 12 sec
+Learning rate: 0.0156
+Accuratezza della rete: 9.8%
+
+Configurazione: 33
+
+Time: 12 sec
+Learning rate: 0.0161
+Accuratezza della rete: 9.8%
+
+Configurazione: 34
+
+Time: 12 sec
+Learning rate: 0.0166
+Accuratezza della rete: 9.8%
+
+Configurazione: 35
+
+Time: 12 sec
+Learning rate: 0.0171
+Accuratezza della rete: 9.8%
+
+Configurazione: 36
+
+Time: 12 sec
+Learning rate: 0.0176
+Accuratezza della rete: 9.8%
+
+Configurazione: 37
+
+Time: 12 sec
+Learning rate: 0.0181
+Accuratezza della rete: 9.8%
+
+Configurazione: 38
+
+Time: 12 sec
+Learning rate: 0.0186
+Accuratezza della rete: 9.8%
+
+Configurazione: 39
+
+Time: 12 sec
+Learning rate: 0.0191
+Accuratezza della rete: 9.8%
+
+Configurazione: 40
+
+Time: 12 sec
+Learning rate: 0.0196
+Accuratezza della rete: 9.8%
+
+Configurazione: 41
+
+Time: 12 sec
+Learning rate: 0.0201
+Accuratezza della rete: 9.8%
+
+Configurazione: 42
+
+Time: 12 sec
+Learning rate: 0.0206
+Accuratezza della rete: 9.8%
+
+Configurazione: 43
+
+Time: 12 sec
+Learning rate: 0.0211
+Accuratezza della rete: 9.8%
+
+Configurazione: 44
+
+Time: 12 sec
+Learning rate: 0.0216
+Accuratezza della rete: 9.8%
+
+Configurazione: 45
+
+Time: 12 sec
+Learning rate: 0.0221
+Accuratezza della rete: 9.8%
+
+Configurazione: 46
+
+Time: 12 sec
+Learning rate: 0.0226
+Accuratezza della rete: 9.8%
+
+Configurazione: 47
+
+Time: 12 sec
+Learning rate: 0.0231
+Accuratezza della rete: 9.8%
+
+Configurazione: 48
+
+Time: 12 sec
+Learning rate: 0.0236
+Accuratezza della rete: 9.8%
+
+Configurazione: 49
+
+Time: 12 sec
+Learning rate: 0.0241
+Accuratezza della rete: 9.8%
+
+Configurazione: 50
+
+Time: 12 sec
+Learning rate: 0.0246
+Accuratezza della rete: 9.8%
+
+Configurazione: 51
+
+Time: 12 sec
+Learning rate: 0.0251
+Accuratezza della rete: 9.8%
+
+Configurazione: 52
+
+Time: 12 sec
+Learning rate: 0.0256
+Accuratezza della rete: 9.8%
+
+Configurazione: 53
+
+Time: 12 sec
+Learning rate: 0.0261
+Accuratezza della rete: 9.8%
+
+Configurazione: 54
+
+Time: 12 sec
+Learning rate: 0.0266
+Accuratezza della rete: 9.8%
+
+Configurazione: 55
+
+Time: 12 sec
+Learning rate: 0.0271
+Accuratezza della rete: 9.8%
+
+Configurazione: 56
+
+Time: 12 sec
+Learning rate: 0.0276
+Accuratezza della rete: 9.8%
+
+Configurazione: 57
+
+Time: 12 sec
+Learning rate: 0.0281
+Accuratezza della rete: 9.8%
+
+Configurazione: 58
+
+Time: 12 sec
+Learning rate: 0.0286
+Accuratezza della rete: 9.8%
+
+Configurazione: 59
+
+Time: 12 sec
+Learning rate: 0.0291
+Accuratezza della rete: 9.8%
+
+Configurazione: 60
+
+Time: 12 sec
+Learning rate: 0.0296
+Accuratezza della rete: 9.8%
+
+Configurazione: 61
+
+Time: 12 sec
+Learning rate: 0.0301
+Accuratezza della rete: 9.8%
+
+Configurazione: 62
+
+Time: 12 sec
+Learning rate: 0.0306
+Accuratezza della rete: 9.8%
+
+Configurazione: 63
+
+Time: 12 sec
+Learning rate: 0.0311
+Accuratezza della rete: 9.8%
+
+Configurazione: 64
+
+Time: 12 sec
+Learning rate: 0.0316
+Accuratezza della rete: 9.8%
+
+Configurazione: 65
+
+Time: 12 sec
+Learning rate: 0.0321
+Accuratezza della rete: 9.8%
+
+Configurazione: 66
+
+Time: 12 sec
+Learning rate: 0.0326
+Accuratezza della rete: 9.8%
+
+Configurazione: 67
+
+Time: 12 sec
+Learning rate: 0.0331
+Accuratezza della rete: 9.8%
+
+Configurazione: 68
+
+Time: 12 sec
+Learning rate: 0.0336
+Accuratezza della rete: 9.8%
+
+Configurazione: 69
+
+Time: 12 sec
+Learning rate: 0.0341
+Accuratezza della rete: 9.8%
+
+Configurazione: 70
+
+Time: 12 sec
+Learning rate: 0.0346
+Accuratezza della rete: 9.8%
+
+Configurazione: 71
+
+Time: 12 sec
+Learning rate: 0.0351
+Accuratezza della rete: 9.8%
+
+Configurazione: 72
+
+Time: 12 sec
+Learning rate: 0.0356
+Accuratezza della rete: 9.8%
+
+Configurazione: 73
+
+Time: 12 sec
+Learning rate: 0.0361
+Accuratezza della rete: 9.8%
+
+Configurazione: 74
+
+Time: 12 sec
+Learning rate: 0.0366
+Accuratezza della rete: 9.8%
+
+Configurazione: 75
+
+Time: 12 sec
+Learning rate: 0.0371
+Accuratezza della rete: 9.8%
+
+Configurazione: 76
+
+Time: 12 sec
+Learning rate: 0.0376
+Accuratezza della rete: 9.8%
+
+Configurazione: 77
+
+Time: 12 sec
+Learning rate: 0.0381
+Accuratezza della rete: 9.8%
+
+Configurazione: 78
+
+Time: 12 sec
+Learning rate: 0.0386
+Accuratezza della rete: 9.8%
+
+Configurazione: 79
+
+Time: 12 sec
+Learning rate: 0.0391
+Accuratezza della rete: 9.8%
+
+Configurazione: 80
+
+Time: 12 sec
+Learning rate: 0.0396
+Accuratezza della rete: 9.8%
+
+Configurazione: 81
+
+Time: 12 sec
+Learning rate: 0.0401
+Accuratezza della rete: 9.8%
+
+Configurazione: 82
+
+Time: 12 sec
+Learning rate: 0.0406
+Accuratezza della rete: 9.8%
+
+Configurazione: 83
+
+Time: 12 sec
+Learning rate: 0.0411
+Accuratezza della rete: 9.8%
+
+Configurazione: 84
+
+Time: 12 sec
+Learning rate: 0.0416
+Accuratezza della rete: 9.8%
+
+Configurazione: 85
+
+Time: 12 sec
+Learning rate: 0.0421
+Accuratezza della rete: 9.8%
+
+Configurazione: 86
+
+Time: 12 sec
+Learning rate: 0.0426
+Accuratezza della rete: 9.8%
+
+Configurazione: 87
+
+Time: 12 sec
+Learning rate: 0.0431
+Accuratezza della rete: 9.8%
+
+Configurazione: 88
+
+Time: 12 sec
+Learning rate: 0.0436
+Accuratezza della rete: 9.8%
+
+Configurazione: 89
+
+Time: 12 sec
+Learning rate: 0.0441
+Accuratezza della rete: 9.8%
+
+Configurazione: 90
+
+Time: 12 sec
+Learning rate: 0.0446
+Accuratezza della rete: 9.8%
+
+Configurazione: 91
+
+Time: 12 sec
+Learning rate: 0.0451
+Accuratezza della rete: 9.8%
+
+Configurazione: 92
+
+Time: 12 sec
+Learning rate: 0.0456
+Accuratezza della rete: 9.8%
+
+Configurazione: 93
+
+Time: 12 sec
+Learning rate: 0.0461
+Accuratezza della rete: 9.8%
+
+Configurazione: 94
+
+Time: 12 sec
+Learning rate: 0.0466
+Accuratezza della rete: 9.8%
+
+Configurazione: 95
+
+Time: 12 sec
+Learning rate: 0.0471
+Accuratezza della rete: 9.8%
+
+Configurazione: 96
+
+Time: 12 sec
+Learning rate: 0.0476
+Accuratezza della rete: 9.8%
+
+Configurazione: 97
+
+Time: 12 sec
+Learning rate: 0.0481
+Accuratezza della rete: 9.8%
+
+Configurazione: 98
+
+Time: 12 sec
+Learning rate: 0.0486
+Accuratezza della rete: 9.8%
+
+Configurazione: 99
+
+Time: 12 sec
+Learning rate: 0.0491
+Accuratezza della rete: 9.8%
+
+Configurazione: 100
+
+Time: 12 sec
+Learning rate: 0.0496
+Accuratezza della rete: 9.8%
+
+Configurazione: 101
+
+Time: 12 sec
+Learning rate: 0.0501
+Accuratezza della rete: 9.8%
+
+Configurazione: 102
+
+Time: 12 sec
+Learning rate: 0.0506
+Accuratezza della rete: 9.8%
+
+Configurazione: 103
+
+Time: 12 sec
+Learning rate: 0.0511
+Accuratezza della rete: 9.8%
+
+Configurazione: 104
+
+Time: 12 sec
+Learning rate: 0.0516
+Accuratezza della rete: 9.8%
+
+Configurazione: 105
+
+Time: 12 sec
+Learning rate: 0.0521
+Accuratezza della rete: 9.8%
+
+Configurazione: 106
+
+Time: 12 sec
+Learning rate: 0.0526
+Accuratezza della rete: 9.8%
+
+Configurazione: 107
+
+Time: 12 sec
+Learning rate: 0.0531
+Accuratezza della rete: 9.8%
+
+Configurazione: 108
+
+Time: 12 sec
+Learning rate: 0.0536
+Accuratezza della rete: 9.8%
+
+Configurazione: 109
+
+Time: 12 sec
+Learning rate: 0.0541
+Accuratezza della rete: 9.8%
+
+Configurazione: 110
+
+Time: 12 sec
+Learning rate: 0.0546
+Accuratezza della rete: 9.8%
+
+Configurazione: 111
+
+Time: 12 sec
+Learning rate: 0.0551
+Accuratezza della rete: 9.8%
+
+Configurazione: 112
+
+Time: 12 sec
+Learning rate: 0.0556
+Accuratezza della rete: 9.8%
+
+Configurazione: 113
+
+Time: 12 sec
+Learning rate: 0.0561
+Accuratezza della rete: 9.8%
+
+Configurazione: 114
+
+Time: 12 sec
+Learning rate: 0.0566
+Accuratezza della rete: 9.8%
+
+Configurazione: 115
+
+Time: 12 sec
+Learning rate: 0.0571
+Accuratezza della rete: 9.8%
+
+Configurazione: 116
+
+Time: 12 sec
+Learning rate: 0.0576
+Accuratezza della rete: 9.8%
+
+Configurazione: 117
+
+Time: 12 sec
+Learning rate: 0.0581
+Accuratezza della rete: 9.8%
+
+Configurazione: 118
+
+Time: 12 sec
+Learning rate: 0.0586
+Accuratezza della rete: 9.8%
+
+Configurazione: 119
+
+Time: 12 sec
+Learning rate: 0.0591
+Accuratezza della rete: 9.8%
+
+Configurazione: 120
+
+Time: 12 sec
+Learning rate: 0.0596
+Accuratezza della rete: 9.8%
+
+Configurazione: 121
+
+Time: 12 sec
+Learning rate: 0.0601
+Accuratezza della rete: 9.8%
+
+Configurazione: 122
+
+Time: 12 sec
+Learning rate: 0.0606
+Accuratezza della rete: 9.8%
+
+Configurazione: 123
+
+Time: 12 sec
+Learning rate: 0.0611
+Accuratezza della rete: 9.81%
+
+Configurazione: 124
+
+Time: 12 sec
+Learning rate: 0.0616
+Accuratezza della rete: 9.82%
+
+Configurazione: 125
+
+Time: 12 sec
+Learning rate: 0.0621
+Accuratezza della rete: 9.82%
+
+Configurazione: 126
+
+Time: 12 sec
+Learning rate: 0.0626
+Accuratezza della rete: 9.84%
+
+Configurazione: 127
+
+Time: 12 sec
+Learning rate: 0.0631
+Accuratezza della rete: 9.85%
+
+Configurazione: 128
+
+Time: 12 sec
+Learning rate: 0.0636
+Accuratezza della rete: 9.87%
+
+Configurazione: 129
+
+Time: 12 sec
+Learning rate: 0.0641
+Accuratezza della rete: 9.94%
+
+Configurazione: 130
+
+Time: 12 sec
+Learning rate: 0.0646
+Accuratezza della rete: 9.91%
+
+Configurazione: 131
+
+Time: 12 sec
+Learning rate: 0.0651
+Accuratezza della rete: 9.87%
+
+Configurazione: 132
+
+Time: 12 sec
+Learning rate: 0.0656
+Accuratezza della rete: 9.84%
+
+Configurazione: 133
+
+Time: 12 sec
+Learning rate: 0.0661
+Accuratezza della rete: 9.86%
+
+Configurazione: 134
+
+Time: 12 sec
+Learning rate: 0.0666
+Accuratezza della rete: 9.87%
+
+Configurazione: 135
+
+Time: 12 sec
+Learning rate: 0.0671
+Accuratezza della rete: 9.87%
+
+Configurazione: 136
+
+Time: 12 sec
+Learning rate: 0.0676
+Accuratezza della rete: 9.87%
+
+Configurazione: 137
+
+Time: 12 sec
+Learning rate: 0.0681
+Accuratezza della rete: 9.87%
+
+Configurazione: 138
+
+Time: 12 sec
+Learning rate: 0.0686
+Accuratezza della rete: 9.89%
+
+Configurazione: 139
+
+Time: 12 sec
+Learning rate: 0.0691
+Accuratezza della rete: 9.89%
+
+Configurazione: 140
+
+Time: 12 sec
+Learning rate: 0.0696
+Accuratezza della rete: 9.9%
+
+Configurazione: 141
+
+Time: 12 sec
+Learning rate: 0.0701
+Accuratezza della rete: 9.9%
+
+Configurazione: 142
+
+Time: 12 sec
+Learning rate: 0.0706
+Accuratezza della rete: 9.92%
+
+Configurazione: 143
+
+Time: 12 sec
+Learning rate: 0.0711
+Accuratezza della rete: 9.92%
+
+Configurazione: 144
+
+Time: 12 sec
+Learning rate: 0.0716
+Accuratezza della rete: 9.92%
+
+Configurazione: 145
+
+Time: 12 sec
+Learning rate: 0.0721
+Accuratezza della rete: 9.92%
+
+Configurazione: 146
+
+Time: 12 sec
+Learning rate: 0.0726
+Accuratezza della rete: 9.94%
+
+Configurazione: 147
+
+Time: 12 sec
+Learning rate: 0.0731
+Accuratezza della rete: 9.98%
+
+Configurazione: 148
+
+Time: 12 sec
+Learning rate: 0.0736
+Accuratezza della rete: 10.29%
+
+Configurazione: 149
+
+Time: 12 sec
+Learning rate: 0.0741
+Accuratezza della rete: 10.28%
+
+Configurazione: 150
+
+Time: 12 sec
+Learning rate: 0.0746
+Accuratezza della rete: 10.28%
+
+Configurazione: 151
+
+Time: 12 sec
+Learning rate: 0.0751
+Accuratezza della rete: 10.3%
+
+Configurazione: 152
+
+Time: 12 sec
+Learning rate: 0.0756
+Accuratezza della rete: 10.2%
+
+Configurazione: 153
+
+Time: 12 sec
+Learning rate: 0.0761
+Accuratezza della rete: 10.29%
+
+Configurazione: 154
+
+Time: 12 sec
+Learning rate: 0.0766
+Accuratezza della rete: 10.3%
+
+Configurazione: 155
+
+Time: 12 sec
+Learning rate: 0.0771
+Accuratezza della rete: 10.25%
+
+Configurazione: 156
+
+Time: 12 sec
+Learning rate: 0.0776
+Accuratezza della rete: 10.22%
+
+Configurazione: 157
+
+Time: 12 sec
+Learning rate: 0.0781
+Accuratezza della rete: 10.76%
+
+Configurazione: 158
+
+Time: 12 sec
+Learning rate: 0.0786
+Accuratezza della rete: 10.62%
+
+Configurazione: 159
+
+Time: 12 sec
+Learning rate: 0.0791
+Accuratezza della rete: 10.7%
+
+Configurazione: 160
+
+Time: 12 sec
+Learning rate: 0.0796
+Accuratezza della rete: 10.7%
+
+Configurazione: 161
+
+Time: 12 sec
+Learning rate: 0.0801
+Accuratezza della rete: 10.87%
+
+Configurazione: 162
+
+Time: 12 sec
+Learning rate: 0.0806
+Accuratezza della rete: 10.96%
+
+Configurazione: 163
+
+Time: 12 sec
+Learning rate: 0.0811
+Accuratezza della rete: 11.09%
+
+Configurazione: 164
+
+Time: 12 sec
+Learning rate: 0.0816
+Accuratezza della rete: 11.19%
+
+Configurazione: 165
+
+Time: 12 sec
+Learning rate: 0.0821
+Accuratezza della rete: 11.27%
+
+Configurazione: 166
+
+Time: 12 sec
+Learning rate: 0.0826
+Accuratezza della rete: 11.4%
+
+Configurazione: 167
+
+Time: 12 sec
+Learning rate: 0.0831
+Accuratezza della rete: 10.47%
+
+Configurazione: 168
+
+Time: 12 sec
+Learning rate: 0.0836
+Accuratezza della rete: 10.36%
+
+Configurazione: 169
+
+Time: 12 sec
+Learning rate: 0.0841
+Accuratezza della rete: 10.43%
+
+Configurazione: 170
+
+Time: 12 sec
+Learning rate: 0.0846
+Accuratezza della rete: 10.59%
+
+Configurazione: 171
+
+Time: 12 sec
+Learning rate: 0.0851
+Accuratezza della rete: 10.63%
+
+Configurazione: 172
+
+Time: 12 sec
+Learning rate: 0.0856
+Accuratezza della rete: 11.9%
+
+Configurazione: 173
+
+Time: 12 sec
+Learning rate: 0.0861
+Accuratezza della rete: 11.92%
+
+Configurazione: 174
+
+Time: 12 sec
+Learning rate: 0.0866
+Accuratezza della rete: 11.95%
+
+Configurazione: 175
+
+Time: 12 sec
+Learning rate: 0.0871
+Accuratezza della rete: 11.9%
+
+Configurazione: 176
+
+Time: 12 sec
+Learning rate: 0.0876
+Accuratezza della rete: 11.93%
+
+Configurazione: 177
+
+Time: 12 sec
+Learning rate: 0.0881
+Accuratezza della rete: 12.13%
+
+Configurazione: 178
+
+Time: 12 sec
+Learning rate: 0.0886
+Accuratezza della rete: 12.14%
+
+Configurazione: 179
+
+Time: 12 sec
+Learning rate: 0.0891
+Accuratezza della rete: 12.23%
+
+Configurazione: 180
+
+Time: 12 sec
+Learning rate: 0.0896
+Accuratezza della rete: 11.21%
+
+Configurazione: 181
+
+Time: 12 sec
+Learning rate: 0.0901
+Accuratezza della rete: 11.89%
+
+Configurazione: 182
+
+Time: 12 sec
+Learning rate: 0.0906
+Accuratezza della rete: 10.39%
+
+Configurazione: 183
+
+Time: 12 sec
+Learning rate: 0.0911
+Accuratezza della rete: 10.84%
+
+Configurazione: 184
+
+Time: 12 sec
+Learning rate: 0.0916
+Accuratezza della rete: 10.79%
+
+Configurazione: 185
+
+Time: 12 sec
+Learning rate: 0.0921
+Accuratezza della rete: 10.27%
+
+Configurazione: 186
+
+Time: 12 sec
+Learning rate: 0.0926
+Accuratezza della rete: 9.9%
+
+Configurazione: 187
+
+Time: 12 sec
+Learning rate: 0.0931
+Accuratezza della rete: 9.96%
+
+Configurazione: 188
+
+Time: 12 sec
+Learning rate: 0.0936
+Accuratezza della rete: 9.97%
+
+Configurazione: 189
+
+Time: 12 sec
+Learning rate: 0.0941
+Accuratezza della rete: 10%
+
+Configurazione: 190
+
+Time: 12 sec
+Learning rate: 0.0946
+Accuratezza della rete: 10.43%
+
+Configurazione: 191
+
+Time: 12 sec
+Learning rate: 0.0951
+Accuratezza della rete: 10.04%
+
+Configurazione: 192
+
+Time: 12 sec
+Learning rate: 0.0956
+Accuratezza della rete: 10%
+
+Configurazione: 193
+
+Time: 12 sec
+Learning rate: 0.0961
+Accuratezza della rete: 10.22%
+
+Configurazione: 194
+
+Time: 12 sec
+Learning rate: 0.0966
+Accuratezza della rete: 13.33%
+
+Configurazione: 195
+
+Time: 12 sec
+Learning rate: 0.0971
+Accuratezza della rete: 10.13%
+
+Configurazione: 196
+
+Time: 12 sec
+Learning rate: 0.0976
+Accuratezza della rete: 10.05%
+
+Configurazione: 197
+
+Time: 12 sec
+Learning rate: 0.0981
+Accuratezza della rete: 11.74%
+
+Configurazione: 198
+
+Time: 12 sec
+Learning rate: 0.0986
+Accuratezza della rete: 9.98%
+
+Configurazione: 199
+
+Time: 12 sec
+Learning rate: 0.0991
+Accuratezza della rete: 10.15%
+
+Configurazione: 200
+
+Time: 12 sec
+Learning rate: 0.0996
+Accuratezza della rete: 10.41%
+
+Configurazione: 201
+
+Time: 12 sec
+Learning rate: 0.1001
+Accuratezza della rete: 10.31%
+
+Configurazione: 202
+
+Time: 12 sec
+Learning rate: 0.1006
+Accuratezza della rete: 10.28%
+
+Configurazione: 203
+
+Time: 12 sec
+Learning rate: 0.1011
+Accuratezza della rete: 11.16%
+
+Configurazione: 204
+
+Time: 12 sec
+Learning rate: 0.1016
+Accuratezza della rete: 10.25%
+
+Configurazione: 205
+
+Time: 12 sec
+Learning rate: 0.1021
+Accuratezza della rete: 10.84%
+
+Configurazione: 206
+
+Time: 12 sec
+Learning rate: 0.1026
+Accuratezza della rete: 65.67%
+
+Configurazione: 207
+
+Time: 12 sec
+Learning rate: 0.1031
+Accuratezza della rete: 13.5%
+
+Configurazione: 208
+
+Time: 12 sec
+Learning rate: 0.1036
+Accuratezza della rete: 10.36%
+
+Configurazione: 209
+
+Time: 12 sec
+Learning rate: 0.1041
+Accuratezza della rete: 67.89%
+
+Configurazione: 210
+
+Time: 12 sec
+Learning rate: 0.1046
+Accuratezza della rete: 9.99%
+
+Configurazione: 211
+
+Time: 12 sec
+Learning rate: 0.1051
+Accuratezza della rete: 14.05%
+
+Configurazione: 212
+
+Time: 12 sec
+Learning rate: 0.1056
+Accuratezza della rete: 69.79%
+
+Configurazione: 213
+
+Time: 12 sec
+Learning rate: 0.1061
+Accuratezza della rete: 12.46%
+
+Configurazione: 214
+
+Time: 12 sec
+Learning rate: 0.1066
+Accuratezza della rete: 13.17%
+
+Configurazione: 215
+
+Time: 12 sec
+Learning rate: 0.1071
+Accuratezza della rete: 11.62%
+
+Configurazione: 216
+
+Time: 12 sec
+Learning rate: 0.1076
+Accuratezza della rete: 80.47%
+
+Configurazione: 217
+
+Time: 12 sec
+Learning rate: 0.1081
+Accuratezza della rete: 66.99%
+
+Configurazione: 218
+
+Time: 12 sec
+Learning rate: 0.1086
+Accuratezza della rete: 77.5%
+
+Configurazione: 219
+
+Time: 12 sec
+Learning rate: 0.1091
+Accuratezza della rete: 65.9%
+
+Configurazione: 220
+
+Time: 12 sec
+Learning rate: 0.1096
+Accuratezza della rete: 18.72%
+
+Configurazione: 221
+
+Time: 12 sec
+Learning rate: 0.1101
+Accuratezza della rete: 74.33%
+
+Configurazione: 222
+
+Time: 12 sec
+Learning rate: 0.1106
+Accuratezza della rete: 78.82%
+
+Configurazione: 223
+
+Time: 12 sec
+Learning rate: 0.1111
+Accuratezza della rete: 65.59%
+
+Configurazione: 224
+
+Time: 12 sec
+Learning rate: 0.1116
+Accuratezza della rete: 10.68%
+
+Configurazione: 225
+
+Time: 12 sec
+Learning rate: 0.1121
+Accuratezza della rete: 72.78%
+
+Configurazione: 226
+
+Time: 12 sec
+Learning rate: 0.1126
+Accuratezza della rete: 78.12%
+
+Configurazione: 227
+
+Time: 12 sec
+Learning rate: 0.1131
+Accuratezza della rete: 77.01%
+
+Configurazione: 228
+
+Time: 12 sec
+Learning rate: 0.1136
+Accuratezza della rete: 68.4%
+
+Configurazione: 229
+
+Time: 12 sec
+Learning rate: 0.1141
+Accuratezza della rete: 71.17%
+
+Configurazione: 230
+
+Time: 12 sec
+Learning rate: 0.1146
+Accuratezza della rete: 10.16%
+
+Configurazione: 231
+
+Time: 12 sec
+Learning rate: 0.1151
+Accuratezza della rete: 77.58%
+
+Configurazione: 232
+
+Time: 12 sec
+Learning rate: 0.1156
+Accuratezza della rete: 79.24%
+
+Configurazione: 233
+
+Time: 12 sec
+Learning rate: 0.1161
+Accuratezza della rete: 14.23%
+
+Configurazione: 234
+
+Time: 12 sec
+Learning rate: 0.1166
+Accuratezza della rete: 79.44%
+
+Configurazione: 235
+
+Time: 12 sec
+Learning rate: 0.1171
+Accuratezza della rete: 80.06%
+
+Configurazione: 236
+
+Time: 12 sec
+Learning rate: 0.1176
+Accuratezza della rete: 78.75%
+
+Configurazione: 237
+
+Time: 12 sec
+Learning rate: 0.1181
+Accuratezza della rete: 73.65%
+
+Configurazione: 238
+
+Time: 12 sec
+Learning rate: 0.1186
+Accuratezza della rete: 77.8%
+
+Configurazione: 239
+
+Time: 12 sec
+Learning rate: 0.1191
+Accuratezza della rete: 67.36%
+
+Configurazione: 240
+
+Time: 12 sec
+Learning rate: 0.1196
+Accuratezza della rete: 65.31%
+
+Configurazione: 241
+
+Time: 12 sec
+Learning rate: 0.1201
+Accuratezza della rete: 76.37%
+
+Configurazione: 242
+
+Time: 12 sec
+Learning rate: 0.1206
+Accuratezza della rete: 79.01%
+
+Configurazione: 243
+
+Time: 12 sec
+Learning rate: 0.1211
+Accuratezza della rete: 79.85%
+
+Configurazione: 244
+
+Time: 12 sec
+Learning rate: 0.1216
+Accuratezza della rete: 78.31%
+
+Configurazione: 245
+
+Time: 12 sec
+Learning rate: 0.1221
+Accuratezza della rete: 66.21%
+
+Configurazione: 246
+
+Time: 12 sec
+Learning rate: 0.1226
+Accuratezza della rete: 73.43%
+
+Configurazione: 247
+
+Time: 12 sec
+Learning rate: 0.1231
+Accuratezza della rete: 79.5%
+
+Configurazione: 248
+
+Time: 12 sec
+Learning rate: 0.1236
+Accuratezza della rete: 58.44%
+
+Configurazione: 249
+
+Time: 12 sec
+Learning rate: 0.1241
+Accuratezza della rete: 65.39%
+
+Configurazione: 250
+
+Time: 12 sec
+Learning rate: 0.1246
+Accuratezza della rete: 69.83%
+
+Configurazione: 251
+
+Time: 12 sec
+Learning rate: 0.1251
+Accuratezza della rete: 69.93%
+
+Configurazione: 252
+
+Time: 12 sec
+Learning rate: 0.1256
+Accuratezza della rete: 14.72%
+
+Configurazione: 253
+
+Time: 12 sec
+Learning rate: 0.1261
+Accuratezza della rete: 72.8%
+
+Configurazione: 254
+
+Time: 12 sec
+Learning rate: 0.1266
+Accuratezza della rete: 63.99%
+
+Configurazione: 255
+
+Time: 12 sec
+Learning rate: 0.1271
+Accuratezza della rete: 64.08%
+
+Configurazione: 256
+
+Time: 12 sec
+Learning rate: 0.1276
+Accuratezza della rete: 68.35%
+
+Configurazione: 257
+
+Time: 12 sec
+Learning rate: 0.1281
+Accuratezza della rete: 78.47%
+
+Configurazione: 258
+
+Time: 12 sec
+Learning rate: 0.1286
+Accuratezza della rete: 63.37%
+
+Configurazione: 259
+
+Time: 12 sec
+Learning rate: 0.1291
+Accuratezza della rete: 69.71%
+
+Configurazione: 260
+
+Time: 12 sec
+Learning rate: 0.1296
+Accuratezza della rete: 60.99%
+
+Configurazione: 261
+
+Time: 12 sec
+Learning rate: 0.1301
+Accuratezza della rete: 72.41%
+
+Configurazione: 262
+
+Time: 12 sec
+Learning rate: 0.1306
+Accuratezza della rete: 16.89%
+
+Configurazione: 263
+
+Time: 12 sec
+Learning rate: 0.1311
+Accuratezza della rete: 74.69%
+
+Configurazione: 264
+
+Time: 12 sec
+Learning rate: 0.1316
+Accuratezza della rete: 67.28%
+
+Configurazione: 265
+
+Time: 12 sec
+Learning rate: 0.1321
+Accuratezza della rete: 78.5%
+
+Configurazione: 266
+
+Time: 12 sec
+Learning rate: 0.1326
+Accuratezza della rete: 68.34%
+
+Configurazione: 267
+
+Time: 12 sec
+Learning rate: 0.1331
+Accuratezza della rete: 73.17%
+
+Configurazione: 268
+
+Time: 12 sec
+Learning rate: 0.1336
+Accuratezza della rete: 66.95%
+
+Configurazione: 269
+
+Time: 12 sec
+Learning rate: 0.1341
+Accuratezza della rete: 70.78%
+
+Configurazione: 270
+
+Time: 12 sec
+Learning rate: 0.1346
+Accuratezza della rete: 58.09%
+
+Configurazione: 271
+
+Time: 12 sec
+Learning rate: 0.1351
+Accuratezza della rete: 61.45%
+
+Configurazione: 272
+
+Time: 12 sec
+Learning rate: 0.1356
+Accuratezza della rete: 58.14%
+
+Configurazione: 273
+
+Time: 12 sec
+Learning rate: 0.1361
+Accuratezza della rete: 71.05%
+
+Configurazione: 274
+
+Time: 12 sec
+Learning rate: 0.1366
+Accuratezza della rete: 71.16%
+
+Configurazione: 275
+
+Time: 12 sec
+Learning rate: 0.1371
+Accuratezza della rete: 61.87%
+
+Configurazione: 276
+
+Time: 12 sec
+Learning rate: 0.1376
+Accuratezza della rete: 68.83%
+
+Configurazione: 277
+
+Time: 12 sec
+Learning rate: 0.1381
+Accuratezza della rete: 70.18%
+
+Configurazione: 278
+
+Time: 12 sec
+Learning rate: 0.1386
+Accuratezza della rete: 58.84%
+
+Configurazione: 279
+
+Time: 12 sec
+Learning rate: 0.1391
+Accuratezza della rete: 73.5%
+
+Configurazione: 280
+
+Time: 12 sec
+Learning rate: 0.1396
+Accuratezza della rete: 62.15%
+
+Configurazione: 281
+
+Time: 12 sec
+Learning rate: 0.1401
+Accuratezza della rete: 74.45%
+
+Configurazione: 282
+
+Time: 12 sec
+Learning rate: 0.1406
+Accuratezza della rete: 75.02%
+
+Configurazione: 283
+
+Time: 12 sec
+Learning rate: 0.1411
+Accuratezza della rete: 76.12%
+
+Configurazione: 284
+
+Time: 12 sec
+Learning rate: 0.1416
+Accuratezza della rete: 74.88%
+
+Configurazione: 285
+
+Time: 12 sec
+Learning rate: 0.1421
+Accuratezza della rete: 76.62%
+
+Configurazione: 286
+
+Time: 12 sec
+Learning rate: 0.1426
+Accuratezza della rete: 78.07%
+
+Configurazione: 287
+
+Time: 12 sec
+Learning rate: 0.1431
+Accuratezza della rete: 64.2%
+
+Configurazione: 288
+
+Time: 12 sec
+Learning rate: 0.1436
+Accuratezza della rete: 72.85%
+
+Configurazione: 289
+
+Time: 12 sec
+Learning rate: 0.1441
+Accuratezza della rete: 75.98%
+
+Configurazione: 290
+
+Time: 12 sec
+Learning rate: 0.1446
+Accuratezza della rete: 74.44%
+
+Configurazione: 291
+
+Time: 12 sec
+Learning rate: 0.1451
+Accuratezza della rete: 72.9%
+
+Configurazione: 292
+
+Time: 12 sec
+Learning rate: 0.1456
+Accuratezza della rete: 75.18%
+
+Configurazione: 293
+
+Time: 12 sec
+Learning rate: 0.1461
+Accuratezza della rete: 74.41%
+
+Configurazione: 294
+
+Time: 12 sec
+Learning rate: 0.1466
+Accuratezza della rete: 78.79%
+
+Configurazione: 295
+
+Time: 12 sec
+Learning rate: 0.1471
+Accuratezza della rete: 75.63%
+
+Configurazione: 296
+
+Time: 12 sec
+Learning rate: 0.1476
+Accuratezza della rete: 74.61%
+
+Configurazione: 297
+
+Time: 12 sec
+Learning rate: 0.1481
+Accuratezza della rete: 74.95%
+
+Configurazione: 298
+
+Time: 12 sec
+Learning rate: 0.1486
+Accuratezza della rete: 73.67%
+
+Configurazione: 299
+
+Time: 12 sec
+Learning rate: 0.1491
+Accuratezza della rete: 71.49%
+
+Configurazione: 300
+
+Time: 12 sec
+Learning rate: 0.1496
+Accuratezza della rete: 72.26%
+
+Configurazione: 301
+
+Time: 12 sec
+Learning rate: 0.1501
+Accuratezza della rete: 75.54%
+
+Configurazione: 302
+
+Time: 12 sec
+Learning rate: 0.1506
+Accuratezza della rete: 75.32%
+
+Configurazione: 303
+
+Time: 12 sec
+Learning rate: 0.1511
+Accuratezza della rete: 71.89%
+
+Configurazione: 304
+
+Time: 12 sec
+Learning rate: 0.1516
+Accuratezza della rete: 71.33%
+
+Configurazione: 305
+
+Time: 12 sec
+Learning rate: 0.1521
+Accuratezza della rete: 73.97%
+
+Configurazione: 306
+
+Time: 12 sec
+Learning rate: 0.1526
+Accuratezza della rete: 74.79%
+
+Configurazione: 307
+
+Time: 12 sec
+Learning rate: 0.1531
+Accuratezza della rete: 74.27%
+
+Configurazione: 308
+
+Time: 12 sec
+Learning rate: 0.1536
+Accuratezza della rete: 63.31%
+
+Configurazione: 309
+
+Time: 12 sec
+Learning rate: 0.1541
+Accuratezza della rete: 50.95%
+
+Configurazione: 310
+
+Time: 12 sec
+Learning rate: 0.1546
+Accuratezza della rete: 71.48%
+
+Configurazione: 311
+
+Time: 12 sec
+Learning rate: 0.1551
+Accuratezza della rete: 74.24%
+
+Configurazione: 312
+
+Time: 12 sec
+Learning rate: 0.1556
+Accuratezza della rete: 73.65%
+
+Configurazione: 313
+
+Time: 12 sec
+Learning rate: 0.1561
+Accuratezza della rete: 74.81%
+
+Configurazione: 314
+
+Time: 12 sec
+Learning rate: 0.1566
+Accuratezza della rete: 78.44%
+
+Configurazione: 315
+
+Time: 12 sec
+Learning rate: 0.1571
+Accuratezza della rete: 69.53%
+
+Configurazione: 316
+
+Time: 12 sec
+Learning rate: 0.1576
+Accuratezza della rete: 67.94%
+
+Configurazione: 317
+
+Time: 12 sec
+Learning rate: 0.1581
+Accuratezza della rete: 76.56%
+
+Configurazione: 318
+
+Time: 12 sec
+Learning rate: 0.1586
+Accuratezza della rete: 76.8%
+
+Configurazione: 319
+
+Time: 12 sec
+Learning rate: 0.1591
+Accuratezza della rete: 48.76%
+
+Configurazione: 320
+
+Time: 12 sec
+Learning rate: 0.1596
+Accuratezza della rete: 51.48%
+
+Configurazione: 321
+
+Time: 12 sec
+Learning rate: 0.1601
+Accuratezza della rete: 73.48%
+
+Configurazione: 322
+
+Time: 12 sec
+Learning rate: 0.1606
+Accuratezza della rete: 66.81%
+
+Configurazione: 323
+
+Time: 12 sec
+Learning rate: 0.1611
+Accuratezza della rete: 69.4%
+
+Configurazione: 324
+
+Time: 12 sec
+Learning rate: 0.1616
+Accuratezza della rete: 72.35%
+
+Configurazione: 325
+
+Time: 12 sec
+Learning rate: 0.1621
+Accuratezza della rete: 77.09%
+
+Configurazione: 326
+
+Time: 12 sec
+Learning rate: 0.1626
+Accuratezza della rete: 70.45%
+
+Configurazione: 327
+
+Time: 12 sec
+Learning rate: 0.1631
+Accuratezza della rete: 71.98%
+
+Configurazione: 328
+
+Time: 12 sec
+Learning rate: 0.1636
+Accuratezza della rete: 74.27%
+
+Configurazione: 329
+
+Time: 12 sec
+Learning rate: 0.1641
+Accuratezza della rete: 74.27%
+
+Configurazione: 330
+
+Time: 12 sec
+Learning rate: 0.1646
+Accuratezza della rete: 74.93%
+
+Configurazione: 331
+
+Time: 12 sec
+Learning rate: 0.1651
+Accuratezza della rete: 76.04%
+
+Configurazione: 332
+
+Time: 12 sec
+Learning rate: 0.1656
+Accuratezza della rete: 41.83%
+
+Configurazione: 333
+
+Time: 12 sec
+Learning rate: 0.1661
+Accuratezza della rete: 70.12%
+
+Configurazione: 334
+
+Time: 12 sec
+Learning rate: 0.1666
+Accuratezza della rete: 72.72%
+
+Configurazione: 335
+
+Time: 12 sec
+Learning rate: 0.1671
+Accuratezza della rete: 72.01%
+
+Configurazione: 336
+
+Time: 12 sec
+Learning rate: 0.1676
+Accuratezza della rete: 74.11%
+
+Configurazione: 337
+
+Time: 12 sec
+Learning rate: 0.1681
+Accuratezza della rete: 71.43%
+
+Configurazione: 338
+
+Time: 12 sec
+Learning rate: 0.1686
+Accuratezza della rete: 78.91%
+
+Configurazione: 339
+
+Time: 12 sec
+Learning rate: 0.1691
+Accuratezza della rete: 79.55%
+
+Configurazione: 340
+
+Time: 12 sec
+Learning rate: 0.1696
+Accuratezza della rete: 75.8%
+
+Configurazione: 341
+
+Time: 12 sec
+Learning rate: 0.1701
+Accuratezza della rete: 72.07%
+
+Configurazione: 342
+
+Time: 12 sec
+Learning rate: 0.1706
+Accuratezza della rete: 73.18%
+
+Configurazione: 343
+
+Time: 12 sec
+Learning rate: 0.1711
+Accuratezza della rete: 77.24%
+
+Configurazione: 344
+
+Time: 12 sec
+Learning rate: 0.1716
+Accuratezza della rete: 74.71%
+
+Configurazione: 345
+
+Time: 12 sec
+Learning rate: 0.1721
+Accuratezza della rete: 58.05%
+
+Configurazione: 346
+
+Time: 12 sec
+Learning rate: 0.1726
+Accuratezza della rete: 72.25%
+
+Configurazione: 347
+
+Time: 12 sec
+Learning rate: 0.1731
+Accuratezza della rete: 53.21%
+
+Configurazione: 348
+
+Time: 12 sec
+Learning rate: 0.1736
+Accuratezza della rete: 77.14%
+
+Configurazione: 349
+
+Time: 12 sec
+Learning rate: 0.1741
+Accuratezza della rete: 36.27%
+
+Configurazione: 350
+
+Time: 12 sec
+Learning rate: 0.1746
+Accuratezza della rete: 72.7%
+
+Configurazione: 351
+
+Time: 12 sec
+Learning rate: 0.1751
+Accuratezza della rete: 72.58%
+
+Configurazione: 352
+
+Time: 12 sec
+Learning rate: 0.1756
+Accuratezza della rete: 74.1%
+
+Configurazione: 353
+
+Time: 12 sec
+Learning rate: 0.1761
+Accuratezza della rete: 79.12%
+
+Configurazione: 354
+
+Time: 12 sec
+Learning rate: 0.1766
+Accuratezza della rete: 77.82%
+
+Configurazione: 355
+
+Time: 12 sec
+Learning rate: 0.1771
+Accuratezza della rete: 60.83%
+
+Configurazione: 356
+
+Time: 12 sec
+Learning rate: 0.1776
+Accuratezza della rete: 74.38%
+
+Configurazione: 357
+
+Time: 12 sec
+Learning rate: 0.1781
+Accuratezza della rete: 66.87%
+
+Configurazione: 358
+
+Time: 12 sec
+Learning rate: 0.1786
+Accuratezza della rete: 60.28%
+
+Configurazione: 359
+
+Time: 12 sec
+Learning rate: 0.1791
+Accuratezza della rete: 70.25%
+
+Configurazione: 360
+
+Time: 12 sec
+Learning rate: 0.1796
+Accuratezza della rete: 74.16%
+
+Configurazione: 361
+
+Time: 12 sec
+Learning rate: 0.1801
+Accuratezza della rete: 71.37%
+
+Configurazione: 362
+
+Time: 12 sec
+Learning rate: 0.1806
+Accuratezza della rete: 78.52%
+
+Configurazione: 363
+
+Time: 12 sec
+Learning rate: 0.1811
+Accuratezza della rete: 78.57%
+
+Configurazione: 364
+
+Time: 12 sec
+Learning rate: 0.1816
+Accuratezza della rete: 74.06%
+
+Configurazione: 365
+
+Time: 12 sec
+Learning rate: 0.1821
+Accuratezza della rete: 71.37%
+
+Configurazione: 366
+
+Time: 12 sec
+Learning rate: 0.1826
+Accuratezza della rete: 76.39%
+
+Configurazione: 367
+
+Time: 12 sec
+Learning rate: 0.1831
+Accuratezza della rete: 63.59%
+
+Configurazione: 368
+
+Time: 12 sec
+Learning rate: 0.1836
+Accuratezza della rete: 78.55%
+
+Configurazione: 369
+
+Time: 12 sec
+Learning rate: 0.1841
+Accuratezza della rete: 74.76%
+
+Configurazione: 370
+
+Time: 12 sec
+Learning rate: 0.1846
+Accuratezza della rete: 70.06%
+
+Configurazione: 371
+
+Time: 12 sec
+Learning rate: 0.1851
+Accuratezza della rete: 71.73%
+
+Configurazione: 372
+
+Time: 12 sec
+Learning rate: 0.1856
+Accuratezza della rete: 73.18%
+
+Configurazione: 373
+
+Time: 12 sec
+Learning rate: 0.1861
+Accuratezza della rete: 73.21%
+
+Configurazione: 374
+
+Time: 12 sec
+Learning rate: 0.1866
+Accuratezza della rete: 74.7%
+
+Configurazione: 375
+
+Time: 12 sec
+Learning rate: 0.1871
+Accuratezza della rete: 67.96%
+
+Configurazione: 376
+
+Time: 12 sec
+Learning rate: 0.1876
+Accuratezza della rete: 55.53%
+
+Configurazione: 377
+
+Time: 12 sec
+Learning rate: 0.1881
+Accuratezza della rete: 74.19%
+
+Configurazione: 378
+
+Time: 12 sec
+Learning rate: 0.1886
+Accuratezza della rete: 72.79%
+
+Configurazione: 379
+
+Time: 12 sec
+Learning rate: 0.1891
+Accuratezza della rete: 62.68%
+
+Configurazione: 380
+
+Time: 12 sec
+Learning rate: 0.1896
+Accuratezza della rete: 65.37%
+
+Configurazione: 381
+
+Time: 12 sec
+Learning rate: 0.1901
+Accuratezza della rete: 73.37%
+
+Configurazione: 382
+
+Time: 12 sec
+Learning rate: 0.1906
+Accuratezza della rete: 36.72%
+
+Configurazione: 383
+
+Time: 12 sec
+Learning rate: 0.1911
+Accuratezza della rete: 76.36%
+
+Configurazione: 384
+
+Time: 12 sec
+Learning rate: 0.1916
+Accuratezza della rete: 68.95%
+
+Configurazione: 385
+
+Time: 12 sec
+Learning rate: 0.1921
+Accuratezza della rete: 65.98%
+
+Configurazione: 386
+
+Time: 12 sec
+Learning rate: 0.1926
+Accuratezza della rete: 51.16%
+
+Configurazione: 387
+
+Time: 12 sec
+Learning rate: 0.1931
+Accuratezza della rete: 80.27%
+
+Configurazione: 388
+
+Time: 12 sec
+Learning rate: 0.1936
+Accuratezza della rete: 75.35%
+
+Configurazione: 389
+
+Time: 12 sec
+Learning rate: 0.1941
+Accuratezza della rete: 72.46%
+
+Configurazione: 390
+
+Time: 12 sec
+Learning rate: 0.1946
+Accuratezza della rete: 78.45%
+
+Configurazione: 391
+
+Time: 12 sec
+Learning rate: 0.1951
+Accuratezza della rete: 78.96%
+
+Configurazione: 392
+
+Time: 12 sec
+Learning rate: 0.1956
+Accuratezza della rete: 71.01%
+
+Configurazione: 393
+
+Time: 12 sec
+Learning rate: 0.1961
+Accuratezza della rete: 68.15%
+
+Configurazione: 394
+
+Time: 12 sec
+Learning rate: 0.1966
+Accuratezza della rete: 72.84%
+
+Configurazione: 395
+
+Time: 12 sec
+Learning rate: 0.1971
+Accuratezza della rete: 75.25%
+
+Configurazione: 396
+
+Time: 12 sec
+Learning rate: 0.1976
+Accuratezza della rete: 78.97%
+
+Configurazione: 397
+
+Time: 12 sec
+Learning rate: 0.1981
+Accuratezza della rete: 68.87%
+
+Configurazione: 398
+
+Time: 12 sec
+Learning rate: 0.1986
+Accuratezza della rete: 61.72%
+
+Configurazione: 399
+
+Time: 12 sec
+Learning rate: 0.1991
+Accuratezza della rete: 64.59%
+
+Configurazione: 400
+
+Time: 12 sec
+Learning rate: 0.1996
+Accuratezza della rete: 84.93%
+
+Configurazione: 401
+
+Time: 12 sec
+Learning rate: 0.2001
+Accuratezza della rete: 71.59%
+
+Configurazione: 402
+
+Time: 12 sec
+Learning rate: 0.2006
+Accuratezza della rete: 68.07%
+
+Configurazione: 403
+
+Time: 12 sec
+Learning rate: 0.2011
+Accuratezza della rete: 68.32%
+
+Configurazione: 404
+
+Time: 12 sec
+Learning rate: 0.2016
+Accuratezza della rete: 73.71%
+
+Configurazione: 405
+
+Time: 12 sec
+Learning rate: 0.2021
+Accuratezza della rete: 79.55%
+
+Configurazione: 406
+
+Time: 12 sec
+Learning rate: 0.2026
+Accuratezza della rete: 73.95%
+
+Configurazione: 407
+
+Time: 12 sec
+Learning rate: 0.2031
+Accuratezza della rete: 73.24%
+
+Configurazione: 408
+
+Time: 12 sec
+Learning rate: 0.2036
+Accuratezza della rete: 78.18%
+
+Configurazione: 409
+
+Time: 12 sec
+Learning rate: 0.2041
+Accuratezza della rete: 59.57%
+
+Configurazione: 410
+
+Time: 12 sec
+Learning rate: 0.2046
+Accuratezza della rete: 72.12%
+
+Configurazione: 411
+
+Time: 12 sec
+Learning rate: 0.2051
+Accuratezza della rete: 71.1%
+
+Configurazione: 412
+
+Time: 12 sec
+Learning rate: 0.2056
+Accuratezza della rete: 61.92%
+
+Configurazione: 413
+
+Time: 12 sec
+Learning rate: 0.2061
+Accuratezza della rete: 71.24%
+
+Configurazione: 414
+
+Time: 12 sec
+Learning rate: 0.2066
+Accuratezza della rete: 44.9%
+
+Configurazione: 415
+
+Time: 12 sec
+Learning rate: 0.2071
+Accuratezza della rete: 72.25%
+
+Configurazione: 416
+
+Time: 12 sec
+Learning rate: 0.2076
+Accuratezza della rete: 67.5%
+
+Configurazione: 417
+
+Time: 12 sec
+Learning rate: 0.2081
+Accuratezza della rete: 80.15%
+
+Configurazione: 418
+
+Time: 12 sec
+Learning rate: 0.2086
+Accuratezza della rete: 71.87%
+
+Configurazione: 419
+
+Time: 12 sec
+Learning rate: 0.2091
+Accuratezza della rete: 54.59%
+
+Configurazione: 420
+
+Time: 12 sec
+Learning rate: 0.2096
+Accuratezza della rete: 72.69%
+
+Configurazione: 421
+
+Time: 12 sec
+Learning rate: 0.2101
+Accuratezza della rete: 80.34%
+
+Configurazione: 422
+
+Time: 12 sec
+Learning rate: 0.2106
+Accuratezza della rete: 79.64%
+
+Configurazione: 423
+
+Time: 12 sec
+Learning rate: 0.2111
+Accuratezza della rete: 75.82%
+
+Configurazione: 424
+
+Time: 12 sec
+Learning rate: 0.2116
+Accuratezza della rete: 76.29%
+
+Configurazione: 425
+
+Time: 12 sec
+Learning rate: 0.2121
+Accuratezza della rete: 49.48%
+
+Configurazione: 426
+
+Time: 12 sec
+Learning rate: 0.2126
+Accuratezza della rete: 68.53%
+
+Configurazione: 427
+
+Time: 12 sec
+Learning rate: 0.2131
+Accuratezza della rete: 81.47%
+
+Configurazione: 428
+
+Time: 12 sec
+Learning rate: 0.2136
+Accuratezza della rete: 84.3%
+
+Configurazione: 429
+
+Time: 12 sec
+Learning rate: 0.2141
+Accuratezza della rete: 55.26%
+
+Configurazione: 430
+
+Time: 12 sec
+Learning rate: 0.2146
+Accuratezza della rete: 62.17%
+
+Configurazione: 431
+
+Time: 12 sec
+Learning rate: 0.2151
+Accuratezza della rete: 69.04%
+
+Configurazione: 432
+
+Time: 12 sec
+Learning rate: 0.2156
+Accuratezza della rete: 64.59%
+
+Configurazione: 433
+
+Time: 12 sec
+Learning rate: 0.2161
+Accuratezza della rete: 69.38%
+
+Configurazione: 434
+
+Time: 12 sec
+Learning rate: 0.2166
+Accuratezza della rete: 68.31%
+
+Configurazione: 435
+
+Time: 12 sec
+Learning rate: 0.2171
+Accuratezza della rete: 73.69%
+
+Configurazione: 436
+
+Time: 12 sec
+Learning rate: 0.2176
+Accuratezza della rete: 73.7%
+
+Configurazione: 437
+
+Time: 12 sec
+Learning rate: 0.2181
+Accuratezza della rete: 72.93%
+
+Configurazione: 438
+
+Time: 12 sec
+Learning rate: 0.2186
+Accuratezza della rete: 71.55%
+
+Configurazione: 439
+
+Time: 12 sec
+Learning rate: 0.2191
+Accuratezza della rete: 74.76%
+
+Configurazione: 440
+
+Time: 12 sec
+Learning rate: 0.2196
+Accuratezza della rete: 65.39%
+
+Configurazione: 441
+
+Time: 12 sec
+Learning rate: 0.2201
+Accuratezza della rete: 65.34%
+
+Configurazione: 442
+
+Time: 12 sec
+Learning rate: 0.2206
+Accuratezza della rete: 65.03%
+
+Configurazione: 443
+
+Time: 12 sec
+Learning rate: 0.2211
+Accuratezza della rete: 72.18%
+
+Configurazione: 444
+
+Time: 12 sec
+Learning rate: 0.2216
+Accuratezza della rete: 66.72%
+
+Configurazione: 445
+
+Time: 12 sec
+Learning rate: 0.2221
+Accuratezza della rete: 34.66%
+
+Configurazione: 446
+
+Time: 12 sec
+Learning rate: 0.2226
+Accuratezza della rete: 69.1%
+
+Configurazione: 447
+
+Time: 12 sec
+Learning rate: 0.2231
+Accuratezza della rete: 79.83%
+
+Configurazione: 448
+
+Time: 12 sec
+Learning rate: 0.2236
+Accuratezza della rete: 63.77%
+
+Configurazione: 449
+
+Time: 12 sec
+Learning rate: 0.2241
+Accuratezza della rete: 69.02%
+
+Configurazione: 450
+
+Time: 12 sec
+Learning rate: 0.2246
+Accuratezza della rete: 64.33%
+
+Configurazione: 451
+
+Time: 12 sec
+Learning rate: 0.2251
+Accuratezza della rete: 70.83%
+
+Configurazione: 452
+
+Time: 12 sec
+Learning rate: 0.2256
+Accuratezza della rete: 48.36%
+
+Configurazione: 453
+
+Time: 12 sec
+Learning rate: 0.2261
+Accuratezza della rete: 71.46%
+
+Configurazione: 454
+
+Time: 12 sec
+Learning rate: 0.2266
+Accuratezza della rete: 62.47%
+
+Configurazione: 455
+
+Time: 12 sec
+Learning rate: 0.2271
+Accuratezza della rete: 73.12%
+
+Configurazione: 456
+
+Time: 12 sec
+Learning rate: 0.2276
+Accuratezza della rete: 66.43%
+
+Configurazione: 457
+
+Time: 12 sec
+Learning rate: 0.2281
+Accuratezza della rete: 71.75%
+
+Configurazione: 458
+
+Time: 12 sec
+Learning rate: 0.2286
+Accuratezza della rete: 64.72%
+
+Configurazione: 459
+
+Time: 12 sec
+Learning rate: 0.2291
+Accuratezza della rete: 83.89%
+
+Configurazione: 460
+
+Time: 12 sec
+Learning rate: 0.2296
+Accuratezza della rete: 62.18%
+
+Configurazione: 461
+
+Time: 12 sec
+Learning rate: 0.2301
+Accuratezza della rete: 71.3%
+
+Configurazione: 462
+
+Time: 12 sec
+Learning rate: 0.2306
+Accuratezza della rete: 66.03%
+
+Configurazione: 463
+
+Time: 12 sec
+Learning rate: 0.2311
+Accuratezza della rete: 62.18%
+
+Configurazione: 464
+
+Time: 12 sec
+Learning rate: 0.2316
+Accuratezza della rete: 69.05%
+
+Configurazione: 465
+
+Time: 12 sec
+Learning rate: 0.2321
+Accuratezza della rete: 56.88%
+
+Configurazione: 466
+
+Time: 12 sec
+Learning rate: 0.2326
+Accuratezza della rete: 43.59%
+
+Configurazione: 467
+
+Time: 12 sec
+Learning rate: 0.2331
+Accuratezza della rete: 51.71%
+
+Configurazione: 468
+
+Time: 12 sec
+Learning rate: 0.2336
+Accuratezza della rete: 70.99%
+
+Configurazione: 469
+
+Time: 12 sec
+Learning rate: 0.2341
+Accuratezza della rete: 70.15%
+
+Configurazione: 470
+
+Time: 12 sec
+Learning rate: 0.2346
+Accuratezza della rete: 65.62%
+
+Configurazione: 471
+
+Time: 12 sec
+Learning rate: 0.2351
+Accuratezza della rete: 52.29%
+
+Configurazione: 472
+
+Time: 12 sec
+Learning rate: 0.2356
+Accuratezza della rete: 63.95%
+
+Configurazione: 473
+
+Time: 12 sec
+Learning rate: 0.2361
+Accuratezza della rete: 60.13%
+
+Configurazione: 474
+
+Time: 12 sec
+Learning rate: 0.2366
+Accuratezza della rete: 61.52%
+
+Configurazione: 475
+
+Time: 12 sec
+Learning rate: 0.2371
+Accuratezza della rete: 65.48%
+
+Configurazione: 476
+
+Time: 12 sec
+Learning rate: 0.2376
+Accuratezza della rete: 67.6%
+
+Configurazione: 477
+
+Time: 12 sec
+Learning rate: 0.2381
+Accuratezza della rete: 73.32%
+
+Configurazione: 478
+
+Time: 12 sec
+Learning rate: 0.2386
+Accuratezza della rete: 60.18%
+
+Configurazione: 479
+
+Time: 12 sec
+Learning rate: 0.2391
+Accuratezza della rete: 67.86%
+
+Configurazione: 480
+
+Time: 12 sec
+Learning rate: 0.2396
+Accuratezza della rete: 62.29%
+
+Configurazione: 481
+
+Time: 12 sec
+Learning rate: 0.2401
+Accuratezza della rete: 68.33%
+
+Configurazione: 482
+
+Time: 12 sec
+Learning rate: 0.2406
+Accuratezza della rete: 60.87%
+
+Configurazione: 483
+
+Time: 12 sec
+Learning rate: 0.2411
+Accuratezza della rete: 64.13%
+
+Configurazione: 484
+
+Time: 12 sec
+Learning rate: 0.2416
+Accuratezza della rete: 63.91%
+
+Configurazione: 485
+
+Time: 12 sec
+Learning rate: 0.2421
+Accuratezza della rete: 67.67%
+
+Configurazione: 486
+
+Time: 12 sec
+Learning rate: 0.2426
+Accuratezza della rete: 59.53%
+
+Configurazione: 487
+
+Time: 12 sec
+Learning rate: 0.2431
+Accuratezza della rete: 59.91%
+
+Configurazione: 488
+
+Time: 12 sec
+Learning rate: 0.2436
+Accuratezza della rete: 55.89%
+
+Configurazione: 489
+
+Time: 12 sec
+Learning rate: 0.2441
+Accuratezza della rete: 52.84%
+
+Configurazione: 490
+
+Time: 12 sec
+Learning rate: 0.2446
+Accuratezza della rete: 59.26%
+
+Configurazione: 491
+
+Time: 12 sec
+Learning rate: 0.2451
+Accuratezza della rete: 54.52%
+
+Configurazione: 492
+
+Time: 12 sec
+Learning rate: 0.2456
+Accuratezza della rete: 59.83%
+
+Configurazione: 493
+
+Time: 12 sec
+Learning rate: 0.2461
+Accuratezza della rete: 63.6%
+
+Configurazione: 494
+
+Time: 12 sec
+Learning rate: 0.2466
+Accuratezza della rete: 58.66%
+
+Configurazione: 495
+
+Time: 12 sec
+Learning rate: 0.2471
+Accuratezza della rete: 64.6%
+
+Configurazione: 496
+
+Time: 12 sec
+Learning rate: 0.2476
+Accuratezza della rete: 65.81%
+
+Configurazione: 497
+
+Time: 12 sec
+Learning rate: 0.2481
+Accuratezza della rete: 62.15%
+
+Configurazione: 498
+
+Time: 12 sec
+Learning rate: 0.2486
+Accuratezza della rete: 61.13%
+
+Configurazione: 499
+
+Time: 12 sec
+Learning rate: 0.2491
+Accuratezza della rete: 76.99%
+
+Configurazione: 500
+
+Time: 12 sec
+Learning rate: 0.2496
+Accuratezza della rete: 73.43%
+
+Configurazione: 501
+
+Time: 12 sec
+Learning rate: 0.2501
+Accuratezza della rete: 59.4%
+
+Configurazione: 502
+
+Time: 12 sec
+Learning rate: 0.2506
+Accuratezza della rete: 62.77%
+
+Configurazione: 503
+
+Time: 12 sec
+Learning rate: 0.2511
+Accuratezza della rete: 57.19%
+
+Configurazione: 504
+
+Time: 12 sec
+Learning rate: 0.2516
+Accuratezza della rete: 54.43%
+
+Configurazione: 505
+
+Time: 12 sec
+Learning rate: 0.2521
+Accuratezza della rete: 53.8%
+
+Configurazione: 506
+
+Time: 12 sec
+Learning rate: 0.2526
+Accuratezza della rete: 60.26%
+
+Configurazione: 507
+
+Time: 12 sec
+Learning rate: 0.2531
+Accuratezza della rete: 67.88%
+
+Configurazione: 508
+
+Time: 12 sec
+Learning rate: 0.2536
+Accuratezza della rete: 53.88%
+
+Configurazione: 509
+
+Time: 12 sec
+Learning rate: 0.2541
+Accuratezza della rete: 59.21%
+
+Configurazione: 510
+
+Time: 12 sec
+Learning rate: 0.2546
+Accuratezza della rete: 63.39%
+
+Configurazione: 511
+
+Time: 12 sec
+Learning rate: 0.2551
+Accuratezza della rete: 58.45%
+
+Configurazione: 512
+
+Time: 12 sec
+Learning rate: 0.2556
+Accuratezza della rete: 61.63%
+
+Configurazione: 513
+
+Time: 12 sec
+Learning rate: 0.2561
+Accuratezza della rete: 80.19%
+
+Configurazione: 514
+
+Time: 12 sec
+Learning rate: 0.2566
+Accuratezza della rete: 85.17%
+
+Configurazione: 515
+
+Time: 12 sec
+Learning rate: 0.2571
+Accuratezza della rete: 60.63%
+
+Configurazione: 516
+
+Time: 12 sec
+Learning rate: 0.2576
+Accuratezza della rete: 55.71%
+
+Configurazione: 517
+
+Time: 12 sec
+Learning rate: 0.2581
+Accuratezza della rete: 57.27%
+
+Configurazione: 518
+
+Time: 12 sec
+Learning rate: 0.2586
+Accuratezza della rete: 59.57%
+
+Configurazione: 519
+
+Time: 12 sec
+Learning rate: 0.2591
+Accuratezza della rete: 53.96%
+
+Configurazione: 520
+
+Time: 12 sec
+Learning rate: 0.2596
+Accuratezza della rete: 58.95%
+
+Configurazione: 521
+
+Time: 12 sec
+Learning rate: 0.2601
+Accuratezza della rete: 57.8%
+
+Configurazione: 522
+
+Time: 12 sec
+Learning rate: 0.2606
+Accuratezza della rete: 57.03%
+
+Configurazione: 523
+
+Time: 12 sec
+Learning rate: 0.2611
+Accuratezza della rete: 62.57%
+
+Configurazione: 524
+
+Time: 12 sec
+Learning rate: 0.2616
+Accuratezza della rete: 58.83%
+
+Configurazione: 525
+
+Time: 12 sec
+Learning rate: 0.2621
+Accuratezza della rete: 48.03%
+
+Configurazione: 526
+
+Time: 12 sec
+Learning rate: 0.2626
+Accuratezza della rete: 67.3%
+
+Configurazione: 527
+
+Time: 12 sec
+Learning rate: 0.2631
+Accuratezza della rete: 57.47%
+
+Configurazione: 528
+
+Time: 12 sec
+Learning rate: 0.2636
+Accuratezza della rete: 74.37%
+
+Configurazione: 529
+
+Time: 12 sec
+Learning rate: 0.2641
+Accuratezza della rete: 59.14%
+
+Configurazione: 530
+
+Time: 12 sec
+Learning rate: 0.2646
+Accuratezza della rete: 38.88%
+
+Configurazione: 531
+
+Time: 12 sec
+Learning rate: 0.2651
+Accuratezza della rete: 49.1%
+
+Configurazione: 532
+
+Time: 12 sec
+Learning rate: 0.2656
+Accuratezza della rete: 77.09%
+
+Configurazione: 533
+
+Time: 12 sec
+Learning rate: 0.2661
+Accuratezza della rete: 67.25%
+
+Configurazione: 534
+
+Time: 12 sec
+Learning rate: 0.2666
+Accuratezza della rete: 51.27%
+
+Configurazione: 535
+
+Time: 12 sec
+Learning rate: 0.2671
+Accuratezza della rete: 55.28%
+
+Configurazione: 536
+
+Time: 12 sec
+Learning rate: 0.2676
+Accuratezza della rete: 63.13%
+
+Configurazione: 537
+
+Time: 12 sec
+Learning rate: 0.2681
+Accuratezza della rete: 70.54%
+
+Configurazione: 538
+
+Time: 12 sec
+Learning rate: 0.2686
+Accuratezza della rete: 74.3%
+
+Configurazione: 539
+
+Time: 12 sec
+Learning rate: 0.2691
+Accuratezza della rete: 53.97%
+
+Configurazione: 540
+
+Time: 12 sec
+Learning rate: 0.2696
+Accuratezza della rete: 63.21%
+
+Configurazione: 541
+
+Time: 12 sec
+Learning rate: 0.2701
+Accuratezza della rete: 52.75%
+
+Configurazione: 542
+
+Time: 12 sec
+Learning rate: 0.2706
+Accuratezza della rete: 61.61%
+
+Configurazione: 543
+
+Time: 12 sec
+Learning rate: 0.2711
+Accuratezza della rete: 63.17%
+
+Configurazione: 544
+
+Time: 12 sec
+Learning rate: 0.2716
+Accuratezza della rete: 78.49%
+
+Configurazione: 545
+
+Time: 12 sec
+Learning rate: 0.2721
+Accuratezza della rete: 59.96%
+
+Configurazione: 546
+
+Time: 12 sec
+Learning rate: 0.2726
+Accuratezza della rete: 58.38%
+
+Configurazione: 547
+
+Time: 12 sec
+Learning rate: 0.2731
+Accuratezza della rete: 63.03%
+
+Configurazione: 548
+
+Time: 12 sec
+Learning rate: 0.2736
+Accuratezza della rete: 56.18%
+
+Configurazione: 549
+
+Time: 12 sec
+Learning rate: 0.2741
+Accuratezza della rete: 59.86%
+
+Configurazione: 550
+
+Time: 12 sec
+Learning rate: 0.2746
+Accuratezza della rete: 52.19%
+
+Configurazione: 551
+
+Time: 12 sec
+Learning rate: 0.2751
+Accuratezza della rete: 75.56%
+
+Configurazione: 552
+
+Time: 12 sec
+Learning rate: 0.2756
+Accuratezza della rete: 60.8%
+
+Configurazione: 553
+
+Time: 12 sec
+Learning rate: 0.2761
+Accuratezza della rete: 58.04%
+
+Configurazione: 554
+
+Time: 12 sec
+Learning rate: 0.2766
+Accuratezza della rete: 52.79%
+
+Configurazione: 555
+
+Time: 12 sec
+Learning rate: 0.2771
+Accuratezza della rete: 48.74%
+
+Configurazione: 556
+
+Time: 12 sec
+Learning rate: 0.2776
+Accuratezza della rete: 53.2%
+
+Configurazione: 557
+
+Time: 12 sec
+Learning rate: 0.2781
+Accuratezza della rete: 45.88%
+
+Configurazione: 558
+
+Time: 12 sec
+Learning rate: 0.2786
+Accuratezza della rete: 56.77%
+
+Configurazione: 559
+
+Time: 12 sec
+Learning rate: 0.2791
+Accuratezza della rete: 46.65%
+
+Configurazione: 560
+
+Time: 12 sec
+Learning rate: 0.2796
+Accuratezza della rete: 54.85%
+
+Configurazione: 561
+
+Time: 12 sec
+Learning rate: 0.2801
+Accuratezza della rete: 56.74%
+
+Configurazione: 562
+
+Time: 12 sec
+Learning rate: 0.2806
+Accuratezza della rete: 47.36%
+
+Configurazione: 563
+
+Time: 12 sec
+Learning rate: 0.2811
+Accuratezza della rete: 46.52%
+
+Configurazione: 564
+
+Time: 12 sec
+Learning rate: 0.2816
+Accuratezza della rete: 55.88%
+
+Configurazione: 565
+
+Time: 12 sec
+Learning rate: 0.2821
+Accuratezza della rete: 52.5%
+
+Configurazione: 566
+
+Time: 12 sec
+Learning rate: 0.2826
+Accuratezza della rete: 53.42%
+
+Configurazione: 567
+
+Time: 12 sec
+Learning rate: 0.2831
+Accuratezza della rete: 54.41%
+
+Configurazione: 568
+
+Time: 12 sec
+Learning rate: 0.2836
+Accuratezza della rete: 33.77%
+
+Configurazione: 569
+
+Time: 12 sec
+Learning rate: 0.2841
+Accuratezza della rete: 60.82%
+
+Configurazione: 570
+
+Time: 12 sec
+Learning rate: 0.2846
+Accuratezza della rete: 53.09%
+
+Configurazione: 571
+
+Time: 12 sec
+Learning rate: 0.2851
+Accuratezza della rete: 55.3%
+
+Configurazione: 572
+
+Time: 12 sec
+Learning rate: 0.2856
+Accuratezza della rete: 64.08%
+
+Configurazione: 573
+
+Time: 12 sec
+Learning rate: 0.2861
+Accuratezza della rete: 47.98%
+
+Configurazione: 574
+
+Time: 12 sec
+Learning rate: 0.2866
+Accuratezza della rete: 56.69%
+
+Configurazione: 575
+
+Time: 12 sec
+Learning rate: 0.2871
+Accuratezza della rete: 60.45%
+
+Configurazione: 576
+
+Time: 12 sec
+Learning rate: 0.2876
+Accuratezza della rete: 30.99%
+
+Configurazione: 577
+
+Time: 12 sec
+Learning rate: 0.2881
+Accuratezza della rete: 60.75%
+
+Configurazione: 578
+
+Time: 12 sec
+Learning rate: 0.2886
+Accuratezza della rete: 51.28%
+
+Configurazione: 579
+
+Time: 12 sec
+Learning rate: 0.2891
+Accuratezza della rete: 49.39%
+
+Configurazione: 580
+
+Time: 12 sec
+Learning rate: 0.2896
+Accuratezza della rete: 57.06%
+
+Configurazione: 581
+
+Time: 12 sec
+Learning rate: 0.2901
+Accuratezza della rete: 25.82%
+
+Configurazione: 582
+
+Time: 12 sec
+Learning rate: 0.2906
+Accuratezza della rete: 51.47%
+
+Configurazione: 583
+
+Time: 12 sec
+Learning rate: 0.2911
+Accuratezza della rete: 30.52%
+
+Configurazione: 584
+
+Time: 12 sec
+Learning rate: 0.2916
+Accuratezza della rete: 67.06%
+
+Configurazione: 585
+
+Time: 12 sec
+Learning rate: 0.2921
+Accuratezza della rete: 54.18%
+
+Configurazione: 586
+
+Time: 12 sec
+Learning rate: 0.2926
+Accuratezza della rete: 35.91%
+
+Configurazione: 587
+
+Time: 12 sec
+Learning rate: 0.2931
+Accuratezza della rete: 71.96%
+
+Configurazione: 588
+
+Time: 12 sec
+Learning rate: 0.2936
+Accuratezza della rete: 59.69%
+
+Configurazione: 589
+
+Time: 12 sec
+Learning rate: 0.2941
+Accuratezza della rete: 47.7%
+
+Configurazione: 590
+
+Time: 12 sec
+Learning rate: 0.2946
+Accuratezza della rete: 53.28%
+
+Configurazione: 591
+
+Time: 12 sec
+Learning rate: 0.2951
+Accuratezza della rete: 56.26%
+
+Configurazione: 592
+
+Time: 12 sec
+Learning rate: 0.2956
+Accuratezza della rete: 48.4%
+
+Configurazione: 593
+
+Time: 12 sec
+Learning rate: 0.2961
+Accuratezza della rete: 53.72%
+
+Configurazione: 594
+
+Time: 12 sec
+Learning rate: 0.2966
+Accuratezza della rete: 53.15%
+
+Configurazione: 595
+
+Time: 12 sec
+Learning rate: 0.2971
+Accuratezza della rete: 53.27%
+
+Configurazione: 596
+
+Time: 12 sec
+Learning rate: 0.2976
+Accuratezza della rete: 53.99%
+
+Configurazione: 597
+
+Time: 12 sec
+Learning rate: 0.2981
+Accuratezza della rete: 44.93%
+
+Configurazione: 598
+
+Time: 12 sec
+Learning rate: 0.2986
+Accuratezza della rete: 53.36%
+
+Configurazione: 599
+
+Time: 12 sec
+Learning rate: 0.2991
+Accuratezza della rete: 60.21%
+
+Configurazione: 600
+
+Time: 12 sec
+Learning rate: 0.2996
+Accuratezza della rete: 44.91%
+
+Configurazione: 601
+
+Time: 12 sec
+Learning rate: 0.3001
+Accuratezza della rete: 53.39%
+
+Configurazione: 602
+
+Time: 12 sec
+Learning rate: 0.3006
+Accuratezza della rete: 21.44%
+
+Configurazione: 603
+
+Time: 12 sec
+Learning rate: 0.3011
+Accuratezza della rete: 58.47%
+
+Configurazione: 604
+
+Time: 12 sec
+Learning rate: 0.3016
+Accuratezza della rete: 50.04%
+
+Configurazione: 605
+
+Time: 12 sec
+Learning rate: 0.3021
+Accuratezza della rete: 53.17%
+
+Configurazione: 606
+
+Time: 12 sec
+Learning rate: 0.3026
+Accuratezza della rete: 50.43%
+
+Configurazione: 607
+
+Time: 12 sec
+Learning rate: 0.3031
+Accuratezza della rete: 48.49%
+
+Configurazione: 608
+
+Time: 12 sec
+Learning rate: 0.3036
+Accuratezza della rete: 38.45%
+
+Configurazione: 609
+
+Time: 12 sec
+Learning rate: 0.3041
+Accuratezza della rete: 37.82%
+
+Configurazione: 610
+
+Time: 12 sec
+Learning rate: 0.3046
+Accuratezza della rete: 55.88%
+
+Configurazione: 611
+
+Time: 12 sec
+Learning rate: 0.3051
+Accuratezza della rete: 56.83%
+
+Configurazione: 612
+
+Time: 12 sec
+Learning rate: 0.3056
+Accuratezza della rete: 27.76%
+
+Configurazione: 613
+
+Time: 12 sec
+Learning rate: 0.3061
+Accuratezza della rete: 35.57%
+
+Configurazione: 614
+
+Time: 12 sec
+Learning rate: 0.3066
+Accuratezza della rete: 45.37%
+
+Configurazione: 615
+
+Time: 12 sec
+Learning rate: 0.3071
+Accuratezza della rete: 59.56%
+
+Configurazione: 616
+
+Time: 12 sec
+Learning rate: 0.3076
+Accuratezza della rete: 60.91%
+
+Configurazione: 617
+
+Time: 12 sec
+Learning rate: 0.3081
+Accuratezza della rete: 39.11%
+
+Configurazione: 618
+
+Time: 12 sec
+Learning rate: 0.3086
+Accuratezza della rete: 36.3%
+
+Configurazione: 619
+
+Time: 12 sec
+Learning rate: 0.3091
+Accuratezza della rete: 40.7%
+
+Configurazione: 620
+
+Time: 12 sec
+Learning rate: 0.3096
+Accuratezza della rete: 44.07%
+
+Configurazione: 621
+
+Time: 12 sec
+Learning rate: 0.3101
+Accuratezza della rete: 54.21%
+
+Configurazione: 622
+
+Time: 12 sec
+Learning rate: 0.3106
+Accuratezza della rete: 48.6%
+
+Configurazione: 623
+
+Time: 12 sec
+Learning rate: 0.3111
+Accuratezza della rete: 54.21%
+
+Configurazione: 624
+
+Time: 12 sec
+Learning rate: 0.3116
+Accuratezza della rete: 51.93%
+
+Configurazione: 625
+
+Time: 12 sec
+Learning rate: 0.3121
+Accuratezza della rete: 16.47%
+
+Configurazione: 626
+
+Time: 12 sec
+Learning rate: 0.3126
+Accuratezza della rete: 29.19%
+
+Configurazione: 627
+
+Time: 12 sec
+Learning rate: 0.3131
+Accuratezza della rete: 53.94%
+
+Configurazione: 628
+
+Time: 12 sec
+Learning rate: 0.3136
+Accuratezza della rete: 45.53%
+
+Configurazione: 629
+
+Time: 12 sec
+Learning rate: 0.3141
+Accuratezza della rete: 41.86%
+
+Configurazione: 630
+
+Time: 12 sec
+Learning rate: 0.3146
+Accuratezza della rete: 49.32%
+
+Configurazione: 631
+
+Time: 12 sec
+Learning rate: 0.3151
+Accuratezza della rete: 62.5%
+
+Configurazione: 632
+
+Time: 12 sec
+Learning rate: 0.3156
+Accuratezza della rete: 50.76%
+
+Configurazione: 633
+
+Time: 12 sec
+Learning rate: 0.3161
+Accuratezza della rete: 61.41%
+
+Configurazione: 634
+
+Time: 12 sec
+Learning rate: 0.3166
+Accuratezza della rete: 42.37%
+
+Configurazione: 635
+
+Time: 12 sec
+Learning rate: 0.3171
+Accuratezza della rete: 52.12%
+
+Configurazione: 636
+
+Time: 12 sec
+Learning rate: 0.3176
+Accuratezza della rete: 43.03%
+
+Configurazione: 637
+
+Time: 12 sec
+Learning rate: 0.3181
+Accuratezza della rete: 57.26%
+
+Configurazione: 638
+
+Time: 12 sec
+Learning rate: 0.3186
+Accuratezza della rete: 38.73%
+
+Configurazione: 639
+
+Time: 12 sec
+Learning rate: 0.3191
+Accuratezza della rete: 51.63%
+
+Configurazione: 640
+
+Time: 12 sec
+Learning rate: 0.3196
+Accuratezza della rete: 45.58%
+
+Configurazione: 641
+
+Time: 12 sec
+Learning rate: 0.3201
+Accuratezza della rete: 49.53%
+
+Configurazione: 642
+
+Time: 12 sec
+Learning rate: 0.3206
+Accuratezza della rete: 50.65%
+
+Configurazione: 643
+
+Time: 12 sec
+Learning rate: 0.3211
+Accuratezza della rete: 57.06%
+
+Configurazione: 644
+
+Time: 12 sec
+Learning rate: 0.3216
+Accuratezza della rete: 33.14%
+
+Configurazione: 645
+
+Time: 12 sec
+Learning rate: 0.3221
+Accuratezza della rete: 43.99%
+
+Configurazione: 646
+
+Time: 12 sec
+Learning rate: 0.3226
+Accuratezza della rete: 39.89%
+
+Configurazione: 647
+
+Time: 12 sec
+Learning rate: 0.3231
+Accuratezza della rete: 37.29%
+
+Configurazione: 648
+
+Time: 12 sec
+Learning rate: 0.3236
+Accuratezza della rete: 51.87%
+
+Configurazione: 649
+
+Time: 12 sec
+Learning rate: 0.3241
+Accuratezza della rete: 46.81%
+
+Configurazione: 650
+
+Time: 12 sec
+Learning rate: 0.3246
+Accuratezza della rete: 43.92%
+
+Configurazione: 651
+
+Time: 12 sec
+Learning rate: 0.3251
+Accuratezza della rete: 52.81%
+
+Configurazione: 652
+
+Time: 12 sec
+Learning rate: 0.3256
+Accuratezza della rete: 42%
+
+Configurazione: 653
+
+Time: 12 sec
+Learning rate: 0.3261
+Accuratezza della rete: 44.39%
+
+Configurazione: 654
+
+Time: 12 sec
+Learning rate: 0.3266
+Accuratezza della rete: 36.24%
+
+Configurazione: 655
+
+Time: 12 sec
+Learning rate: 0.3271
+Accuratezza della rete: 29.64%
+
+Configurazione: 656
+
+Time: 12 sec
+Learning rate: 0.3276
+Accuratezza della rete: 36.67%
+
+Configurazione: 657
+
+Time: 12 sec
+Learning rate: 0.3281
+Accuratezza della rete: 39.78%
+
+Configurazione: 658
+
+Time: 12 sec
+Learning rate: 0.3286
+Accuratezza della rete: 19.47%
+
+Configurazione: 659
+
+Time: 12 sec
+Learning rate: 0.3291
+Accuratezza della rete: 44.63%
+
+Configurazione: 660
+
+Time: 12 sec
+Learning rate: 0.3296
+Accuratezza della rete: 30.57%
+
+Configurazione: 661
+
+Time: 12 sec
+Learning rate: 0.3301
+Accuratezza della rete: 18.77%
+
+Configurazione: 662
+
+Time: 12 sec
+Learning rate: 0.3306
+Accuratezza della rete: 25.03%
+
+Configurazione: 663
+
+Time: 12 sec
+Learning rate: 0.3311
+Accuratezza della rete: 30.31%
+
+Configurazione: 664
+
+Time: 12 sec
+Learning rate: 0.3316
+Accuratezza della rete: 18.75%
+
+Configurazione: 665
+
+Time: 12 sec
+Learning rate: 0.3321
+Accuratezza della rete: 37.89%
+
+Configurazione: 666
+
+Time: 12 sec
+Learning rate: 0.3326
+Accuratezza della rete: 19.75%
+
+Configurazione: 667
+
+Time: 12 sec
+Learning rate: 0.3331
+Accuratezza della rete: 49.51%
+
+Configurazione: 668
+
+Time: 12 sec
+Learning rate: 0.3336
+Accuratezza della rete: 39.13%
+
+Configurazione: 669
+
+Time: 12 sec
+Learning rate: 0.3341
+Accuratezza della rete: 29.16%
+
+Configurazione: 670
+
+Time: 12 sec
+Learning rate: 0.3346
+Accuratezza della rete: 14.93%
+
+Configurazione: 671
+
+Time: 12 sec
+Learning rate: 0.3351
+Accuratezza della rete: 37.36%
+
+Configurazione: 672
+
+Time: 12 sec
+Learning rate: 0.3356
+Accuratezza della rete: 28.51%
+
+Configurazione: 673
+
+Time: 12 sec
+Learning rate: 0.3361
+Accuratezza della rete: 45.37%
+
+Configurazione: 674
+
+Time: 12 sec
+Learning rate: 0.3366
+Accuratezza della rete: 46.05%
+
+Configurazione: 675
+
+Time: 12 sec
+Learning rate: 0.3371
+Accuratezza della rete: 41.96%
+
+Configurazione: 676
+
+Time: 12 sec
+Learning rate: 0.3376
+Accuratezza della rete: 49.67%
+
+Configurazione: 677
+
+Time: 12 sec
+Learning rate: 0.3381
+Accuratezza della rete: 48.29%
+
+Configurazione: 678
+
+Time: 12 sec
+Learning rate: 0.3386
+Accuratezza della rete: 19.01%
+
+Configurazione: 679
+
+Time: 12 sec
+Learning rate: 0.3391
+Accuratezza della rete: 37.75%
+
+Configurazione: 680
+
+Time: 12 sec
+Learning rate: 0.3396
+Accuratezza della rete: 33.71%
+
+Configurazione: 681
+
+Time: 12 sec
+Learning rate: 0.3401
+Accuratezza della rete: 37.98%
+
+Configurazione: 682
+
+Time: 12 sec
+Learning rate: 0.3406
+Accuratezza della rete: 20.79%
+
+Configurazione: 683
+
+Time: 12 sec
+Learning rate: 0.3411
+Accuratezza della rete: 24.36%
+
+Configurazione: 684
+
+Time: 12 sec
+Learning rate: 0.3416
+Accuratezza della rete: 28.58%
+
+Configurazione: 685
+
+Time: 12 sec
+Learning rate: 0.3421
+Accuratezza della rete: 15.03%
+
+Configurazione: 686
+
+Time: 12 sec
+Learning rate: 0.3426
+Accuratezza della rete: 12.43%
+
+Configurazione: 687
+
+Time: 12 sec
+Learning rate: 0.3431
+Accuratezza della rete: 36.23%
+
+Configurazione: 688
+
+Time: 12 sec
+Learning rate: 0.3436
+Accuratezza della rete: 29.07%
+
+Configurazione: 689
+
+Time: 12 sec
+Learning rate: 0.3441
+Accuratezza della rete: 28.56%
+
+Configurazione: 690
+
+Time: 12 sec
+Learning rate: 0.3446
+Accuratezza della rete: 16.23%
+
+Configurazione: 691
+
+Time: 12 sec
+Learning rate: 0.3451
+Accuratezza della rete: 30.52%
+
+Configurazione: 692
+
+Time: 12 sec
+Learning rate: 0.3456
+Accuratezza della rete: 24.32%
+
+Configurazione: 693
+
+Time: 12 sec
+Learning rate: 0.3461
+Accuratezza della rete: 26.08%
+
+Configurazione: 694
+
+Time: 12 sec
+Learning rate: 0.3466
+Accuratezza della rete: 27.57%
+
+Configurazione: 695
+
+Time: 12 sec
+Learning rate: 0.3471
+Accuratezza della rete: 27.73%
+
+Configurazione: 696
+
+Time: 12 sec
+Learning rate: 0.3476
+Accuratezza della rete: 37.44%
+
+Configurazione: 697
+
+Time: 12 sec
+Learning rate: 0.3481
+Accuratezza della rete: 48.09%
+
+Configurazione: 698
+
+Time: 12 sec
+Learning rate: 0.3486
+Accuratezza della rete: 40.91%
+
+Configurazione: 699
+
+Time: 12 sec
+Learning rate: 0.3491
+Accuratezza della rete: 31.78%
+
+Configurazione: 700
+
+Time: 12 sec
+Learning rate: 0.3496
+Accuratezza della rete: 38.05%
+
+Configurazione: 701
+
+Time: 12 sec
+Learning rate: 0.3501
+Accuratezza della rete: 29.06%
+
+Configurazione: 702
+
+Time: 12 sec
+Learning rate: 0.3506
+Accuratezza della rete: 35.39%
+
+Configurazione: 703
+
+Time: 12 sec
+Learning rate: 0.3511
+Accuratezza della rete: 29.91%
+
+Configurazione: 704
+
+Time: 12 sec
+Learning rate: 0.3516
+Accuratezza della rete: 42.15%
+
+Configurazione: 705
+
+Time: 12 sec
+Learning rate: 0.3521
+Accuratezza della rete: 30.58%
+
+Configurazione: 706
+
+Time: 12 sec
+Learning rate: 0.3526
+Accuratezza della rete: 37.27%
+
+Configurazione: 707
+
+Time: 12 sec
+Learning rate: 0.3531
+Accuratezza della rete: 33.58%
+
+Configurazione: 708
+
+Time: 12 sec
+Learning rate: 0.3536
+Accuratezza della rete: 27.7%
+
+Configurazione: 709
+
+Time: 12 sec
+Learning rate: 0.3541
+Accuratezza della rete: 34.54%
+
+Configurazione: 710
+
+Time: 12 sec
+Learning rate: 0.3546
+Accuratezza della rete: 29.74%
+
+Configurazione: 711
+
+Time: 12 sec
+Learning rate: 0.3551
+Accuratezza della rete: 20.5%
+
+Configurazione: 712
+
+Time: 12 sec
+Learning rate: 0.3556
+Accuratezza della rete: 31.32%
+
+Configurazione: 713
+
+Time: 12 sec
+Learning rate: 0.3561
+Accuratezza della rete: 21.4%
+
+Configurazione: 714
+
+Time: 12 sec
+Learning rate: 0.3566
+Accuratezza della rete: 21.92%
+
+Configurazione: 715
+
+Time: 12 sec
+Learning rate: 0.3571
+Accuratezza della rete: 19.97%
+
+Configurazione: 716
+
+Time: 12 sec
+Learning rate: 0.3576
+Accuratezza della rete: 18.94%
+
+Configurazione: 717
+
+Time: 12 sec
+Learning rate: 0.3581
+Accuratezza della rete: 32.49%
+
+Configurazione: 718
+
+Time: 12 sec
+Learning rate: 0.3586
+Accuratezza della rete: 27.31%
+
+Configurazione: 719
+
+Time: 12 sec
+Learning rate: 0.3591
+Accuratezza della rete: 16.84%
+
+Configurazione: 720
+
+Time: 12 sec
+Learning rate: 0.3596
+Accuratezza della rete: 19.52%
+
+Configurazione: 721
+
+Time: 12 sec
+Learning rate: 0.3601
+Accuratezza della rete: 11.37%
+
+Configurazione: 722
+
+Time: 12 sec
+Learning rate: 0.3606
+Accuratezza della rete: 42.47%
+
+Configurazione: 723
+
+Time: 12 sec
+Learning rate: 0.3611
+Accuratezza della rete: 21.18%
+
+Configurazione: 724
+
+Time: 12 sec
+Learning rate: 0.3616
+Accuratezza della rete: 37.39%
+
+Configurazione: 725
+
+Time: 12 sec
+Learning rate: 0.3621
+Accuratezza della rete: 39.38%
+
+Configurazione: 726
+
+Time: 12 sec
+Learning rate: 0.3626
+Accuratezza della rete: 20.48%
+
+Configurazione: 727
+
+Time: 12 sec
+Learning rate: 0.3631
+Accuratezza della rete: 24.82%
+
+Configurazione: 728
+
+Time: 12 sec
+Learning rate: 0.3636
+Accuratezza della rete: 14.68%
+
+Configurazione: 729
+
+Time: 12 sec
+Learning rate: 0.3641
+Accuratezza della rete: 32.97%
+
+Configurazione: 730
+
+Time: 12 sec
+Learning rate: 0.3646
+Accuratezza della rete: 39.1%
+
+Configurazione: 731
+
+Time: 12 sec
+Learning rate: 0.3651
+Accuratezza della rete: 9.8%
+
+Configurazione: 732
+
+Time: 12 sec
+Learning rate: 0.3656
+Accuratezza della rete: 20.87%
+
+Configurazione: 733
+
+Time: 12 sec
+Learning rate: 0.3661
+Accuratezza della rete: 29.95%
+
+Configurazione: 734
+
+Time: 12 sec
+Learning rate: 0.3666
+Accuratezza della rete: 21.09%
+
+Configurazione: 735
+
+Time: 12 sec
+Learning rate: 0.3671
+Accuratezza della rete: 34.87%
+
+Configurazione: 736
+
+Time: 12 sec
+Learning rate: 0.3676
+Accuratezza della rete: 18.75%
+
+Configurazione: 737
+
+Time: 12 sec
+Learning rate: 0.3681
+Accuratezza della rete: 13.96%
+
+Configurazione: 738
+
+Time: 12 sec
+Learning rate: 0.3686
+Accuratezza della rete: 34.7%
+
+Configurazione: 739
+
+Time: 12 sec
+Learning rate: 0.3691
+Accuratezza della rete: 23.55%
+
+Configurazione: 740
+
+Time: 12 sec
+Learning rate: 0.3696
+Accuratezza della rete: 42.83%
+
+Configurazione: 741
+
+Time: 12 sec
+Learning rate: 0.3701
+Accuratezza della rete: 9.8%
+
+Configurazione: 742
+
+Time: 12 sec
+Learning rate: 0.3706
+Accuratezza della rete: 15.04%
+
+Configurazione: 743
+
+Time: 12 sec
+Learning rate: 0.3711
+Accuratezza della rete: 38.1%
+
+Configurazione: 744
+
+Time: 12 sec
+Learning rate: 0.3716
+Accuratezza della rete: 10.04%
+
+Configurazione: 745
+
+Time: 12 sec
+Learning rate: 0.3721
+Accuratezza della rete: 9.8%
+
+Configurazione: 746
+
+Time: 12 sec
+Learning rate: 0.3726
+Accuratezza della rete: 9.8%
+
+Configurazione: 747
+
+Time: 12 sec
+Learning rate: 0.3731
+Accuratezza della rete: 20.36%
+
+Configurazione: 748
+
+Time: 12 sec
+Learning rate: 0.3736
+Accuratezza della rete: 18.63%
+
+Configurazione: 749
+
+Time: 12 sec
+Learning rate: 0.3741
+Accuratezza della rete: 35.59%
+
+Configurazione: 750
+
+Time: 12 sec
+Learning rate: 0.3746
+Accuratezza della rete: 20.28%
+
+Configurazione: 751
+
+Time: 12 sec
+Learning rate: 0.3751
+Accuratezza della rete: 9.8%
+
+Configurazione: 752
+
+Time: 12 sec
+Learning rate: 0.3756
+Accuratezza della rete: 23.07%
+
+Configurazione: 753
+
+Time: 12 sec
+Learning rate: 0.3761
+Accuratezza della rete: 9.22%
+
+Configurazione: 754
+
+Time: 12 sec
+Learning rate: 0.3766
+Accuratezza della rete: 23.68%
+
+Configurazione: 755
+
+Time: 12 sec
+Learning rate: 0.3771
+Accuratezza della rete: 20.4%
+
+Configurazione: 756
+
+Time: 12 sec
+Learning rate: 0.3776
+Accuratezza della rete: 9.8%
+
+Configurazione: 757
+
+Time: 12 sec
+Learning rate: 0.3781
+Accuratezza della rete: 9.8%
+
+Configurazione: 758
+
+Time: 12 sec
+Learning rate: 0.3786
+Accuratezza della rete: 9.5%
+
+Configurazione: 759
+
+Time: 12 sec
+Learning rate: 0.3791
+Accuratezza della rete: 14.11%
+
+Configurazione: 760
+
+Time: 12 sec
+Learning rate: 0.3796
+Accuratezza della rete: 9.8%
+
+Configurazione: 761
+
+Time: 12 sec
+Learning rate: 0.3801
+Accuratezza della rete: 16.03%
+
+Configurazione: 762
+
+Time: 12 sec
+Learning rate: 0.3806
+Accuratezza della rete: 9.84%
+
+Configurazione: 763
+
+Time: 12 sec
+Learning rate: 0.3811
+Accuratezza della rete: 3.53%
+
+Configurazione: 764
+
+Time: 12 sec
+Learning rate: 0.3816
+Accuratezza della rete: 19.42%
+
+Configurazione: 765
+
+Time: 12 sec
+Learning rate: 0.3821
+Accuratezza della rete: 19.88%
+
+Configurazione: 766
+
+Time: 12 sec
+Learning rate: 0.3826
+Accuratezza della rete: 18.63%
+
+Configurazione: 767
+
+Time: 12 sec
+Learning rate: 0.3831
+Accuratezza della rete: 8.48%
+
+Configurazione: 768
+
+Time: 12 sec
+Learning rate: 0.3836
+Accuratezza della rete: 16.9%
+
+Configurazione: 769
+
+Time: 12 sec
+Learning rate: 0.3841
+Accuratezza della rete: 9.8%
+
+Configurazione: 770
+
+Time: 12 sec
+Learning rate: 0.3846
+Accuratezza della rete: 9.8%
+
+Configurazione: 771
+
+Time: 12 sec
+Learning rate: 0.3851
+Accuratezza della rete: 9.8%
+
+Configurazione: 772
+
+Time: 12 sec
+Learning rate: 0.3856
+Accuratezza della rete: 15.03%
+
+Configurazione: 773
+
+Time: 12 sec
+Learning rate: 0.3861
+Accuratezza della rete: 9.8%
+
+Configurazione: 774
+
+Time: 12 sec
+Learning rate: 0.3866
+Accuratezza della rete: 7.48%
+
+Configurazione: 775
+
+Time: 12 sec
+Learning rate: 0.3871
+Accuratezza della rete: 5.42%
+
+Configurazione: 776
+
+Time: 12 sec
+Learning rate: 0.3876
+Accuratezza della rete: 14.12%
+
+Configurazione: 777
+
+Time: 12 sec
+Learning rate: 0.3881
+Accuratezza della rete: 7.07%
+
+Configurazione: 778
+
+Time: 12 sec
+Learning rate: 0.3886
+Accuratezza della rete: 10.29%
+
+Configurazione: 779
+
+Time: 12 sec
+Learning rate: 0.3891
+Accuratezza della rete: 9.8%
+
+Configurazione: 780
+
+Time: 12 sec
+Learning rate: 0.3896
+Accuratezza della rete: 14.41%
+
+Configurazione: 781
+
+Time: 12 sec
+Learning rate: 0.3901
+Accuratezza della rete: 8.18%
+
+Configurazione: 782
+
+Time: 12 sec
+Learning rate: 0.3906
+Accuratezza della rete: 11.43%
+
+Configurazione: 783
+
+Time: 12 sec
+Learning rate: 0.3911
+Accuratezza della rete: 14.62%
+
+Configurazione: 784
+
+Time: 12 sec
+Learning rate: 0.3916
+Accuratezza della rete: 16.08%
+
+Configurazione: 785
+
+Time: 12 sec
+Learning rate: 0.3921
+Accuratezza della rete: 5.59%
+
+Configurazione: 786
+
+Time: 12 sec
+Learning rate: 0.3926
+Accuratezza della rete: 10.58%
+
+Configurazione: 787
+
+Time: 12 sec
+Learning rate: 0.3931
+Accuratezza della rete: 30.1%
+
+Configurazione: 788
+
+Time: 12 sec
+Learning rate: 0.3936
+Accuratezza della rete: 8.74%
+
+Configurazione: 789
+
+Time: 12 sec
+Learning rate: 0.3941
+Accuratezza della rete: 9.8%
+
+Configurazione: 790
+
+Time: 12 sec
+Learning rate: 0.3946
+Accuratezza della rete: 9.8%
+
+Configurazione: 791
+
+Time: 12 sec
+Learning rate: 0.3951
+Accuratezza della rete: 9.8%
+
+Configurazione: 792
+
+Time: 12 sec
+Learning rate: 0.3956
+Accuratezza della rete: 9.8%
+
+Configurazione: 793
+
+Time: 12 sec
+Learning rate: 0.3961
+Accuratezza della rete: 9.58%
+
+Configurazione: 794
+
+Time: 12 sec
+Learning rate: 0.3966
+Accuratezza della rete: 10.32%
+
+Configurazione: 795
+
+Time: 12 sec
+Learning rate: 0.3971
+Accuratezza della rete: 9.8%
+
+Configurazione: 796
+
+Time: 12 sec
+Learning rate: 0.3976
+Accuratezza della rete: 3.27%
+
+Configurazione: 797
+
+Time: 12 sec
+Learning rate: 0.3981
+Accuratezza della rete: 6.43%
+
+Configurazione: 798
+
+Time: 12 sec
+Learning rate: 0.3986
+Accuratezza della rete: 14.56%
+
+Configurazione: 799
+
+Time: 12 sec
+Learning rate: 0.3991
+Accuratezza della rete: 8.83%
+
+Configurazione: 800
+
+Time: 12 sec
+Learning rate: 0.3996
+Accuratezza della rete: 14.16%
+
+Configurazione: 801
+
+Time: 12 sec
+Learning rate: 0.4001
+Accuratezza della rete: 9.84%
+
+Configurazione: 802
+
+Time: 12 sec
+Learning rate: 0.4006
+Accuratezza della rete: 19.86%
+
+Configurazione: 803
+
+Time: 12 sec
+Learning rate: 0.4011
+Accuratezza della rete: 9.8%
+
+Configurazione: 804
+
+Time: 12 sec
+Learning rate: 0.4016
+Accuratezza della rete: 9.8%
+
+Configurazione: 805
+
+Time: 12 sec
+Learning rate: 0.4021
+Accuratezza della rete: 9.8%
+
+Configurazione: 806
+
+Time: 12 sec
+Learning rate: 0.4026
+Accuratezza della rete: 10.35%
+
+Configurazione: 807
+
+Time: 12 sec
+Learning rate: 0.4031
+Accuratezza della rete: 9.8%
+
+Configurazione: 808
+
+Time: 12 sec
+Learning rate: 0.4036
+Accuratezza della rete: 9.8%
+
+Configurazione: 809
+
+Time: 12 sec
+Learning rate: 0.4041
+Accuratezza della rete: 19.18%
+
+Configurazione: 810
+
+Time: 12 sec
+Learning rate: 0.4046
+Accuratezza della rete: 9.8%
+
+Configurazione: 811
+
+Time: 12 sec
+Learning rate: 0.4051
+Accuratezza della rete: 9.8%
+
+Configurazione: 812
+
+Time: 12 sec
+Learning rate: 0.4056
+Accuratezza della rete: 8.8%
+
+Configurazione: 813
+
+Time: 12 sec
+Learning rate: 0.4061
+Accuratezza della rete: 19.65%
+
+Configurazione: 814
+
+Time: 12 sec
+Learning rate: 0.4066
+Accuratezza della rete: 9.8%
+
+Configurazione: 815
+
+Time: 12 sec
+Learning rate: 0.4071
+Accuratezza della rete: 9.8%
+
+Configurazione: 816
+
+Time: 12 sec
+Learning rate: 0.4076
+Accuratezza della rete: 9.8%
+
+Configurazione: 817
+
+Time: 12 sec
+Learning rate: 0.4081
+Accuratezza della rete: 17.38%
+
+Configurazione: 818
+
+Time: 12 sec
+Learning rate: 0.4086
+Accuratezza della rete: 9.8%
+
+Configurazione: 819
+
+Time: 12 sec
+Learning rate: 0.4091
+Accuratezza della rete: 9.8%
+
+Configurazione: 820
+
+Time: 12 sec
+Learning rate: 0.4096
+Accuratezza della rete: 9.8%
+
+Configurazione: 821
+
+Time: 12 sec
+Learning rate: 0.4101
+Accuratezza della rete: 5.78%
+
+Configurazione: 822
+
+Time: 12 sec
+Learning rate: 0.4106
+Accuratezza della rete: 15.78%
+
+Configurazione: 823
+
+Time: 12 sec
+Learning rate: 0.4111
+Accuratezza della rete: 9.8%
+
+Configurazione: 824
+
+Time: 12 sec
+Learning rate: 0.4116
+Accuratezza della rete: 9.42%
+
+Configurazione: 825
+
+Time: 12 sec
+Learning rate: 0.4121
+Accuratezza della rete: 11.97%
+
+Configurazione: 826
+
+Time: 12 sec
+Learning rate: 0.4126
+Accuratezza della rete: 9.8%
+
+Configurazione: 827
+
+Time: 12 sec
+Learning rate: 0.4131
+Accuratezza della rete: 9.8%
+
+Configurazione: 828
+
+Time: 12 sec
+Learning rate: 0.4136
+Accuratezza della rete: 9.8%
+
+Configurazione: 829
+
+Time: 12 sec
+Learning rate: 0.4141
+Accuratezza della rete: 9.8%
+
+Configurazione: 830
+
+Time: 12 sec
+Learning rate: 0.4146
+Accuratezza della rete: 9.8%
+
+Configurazione: 831
+
+Time: 12 sec
+Learning rate: 0.4151
+Accuratezza della rete: 8.46%
+
+Configurazione: 832
+
+Time: 12 sec
+Learning rate: 0.4156
+Accuratezza della rete: 9.8%
+
+Configurazione: 833
+
+Time: 12 sec
+Learning rate: 0.4161
+Accuratezza della rete: 9.8%
+
+Configurazione: 834
+
+Time: 12 sec
+Learning rate: 0.4166
+Accuratezza della rete: 9.8%
+
+Configurazione: 835
+
+Time: 12 sec
+Learning rate: 0.4171
+Accuratezza della rete: 9.8%
+
+Configurazione: 836
+
+Time: 12 sec
+Learning rate: 0.4176
+Accuratezza della rete: 9.8%
+
+Configurazione: 837
+
+Time: 12 sec
+Learning rate: 0.4181
+Accuratezza della rete: 9.8%
+
+Configurazione: 838
+
+Time: 12 sec
+Learning rate: 0.4186
+Accuratezza della rete: 8.59%
+
+Configurazione: 839
+
+Time: 12 sec
+Learning rate: 0.4191
+Accuratezza della rete: 9.8%
+
+Configurazione: 840
+
+Time: 12 sec
+Learning rate: 0.4196
+Accuratezza della rete: 9.8%
+
+Configurazione: 841
+
+Time: 12 sec
+Learning rate: 0.4201
+Accuratezza della rete: 7.26%
+
+Configurazione: 842
+
+Time: 12 sec
+Learning rate: 0.4206
+Accuratezza della rete: 9.8%
+
+Configurazione: 843
+
+Time: 12 sec
+Learning rate: 0.4211
+Accuratezza della rete: 9.8%
+
+Configurazione: 844
+
+Time: 12 sec
+Learning rate: 0.4216
+Accuratezza della rete: 9.62%
+
+Configurazione: 845
+
+Time: 12 sec
+Learning rate: 0.4221
+Accuratezza della rete: 9.8%
+
+Configurazione: 846
+
+Time: 12 sec
+Learning rate: 0.4226
+Accuratezza della rete: 9.8%
+
+Configurazione: 847
+
+Time: 12 sec
+Learning rate: 0.4231
+Accuratezza della rete: 9.8%
+
+Configurazione: 848
+
+Time: 12 sec
+Learning rate: 0.4236
+Accuratezza della rete: 9.8%
+
+Configurazione: 849
+
+Time: 12 sec
+Learning rate: 0.4241
+Accuratezza della rete: 9.8%
+
+Configurazione: 850
+
+Time: 12 sec
+Learning rate: 0.4246
+Accuratezza della rete: 9.31%
+
+Configurazione: 851
+
+Time: 12 sec
+Learning rate: 0.4251
+Accuratezza della rete: 5.6%
+
+Configurazione: 852
+
+Time: 12 sec
+Learning rate: 0.4256
+Accuratezza della rete: 9.8%
+
+Configurazione: 853
+
+Time: 12 sec
+Learning rate: 0.4261
+Accuratezza della rete: 9.8%
+
+Configurazione: 854
+
+Time: 12 sec
+Learning rate: 0.4266
+Accuratezza della rete: 9.8%
+
+Configurazione: 855
+
+Time: 12 sec
+Learning rate: 0.4271
+Accuratezza della rete: 9.8%
+
+Configurazione: 856
+
+Time: 12 sec
+Learning rate: 0.4276
+Accuratezza della rete: 7.88%
+
+Configurazione: 857
+
+Time: 12 sec
+Learning rate: 0.4281
+Accuratezza della rete: 9.52%
+
+Configurazione: 858
+
+Time: 12 sec
+Learning rate: 0.4286
+Accuratezza della rete: 9.8%
+
+Configurazione: 859
+
+Time: 12 sec
+Learning rate: 0.4291
+Accuratezza della rete: 9.8%
+
+Configurazione: 860
+
+Time: 12 sec
+Learning rate: 0.4296
+Accuratezza della rete: 9.8%
+
+Configurazione: 861
+
+Time: 12 sec
+Learning rate: 0.4301
+Accuratezza della rete: 9.8%
+
+Configurazione: 862
+
+Time: 12 sec
+Learning rate: 0.4306
+Accuratezza della rete: 9.8%
+
+Configurazione: 863
+
+Time: 12 sec
+Learning rate: 0.4311
+Accuratezza della rete: 7.11%
+
+Configurazione: 864
+
+Time: 12 sec
+Learning rate: 0.4316
+Accuratezza della rete: 9.74%
+
+Configurazione: 865
+
+Time: 12 sec
+Learning rate: 0.4321
+Accuratezza della rete: 9.98%
+
+Configurazione: 866
+
+Time: 12 sec
+Learning rate: 0.4326
+Accuratezza della rete: 9.8%
+
+Configurazione: 867
+
+Time: 12 sec
+Learning rate: 0.4331
+Accuratezza della rete: 9.8%
+
+Configurazione: 868
+
+Time: 12 sec
+Learning rate: 0.4336
+Accuratezza della rete: 22.78%
+
+Configurazione: 869
+
+Time: 12 sec
+Learning rate: 0.4341
+Accuratezza della rete: 5.23%
+
+Configurazione: 870
+
+Time: 12 sec
+Learning rate: 0.4346
+Accuratezza della rete: 9.8%
+
+Configurazione: 871
+
+Time: 12 sec
+Learning rate: 0.4351
+Accuratezza della rete: 9.8%
+
+Configurazione: 872
+
+Time: 12 sec
+Learning rate: 0.4356
+Accuratezza della rete: 9.8%
+
+Configurazione: 873
+
+Time: 12 sec
+Learning rate: 0.4361
+Accuratezza della rete: 9.8%
+
+Configurazione: 874
+
+Time: 12 sec
+Learning rate: 0.4366
+Accuratezza della rete: 8.7%
+
+Configurazione: 875
+
+Time: 12 sec
+Learning rate: 0.4371
+Accuratezza della rete: 9.32%
+
+Configurazione: 876
+
+Time: 12 sec
+Learning rate: 0.4376
+Accuratezza della rete: 9.8%
+
+Configurazione: 877
+
+Time: 12 sec
+Learning rate: 0.4381
+Accuratezza della rete: 9.79%
+
+Configurazione: 878
+
+Time: 12 sec
+Learning rate: 0.4386
+Accuratezza della rete: 9.8%
+
+Configurazione: 879
+
+Time: 12 sec
+Learning rate: 0.4391
+Accuratezza della rete: 9.8%
+
+Configurazione: 880
+
+Time: 12 sec
+Learning rate: 0.4396
+Accuratezza della rete: 9.8%
+
+Configurazione: 881
+
+Time: 12 sec
+Learning rate: 0.4401
+Accuratezza della rete: 9.8%
+
+Configurazione: 882
+
+Time: 12 sec
+Learning rate: 0.4406
+Accuratezza della rete: 9.8%
+
+Configurazione: 883
+
+Time: 12 sec
+Learning rate: 0.4411
+Accuratezza della rete: 9.8%
+
+Configurazione: 884
+
+Time: 12 sec
+Learning rate: 0.4416
+Accuratezza della rete: 9.8%
+
+Configurazione: 885
+
+Time: 12 sec
+Learning rate: 0.4421
+Accuratezza della rete: 5.57%
+
+Configurazione: 886
+
+Time: 12 sec
+Learning rate: 0.4426
+Accuratezza della rete: 9.8%
+
+Configurazione: 887
+
+Time: 12 sec
+Learning rate: 0.4431
+Accuratezza della rete: 9.8%
+
+Configurazione: 888
+
+Time: 12 sec
+Learning rate: 0.4436
+Accuratezza della rete: 4.87%
+
+Configurazione: 889
+
+Time: 12 sec
+Learning rate: 0.4441
+Accuratezza della rete: 9.8%
+
+Configurazione: 890
+
+Time: 12 sec
+Learning rate: 0.4446
+Accuratezza della rete: 9.82%
+
+Configurazione: 891
+
+Time: 12 sec
+Learning rate: 0.4451
+Accuratezza della rete: 9.8%
+
+Configurazione: 892
+
+Time: 12 sec
+Learning rate: 0.4456
+Accuratezza della rete: 9.8%
+
+Configurazione: 893
+
+Time: 12 sec
+Learning rate: 0.4461
+Accuratezza della rete: 9.8%
+
+Configurazione: 894
+
+Time: 12 sec
+Learning rate: 0.4466
+Accuratezza della rete: 9.8%
+
+Configurazione: 895
+
+Time: 12 sec
+Learning rate: 0.4471
+Accuratezza della rete: 9.8%
+
+Configurazione: 896
+
+Time: 12 sec
+Learning rate: 0.4476
+Accuratezza della rete: 11.35%
+
+Configurazione: 897
+
+Time: 12 sec
+Learning rate: 0.4481
+Accuratezza della rete: 9.8%
+
+Configurazione: 898
+
+Time: 12 sec
+Learning rate: 0.4486
+Accuratezza della rete: 6%
+
+Configurazione: 899
+
+Time: 12 sec
+Learning rate: 0.4491
+Accuratezza della rete: 11.38%
+
+Configurazione: 900
+
+Time: 12 sec
+Learning rate: 0.4496
+Accuratezza della rete: 9.8%
+
+Configurazione: 901
+
+Time: 12 sec
+Learning rate: 0.4501
+Accuratezza della rete: 9.8%
+
+Configurazione: 902
+
+Time: 12 sec
+Learning rate: 0.4506
+Accuratezza della rete: 11.68%
+
+Configurazione: 903
+
+Time: 12 sec
+Learning rate: 0.4511
+Accuratezza della rete: 5.26%
+
+Configurazione: 904
+
+Time: 12 sec
+Learning rate: 0.4516
+Accuratezza della rete: 9.8%
+
+Configurazione: 905
+
+Time: 12 sec
+Learning rate: 0.4521
+Accuratezza della rete: 9.8%
+
+Configurazione: 906
+
+Time: 12 sec
+Learning rate: 0.4526
+Accuratezza della rete: 9.8%
+
+Configurazione: 907
+
+Time: 12 sec
+Learning rate: 0.4531
+Accuratezza della rete: 9.8%
+
+Configurazione: 908
+
+Time: 12 sec
+Learning rate: 0.4536
+Accuratezza della rete: 9.8%
+
+Configurazione: 909
+
+Time: 12 sec
+Learning rate: 0.4541
+Accuratezza della rete: 9.8%
+
+Configurazione: 910
+
+Time: 12 sec
+Learning rate: 0.4546
+Accuratezza della rete: 7.82%
+
+Configurazione: 911
+
+Time: 12 sec
+Learning rate: 0.4551
+Accuratezza della rete: 9.8%
+
+Configurazione: 912
+
+Time: 12 sec
+Learning rate: 0.4556
+Accuratezza della rete: 9.8%
+
+Configurazione: 913
+
+Time: 12 sec
+Learning rate: 0.4561
+Accuratezza della rete: 9.8%
+
+Configurazione: 914
+
+Time: 12 sec
+Learning rate: 0.4566
+Accuratezza della rete: 9.8%
+
+Configurazione: 915
+
+Time: 12 sec
+Learning rate: 0.4571
+Accuratezza della rete: 9.8%
+
+Configurazione: 916
+
+Time: 12 sec
+Learning rate: 0.4576
+Accuratezza della rete: 9.8%
+
+Configurazione: 917
+
+Time: 12 sec
+Learning rate: 0.4581
+Accuratezza della rete: 9.8%
+
+Configurazione: 918
+
+Time: 12 sec
+Learning rate: 0.4586
+Accuratezza della rete: 9.8%
+
+Configurazione: 919
+
+Time: 12 sec
+Learning rate: 0.4591
+Accuratezza della rete: 10.8%
+
+Configurazione: 920
+
+Time: 12 sec
+Learning rate: 0.4596
+Accuratezza della rete: 9.8%
+
+Configurazione: 921
+
+Time: 12 sec
+Learning rate: 0.4601
+Accuratezza della rete: 7.63%
+
+Configurazione: 922
+
+Time: 12 sec
+Learning rate: 0.4606
+Accuratezza della rete: 9.8%
+
+Configurazione: 923
+
+Time: 12 sec
+Learning rate: 0.4611
+Accuratezza della rete: 6.19%
+
+Configurazione: 924
+
+Time: 12 sec
+Learning rate: 0.4616
+Accuratezza della rete: 9.8%
+
+Configurazione: 925
+
+Time: 12 sec
+Learning rate: 0.4621
+Accuratezza della rete: 4.55%
+
+Configurazione: 926
+
+Time: 12 sec
+Learning rate: 0.4626
+Accuratezza della rete: 11.2%
+
+Configurazione: 927
+
+Time: 12 sec
+Learning rate: 0.4631
+Accuratezza della rete: 9.8%
+
+Configurazione: 928
+
+Time: 12 sec
+Learning rate: 0.4636
+Accuratezza della rete: 9.8%
+
+Configurazione: 929
+
+Time: 12 sec
+Learning rate: 0.4641
+Accuratezza della rete: 13.79%
+
+Configurazione: 930
+
+Time: 12 sec
+Learning rate: 0.4646
+Accuratezza della rete: 6.63%
+
+Configurazione: 931
+
+Time: 12 sec
+Learning rate: 0.4651
+Accuratezza della rete: 12.18%
+
+Configurazione: 932
+
+Time: 12 sec
+Learning rate: 0.4656
+Accuratezza della rete: 8.64%
+
+Configurazione: 933
+
+Time: 12 sec
+Learning rate: 0.4661
+Accuratezza della rete: 9.69%
+
+Configurazione: 934
+
+Time: 12 sec
+Learning rate: 0.4666
+Accuratezza della rete: 9.8%
+
+Configurazione: 935
+
+Time: 12 sec
+Learning rate: 0.4671
+Accuratezza della rete: 14%
+
+Configurazione: 936
+
+Time: 12 sec
+Learning rate: 0.4676
+Accuratezza della rete: 9.8%
+
+Configurazione: 937
+
+Time: 12 sec
+Learning rate: 0.4681
+Accuratezza della rete: 10.26%
+
+Configurazione: 938
+
+Time: 12 sec
+Learning rate: 0.4686
+Accuratezza della rete: 4.23%
+
+Configurazione: 939
+
+Time: 12 sec
+Learning rate: 0.4691
+Accuratezza della rete: 7.23%
+
+Configurazione: 940
+
+Time: 12 sec
+Learning rate: 0.4696
+Accuratezza della rete: 9.95%
+
+Configurazione: 941
+
+Time: 12 sec
+Learning rate: 0.4701
+Accuratezza della rete: 9.8%
+
+Configurazione: 942
+
+Time: 12 sec
+Learning rate: 0.4706
+Accuratezza della rete: 9.32%
+
+Configurazione: 943
+
+Time: 12 sec
+Learning rate: 0.4711
+Accuratezza della rete: 2.65%
+
+Configurazione: 944
+
+Time: 12 sec
+Learning rate: 0.4716
+Accuratezza della rete: 8.92%
+
+Configurazione: 945
+
+Time: 12 sec
+Learning rate: 0.4721
+Accuratezza della rete: 9.53%
+
+Configurazione: 946
+
+Time: 12 sec
+Learning rate: 0.4726
+Accuratezza della rete: 9.4%
+
+Configurazione: 947
+
+Time: 12 sec
+Learning rate: 0.4731
+Accuratezza della rete: 5.14%
+
+Configurazione: 948
+
+Time: 12 sec
+Learning rate: 0.4736
+Accuratezza della rete: 10%
+
+Configurazione: 949
+
+Time: 12 sec
+Learning rate: 0.4741
+Accuratezza della rete: 10.08%
+
+Configurazione: 950
+
+Time: 12 sec
+Learning rate: 0.4746
+Accuratezza della rete: 5.12%
+
+Configurazione: 951
+
+Time: 12 sec
+Learning rate: 0.4751
+Accuratezza della rete: 5.38%
+
+Configurazione: 952
+
+Time: 12 sec
+Learning rate: 0.4756
+Accuratezza della rete: 6.25%
+
+Configurazione: 953
+
+Time: 12 sec
+Learning rate: 0.4761
+Accuratezza della rete: 7.07%
+
+Configurazione: 954
+
+Time: 12 sec
+Learning rate: 0.4766
+Accuratezza della rete: 4.24%
+
+Configurazione: 955
+
+Time: 12 sec
+Learning rate: 0.4771
+Accuratezza della rete: 7.39%
+
+Configurazione: 956
+
+Time: 12 sec
+Learning rate: 0.4776
+Accuratezza della rete: 6.33%
+
+Configurazione: 957
+
+Time: 12 sec
+Learning rate: 0.4781
+Accuratezza della rete: 9.7%
+
+Configurazione: 958
+
+Time: 12 sec
+Learning rate: 0.4786
+Accuratezza della rete: 9.8%
+
+Configurazione: 959
+
+Time: 12 sec
+Learning rate: 0.4791
+Accuratezza della rete: 10.8%
+
+Configurazione: 960
+
+Time: 12 sec
+Learning rate: 0.4796
+Accuratezza della rete: 4.68%
+
+Configurazione: 961
+
+Time: 12 sec
+Learning rate: 0.4801
+Accuratezza della rete: 9.8%
+
+Configurazione: 962
+
+Time: 12 sec
+Learning rate: 0.4806
+Accuratezza della rete: 6.71%
+
+Configurazione: 963
+
+Time: 12 sec
+Learning rate: 0.4811
+Accuratezza della rete: 9.8%
+
+Configurazione: 964
+
+Time: 12 sec
+Learning rate: 0.4816
+Accuratezza della rete: 9.8%
+
+Configurazione: 965
+
+Time: 12 sec
+Learning rate: 0.4821
+Accuratezza della rete: 9.09%
+
+Configurazione: 966
+
+Time: 12 sec
+Learning rate: 0.4826
+Accuratezza della rete: 7.67%
+
+Configurazione: 967
+
+Time: 12 sec
+Learning rate: 0.4831
+Accuratezza della rete: 9.8%
+
+Configurazione: 968
+
+Time: 12 sec
+Learning rate: 0.4836
+Accuratezza della rete: 9.8%
+
+Configurazione: 969
+
+Time: 12 sec
+Learning rate: 0.4841
+Accuratezza della rete: 9.8%
+
+Configurazione: 970
+
+Time: 12 sec
+Learning rate: 0.4846
+Accuratezza della rete: 9.09%
+
+Configurazione: 971
+
+Time: 12 sec
+Learning rate: 0.4851
+Accuratezza della rete: 8.8%
+
+Configurazione: 972
+
+Time: 12 sec
+Learning rate: 0.4856
+Accuratezza della rete: 9.8%
+
+Configurazione: 973
+
+Time: 12 sec
+Learning rate: 0.4861
+Accuratezza della rete: 9.8%
+
+Configurazione: 974
+
+Time: 12 sec
+Learning rate: 0.4866
+Accuratezza della rete: 6.9%
+
+Configurazione: 975
+
+Time: 12 sec
+Learning rate: 0.4871
+Accuratezza della rete: 9.8%
+
+Configurazione: 976
+
+Time: 12 sec
+Learning rate: 0.4876
+Accuratezza della rete: 9.8%
+
+Configurazione: 977
+
+Time: 12 sec
+Learning rate: 0.4881
+Accuratezza della rete: 9.32%
+
+Configurazione: 978
+
+Time: 12 sec
+Learning rate: 0.4886
+Accuratezza della rete: 9.89%
+
+Configurazione: 979
+
+Time: 12 sec
+Learning rate: 0.4891
+Accuratezza della rete: 8.23%
+
+Configurazione: 980
+
+Time: 12 sec
+Learning rate: 0.4896
+Accuratezza della rete: 9.6%
+
+Configurazione: 981
+
+Time: 12 sec
+Learning rate: 0.4901
+Accuratezza della rete: 4.8%
+
+Configurazione: 982
+
+Time: 12 sec
+Learning rate: 0.4906
+Accuratezza della rete: 9.8%
+
+Configurazione: 983
+
+Time: 12 sec
+Learning rate: 0.4911
+Accuratezza della rete: 6.34%
+
+Configurazione: 984
+
+Time: 12 sec
+Learning rate: 0.4916
+Accuratezza della rete: 6.62%
+
+Configurazione: 985
+
+Time: 12 sec
+Learning rate: 0.4921
+Accuratezza della rete: 9.8%
+
+Configurazione: 986
+
+Time: 12 sec
+Learning rate: 0.4926
+Accuratezza della rete: 8.87%
+
+Configurazione: 987
+
+Time: 12 sec
+Learning rate: 0.4931
+Accuratezza della rete: 6.05%
+
+Configurazione: 988
+
+Time: 12 sec
+Learning rate: 0.4936
+Accuratezza della rete: 9.8%
+
+Configurazione: 989
+
+Time: 12 sec
+Learning rate: 0.4941
+Accuratezza della rete: 5.87%
+
+Configurazione: 990
+
+Time: 12 sec
+Learning rate: 0.4946
+Accuratezza della rete: 9.93%
+
+Configurazione: 991
+
+Time: 12 sec
+Learning rate: 0.4951
+Accuratezza della rete: 5.07%
+
+Configurazione: 992
+
+Time: 12 sec
+Learning rate: 0.4956
+Accuratezza della rete: 9.8%
+
+Configurazione: 993
+
+Time: 12 sec
+Learning rate: 0.4961
+Accuratezza della rete: 9.84%
+
+Configurazione: 994
+
+Time: 12 sec
+Learning rate: 0.4966
+Accuratezza della rete: 9.53%
+
+Configurazione: 995
+
+Time: 12 sec
+Learning rate: 0.4971
+Accuratezza della rete: 9.2%
+
+Configurazione: 996
+
+Time: 12 sec
+Learning rate: 0.4976
+Accuratezza della rete: 9.8%
+
+Configurazione: 997
+
+Time: 12 sec
+Learning rate: 0.4981
+Accuratezza della rete: 10.05%
+
+Configurazione: 998
+
+Time: 12 sec
+Learning rate: 0.4986
+Accuratezza della rete: 6.44%
+
+Configurazione: 999
+
+Time: 12 sec
+Learning rate: 0.4991
+Accuratezza della rete: 9.94%
+
+Configurazione: 1000
+
+Time: 12 sec
+Learning rate: 0.4996
+Accuratezza della rete: 9.8%
+
+Configurazione: 1001
+
+Time: 12 sec
+Learning rate: 0.5001
+Accuratezza della rete: 9.8%
+
+Configurazione: 1002
+
+Time: 12 sec
+Learning rate: 0.5006
+Accuratezza della rete: 9.88%
+
+Configurazione: 1003
+
+Time: 12 sec
+Learning rate: 0.5011
+Accuratezza della rete: 9.8%
+
+Configurazione: 1004
+
+Time: 12 sec
+Learning rate: 0.5016
+Accuratezza della rete: 9.8%
+
+Configurazione: 1005
+
+Time: 12 sec
+Learning rate: 0.5021
+Accuratezza della rete: 9.8%
+
+Configurazione: 1006
+
+Time: 12 sec
+Learning rate: 0.5026
+Accuratezza della rete: 9.8%
+
+Configurazione: 1007
+
+Time: 12 sec
+Learning rate: 0.5031
+Accuratezza della rete: 9.8%
+
+Configurazione: 1008
+
+Time: 12 sec
+Learning rate: 0.5036
+Accuratezza della rete: 9.82%
+
+Configurazione: 1009
+
+Time: 12 sec
+Learning rate: 0.5041
+Accuratezza della rete: 3.88%
+
+Configurazione: 1010
+
+Time: 12 sec
+Learning rate: 0.5046
+Accuratezza della rete: 1.1%
+
+Configurazione: 1011
+
+Time: 12 sec
+Learning rate: 0.5051
+Accuratezza della rete: 8.18%
+
+Configurazione: 1012
+
+Time: 12 sec
+Learning rate: 0.5056
+Accuratezza della rete: 4.68%
+
+Configurazione: 1013
+
+Time: 12 sec
+Learning rate: 0.5061
+Accuratezza della rete: 11.47%
+
+Configurazione: 1014
+
+Time: 12 sec
+Learning rate: 0.5066
+Accuratezza della rete: 12.75%
+
+Configurazione: 1015
+
+Time: 12 sec
+Learning rate: 0.5071
+Accuratezza della rete: 8.79%
+
+Configurazione: 1016
+
+Time: 12 sec
+Learning rate: 0.5076
+Accuratezza della rete: 6.66%
+
+Configurazione: 1017
+
+Time: 12 sec
+Learning rate: 0.5081
+Accuratezza della rete: 9.06%
+
+Configurazione: 1018
+
+Time: 12 sec
+Learning rate: 0.5086
+Accuratezza della rete: 5.53%
+
+Configurazione: 1019
+
+Time: 12 sec
+Learning rate: 0.5091
+Accuratezza della rete: 4.89%
+
+Configurazione: 1020
+
+Time: 12 sec
+Learning rate: 0.5096
+Accuratezza della rete: 4.3%
+
+Configurazione: 1021
+
+Time: 12 sec
+Learning rate: 0.5101
+Accuratezza della rete: 5.89%
+
+Configurazione: 1022
+
+Time: 12 sec
+Learning rate: 0.5106
+Accuratezza della rete: 9.82%
+
+Configurazione: 1023
+
+Time: 12 sec
+Learning rate: 0.5111
+Accuratezza della rete: 8.07%
+
+Configurazione: 1024
+
+Time: 12 sec
+Learning rate: 0.5116
+Accuratezza della rete: 9.66%
+
+Configurazione: 1025
+
+Time: 12 sec
+Learning rate: 0.5121
+Accuratezza della rete: 8.92%
+
+Configurazione: 1026
+
+Time: 12 sec
+Learning rate: 0.5126
+Accuratezza della rete: 5.34%
+
+Configurazione: 1027
+
+Time: 12 sec
+Learning rate: 0.5131
+Accuratezza della rete: 11.35%
+
+Configurazione: 1028
+
+Time: 12 sec
+Learning rate: 0.5136
+Accuratezza della rete: 8.92%
+
+Configurazione: 1029
+
+Time: 12 sec
+Learning rate: 0.5141
+Accuratezza della rete: 9.42%
+
+Configurazione: 1030
+
+Time: 12 sec
+Learning rate: 0.5146
+Accuratezza della rete: 6.73%
+
+Configurazione: 1031
+
+Time: 12 sec
+Learning rate: 0.5151
+Accuratezza della rete: 9.9%
+
+Configurazione: 1032
+
+Time: 12 sec
+Learning rate: 0.5156
+Accuratezza della rete: 10.49%
+
+Configurazione: 1033
+
+Time: 12 sec
+Learning rate: 0.5161
+Accuratezza della rete: 4.62%
+
+Configurazione: 1034
+
+Time: 12 sec
+Learning rate: 0.5166
+Accuratezza della rete: 9.73%
+
+Configurazione: 1035
+
+Time: 12 sec
+Learning rate: 0.5171
+Accuratezza della rete: 9.8%
+
+Configurazione: 1036
+
+Time: 12 sec
+Learning rate: 0.5176
+Accuratezza della rete: 15.34%
+
+Configurazione: 1037
+
+Time: 12 sec
+Learning rate: 0.5181
+Accuratezza della rete: 7.8%
+
+Configurazione: 1038
+
+Time: 12 sec
+Learning rate: 0.5186
+Accuratezza della rete: 9.8%
+
+Configurazione: 1039
+
+Time: 12 sec
+Learning rate: 0.5191
+Accuratezza della rete: 16.67%
+
+Configurazione: 1040
+
+Time: 12 sec
+Learning rate: 0.5196
+Accuratezza della rete: 13.72%
+
+Configurazione: 1041
+
+Time: 12 sec
+Learning rate: 0.5201
+Accuratezza della rete: 5.19%
+
+Configurazione: 1042
+
+Time: 12 sec
+Learning rate: 0.5206
+Accuratezza della rete: 9.08%
+
+Configurazione: 1043
+
+Time: 12 sec
+Learning rate: 0.5211
+Accuratezza della rete: 11.79%
+
+Configurazione: 1044
+
+Time: 12 sec
+Learning rate: 0.5216
+Accuratezza della rete: 6.06%
+
+Configurazione: 1045
+
+Time: 12 sec
+Learning rate: 0.5221
+Accuratezza della rete: 9.82%
+
+Configurazione: 1046
+
+Time: 12 sec
+Learning rate: 0.5226
+Accuratezza della rete: 4.39%
+
+Configurazione: 1047
+
+Time: 12 sec
+Learning rate: 0.5231
+Accuratezza della rete: 5.68%
+
+Configurazione: 1048
+
+Time: 12 sec
+Learning rate: 0.5236
+Accuratezza della rete: 9.75%
+
+Configurazione: 1049
+
+Time: 12 sec
+Learning rate: 0.5241
+Accuratezza della rete: 9.8%
+
+Configurazione: 1050
+
+Time: 12 sec
+Learning rate: 0.5246
+Accuratezza della rete: 10.5%
+
+Configurazione: 1051
+
+Time: 12 sec
+Learning rate: 0.5251
+Accuratezza della rete: 11.35%
+
+Configurazione: 1052
+
+Time: 12 sec
+Learning rate: 0.5256
+Accuratezza della rete: 5.42%
+
+Configurazione: 1053
+
+Time: 12 sec
+Learning rate: 0.5261
+Accuratezza della rete: 2.81%
+
+Configurazione: 1054
+
+Time: 12 sec
+Learning rate: 0.5266
+Accuratezza della rete: 6.13%
+
+Configurazione: 1055
+
+Time: 12 sec
+Learning rate: 0.5271
+Accuratezza della rete: 8.83%
+
+Configurazione: 1056
+
+Time: 12 sec
+Learning rate: 0.5276
+Accuratezza della rete: 2.55%
+
+Configurazione: 1057
+
+Time: 12 sec
+Learning rate: 0.5281
+Accuratezza della rete: 11.94%
+
+Configurazione: 1058
+
+Time: 12 sec
+Learning rate: 0.5286
+Accuratezza della rete: 10.28%
+
+Configurazione: 1059
+
+Time: 12 sec
+Learning rate: 0.5291
+Accuratezza della rete: 9.8%
+
+Configurazione: 1060
+
+Time: 12 sec
+Learning rate: 0.5296
+Accuratezza della rete: 5.84%
+
+Configurazione: 1061
+
+Time: 12 sec
+Learning rate: 0.5301
+Accuratezza della rete: 10.28%
+
+Configurazione: 1062
+
+Time: 12 sec
+Learning rate: 0.5306
+Accuratezza della rete: 10.02%
+
+Configurazione: 1063
+
+Time: 12 sec
+Learning rate: 0.5311
+Accuratezza della rete: 10.87%
+
+Configurazione: 1064
+
+Time: 12 sec
+Learning rate: 0.5316
+Accuratezza della rete: 9.79%
+
+Configurazione: 1065
+
+Time: 12 sec
+Learning rate: 0.5321
+Accuratezza della rete: 9.97%
+
+Configurazione: 1066
+
+Time: 12 sec
+Learning rate: 0.5326
+Accuratezza della rete: 7.04%
+
+Configurazione: 1067
+
+Time: 12 sec
+Learning rate: 0.5331
+Accuratezza della rete: 4.22%
+
+Configurazione: 1068
+
+Time: 12 sec
+Learning rate: 0.5336
+Accuratezza della rete: 18.47%
+
+Configurazione: 1069
+
+Time: 12 sec
+Learning rate: 0.5341
+Accuratezza della rete: 9.78%
+
+Configurazione: 1070
+
+Time: 12 sec
+Learning rate: 0.5346
+Accuratezza della rete: 10.16%
+
+Configurazione: 1071
+
+Time: 12 sec
+Learning rate: 0.5351
+Accuratezza della rete: 10.04%
+
+Configurazione: 1072
+
+Time: 12 sec
+Learning rate: 0.5356
+Accuratezza della rete: 6.84%
+
+Configurazione: 1073
+
+Time: 12 sec
+Learning rate: 0.5361
+Accuratezza della rete: 7.44%
+
+Configurazione: 1074
+
+Time: 12 sec
+Learning rate: 0.5366
+Accuratezza della rete: 3.95%
+
+Configurazione: 1075
+
+Time: 12 sec
+Learning rate: 0.5371
+Accuratezza della rete: 8.99%
+
+Configurazione: 1076
+
+Time: 12 sec
+Learning rate: 0.5376
+Accuratezza della rete: 9.92%
+
+Configurazione: 1077
+
+Time: 12 sec
+Learning rate: 0.5381
+Accuratezza della rete: 9.78%
+
+Configurazione: 1078
+
+Time: 12 sec
+Learning rate: 0.5386
+Accuratezza della rete: 11.69%
+
+Configurazione: 1079
+
+Time: 12 sec
+Learning rate: 0.5391
+Accuratezza della rete: 10.17%
+
+Configurazione: 1080
+
+Time: 12 sec
+Learning rate: 0.5396
+Accuratezza della rete: 9.85%
+
+Configurazione: 1081
+
+Time: 12 sec
+Learning rate: 0.5401
+Accuratezza della rete: 6.13%
+
+Configurazione: 1082
+
+Time: 12 sec
+Learning rate: 0.5406
+Accuratezza della rete: 8.31%
+
+Configurazione: 1083
+
+Time: 12 sec
+Learning rate: 0.5411
+Accuratezza della rete: 9.82%
+
+Configurazione: 1084
+
+Time: 12 sec
+Learning rate: 0.5416
+Accuratezza della rete: 9.82%
+
+Configurazione: 1085
+
+Time: 12 sec
+Learning rate: 0.5421
+Accuratezza della rete: 11.36%
+
+Configurazione: 1086
+
+Time: 12 sec
+Learning rate: 0.5426
+Accuratezza della rete: 8.02%
+
+Configurazione: 1087
+
+Time: 12 sec
+Learning rate: 0.5431
+Accuratezza della rete: 7.39%
+
+Configurazione: 1088
+
+Time: 12 sec
+Learning rate: 0.5436
+Accuratezza della rete: 9.82%
+
+Configurazione: 1089
+
+Time: 12 sec
+Learning rate: 0.5441
+Accuratezza della rete: 6.03%
+
+Configurazione: 1090
+
+Time: 12 sec
+Learning rate: 0.5446
+Accuratezza della rete: 9.8%
+
+Configurazione: 1091
+
+Time: 12 sec
+Learning rate: 0.5451
+Accuratezza della rete: 9.58%
+
+Configurazione: 1092
+
+Time: 12 sec
+Learning rate: 0.5456
+Accuratezza della rete: 6.26%
+
+Configurazione: 1093
+
+Time: 12 sec
+Learning rate: 0.5461
+Accuratezza della rete: 9.8%
+
+Configurazione: 1094
+
+Time: 12 sec
+Learning rate: 0.5466
+Accuratezza della rete: 7.15%
+
+Configurazione: 1095
+
+Time: 12 sec
+Learning rate: 0.5471
+Accuratezza della rete: 3.81%
+
+Configurazione: 1096
+
+Time: 12 sec
+Learning rate: 0.5476
+Accuratezza della rete: 6.07%
+
+Configurazione: 1097
+
+Time: 12 sec
+Learning rate: 0.5481
+Accuratezza della rete: 9.78%
+
+Configurazione: 1098
+
+Time: 12 sec
+Learning rate: 0.5486
+Accuratezza della rete: 9.8%
+
+Configurazione: 1099
+
+Time: 12 sec
+Learning rate: 0.5491
+Accuratezza della rete: 6.61%
+
+Configurazione: 1100
+
+Time: 12 sec
+Learning rate: 0.5496
+Accuratezza della rete: 8.96%
+
+Configurazione: 1101
+
+Time: 12 sec
+Learning rate: 0.5501
+Accuratezza della rete: 9.82%
+
+Configurazione: 1102
+
+Time: 12 sec
+Learning rate: 0.5506
+Accuratezza della rete: 9.21%
+
+Configurazione: 1103
+
+Time: 12 sec
+Learning rate: 0.5511
+Accuratezza della rete: 7.2%
+
+Configurazione: 1104
+
+Time: 12 sec
+Learning rate: 0.5516
+Accuratezza della rete: 10.04%
+
+Configurazione: 1105
+
+Time: 12 sec
+Learning rate: 0.5521
+Accuratezza della rete: 9.76%
+
+Configurazione: 1106
+
+Time: 12 sec
+Learning rate: 0.5526
+Accuratezza della rete: 9.97%
+
+Configurazione: 1107
+
+Time: 12 sec
+Learning rate: 0.5531
+Accuratezza della rete: 12.24%
+
+Configurazione: 1108
+
+Time: 12 sec
+Learning rate: 0.5536
+Accuratezza della rete: 9.46%
+
+Configurazione: 1109
+
+Time: 12 sec
+Learning rate: 0.5541
+Accuratezza della rete: 8.24%
+
+Configurazione: 1110
+
+Time: 12 sec
+Learning rate: 0.5546
+Accuratezza della rete: 9.74%
+
+Configurazione: 1111
+
+Time: 12 sec
+Learning rate: 0.5551
+Accuratezza della rete: 8.39%
+
+Configurazione: 1112
+
+Time: 12 sec
+Learning rate: 0.5556
+Accuratezza della rete: 9.96%
+
+Configurazione: 1113
+
+Time: 12 sec
+Learning rate: 0.5561
+Accuratezza della rete: 7.75%
+
+Configurazione: 1114
+
+Time: 12 sec
+Learning rate: 0.5566
+Accuratezza della rete: 10.22%
+
+Configurazione: 1115
+
+Time: 12 sec
+Learning rate: 0.5571
+Accuratezza della rete: 9.77%
+
+Configurazione: 1116
+
+Time: 12 sec
+Learning rate: 0.5576
+Accuratezza della rete: 5.86%
+
+Configurazione: 1117
+
+Time: 12 sec
+Learning rate: 0.5581
+Accuratezza della rete: 6.44%
+
+Configurazione: 1118
+
+Time: 12 sec
+Learning rate: 0.5586
+Accuratezza della rete: 9.92%
+
+Configurazione: 1119
+
+Time: 12 sec
+Learning rate: 0.5591
+Accuratezza della rete: 10.06%
+
+Configurazione: 1120
+
+Time: 12 sec
+Learning rate: 0.5596
+Accuratezza della rete: 5.37%
+
+Configurazione: 1121
+
+Time: 12 sec
+Learning rate: 0.5601
+Accuratezza della rete: 9.8%
+
+Configurazione: 1122
+
+Time: 12 sec
+Learning rate: 0.5606
+Accuratezza della rete: 10.09%
+
+Configurazione: 1123
+
+Time: 12 sec
+Learning rate: 0.5611
+Accuratezza della rete: 7.76%
+
+Configurazione: 1124
+
+Time: 12 sec
+Learning rate: 0.5616
+Accuratezza della rete: 9.13%
+
+Configurazione: 1125
+
+Time: 12 sec
+Learning rate: 0.5621
+Accuratezza della rete: 5.99%
+
+Configurazione: 1126
+
+Time: 12 sec
+Learning rate: 0.5626
+Accuratezza della rete: 9.34%
+
+Configurazione: 1127
+
+Time: 12 sec
+Learning rate: 0.5631
+Accuratezza della rete: 3.63%
+
+Configurazione: 1128
+
+Time: 12 sec
+Learning rate: 0.5636
+Accuratezza della rete: 8.06%
+
+Configurazione: 1129
+
+Time: 12 sec
+Learning rate: 0.5641
+Accuratezza della rete: 9.44%
+
+Configurazione: 1130
+
+Time: 12 sec
+Learning rate: 0.5646
+Accuratezza della rete: 9.07%
+
+Configurazione: 1131
+
+Time: 12 sec
+Learning rate: 0.5651
+Accuratezza della rete: 7.1%
+
+Configurazione: 1132
+
+Time: 12 sec
+Learning rate: 0.5656
+Accuratezza della rete: 9.76%
+
+Configurazione: 1133
+
+Time: 12 sec
+Learning rate: 0.5661
+Accuratezza della rete: 8.9%
+
+Configurazione: 1134
+
+Time: 12 sec
+Learning rate: 0.5666
+Accuratezza della rete: 8.7%
+
+Configurazione: 1135
+
+Time: 12 sec
+Learning rate: 0.5671
+Accuratezza della rete: 9.71%
+
+Configurazione: 1136
+
+Time: 12 sec
+Learning rate: 0.5676
+Accuratezza della rete: 6.17%
+
+Configurazione: 1137
+
+Time: 12 sec
+Learning rate: 0.5681
+Accuratezza della rete: 5.58%
+
+Configurazione: 1138
+
+Time: 12 sec
+Learning rate: 0.5686
+Accuratezza della rete: 6.71%
+
+Configurazione: 1139
+
+Time: 12 sec
+Learning rate: 0.5691
+Accuratezza della rete: 11.58%
+
+Configurazione: 1140
+
+Time: 12 sec
+Learning rate: 0.5696
+Accuratezza della rete: 7.53%
+
+Configurazione: 1141
+
+Time: 12 sec
+Learning rate: 0.5701
+Accuratezza della rete: 8.81%
+
+Configurazione: 1142
+
+Time: 12 sec
+Learning rate: 0.5706
+Accuratezza della rete: 7.75%
+
+Configurazione: 1143
+
+Time: 12 sec
+Learning rate: 0.5711
+Accuratezza della rete: 9.82%
+
+Configurazione: 1144
+
+Time: 12 sec
+Learning rate: 0.5716
+Accuratezza della rete: 5.58%
+
+Configurazione: 1145
+
+Time: 12 sec
+Learning rate: 0.5721
+Accuratezza della rete: 9.01%
+
+Configurazione: 1146
+
+Time: 12 sec
+Learning rate: 0.5726
+Accuratezza della rete: 7.1%
+
+Configurazione: 1147
+
+Time: 12 sec
+Learning rate: 0.5731
+Accuratezza della rete: 3.76%
+
+Configurazione: 1148
+
+Time: 12 sec
+Learning rate: 0.5736
+Accuratezza della rete: 9.8%
+
+Configurazione: 1149
+
+Time: 12 sec
+Learning rate: 0.5741
+Accuratezza della rete: 9.8%
+
+Configurazione: 1150
+
+Time: 12 sec
+Learning rate: 0.5746
+Accuratezza della rete: 10.18%
+
+Configurazione: 1151
+
+Time: 12 sec
+Learning rate: 0.5751
+Accuratezza della rete: 8.89%
+
+Configurazione: 1152
+
+Time: 12 sec
+Learning rate: 0.5756
+Accuratezza della rete: 3.16%
+
+Configurazione: 1153
+
+Time: 12 sec
+Learning rate: 0.5761
+Accuratezza della rete: 10.12%
+
+Configurazione: 1154
+
+Time: 12 sec
+Learning rate: 0.5766
+Accuratezza della rete: 8.21%
+
+Configurazione: 1155
+
+Time: 12 sec
+Learning rate: 0.5771
+Accuratezza della rete: 10.44%
+
+Configurazione: 1156
+
+Time: 12 sec
+Learning rate: 0.5776
+Accuratezza della rete: 6.24%
+
+Configurazione: 1157
+
+Time: 12 sec
+Learning rate: 0.5781
+Accuratezza della rete: 10.28%
+
+Configurazione: 1158
+
+Time: 12 sec
+Learning rate: 0.5786
+Accuratezza della rete: 10.16%
+
+Configurazione: 1159
+
+Time: 12 sec
+Learning rate: 0.5791
+Accuratezza della rete: 6.34%
+
+Configurazione: 1160
+
+Time: 12 sec
+Learning rate: 0.5796
+Accuratezza della rete: 9.81%
+
+Configurazione: 1161
+
+Time: 12 sec
+Learning rate: 0.5801
+Accuratezza della rete: 10.79%
+
+Configurazione: 1162
+
+Time: 12 sec
+Learning rate: 0.5806
+Accuratezza della rete: 9.82%
+
+Configurazione: 1163
+
+Time: 12 sec
+Learning rate: 0.5811
+Accuratezza della rete: 8.92%
+
+Configurazione: 1164
+
+Time: 12 sec
+Learning rate: 0.5816
+Accuratezza della rete: 9.82%
+
+Configurazione: 1165
+
+Time: 12 sec
+Learning rate: 0.5821
+Accuratezza della rete: 9.82%
+
+Configurazione: 1166
+
+Time: 12 sec
+Learning rate: 0.5826
+Accuratezza della rete: 3.77%
+
+Configurazione: 1167
+
+Time: 12 sec
+Learning rate: 0.5831
+Accuratezza della rete: 9.89%
+
+Configurazione: 1168
+
+Time: 12 sec
+Learning rate: 0.5836
+Accuratezza della rete: 9.81%
+
+Configurazione: 1169
+
+Time: 12 sec
+Learning rate: 0.5841
+Accuratezza della rete: 9.82%
+
+Configurazione: 1170
+
+Time: 12 sec
+Learning rate: 0.5846
+Accuratezza della rete: 11.35%
+
+Configurazione: 1171
+
+Time: 12 sec
+Learning rate: 0.5851
+Accuratezza della rete: 11.35%
+
+Configurazione: 1172
+
+Time: 12 sec
+Learning rate: 0.5856
+Accuratezza della rete: 8.92%
+
+Configurazione: 1173
+
+Time: 12 sec
+Learning rate: 0.5861
+Accuratezza della rete: 9.55%
+
+Configurazione: 1174
+
+Time: 12 sec
+Learning rate: 0.5866
+Accuratezza della rete: 11.38%
+
+Configurazione: 1175
+
+Time: 12 sec
+Learning rate: 0.5871
+Accuratezza della rete: 4.49%
+
+Configurazione: 1176
+
+Time: 12 sec
+Learning rate: 0.5876
+Accuratezza della rete: 16.52%
+
+Configurazione: 1177
+
+Time: 12 sec
+Learning rate: 0.5881
+Accuratezza della rete: 8.92%
+
+Configurazione: 1178
+
+Time: 12 sec
+Learning rate: 0.5886
+Accuratezza della rete: 8.95%
+
+Configurazione: 1179
+
+Time: 12 sec
+Learning rate: 0.5891
+Accuratezza della rete: 13.43%
+
+Configurazione: 1180
+
+Time: 12 sec
+Learning rate: 0.5896
+Accuratezza della rete: 9.74%
+
+Configurazione: 1181
+
+Time: 12 sec
+Learning rate: 0.5901
+Accuratezza della rete: 3.5%
+
+Configurazione: 1182
+
+Time: 12 sec
+Learning rate: 0.5906
+Accuratezza della rete: 10.28%
+
+Configurazione: 1183
+
+Time: 12 sec
+Learning rate: 0.5911
+Accuratezza della rete: 7.2%
+
+Configurazione: 1184
+
+Time: 12 sec
+Learning rate: 0.5916
+Accuratezza della rete: 9.8%
+
+Configurazione: 1185
+
+Time: 12 sec
+Learning rate: 0.5921
+Accuratezza della rete: 9.74%
+
+Configurazione: 1186
+
+Time: 12 sec
+Learning rate: 0.5926
+Accuratezza della rete: 9.8%
+
+Configurazione: 1187
+
+Time: 12 sec
+Learning rate: 0.5931
+Accuratezza della rete: 7.59%
+
+Configurazione: 1188
+
+Time: 12 sec
+Learning rate: 0.5936
+Accuratezza della rete: 9.18%
+
+Configurazione: 1189
+
+Time: 12 sec
+Learning rate: 0.5941
+Accuratezza della rete: 8.92%
+
+Configurazione: 1190
+
+Time: 12 sec
+Learning rate: 0.5946
+Accuratezza della rete: 9.74%
+
+Configurazione: 1191
+
+Time: 12 sec
+Learning rate: 0.5951
+Accuratezza della rete: 9.94%
+
+Configurazione: 1192
+
+Time: 12 sec
+Learning rate: 0.5956
+Accuratezza della rete: 7.08%
+
+Configurazione: 1193
+
+Time: 12 sec
+Learning rate: 0.5961
+Accuratezza della rete: 9.01%
+
+Configurazione: 1194
+
+Time: 12 sec
+Learning rate: 0.5966
+Accuratezza della rete: 8.28%
+
+Configurazione: 1195
+
+Time: 12 sec
+Learning rate: 0.5971
+Accuratezza della rete: 8.78%
+
+Configurazione: 1196
+
+Time: 12 sec
+Learning rate: 0.5976
+Accuratezza della rete: 10%
+
+Configurazione: 1197
+
+Time: 12 sec
+Learning rate: 0.5981
+Accuratezza della rete: 5.95%
+
+Configurazione: 1198
+
+Time: 12 sec
+Learning rate: 0.5986
+Accuratezza della rete: 5.64%
+
+Configurazione: 1199
+
+Time: 12 sec
+Learning rate: 0.5991
+Accuratezza della rete: 8.06%
+
+Configurazione: 1200
+
+Time: 12 sec
+Learning rate: 0.5996
+Accuratezza della rete: 6.37%
+
+Configurazione: 1201
+
+Time: 12 sec
+Learning rate: 0.6001
+Accuratezza della rete: 10.07%
+
+Configurazione: 1202
+
+Time: 12 sec
+Learning rate: 0.6006
+Accuratezza della rete: 8.47%
+
+Configurazione: 1203
+
+Time: 12 sec
+Learning rate: 0.6011
+Accuratezza della rete: 10.09%
+
+Configurazione: 1204
+
+Time: 12 sec
+Learning rate: 0.6016
+Accuratezza della rete: 10.77%
+
+Configurazione: 1205
+
+Time: 12 sec
+Learning rate: 0.6021
+Accuratezza della rete: 5.17%
+
+Configurazione: 1206
+
+Time: 12 sec
+Learning rate: 0.6026
+Accuratezza della rete: 8.92%
+
+Configurazione: 1207
+
+Time: 12 sec
+Learning rate: 0.6031
+Accuratezza della rete: 6.74%
+
+Configurazione: 1208
+
+Time: 12 sec
+Learning rate: 0.6036
+Accuratezza della rete: 9.62%
+
+Configurazione: 1209
+
+Time: 12 sec
+Learning rate: 0.6041
+Accuratezza della rete: 16.09%
+
+Configurazione: 1210
+
+Time: 12 sec
+Learning rate: 0.6046
+Accuratezza della rete: 11.35%
+
+Configurazione: 1211
+
+Time: 12 sec
+Learning rate: 0.6051
+Accuratezza della rete: 9.82%
+
+Configurazione: 1212
+
+Time: 12 sec
+Learning rate: 0.6056
+Accuratezza della rete: 11.35%
+
+Configurazione: 1213
+
+Time: 12 sec
+Learning rate: 0.6061
+Accuratezza della rete: 9.79%
+
+Configurazione: 1214
+
+Time: 12 sec
+Learning rate: 0.6066
+Accuratezza della rete: 9.8%
+
+Configurazione: 1215
+
+Time: 12 sec
+Learning rate: 0.6071
+Accuratezza della rete: 2.24%
+
+Configurazione: 1216
+
+Time: 12 sec
+Learning rate: 0.6076
+Accuratezza della rete: 10.05%
+
+Configurazione: 1217
+
+Time: 12 sec
+Learning rate: 0.6081
+Accuratezza della rete: 9.8%
+
+Configurazione: 1218
+
+Time: 12 sec
+Learning rate: 0.6086
+Accuratezza della rete: 10.28%
+
+Configurazione: 1219
+
+Time: 12 sec
+Learning rate: 0.6091
+Accuratezza della rete: 3.79%
+
+Configurazione: 1220
+
+Time: 12 sec
+Learning rate: 0.6096
+Accuratezza della rete: 11.35%
+
+Configurazione: 1221
+
+Time: 12 sec
+Learning rate: 0.6101
+Accuratezza della rete: 10.09%
+
+Configurazione: 1222
+
+Time: 12 sec
+Learning rate: 0.6106
+Accuratezza della rete: 10.15%
+
+Configurazione: 1223
+
+Time: 12 sec
+Learning rate: 0.6111
+Accuratezza della rete: 2.44%
+
+Configurazione: 1224
+
+Time: 12 sec
+Learning rate: 0.6116
+Accuratezza della rete: 7.71%
+
+Configurazione: 1225
+
+Time: 12 sec
+Learning rate: 0.6121
+Accuratezza della rete: 9.82%
+
+Configurazione: 1226
+
+Time: 12 sec
+Learning rate: 0.6126
+Accuratezza della rete: 10.09%
+
+Configurazione: 1227
+
+Time: 12 sec
+Learning rate: 0.6131
+Accuratezza della rete: 12.21%
+
+Configurazione: 1228
+
+Time: 12 sec
+Learning rate: 0.6136
+Accuratezza della rete: 8.92%
+
+Configurazione: 1229
+
+Time: 12 sec
+Learning rate: 0.6141
+Accuratezza della rete: 2.68%
+
+Configurazione: 1230
+
+Time: 12 sec
+Learning rate: 0.6146
+Accuratezza della rete: 10.2%
+
+Configurazione: 1231
+
+Time: 12 sec
+Learning rate: 0.6151
+Accuratezza della rete: 9.74%
+
+Configurazione: 1232
+
+Time: 12 sec
+Learning rate: 0.6156
+Accuratezza della rete: 12.71%
+
+Configurazione: 1233
+
+Time: 12 sec
+Learning rate: 0.6161
+Accuratezza della rete: 9.4%
+
+Configurazione: 1234
+
+Time: 12 sec
+Learning rate: 0.6166
+Accuratezza della rete: 10.44%
+
+Configurazione: 1235
+
+Time: 12 sec
+Learning rate: 0.6171
+Accuratezza della rete: 11.35%
+
+Configurazione: 1236
+
+Time: 12 sec
+Learning rate: 0.6176
+Accuratezza della rete: 11.35%
+
+Configurazione: 1237
+
+Time: 12 sec
+Learning rate: 0.6181
+Accuratezza della rete: 7.68%
+
+Configurazione: 1238
+
+Time: 12 sec
+Learning rate: 0.6186
+Accuratezza della rete: 9.8%
+
+Configurazione: 1239
+
+Time: 12 sec
+Learning rate: 0.6191
+Accuratezza della rete: 7.49%
+
+Configurazione: 1240
+
+Time: 12 sec
+Learning rate: 0.6196
+Accuratezza della rete: 9.72%
+
+Configurazione: 1241
+
+Time: 12 sec
+Learning rate: 0.6201
+Accuratezza della rete: 8.84%
+
+Configurazione: 1242
+
+Time: 12 sec
+Learning rate: 0.6206
+Accuratezza della rete: 9.82%
+
+Configurazione: 1243
+
+Time: 12 sec
+Learning rate: 0.6211
+Accuratezza della rete: 8.66%
+
+Configurazione: 1244
+
+Time: 12 sec
+Learning rate: 0.6216
+Accuratezza della rete: 9.8%
+
+Configurazione: 1245
+
+Time: 12 sec
+Learning rate: 0.6221
+Accuratezza della rete: 8.18%
+
+Configurazione: 1246
+
+Time: 12 sec
+Learning rate: 0.6226
+Accuratezza della rete: 9.74%
+
+Configurazione: 1247
+
+Time: 12 sec
+Learning rate: 0.6231
+Accuratezza della rete: 9.82%
+
+Configurazione: 1248
+
+Time: 12 sec
+Learning rate: 0.6236
+Accuratezza della rete: 11.35%
+
+Configurazione: 1249
+
+Time: 12 sec
+Learning rate: 0.6241
+Accuratezza della rete: 5.78%
+
+Configurazione: 1250
+
+Time: 12 sec
+Learning rate: 0.6246
+Accuratezza della rete: 9.41%
+
+Configurazione: 1251
+
+Time: 12 sec
+Learning rate: 0.6251
+Accuratezza della rete: 12.1%
+
+Configurazione: 1252
+
+Time: 12 sec
+Learning rate: 0.6256
+Accuratezza della rete: 9.8%
+
+Configurazione: 1253
+
+Time: 12 sec
+Learning rate: 0.6261
+Accuratezza della rete: 8.08%
+
+Configurazione: 1254
+
+Time: 12 sec
+Learning rate: 0.6266
+Accuratezza della rete: 10.34%
+
+Configurazione: 1255
+
+Time: 12 sec
+Learning rate: 0.6271
+Accuratezza della rete: 10.02%
+
+Configurazione: 1256
+
+Time: 12 sec
+Learning rate: 0.6276
+Accuratezza della rete: 12.46%
+
+Configurazione: 1257
+
+Time: 12 sec
+Learning rate: 0.6281
+Accuratezza della rete: 9.82%
+
+Configurazione: 1258
+
+Time: 12 sec
+Learning rate: 0.6286
+Accuratezza della rete: 9.03%
+
+Configurazione: 1259
+
+Time: 12 sec
+Learning rate: 0.6291
+Accuratezza della rete: 11.35%
+
+Configurazione: 1260
+
+Time: 12 sec
+Learning rate: 0.6296
+Accuratezza della rete: 7.6%
+
+Configurazione: 1261
+
+Time: 12 sec
+Learning rate: 0.6301
+Accuratezza della rete: 12.06%
+
+Configurazione: 1262
+
+Time: 12 sec
+Learning rate: 0.6306
+Accuratezza della rete: 3.01%
+
+Configurazione: 1263
+
+Time: 12 sec
+Learning rate: 0.6311
+Accuratezza della rete: 10.62%
+
+Configurazione: 1264
+
+Time: 12 sec
+Learning rate: 0.6316
+Accuratezza della rete: 7.98%
+
+Configurazione: 1265
+
+Time: 12 sec
+Learning rate: 0.6321
+Accuratezza della rete: 7.33%
+
+Configurazione: 1266
+
+Time: 12 sec
+Learning rate: 0.6326
+Accuratezza della rete: 12.3%
+
+Configurazione: 1267
+
+Time: 12 sec
+Learning rate: 0.6331
+Accuratezza della rete: 8.87%
+
+Configurazione: 1268
+
+Time: 12 sec
+Learning rate: 0.6336
+Accuratezza della rete: 7.59%
+
+Configurazione: 1269
+
+Time: 12 sec
+Learning rate: 0.6341
+Accuratezza della rete: 9.59%
+
+Configurazione: 1270
+
+Time: 12 sec
+Learning rate: 0.6346
+Accuratezza della rete: 4.93%
+
+Configurazione: 1271
+
+Time: 12 sec
+Learning rate: 0.6351
+Accuratezza della rete: 12.61%
+
+Configurazione: 1272
+
+Time: 12 sec
+Learning rate: 0.6356
+Accuratezza della rete: 11.35%
+
+Configurazione: 1273
+
+Time: 12 sec
+Learning rate: 0.6361
+Accuratezza della rete: 13.62%
+
+Configurazione: 1274
+
+Time: 12 sec
+Learning rate: 0.6366
+Accuratezza della rete: 11.35%
+
+Configurazione: 1275
+
+Time: 12 sec
+Learning rate: 0.6371
+Accuratezza della rete: 16.27%
+
+Configurazione: 1276
+
+Time: 12 sec
+Learning rate: 0.6376
+Accuratezza della rete: 10.09%
+
+Configurazione: 1277
+
+Time: 12 sec
+Learning rate: 0.6381
+Accuratezza della rete: 9.8%
+
+Configurazione: 1278
+
+Time: 12 sec
+Learning rate: 0.6386
+Accuratezza della rete: 10.03%
+
+Configurazione: 1279
+
+Time: 12 sec
+Learning rate: 0.6391
+Accuratezza della rete: 8.9%
+
+Configurazione: 1280
+
+Time: 12 sec
+Learning rate: 0.6396
+Accuratezza della rete: 11.1%
+
+Configurazione: 1281
+
+Time: 12 sec
+Learning rate: 0.6401
+Accuratezza della rete: 13.7%
+
+Configurazione: 1282
+
+Time: 12 sec
+Learning rate: 0.6406
+Accuratezza della rete: 7.04%
+
+Configurazione: 1283
+
+Time: 12 sec
+Learning rate: 0.6411
+Accuratezza della rete: 9.82%
+
+Configurazione: 1284
+
+Time: 12 sec
+Learning rate: 0.6416
+Accuratezza della rete: 10.09%
+
+Configurazione: 1285
+
+Time: 12 sec
+Learning rate: 0.6421
+Accuratezza della rete: 8.86%
+
+Configurazione: 1286
+
+Time: 12 sec
+Learning rate: 0.6426
+Accuratezza della rete: 10.09%
+
+Configurazione: 1287
+
+Time: 12 sec
+Learning rate: 0.6431
+Accuratezza della rete: 9.8%
+
+Configurazione: 1288
+
+Time: 12 sec
+Learning rate: 0.6436
+Accuratezza della rete: 9.8%
+
+Configurazione: 1289
+
+Time: 12 sec
+Learning rate: 0.6441
+Accuratezza della rete: 9.38%
+
+Configurazione: 1290
+
+Time: 12 sec
+Learning rate: 0.6446
+Accuratezza della rete: 10.27%
+
+Configurazione: 1291
+
+Time: 12 sec
+Learning rate: 0.6451
+Accuratezza della rete: 10.17%
+
+Configurazione: 1292
+
+Time: 12 sec
+Learning rate: 0.6456
+Accuratezza della rete: 11.35%
+
+Configurazione: 1293
+
+Time: 12 sec
+Learning rate: 0.6461
+Accuratezza della rete: 7.7%
+
+Configurazione: 1294
+
+Time: 12 sec
+Learning rate: 0.6466
+Accuratezza della rete: 9.82%
+
+Configurazione: 1295
+
+Time: 12 sec
+Learning rate: 0.6471
+Accuratezza della rete: 8.91%
+
+Configurazione: 1296
+
+Time: 12 sec
+Learning rate: 0.6476
+Accuratezza della rete: 10.33%
+
+Configurazione: 1297
+
+Time: 12 sec
+Learning rate: 0.6481
+Accuratezza della rete: 11.35%
+
+Configurazione: 1298
+
+Time: 12 sec
+Learning rate: 0.6486
+Accuratezza della rete: 6.44%
+
+Configurazione: 1299
+
+Time: 12 sec
+Learning rate: 0.6491
+Accuratezza della rete: 9.82%
+
+Configurazione: 1300
+
+Time: 12 sec
+Learning rate: 0.6496
+Accuratezza della rete: 9.8%
+
+Configurazione: 1301
+
+Time: 12 sec
+Learning rate: 0.6501
+Accuratezza della rete: 9.82%
+
+Configurazione: 1302
+
+Time: 12 sec
+Learning rate: 0.6506
+Accuratezza della rete: 9.05%
+
+Configurazione: 1303
+
+Time: 12 sec
+Learning rate: 0.6511
+Accuratezza della rete: 10.38%
+
+Configurazione: 1304
+
+Time: 12 sec
+Learning rate: 0.6516
+Accuratezza della rete: 11.35%
+
+Configurazione: 1305
+
+Time: 12 sec
+Learning rate: 0.6521
+Accuratezza della rete: 10.33%
+
+Configurazione: 1306
+
+Time: 12 sec
+Learning rate: 0.6526
+Accuratezza della rete: 9.8%
+
+Configurazione: 1307
+
+Time: 12 sec
+Learning rate: 0.6531
+Accuratezza della rete: 10.32%
+
+Configurazione: 1308
+
+Time: 12 sec
+Learning rate: 0.6536
+Accuratezza della rete: 10.54%
+
+Configurazione: 1309
+
+Time: 12 sec
+Learning rate: 0.6541
+Accuratezza della rete: 8.96%
+
+Configurazione: 1310
+
+Time: 12 sec
+Learning rate: 0.6546
+Accuratezza della rete: 10.32%
+
+Configurazione: 1311
+
+Time: 12 sec
+Learning rate: 0.6551
+Accuratezza della rete: 9.82%
+
+Configurazione: 1312
+
+Time: 12 sec
+Learning rate: 0.6556
+Accuratezza della rete: 8.9%
+
+Configurazione: 1313
+
+Time: 12 sec
+Learning rate: 0.6561
+Accuratezza della rete: 10.51%
+
+Configurazione: 1314
+
+Time: 12 sec
+Learning rate: 0.6566
+Accuratezza della rete: 9.81%
+
+Configurazione: 1315
+
+Time: 12 sec
+Learning rate: 0.6571
+Accuratezza della rete: 11.75%
+
+Configurazione: 1316
+
+Time: 12 sec
+Learning rate: 0.6576
+Accuratezza della rete: 10.49%
+
+Configurazione: 1317
+
+Time: 12 sec
+Learning rate: 0.6581
+Accuratezza della rete: 8.79%
+
+Configurazione: 1318
+
+Time: 12 sec
+Learning rate: 0.6586
+Accuratezza della rete: 8.92%
+
+Configurazione: 1319
+
+Time: 12 sec
+Learning rate: 0.6591
+Accuratezza della rete: 11.35%
+
+Configurazione: 1320
+
+Time: 12 sec
+Learning rate: 0.6596
+Accuratezza della rete: 10.29%
+
+Configurazione: 1321
+
+Time: 12 sec
+Learning rate: 0.6601
+Accuratezza della rete: 11.35%
+
+Configurazione: 1322
+
+Time: 12 sec
+Learning rate: 0.6606
+Accuratezza della rete: 10.32%
+
+Configurazione: 1323
+
+Time: 12 sec
+Learning rate: 0.6611
+Accuratezza della rete: 10.29%
+
+Configurazione: 1324
+
+Time: 12 sec
+Learning rate: 0.6616
+Accuratezza della rete: 8.92%
+
+Configurazione: 1325
+
+Time: 12 sec
+Learning rate: 0.6621
+Accuratezza della rete: 9.82%
+
+Configurazione: 1326
+
+Time: 12 sec
+Learning rate: 0.6626
+Accuratezza della rete: 10.32%
+
+Configurazione: 1327
+
+Time: 12 sec
+Learning rate: 0.6631
+Accuratezza della rete: 6.97%
+
+Configurazione: 1328
+
+Time: 12 sec
+Learning rate: 0.6636
+Accuratezza della rete: 10.99%
+
+Configurazione: 1329
+
+Time: 12 sec
+Learning rate: 0.6641
+Accuratezza della rete: 10.32%
+
+Configurazione: 1330
+
+Time: 12 sec
+Learning rate: 0.6646
+Accuratezza della rete: 10.34%
+
+Configurazione: 1331
+
+Time: 12 sec
+Learning rate: 0.6651
+Accuratezza della rete: 8.91%
+
+Configurazione: 1332
+
+Time: 12 sec
+Learning rate: 0.6656
+Accuratezza della rete: 11.35%
+
+Configurazione: 1333
+
+Time: 12 sec
+Learning rate: 0.6661
+Accuratezza della rete: 5.57%
+
+Configurazione: 1334
+
+Time: 12 sec
+Learning rate: 0.6666
+Accuratezza della rete: 7.28%
+
+Configurazione: 1335
+
+Time: 12 sec
+Learning rate: 0.6671
+Accuratezza della rete: 8.49%
+
+Configurazione: 1336
+
+Time: 12 sec
+Learning rate: 0.6676
+Accuratezza della rete: 8.92%
+
+Configurazione: 1337
+
+Time: 12 sec
+Learning rate: 0.6681
+Accuratezza della rete: 11.35%
+
+Configurazione: 1338
+
+Time: 12 sec
+Learning rate: 0.6686
+Accuratezza della rete: 9.82%
+
+Configurazione: 1339
+
+Time: 12 sec
+Learning rate: 0.6691
+Accuratezza della rete: 6.49%
+
+Configurazione: 1340
+
+Time: 12 sec
+Learning rate: 0.6696
+Accuratezza della rete: 5.02%
+
+Configurazione: 1341
+
+Time: 12 sec
+Learning rate: 0.6701
+Accuratezza della rete: 10.09%
+
+Configurazione: 1342
+
+Time: 12 sec
+Learning rate: 0.6706
+Accuratezza della rete: 10.09%
+
+Configurazione: 1343
+
+Time: 12 sec
+Learning rate: 0.6711
+Accuratezza della rete: 2.38%
+
+Configurazione: 1344
+
+Time: 12 sec
+Learning rate: 0.6716
+Accuratezza della rete: 8.92%
+
+Configurazione: 1345
+
+Time: 12 sec
+Learning rate: 0.6721
+Accuratezza della rete: 8.82%
+
+Configurazione: 1346
+
+Time: 12 sec
+Learning rate: 0.6726
+Accuratezza della rete: 11.24%
+
+Configurazione: 1347
+
+Time: 12 sec
+Learning rate: 0.6731
+Accuratezza della rete: 7.04%
+
+Configurazione: 1348
+
+Time: 12 sec
+Learning rate: 0.6736
+Accuratezza della rete: 9.82%
+
+Configurazione: 1349
+
+Time: 12 sec
+Learning rate: 0.6741
+Accuratezza della rete: 11.35%
+
+Configurazione: 1350
+
+Time: 12 sec
+Learning rate: 0.6746
+Accuratezza della rete: 10.32%
+
+Configurazione: 1351
+
+Time: 12 sec
+Learning rate: 0.6751
+Accuratezza della rete: 10.39%
+
+Configurazione: 1352
+
+Time: 12 sec
+Learning rate: 0.6756
+Accuratezza della rete: 7.76%
+
+Configurazione: 1353
+
+Time: 12 sec
+Learning rate: 0.6761
+Accuratezza della rete: 8.92%
+
+Configurazione: 1354
+
+Time: 12 sec
+Learning rate: 0.6766
+Accuratezza della rete: 8.77%
+
+Configurazione: 1355
+
+Time: 12 sec
+Learning rate: 0.6771
+Accuratezza della rete: 7.82%
+
+Configurazione: 1356
+
+Time: 12 sec
+Learning rate: 0.6776
+Accuratezza della rete: 10.32%
+
+Configurazione: 1357
+
+Time: 12 sec
+Learning rate: 0.6781
+Accuratezza della rete: 10.27%
+
+Configurazione: 1358
+
+Time: 12 sec
+Learning rate: 0.6786
+Accuratezza della rete: 7.76%
+
+Configurazione: 1359
+
+Time: 12 sec
+Learning rate: 0.6791
+Accuratezza della rete: 12.26%
+
+Configurazione: 1360
+
+Time: 12 sec
+Learning rate: 0.6796
+Accuratezza della rete: 9.82%
+
+Configurazione: 1361
+
+Time: 12 sec
+Learning rate: 0.6801
+Accuratezza della rete: 10.24%
+
+Configurazione: 1362
+
+Time: 12 sec
+Learning rate: 0.6806
+Accuratezza della rete: 8.92%
+
+Configurazione: 1363
+
+Time: 12 sec
+Learning rate: 0.6811
+Accuratezza della rete: 7.77%
+
+Configurazione: 1364
+
+Time: 12 sec
+Learning rate: 0.6816
+Accuratezza della rete: 4.93%
+
+Configurazione: 1365
+
+Time: 12 sec
+Learning rate: 0.6821
+Accuratezza della rete: 7.84%
+
+Configurazione: 1366
+
+Time: 12 sec
+Learning rate: 0.6826
+Accuratezza della rete: 9%
+
+Configurazione: 1367
+
+Time: 12 sec
+Learning rate: 0.6831
+Accuratezza della rete: 8.56%
+
+Configurazione: 1368
+
+Time: 12 sec
+Learning rate: 0.6836
+Accuratezza della rete: 10.32%
+
+Configurazione: 1369
+
+Time: 12 sec
+Learning rate: 0.6841
+Accuratezza della rete: 10.09%
+
+Configurazione: 1370
+
+Time: 12 sec
+Learning rate: 0.6846
+Accuratezza della rete: 9.36%
+
+Configurazione: 1371
+
+Time: 12 sec
+Learning rate: 0.6851
+Accuratezza della rete: 11.35%
+
+Configurazione: 1372
+
+Time: 12 sec
+Learning rate: 0.6856
+Accuratezza della rete: 10.09%
+
+Configurazione: 1373
+
+Time: 12 sec
+Learning rate: 0.6861
+Accuratezza della rete: 8.92%
+
+Configurazione: 1374
+
+Time: 12 sec
+Learning rate: 0.6866
+Accuratezza della rete: 10.31%
+
+Configurazione: 1375
+
+Time: 12 sec
+Learning rate: 0.6871
+Accuratezza della rete: 10.09%
+
+Configurazione: 1376
+
+Time: 12 sec
+Learning rate: 0.6876
+Accuratezza della rete: 11.35%
+
+Configurazione: 1377
+
+Time: 12 sec
+Learning rate: 0.6881
+Accuratezza della rete: 14.08%
+
+Configurazione: 1378
+
+Time: 12 sec
+Learning rate: 0.6886
+Accuratezza della rete: 11.35%
+
+Configurazione: 1379
+
+Time: 12 sec
+Learning rate: 0.6891
+Accuratezza della rete: 11.35%
+
+Configurazione: 1380
+
+Time: 12 sec
+Learning rate: 0.6896
+Accuratezza della rete: 9.01%
+
+Configurazione: 1381
+
+Time: 12 sec
+Learning rate: 0.6901
+Accuratezza della rete: 11.35%
+
+Configurazione: 1382
+
+Time: 12 sec
+Learning rate: 0.6906
+Accuratezza della rete: 11.35%
+
+Configurazione: 1383
+
+Time: 12 sec
+Learning rate: 0.6911
+Accuratezza della rete: 11.35%
+
+Configurazione: 1384
+
+Time: 12 sec
+Learning rate: 0.6916
+Accuratezza della rete: 9.82%
+
+Configurazione: 1385
+
+Time: 12 sec
+Learning rate: 0.6921
+Accuratezza della rete: 9.51%
+
+Configurazione: 1386
+
+Time: 12 sec
+Learning rate: 0.6926
+Accuratezza della rete: 9.82%
+
+Configurazione: 1387
+
+Time: 12 sec
+Learning rate: 0.6931
+Accuratezza della rete: 8.92%
+
+Configurazione: 1388
+
+Time: 12 sec
+Learning rate: 0.6936
+Accuratezza della rete: 9.8%
+
+Configurazione: 1389
+
+Time: 12 sec
+Learning rate: 0.6941
+Accuratezza della rete: 11.35%
+
+Configurazione: 1390
+
+Time: 12 sec
+Learning rate: 0.6946
+Accuratezza della rete: 9.59%
+
+Configurazione: 1391
+
+Time: 12 sec
+Learning rate: 0.6951
+Accuratezza della rete: 9.86%
+
+Configurazione: 1392
+
+Time: 12 sec
+Learning rate: 0.6956
+Accuratezza della rete: 9.58%
+
+Configurazione: 1393
+
+Time: 12 sec
+Learning rate: 0.6961
+Accuratezza della rete: 9.58%
+
+Configurazione: 1394
+
+Time: 12 sec
+Learning rate: 0.6966
+Accuratezza della rete: 9.8%
+
+Configurazione: 1395
+
+Time: 12 sec
+Learning rate: 0.6971
+Accuratezza della rete: 10.28%
+
+Configurazione: 1396
+
+Time: 12 sec
+Learning rate: 0.6976
+Accuratezza della rete: 9.58%
+
+Configurazione: 1397
+
+Time: 12 sec
+Learning rate: 0.6981
+Accuratezza della rete: 10.32%
+
+Configurazione: 1398
+
+Time: 12 sec
+Learning rate: 0.6986
+Accuratezza della rete: 9.82%
+
+Configurazione: 1399
+
+Time: 12 sec
+Learning rate: 0.6991
+Accuratezza della rete: 9.8%
+
+Configurazione: 1400
+
+Time: 12 sec
+Learning rate: 0.6996
+Accuratezza della rete: 9.23%
+
+Configurazione: 1401
+
+Time: 12 sec
+Learning rate: 0.7001
+Accuratezza della rete: 14.04%
+
+Configurazione: 1402
+
+Time: 12 sec
+Learning rate: 0.7006
+Accuratezza della rete: 10.09%
+
+Configurazione: 1403
+
+Time: 12 sec
+Learning rate: 0.7011
+Accuratezza della rete: 10.28%
+
+Configurazione: 1404
+
+Time: 12 sec
+Learning rate: 0.7016
+Accuratezza della rete: 10.32%
+
+Configurazione: 1405
+
+Time: 12 sec
+Learning rate: 0.7021
+Accuratezza della rete: 12.53%
+
+Configurazione: 1406
+
+Time: 12 sec
+Learning rate: 0.7026
+Accuratezza della rete: 8.92%
+
+Configurazione: 1407
+
+Time: 12 sec
+Learning rate: 0.7031
+Accuratezza della rete: 10.28%
+
+Configurazione: 1408
+
+Time: 12 sec
+Learning rate: 0.7036
+Accuratezza della rete: 12.86%
+
+Configurazione: 1409
+
+Time: 12 sec
+Learning rate: 0.7041
+Accuratezza della rete: 10.14%
+
+Configurazione: 1410
+
+Time: 12 sec
+Learning rate: 0.7046
+Accuratezza della rete: 10.32%
+
+Configurazione: 1411
+
+Time: 12 sec
+Learning rate: 0.7051
+Accuratezza della rete: 10.32%
+
+Configurazione: 1412
+
+Time: 12 sec
+Learning rate: 0.7056
+Accuratezza della rete: 10.31%
+
+Configurazione: 1413
+
+Time: 12 sec
+Learning rate: 0.7061
+Accuratezza della rete: 11.42%
+
+Configurazione: 1414
+
+Time: 12 sec
+Learning rate: 0.7066
+Accuratezza della rete: 10.32%
+
+Configurazione: 1415
+
+Time: 12 sec
+Learning rate: 0.7071
+Accuratezza della rete: 8.96%
+
+Configurazione: 1416
+
+Time: 12 sec
+Learning rate: 0.7076
+Accuratezza della rete: 10.28%
+
+Configurazione: 1417
+
+Time: 12 sec
+Learning rate: 0.7081
+Accuratezza della rete: 10.32%
+
+Configurazione: 1418
+
+Time: 12 sec
+Learning rate: 0.7086
+Accuratezza della rete: 8.92%
+
+Configurazione: 1419
+
+Time: 12 sec
+Learning rate: 0.7091
+Accuratezza della rete: 11.35%
+
+Configurazione: 1420
+
+Time: 12 sec
+Learning rate: 0.7096
+Accuratezza della rete: 10.41%
+
+Configurazione: 1421
+
+Time: 12 sec
+Learning rate: 0.7101
+Accuratezza della rete: 8.89%
+
+Configurazione: 1422
+
+Time: 12 sec
+Learning rate: 0.7106
+Accuratezza della rete: 9.11%
+
+Configurazione: 1423
+
+Time: 12 sec
+Learning rate: 0.7111
+Accuratezza della rete: 9.47%
+
+Configurazione: 1424
+
+Time: 12 sec
+Learning rate: 0.7116
+Accuratezza della rete: 8.8%
+
+Configurazione: 1425
+
+Time: 12 sec
+Learning rate: 0.7121
+Accuratezza della rete: 9.8%
+
+Configurazione: 1426
+
+Time: 12 sec
+Learning rate: 0.7126
+Accuratezza della rete: 10.91%
+
+Configurazione: 1427
+
+Time: 12 sec
+Learning rate: 0.7131
+Accuratezza della rete: 11.35%
+
+Configurazione: 1428
+
+Time: 12 sec
+Learning rate: 0.7136
+Accuratezza della rete: 7.43%
+
+Configurazione: 1429
+
+Time: 12 sec
+Learning rate: 0.7141
+Accuratezza della rete: 10.28%
+
+Configurazione: 1430
+
+Time: 12 sec
+Learning rate: 0.7146
+Accuratezza della rete: 9.89%
+
+Configurazione: 1431
+
+Time: 12 sec
+Learning rate: 0.7151
+Accuratezza della rete: 9.01%
+
+Configurazione: 1432
+
+Time: 12 sec
+Learning rate: 0.7156
+Accuratezza della rete: 11.35%
+
+Configurazione: 1433
+
+Time: 12 sec
+Learning rate: 0.7161
+Accuratezza della rete: 10.32%
+
+Configurazione: 1434
+
+Time: 12 sec
+Learning rate: 0.7166
+Accuratezza della rete: 9.8%
+
+Configurazione: 1435
+
+Time: 12 sec
+Learning rate: 0.7171
+Accuratezza della rete: 10.09%
+
+Configurazione: 1436
+
+Time: 12 sec
+Learning rate: 0.7176
+Accuratezza della rete: 10.28%
+
+Configurazione: 1437
+
+Time: 12 sec
+Learning rate: 0.7181
+Accuratezza della rete: 9.48%
+
+Configurazione: 1438
+
+Time: 12 sec
+Learning rate: 0.7186
+Accuratezza della rete: 10.32%
+
+Configurazione: 1439
+
+Time: 12 sec
+Learning rate: 0.7191
+Accuratezza della rete: 9.8%
+
+Configurazione: 1440
+
+Time: 12 sec
+Learning rate: 0.7196
+Accuratezza della rete: 8.72%
+
+Configurazione: 1441
+
+Time: 12 sec
+Learning rate: 0.7201
+Accuratezza della rete: 9.75%
+
+Configurazione: 1442
+
+Time: 12 sec
+Learning rate: 0.7206
+Accuratezza della rete: 10.29%
+
+Configurazione: 1443
+
+Time: 12 sec
+Learning rate: 0.7211
+Accuratezza della rete: 8.23%
+
+Configurazione: 1444
+
+Time: 12 sec
+Learning rate: 0.7216
+Accuratezza della rete: 9.71%
+
+Configurazione: 1445
+
+Time: 12 sec
+Learning rate: 0.7221
+Accuratezza della rete: 8.57%
+
+Configurazione: 1446
+
+Time: 12 sec
+Learning rate: 0.7226
+Accuratezza della rete: 10.09%
+
+Configurazione: 1447
+
+Time: 12 sec
+Learning rate: 0.7231
+Accuratezza della rete: 10.28%
+
+Configurazione: 1448
+
+Time: 12 sec
+Learning rate: 0.7236
+Accuratezza della rete: 9.7%
+
+Configurazione: 1449
+
+Time: 12 sec
+Learning rate: 0.7241
+Accuratezza della rete: 10.32%
+
+Configurazione: 1450
+
+Time: 12 sec
+Learning rate: 0.7246
+Accuratezza della rete: 9.73%
+
+Configurazione: 1451
+
+Time: 12 sec
+Learning rate: 0.7251
+Accuratezza della rete: 9.62%
+
+Configurazione: 1452
+
+Time: 12 sec
+Learning rate: 0.7256
+Accuratezza della rete: 9.58%
+
+Configurazione: 1453
+
+Time: 12 sec
+Learning rate: 0.7261
+Accuratezza della rete: 9.54%
+
+Configurazione: 1454
+
+Time: 12 sec
+Learning rate: 0.7266
+Accuratezza della rete: 8.93%
+
+Configurazione: 1455
+
+Time: 12 sec
+Learning rate: 0.7271
+Accuratezza della rete: 10.28%
+
+Configurazione: 1456
+
+Time: 12 sec
+Learning rate: 0.7276
+Accuratezza della rete: 10.09%
+
+Configurazione: 1457
+
+Time: 12 sec
+Learning rate: 0.7281
+Accuratezza della rete: 8.92%
+
+Configurazione: 1458
+
+Time: 12 sec
+Learning rate: 0.7286
+Accuratezza della rete: 9.59%
+
+Configurazione: 1459
+
+Time: 12 sec
+Learning rate: 0.7291
+Accuratezza della rete: 9.52%
+
+Configurazione: 1460
+
+Time: 12 sec
+Learning rate: 0.7296
+Accuratezza della rete: 8.63%
+
+Configurazione: 1461
+
+Time: 12 sec
+Learning rate: 0.7301
+Accuratezza della rete: 9.62%
+
+Configurazione: 1462
+
+Time: 12 sec
+Learning rate: 0.7306
+Accuratezza della rete: 10.32%
+
+Configurazione: 1463
+
+Time: 12 sec
+Learning rate: 0.7311
+Accuratezza della rete: 9.8%
+
+Configurazione: 1464
+
+Time: 12 sec
+Learning rate: 0.7316
+Accuratezza della rete: 9.8%
+
+Configurazione: 1465
+
+Time: 12 sec
+Learning rate: 0.7321
+Accuratezza della rete: 7.36%
+
+Configurazione: 1466
+
+Time: 12 sec
+Learning rate: 0.7326
+Accuratezza della rete: 10.32%
+
+Configurazione: 1467
+
+Time: 12 sec
+Learning rate: 0.7331
+Accuratezza della rete: 9.8%
+
+Configurazione: 1468
+
+Time: 12 sec
+Learning rate: 0.7336
+Accuratezza della rete: 9.8%
+
+Configurazione: 1469
+
+Time: 12 sec
+Learning rate: 0.7341
+Accuratezza della rete: 11.35%
+
+Configurazione: 1470
+
+Time: 12 sec
+Learning rate: 0.7346
+Accuratezza della rete: 9.6%
+
+Configurazione: 1471
+
+Time: 12 sec
+Learning rate: 0.7351
+Accuratezza della rete: 11.35%
+
+Configurazione: 1472
+
+Time: 12 sec
+Learning rate: 0.7356
+Accuratezza della rete: 10.09%
+
+Configurazione: 1473
+
+Time: 12 sec
+Learning rate: 0.7361
+Accuratezza della rete: 10.32%
+
+Configurazione: 1474
+
+Time: 12 sec
+Learning rate: 0.7366
+Accuratezza della rete: 8.92%
+
+Configurazione: 1475
+
+Time: 12 sec
+Learning rate: 0.7371
+Accuratezza della rete: 8.92%
+
+Configurazione: 1476
+
+Time: 12 sec
+Learning rate: 0.7376
+Accuratezza della rete: 9.57%
+
+Configurazione: 1477
+
+Time: 12 sec
+Learning rate: 0.7381
+Accuratezza della rete: 7.82%
+
+Configurazione: 1478
+
+Time: 12 sec
+Learning rate: 0.7386
+Accuratezza della rete: 9.79%
+
+Configurazione: 1479
+
+Time: 12 sec
+Learning rate: 0.7391
+Accuratezza della rete: 2.3%
+
+Configurazione: 1480
+
+Time: 12 sec
+Learning rate: 0.7396
+Accuratezza della rete: 9.07%
+
+Configurazione: 1481
+
+Time: 12 sec
+Learning rate: 0.7401
+Accuratezza della rete: 9.5%
+
+Configurazione: 1482
+
+Time: 12 sec
+Learning rate: 0.7406
+Accuratezza della rete: 9.8%
+
+Configurazione: 1483
+
+Time: 12 sec
+Learning rate: 0.7411
+Accuratezza della rete: 10.32%
+
+Configurazione: 1484
+
+Time: 12 sec
+Learning rate: 0.7416
+Accuratezza della rete: 8.85%
+
+Configurazione: 1485
+
+Time: 12 sec
+Learning rate: 0.7421
+Accuratezza della rete: 10.32%
+
+Configurazione: 1486
+
+Time: 12 sec
+Learning rate: 0.7426
+Accuratezza della rete: 7.26%
+
+Configurazione: 1487
+
+Time: 12 sec
+Learning rate: 0.7431
+Accuratezza della rete: 8.76%
+
+Configurazione: 1488
+
+Time: 12 sec
+Learning rate: 0.7436
+Accuratezza della rete: 9.58%
+
+Configurazione: 1489
+
+Time: 12 sec
+Learning rate: 0.7441
+Accuratezza della rete: 8.67%
+
+Configurazione: 1490
+
+Time: 12 sec
+Learning rate: 0.7446
+Accuratezza della rete: 8.3%
+
+Configurazione: 1491
+
+Time: 12 sec
+Learning rate: 0.7451
+Accuratezza della rete: 9.58%
+
+Configurazione: 1492
+
+Time: 12 sec
+Learning rate: 0.7456
+Accuratezza della rete: 9.39%
+
+Configurazione: 1493
+
+Time: 12 sec
+Learning rate: 0.7461
+Accuratezza della rete: 10.32%
+
+Configurazione: 1494
+
+Time: 12 sec
+Learning rate: 0.7466
+Accuratezza della rete: 10.09%
+
+Configurazione: 1495
+
+Time: 12 sec
+Learning rate: 0.7471
+Accuratezza della rete: 9.58%
+
+Configurazione: 1496
+
+Time: 12 sec
+Learning rate: 0.7476
+Accuratezza della rete: 9.8%
+
+Configurazione: 1497
+
+Time: 12 sec
+Learning rate: 0.7481
+Accuratezza della rete: 9.99%
+
+Configurazione: 1498
+
+Time: 12 sec
+Learning rate: 0.7486
+Accuratezza della rete: 8.76%
+
+Configurazione: 1499
+
+Time: 12 sec
+Learning rate: 0.7491
+Accuratezza della rete: 9.58%
+
+Configurazione: 1500
+
+Time: 12 sec
+Learning rate: 0.7496
+Accuratezza della rete: 8.8%
+
+Configurazione: 1501
+
+Time: 12 sec
+Learning rate: 0.7501
+Accuratezza della rete: 10.09%
+
+Configurazione: 1502
+
+Time: 12 sec
+Learning rate: 0.7506
+Accuratezza della rete: 9.46%
+
+Configurazione: 1503
+
+Time: 12 sec
+Learning rate: 0.7511
+Accuratezza della rete: 8.81%
+
+Configurazione: 1504
+
+Time: 12 sec
+Learning rate: 0.7516
+Accuratezza della rete: 10.09%
+
+Configurazione: 1505
+
+Time: 12 sec
+Learning rate: 0.7521
+Accuratezza della rete: 10.09%
+
+Configurazione: 1506
+
+Time: 12 sec
+Learning rate: 0.7526
+Accuratezza della rete: 8.81%
+
+Configurazione: 1507
+
+Time: 12 sec
+Learning rate: 0.7531
+Accuratezza della rete: 9.58%
+
+Configurazione: 1508
+
+Time: 12 sec
+Learning rate: 0.7536
+Accuratezza della rete: 8.94%
+
+Configurazione: 1509
+
+Time: 12 sec
+Learning rate: 0.7541
+Accuratezza della rete: 9.58%
+
+Configurazione: 1510
+
+Time: 12 sec
+Learning rate: 0.7546
+Accuratezza della rete: 8.78%
+
+Configurazione: 1511
+
+Time: 12 sec
+Learning rate: 0.7551
+Accuratezza della rete: 9.5%
+
+Configurazione: 1512
+
+Time: 12 sec
+Learning rate: 0.7556
+Accuratezza della rete: 8.98%
+
+Configurazione: 1513
+
+Time: 12 sec
+Learning rate: 0.7561
+Accuratezza della rete: 8.93%
+
+Configurazione: 1514
+
+Time: 12 sec
+Learning rate: 0.7566
+Accuratezza della rete: 9.04%
+
+Configurazione: 1515
+
+Time: 12 sec
+Learning rate: 0.7571
+Accuratezza della rete: 9.58%
+
+Configurazione: 1516
+
+Time: 12 sec
+Learning rate: 0.7576
+Accuratezza della rete: 9.05%
+
+Configurazione: 1517
+
+Time: 12 sec
+Learning rate: 0.7581
+Accuratezza della rete: 9.42%
+
+Configurazione: 1518
+
+Time: 12 sec
+Learning rate: 0.7586
+Accuratezza della rete: 10.28%
+
+Configurazione: 1519
+
+Time: 12 sec
+Learning rate: 0.7591
+Accuratezza della rete: 8.92%
+
+Configurazione: 1520
+
+Time: 12 sec
+Learning rate: 0.7596
+Accuratezza della rete: 9.58%
+
+Configurazione: 1521
+
+Time: 12 sec
+Learning rate: 0.7601
+Accuratezza della rete: 10.32%
+
+Configurazione: 1522
+
+Time: 12 sec
+Learning rate: 0.7606
+Accuratezza della rete: 9.57%
+
+Configurazione: 1523
+
+Time: 12 sec
+Learning rate: 0.7611
+Accuratezza della rete: 10.32%
+
+Configurazione: 1524
+
+Time: 12 sec
+Learning rate: 0.7616
+Accuratezza della rete: 12.16%
+
+Configurazione: 1525
+
+Time: 12 sec
+Learning rate: 0.7621
+Accuratezza della rete: 10.13%
+
+Configurazione: 1526
+
+Time: 12 sec
+Learning rate: 0.7626
+Accuratezza della rete: 10.32%
+
+Configurazione: 1527
+
+Time: 12 sec
+Learning rate: 0.7631
+Accuratezza della rete: 10.32%
+
+Configurazione: 1528
+
+Time: 12 sec
+Learning rate: 0.7636
+Accuratezza della rete: 9.38%
+
+Configurazione: 1529
+
+Time: 12 sec
+Learning rate: 0.7641
+Accuratezza della rete: 13.49%
+
+Configurazione: 1530
+
+Time: 12 sec
+Learning rate: 0.7646
+Accuratezza della rete: 10.32%
+
+Configurazione: 1531
+
+Time: 12 sec
+Learning rate: 0.7651
+Accuratezza della rete: 9.58%
+
+Configurazione: 1532
+
+Time: 12 sec
+Learning rate: 0.7656
+Accuratezza della rete: 8.79%
+
+Configurazione: 1533
+
+Time: 12 sec
+Learning rate: 0.7661
+Accuratezza della rete: 9.58%
+
+Configurazione: 1534
+
+Time: 12 sec
+Learning rate: 0.7666
+Accuratezza della rete: 9.8%
+
+Configurazione: 1535
+
+Time: 12 sec
+Learning rate: 0.7671
+Accuratezza della rete: 6.56%
+
+Configurazione: 1536
+
+Time: 12 sec
+Learning rate: 0.7676
+Accuratezza della rete: 11.35%
+
+Configurazione: 1537
+
+Time: 12 sec
+Learning rate: 0.7681
+Accuratezza della rete: 10.28%
+
+Configurazione: 1538
+
+Time: 12 sec
+Learning rate: 0.7686
+Accuratezza della rete: 16.72%
+
+Configurazione: 1539
+
+Time: 12 sec
+Learning rate: 0.7691
+Accuratezza della rete: 11.35%
+
+Configurazione: 1540
+
+Time: 12 sec
+Learning rate: 0.7696
+Accuratezza della rete: 9.58%
+
+Configurazione: 1541
+
+Time: 12 sec
+Learning rate: 0.7701
+Accuratezza della rete: 9.8%
+
+Configurazione: 1542
+
+Time: 12 sec
+Learning rate: 0.7706
+Accuratezza della rete: 9.58%
+
+Configurazione: 1543
+
+Time: 12 sec
+Learning rate: 0.7711
+Accuratezza della rete: 9.15%
+
+Configurazione: 1544
+
+Time: 12 sec
+Learning rate: 0.7716
+Accuratezza della rete: 9.37%
+
+Configurazione: 1545
+
+Time: 12 sec
+Learning rate: 0.7721
+Accuratezza della rete: 9.56%
+
+Configurazione: 1546
+
+Time: 12 sec
+Learning rate: 0.7726
+Accuratezza della rete: 9.57%
+
+Configurazione: 1547
+
+Time: 12 sec
+Learning rate: 0.7731
+Accuratezza della rete: 8.92%
+
+Configurazione: 1548
+
+Time: 12 sec
+Learning rate: 0.7736
+Accuratezza della rete: 11.35%
+
+Configurazione: 1549
+
+Time: 12 sec
+Learning rate: 0.7741
+Accuratezza della rete: 9.74%
+
+Configurazione: 1550
+
+Time: 12 sec
+Learning rate: 0.7746
+Accuratezza della rete: 8.19%
+
+Configurazione: 1551
+
+Time: 12 sec
+Learning rate: 0.7751
+Accuratezza della rete: 10.32%
+
+Configurazione: 1552
+
+Time: 12 sec
+Learning rate: 0.7756
+Accuratezza della rete: 9.8%
+
+Configurazione: 1553
+
+Time: 12 sec
+Learning rate: 0.7761
+Accuratezza della rete: 9.48%
+
+Configurazione: 1554
+
+Time: 12 sec
+Learning rate: 0.7766
+Accuratezza della rete: 9.5%
+
+Configurazione: 1555
+
+Time: 12 sec
+Learning rate: 0.7771
+Accuratezza della rete: 9.58%
+
+Configurazione: 1556
+
+Time: 12 sec
+Learning rate: 0.7776
+Accuratezza della rete: 11.35%
+
+Configurazione: 1557
+
+Time: 12 sec
+Learning rate: 0.7781
+Accuratezza della rete: 10.24%
+
+Configurazione: 1558
+
+Time: 12 sec
+Learning rate: 0.7786
+Accuratezza della rete: 10.32%
+
+Configurazione: 1559
+
+Time: 12 sec
+Learning rate: 0.7791
+Accuratezza della rete: 9.58%
+
+Configurazione: 1560
+
+Time: 12 sec
+Learning rate: 0.7796
+Accuratezza della rete: 10.28%
+
+Configurazione: 1561
+
+Time: 12 sec
+Learning rate: 0.7801
+Accuratezza della rete: 10.32%
+
+Configurazione: 1562
+
+Time: 12 sec
+Learning rate: 0.7806
+Accuratezza della rete: 9.58%
+
+Configurazione: 1563
+
+Time: 12 sec
+Learning rate: 0.7811
+Accuratezza della rete: 9.58%
+
+Configurazione: 1564
+
+Time: 12 sec
+Learning rate: 0.7816
+Accuratezza della rete: 9.58%
+
+Configurazione: 1565
+
+Time: 12 sec
+Learning rate: 0.7821
+Accuratezza della rete: 11.35%
+
+Configurazione: 1566
+
+Time: 12 sec
+Learning rate: 0.7826
+Accuratezza della rete: 10.09%
+
+Configurazione: 1567
+
+Time: 12 sec
+Learning rate: 0.7831
+Accuratezza della rete: 8.6%
+
+Configurazione: 1568
+
+Time: 12 sec
+Learning rate: 0.7836
+Accuratezza della rete: 8.84%
+
+Configurazione: 1569
+
+Time: 12 sec
+Learning rate: 0.7841
+Accuratezza della rete: 6.66%
+
+Configurazione: 1570
+
+Time: 12 sec
+Learning rate: 0.7846
+Accuratezza della rete: 7.75%
+
+Configurazione: 1571
+
+Time: 12 sec
+Learning rate: 0.7851
+Accuratezza della rete: 9.8%
+
+Configurazione: 1572
+
+Time: 12 sec
+Learning rate: 0.7856
+Accuratezza della rete: 9.58%
+
+Configurazione: 1573
+
+Time: 12 sec
+Learning rate: 0.7861
+Accuratezza della rete: 11.35%
+
+Configurazione: 1574
+
+Time: 12 sec
+Learning rate: 0.7866
+Accuratezza della rete: 9.6%
+
+Configurazione: 1575
+
+Time: 12 sec
+Learning rate: 0.7871
+Accuratezza della rete: 5.91%
+
+Configurazione: 1576
+
+Time: 12 sec
+Learning rate: 0.7876
+Accuratezza della rete: 11.16%
+
+Configurazione: 1577
+
+Time: 12 sec
+Learning rate: 0.7881
+Accuratezza della rete: 8.92%
+
+Configurazione: 1578
+
+Time: 12 sec
+Learning rate: 0.7886
+Accuratezza della rete: 10.1%
+
+Configurazione: 1579
+
+Time: 12 sec
+Learning rate: 0.7891
+Accuratezza della rete: 9.56%
+
+Configurazione: 1580
+
+Time: 12 sec
+Learning rate: 0.7896
+Accuratezza della rete: 11.35%
+
+Configurazione: 1581
+
+Time: 12 sec
+Learning rate: 0.7901
+Accuratezza della rete: 11.31%
+
+Configurazione: 1582
+
+Time: 12 sec
+Learning rate: 0.7906
+Accuratezza della rete: 13.78%
+
+Configurazione: 1583
+
+Time: 12 sec
+Learning rate: 0.7911
+Accuratezza della rete: 8.51%
+
+Configurazione: 1584
+
+Time: 12 sec
+Learning rate: 0.7916
+Accuratezza della rete: 9.58%
+
+Configurazione: 1585
+
+Time: 12 sec
+Learning rate: 0.7921
+Accuratezza della rete: 14.4%
+
+Configurazione: 1586
+
+Time: 12 sec
+Learning rate: 0.7926
+Accuratezza della rete: 9.8%
+
+Configurazione: 1587
+
+Time: 12 sec
+Learning rate: 0.7931
+Accuratezza della rete: 9.74%
+
+Configurazione: 1588
+
+Time: 12 sec
+Learning rate: 0.7936
+Accuratezza della rete: 9.74%
+
+Configurazione: 1589
+
+Time: 12 sec
+Learning rate: 0.7941
+Accuratezza della rete: 9.58%
+
+Configurazione: 1590
+
+Time: 12 sec
+Learning rate: 0.7946
+Accuratezza della rete: 9.87%
+
+Configurazione: 1591
+
+Time: 12 sec
+Learning rate: 0.7951
+Accuratezza della rete: 9.3%
+
+Configurazione: 1592
+
+Time: 12 sec
+Learning rate: 0.7956
+Accuratezza della rete: 6.37%
+
+Configurazione: 1593
+
+Time: 12 sec
+Learning rate: 0.7961
+Accuratezza della rete: 6.78%
+
+Configurazione: 1594
+
+Time: 12 sec
+Learning rate: 0.7966
+Accuratezza della rete: 9.58%
+
+Configurazione: 1595
+
+Time: 12 sec
+Learning rate: 0.7971
+Accuratezza della rete: 8.92%
+
+Configurazione: 1596
+
+Time: 12 sec
+Learning rate: 0.7976
+Accuratezza della rete: 8.92%
+
+Configurazione: 1597
+
+Time: 12 sec
+Learning rate: 0.7981
+Accuratezza della rete: 10.55%
+
+Configurazione: 1598
+
+Time: 12 sec
+Learning rate: 0.7986
+Accuratezza della rete: 7.72%
+
+Configurazione: 1599
+
+Time: 12 sec
+Learning rate: 0.7991
+Accuratezza della rete: 11.29%
+
+Configurazione: 1600
+
+Time: 12 sec
+Learning rate: 0.7996
+Accuratezza della rete: 11.35%
+
+Configurazione: 1601
+
+Time: 12 sec
+Learning rate: 0.8001
+Accuratezza della rete: 7.93%
+
+Configurazione: 1602
+
+Time: 12 sec
+Learning rate: 0.8006
+Accuratezza della rete: 5.92%
+
+Configurazione: 1603
+
+Time: 12 sec
+Learning rate: 0.8011
+Accuratezza della rete: 10.62%
+
+Configurazione: 1604
+
+Time: 12 sec
+Learning rate: 0.8016
+Accuratezza della rete: 8.92%
+
+Configurazione: 1605
+
+Time: 12 sec
+Learning rate: 0.8021
+Accuratezza della rete: 9.47%
+
+Configurazione: 1606
+
+Time: 12 sec
+Learning rate: 0.8026
+Accuratezza della rete: 10.04%
+
+Configurazione: 1607
+
+Time: 12 sec
+Learning rate: 0.8031
+Accuratezza della rete: 10.8%
+
+Configurazione: 1608
+
+Time: 12 sec
+Learning rate: 0.8036
+Accuratezza della rete: 10.28%
+
+Configurazione: 1609
+
+Time: 12 sec
+Learning rate: 0.8041
+Accuratezza della rete: 10.19%
+
+Configurazione: 1610
+
+Time: 12 sec
+Learning rate: 0.8046
+Accuratezza della rete: 11.41%
+
+Configurazione: 1611
+
+Time: 12 sec
+Learning rate: 0.8051
+Accuratezza della rete: 9.49%
+
+Configurazione: 1612
+
+Time: 12 sec
+Learning rate: 0.8056
+Accuratezza della rete: 12.47%
+
+Configurazione: 1613
+
+Time: 12 sec
+Learning rate: 0.8061
+Accuratezza della rete: 9.58%
+
+Configurazione: 1614
+
+Time: 12 sec
+Learning rate: 0.8066
+Accuratezza della rete: 8.92%
+
+Configurazione: 1615
+
+Time: 12 sec
+Learning rate: 0.8071
+Accuratezza della rete: 10.37%
+
+Configurazione: 1616
+
+Time: 12 sec
+Learning rate: 0.8076
+Accuratezza della rete: 8.83%
+
+Configurazione: 1617
+
+Time: 12 sec
+Learning rate: 0.8081
+Accuratezza della rete: 11.35%
+
+Configurazione: 1618
+
+Time: 12 sec
+Learning rate: 0.8086
+Accuratezza della rete: 10.09%
+
+Configurazione: 1619
+
+Time: 12 sec
+Learning rate: 0.8091
+Accuratezza della rete: 4.7%
+
+Configurazione: 1620
+
+Time: 12 sec
+Learning rate: 0.8096
+Accuratezza della rete: 8.63%
+
+Configurazione: 1621
+
+Time: 12 sec
+Learning rate: 0.8101
+Accuratezza della rete: 9.74%
+
+Configurazione: 1622
+
+Time: 12 sec
+Learning rate: 0.8106
+Accuratezza della rete: 8.92%
+
+Configurazione: 1623
+
+Time: 12 sec
+Learning rate: 0.8111
+Accuratezza della rete: 8.63%
+
+Configurazione: 1624
+
+Time: 12 sec
+Learning rate: 0.8116
+Accuratezza della rete: 9.66%
+
+Configurazione: 1625
+
+Time: 12 sec
+Learning rate: 0.8121
+Accuratezza della rete: 9.8%
+
+Configurazione: 1626
+
+Time: 12 sec
+Learning rate: 0.8126
+Accuratezza della rete: 12.29%
+
+Configurazione: 1627
+
+Time: 12 sec
+Learning rate: 0.8131
+Accuratezza della rete: 11.35%
+
+Configurazione: 1628
+
+Time: 12 sec
+Learning rate: 0.8136
+Accuratezza della rete: 10.93%
+
+Configurazione: 1629
+
+Time: 12 sec
+Learning rate: 0.8141
+Accuratezza della rete: 9.74%
+
+Configurazione: 1630
+
+Time: 12 sec
+Learning rate: 0.8146
+Accuratezza della rete: 8.87%
+
+Configurazione: 1631
+
+Time: 12 sec
+Learning rate: 0.8151
+Accuratezza della rete: 7.51%
+
+Configurazione: 1632
+
+Time: 12 sec
+Learning rate: 0.8156
+Accuratezza della rete: 4.13%
+
+Configurazione: 1633
+
+Time: 12 sec
+Learning rate: 0.8161
+Accuratezza della rete: 9.12%
+
+Configurazione: 1634
+
+Time: 12 sec
+Learning rate: 0.8166
+Accuratezza della rete: 11.35%
+
+Configurazione: 1635
+
+Time: 12 sec
+Learning rate: 0.8171
+Accuratezza della rete: 6.1%
+
+Configurazione: 1636
+
+Time: 12 sec
+Learning rate: 0.8176
+Accuratezza della rete: 9.61%
+
+Configurazione: 1637
+
+Time: 12 sec
+Learning rate: 0.8181
+Accuratezza della rete: 9.8%
+
+Configurazione: 1638
+
+Time: 12 sec
+Learning rate: 0.8186
+Accuratezza della rete: 10.28%
+
+Configurazione: 1639
+
+Time: 12 sec
+Learning rate: 0.8191
+Accuratezza della rete: 10.44%
+
+Configurazione: 1640
+
+Time: 12 sec
+Learning rate: 0.8196
+Accuratezza della rete: 11.35%
+
+Configurazione: 1641
+
+Time: 12 sec
+Learning rate: 0.8201
+Accuratezza della rete: 13.95%
+
+Configurazione: 1642
+
+Time: 12 sec
+Learning rate: 0.8206
+Accuratezza della rete: 9.45%
+
+Configurazione: 1643
+
+Time: 12 sec
+Learning rate: 0.8211
+Accuratezza della rete: 11.35%
+
+Configurazione: 1644
+
+Time: 12 sec
+Learning rate: 0.8216
+Accuratezza della rete: 8.92%
+
+Configurazione: 1645
+
+Time: 12 sec
+Learning rate: 0.8221
+Accuratezza della rete: 10.09%
+
+Configurazione: 1646
+
+Time: 12 sec
+Learning rate: 0.8226
+Accuratezza della rete: 10.28%
+
+Configurazione: 1647
+
+Time: 12 sec
+Learning rate: 0.8231
+Accuratezza della rete: 9.8%
+
+Configurazione: 1648
+
+Time: 12 sec
+Learning rate: 0.8236
+Accuratezza della rete: 10.28%
+
+Configurazione: 1649
+
+Time: 12 sec
+Learning rate: 0.8241
+Accuratezza della rete: 10.28%
+
+Configurazione: 1650
+
+Time: 12 sec
+Learning rate: 0.8246
+Accuratezza della rete: 9.8%
+
+Configurazione: 1651
+
+Time: 12 sec
+Learning rate: 0.8251
+Accuratezza della rete: 9.85%
+
+Configurazione: 1652
+
+Time: 12 sec
+Learning rate: 0.8256
+Accuratezza della rete: 6.87%
+
+Configurazione: 1653
+
+Time: 12 sec
+Learning rate: 0.8261
+Accuratezza della rete: 2.58%
+
+Configurazione: 1654
+
+Time: 12 sec
+Learning rate: 0.8266
+Accuratezza della rete: 10.09%
+
+Configurazione: 1655
+
+Time: 12 sec
+Learning rate: 0.8271
+Accuratezza della rete: 8.91%
+
+Configurazione: 1656
+
+Time: 12 sec
+Learning rate: 0.8276
+Accuratezza della rete: 10.32%
+
+Configurazione: 1657
+
+Time: 12 sec
+Learning rate: 0.8281
+Accuratezza della rete: 9.58%
+
+Configurazione: 1658
+
+Time: 12 sec
+Learning rate: 0.8286
+Accuratezza della rete: 8.92%
+
+Configurazione: 1659
+
+Time: 12 sec
+Learning rate: 0.8291
+Accuratezza della rete: 3.15%
+
+Configurazione: 1660
+
+Time: 12 sec
+Learning rate: 0.8296
+Accuratezza della rete: 10.06%
+
+Configurazione: 1661
+
+Time: 12 sec
+Learning rate: 0.8301
+Accuratezza della rete: 4.31%
+
+Configurazione: 1662
+
+Time: 12 sec
+Learning rate: 0.8306
+Accuratezza della rete: 9.29%
+
+Configurazione: 1663
+
+Time: 12 sec
+Learning rate: 0.8311
+Accuratezza della rete: 11.35%
+
+Configurazione: 1664
+
+Time: 12 sec
+Learning rate: 0.8316
+Accuratezza della rete: 8.1%
+
+Configurazione: 1665
+
+Time: 12 sec
+Learning rate: 0.8321
+Accuratezza della rete: 9.19%
+
+Configurazione: 1666
+
+Time: 12 sec
+Learning rate: 0.8326
+Accuratezza della rete: 11.35%
+
+Configurazione: 1667
+
+Time: 12 sec
+Learning rate: 0.8331
+Accuratezza della rete: 10.32%
+
+Configurazione: 1668
+
+Time: 12 sec
+Learning rate: 0.8336
+Accuratezza della rete: 9.15%
+
+Configurazione: 1669
+
+Time: 12 sec
+Learning rate: 0.8341
+Accuratezza della rete: 8.92%
+
+Configurazione: 1670
+
+Time: 12 sec
+Learning rate: 0.8346
+Accuratezza della rete: 2.63%
+
+Configurazione: 1671
+
+Time: 12 sec
+Learning rate: 0.8351
+Accuratezza della rete: 4.38%
+
+Configurazione: 1672
+
+Time: 12 sec
+Learning rate: 0.8356
+Accuratezza della rete: 11.35%
+
+Configurazione: 1673
+
+Time: 12 sec
+Learning rate: 0.8361
+Accuratezza della rete: 10.32%
+
+Configurazione: 1674
+
+Time: 12 sec
+Learning rate: 0.8366
+Accuratezza della rete: 9.94%
+
+Configurazione: 1675
+
+Time: 12 sec
+Learning rate: 0.8371
+Accuratezza della rete: 3.93%
+
+Configurazione: 1676
+
+Time: 12 sec
+Learning rate: 0.8376
+Accuratezza della rete: 10.26%
+
+Configurazione: 1677
+
+Time: 12 sec
+Learning rate: 0.8381
+Accuratezza della rete: 10.28%
+
+Configurazione: 1678
+
+Time: 12 sec
+Learning rate: 0.8386
+Accuratezza della rete: 9.74%
+
+Configurazione: 1679
+
+Time: 12 sec
+Learning rate: 0.8391
+Accuratezza della rete: 10.28%
+
+Configurazione: 1680
+
+Time: 12 sec
+Learning rate: 0.8396
+Accuratezza della rete: 9.83%
+
+Configurazione: 1681
+
+Time: 12 sec
+Learning rate: 0.8401
+Accuratezza della rete: 9.82%
+
+Configurazione: 1682
+
+Time: 12 sec
+Learning rate: 0.8406
+Accuratezza della rete: 14.37%
+
+Configurazione: 1683
+
+Time: 12 sec
+Learning rate: 0.8411
+Accuratezza della rete: 9.8%
+
+Configurazione: 1684
+
+Time: 12 sec
+Learning rate: 0.8416
+Accuratezza della rete: 5.7%
+
+Configurazione: 1685
+
+Time: 12 sec
+Learning rate: 0.8421
+Accuratezza della rete: 12.12%
+
+Configurazione: 1686
+
+Time: 12 sec
+Learning rate: 0.8426
+Accuratezza della rete: 13.24%
+
+Configurazione: 1687
+
+Time: 12 sec
+Learning rate: 0.8431
+Accuratezza della rete: 9.82%
+
+Configurazione: 1688
+
+Time: 12 sec
+Learning rate: 0.8436
+Accuratezza della rete: 9.74%
+
+Configurazione: 1689
+
+Time: 12 sec
+Learning rate: 0.8441
+Accuratezza della rete: 10.09%
+
+Configurazione: 1690
+
+Time: 12 sec
+Learning rate: 0.8446
+Accuratezza della rete: 9.8%
+
+Configurazione: 1691
+
+Time: 12 sec
+Learning rate: 0.8451
+Accuratezza della rete: 10.09%
+
+Configurazione: 1692
+
+Time: 12 sec
+Learning rate: 0.8456
+Accuratezza della rete: 10.28%
+
+Configurazione: 1693
+
+Time: 12 sec
+Learning rate: 0.8461
+Accuratezza della rete: 8.92%
+
+Configurazione: 1694
+
+Time: 12 sec
+Learning rate: 0.8466
+Accuratezza della rete: 10.28%
+
+Configurazione: 1695
+
+Time: 12 sec
+Learning rate: 0.8471
+Accuratezza della rete: 11.35%
+
+Configurazione: 1696
+
+Time: 12 sec
+Learning rate: 0.8476
+Accuratezza della rete: 9.82%
+
+Configurazione: 1697
+
+Time: 12 sec
+Learning rate: 0.8481
+Accuratezza della rete: 11.35%
+
+Configurazione: 1698
+
+Time: 12 sec
+Learning rate: 0.8486
+Accuratezza della rete: 11.35%
+
+Configurazione: 1699
+
+Time: 12 sec
+Learning rate: 0.8491
+Accuratezza della rete: 11.35%
+
+Configurazione: 1700
+
+Time: 12 sec
+Learning rate: 0.8496
+Accuratezza della rete: 10.28%
+
+Configurazione: 1701
+
+Time: 12 sec
+Learning rate: 0.8501
+Accuratezza della rete: 11.35%
+
+Configurazione: 1702
+
+Time: 12 sec
+Learning rate: 0.8506
+Accuratezza della rete: 9.82%
+
+Configurazione: 1703
+
+Time: 12 sec
+Learning rate: 0.8511
+Accuratezza della rete: 9.8%
+
+Configurazione: 1704
+
+Time: 12 sec
+Learning rate: 0.8516
+Accuratezza della rete: 8.92%
+
+Configurazione: 1705
+
+Time: 12 sec
+Learning rate: 0.8521
+Accuratezza della rete: 9.58%
+
+Configurazione: 1706
+
+Time: 12 sec
+Learning rate: 0.8526
+Accuratezza della rete: 10.28%
+
+Configurazione: 1707
+
+Time: 12 sec
+Learning rate: 0.8531
+Accuratezza della rete: 10.28%
+
+Configurazione: 1708
+
+Time: 12 sec
+Learning rate: 0.8536
+Accuratezza della rete: 9.8%
+
+Configurazione: 1709
+
+Time: 12 sec
+Learning rate: 0.8541
+Accuratezza della rete: 11.35%
+
+Configurazione: 1710
+
+Time: 12 sec
+Learning rate: 0.8546
+Accuratezza della rete: 9.8%
+
+Configurazione: 1711
+
+Time: 12 sec
+Learning rate: 0.8551
+Accuratezza della rete: 9.88%
+
+Configurazione: 1712
+
+Time: 12 sec
+Learning rate: 0.8556
+Accuratezza della rete: 9.74%
+
+Configurazione: 1713
+
+Time: 12 sec
+Learning rate: 0.8561
+Accuratezza della rete: 10.28%
+
+Configurazione: 1714
+
+Time: 12 sec
+Learning rate: 0.8566
+Accuratezza della rete: 9.72%
+
+Configurazione: 1715
+
+Time: 12 sec
+Learning rate: 0.8571
+Accuratezza della rete: 10.31%
+
+Configurazione: 1716
+
+Time: 12 sec
+Learning rate: 0.8576
+Accuratezza della rete: 8.77%
+
+Configurazione: 1717
+
+Time: 12 sec
+Learning rate: 0.8581
+Accuratezza della rete: 10.28%
+
+Configurazione: 1718
+
+Time: 12 sec
+Learning rate: 0.8586
+Accuratezza della rete: 9.09%
+
+Configurazione: 1719
+
+Time: 12 sec
+Learning rate: 0.8591
+Accuratezza della rete: 11.35%
+
+Configurazione: 1720
+
+Time: 12 sec
+Learning rate: 0.8596
+Accuratezza della rete: 9.7%
+
+Configurazione: 1721
+
+Time: 12 sec
+Learning rate: 0.8601
+Accuratezza della rete: 8.11%
+
+Configurazione: 1722
+
+Time: 12 sec
+Learning rate: 0.8606
+Accuratezza della rete: 8.92%
+
+Configurazione: 1723
+
+Time: 12 sec
+Learning rate: 0.8611
+Accuratezza della rete: 9.82%
+
+Configurazione: 1724
+
+Time: 12 sec
+Learning rate: 0.8616
+Accuratezza della rete: 11.36%
+
+Configurazione: 1725
+
+Time: 12 sec
+Learning rate: 0.8621
+Accuratezza della rete: 10.28%
+
+Configurazione: 1726
+
+Time: 12 sec
+Learning rate: 0.8626
+Accuratezza della rete: 9.74%
+
+Configurazione: 1727
+
+Time: 12 sec
+Learning rate: 0.8631
+Accuratezza della rete: 10.09%
+
+Configurazione: 1728
+
+Time: 12 sec
+Learning rate: 0.8636
+Accuratezza della rete: 9.82%
+
+Configurazione: 1729
+
+Time: 12 sec
+Learning rate: 0.8641
+Accuratezza della rete: 11.35%
+
+Configurazione: 1730
+
+Time: 12 sec
+Learning rate: 0.8646
+Accuratezza della rete: 9.74%
+
+Configurazione: 1731
+
+Time: 12 sec
+Learning rate: 0.8651
+Accuratezza della rete: 8.92%
+
+Configurazione: 1732
+
+Time: 12 sec
+Learning rate: 0.8656
+Accuratezza della rete: 12.26%
+
+Configurazione: 1733
+
+Time: 12 sec
+Learning rate: 0.8661
+Accuratezza della rete: 8.92%
+
+Configurazione: 1734
+
+Time: 12 sec
+Learning rate: 0.8666
+Accuratezza della rete: 11.35%
+
+Configurazione: 1735
+
+Time: 12 sec
+Learning rate: 0.8671
+Accuratezza della rete: 9.82%
+
+Configurazione: 1736
+
+Time: 12 sec
+Learning rate: 0.8676
+Accuratezza della rete: 11.35%
+
+Configurazione: 1737
+
+Time: 12 sec
+Learning rate: 0.8681
+Accuratezza della rete: 11.35%
+
+Configurazione: 1738
+
+Time: 12 sec
+Learning rate: 0.8686
+Accuratezza della rete: 8.55%
+
+Configurazione: 1739
+
+Time: 12 sec
+Learning rate: 0.8691
+Accuratezza della rete: 9.44%
+
+Configurazione: 1740
+
+Time: 12 sec
+Learning rate: 0.8696
+Accuratezza della rete: 3.99%
+
+Configurazione: 1741
+
+Time: 12 sec
+Learning rate: 0.8701
+Accuratezza della rete: 9.85%
+
+Configurazione: 1742
+
+Time: 12 sec
+Learning rate: 0.8706
+Accuratezza della rete: 10.27%
+
+Configurazione: 1743
+
+Time: 12 sec
+Learning rate: 0.8711
+Accuratezza della rete: 11.35%
+
+Configurazione: 1744
+
+Time: 12 sec
+Learning rate: 0.8716
+Accuratezza della rete: 9.48%
+
+Configurazione: 1745
+
+Time: 12 sec
+Learning rate: 0.8721
+Accuratezza della rete: 7.81%
+
+Configurazione: 1746
+
+Time: 12 sec
+Learning rate: 0.8726
+Accuratezza della rete: 9.82%
+
+Configurazione: 1747
+
+Time: 12 sec
+Learning rate: 0.8731
+Accuratezza della rete: 8.35%
+
+Configurazione: 1748
+
+Time: 12 sec
+Learning rate: 0.8736
+Accuratezza della rete: 10.09%
+
+Configurazione: 1749
+
+Time: 12 sec
+Learning rate: 0.8741
+Accuratezza della rete: 10.32%
+
+Configurazione: 1750
+
+Time: 12 sec
+Learning rate: 0.8746
+Accuratezza della rete: 9.57%
+
+Configurazione: 1751
+
+Time: 12 sec
+Learning rate: 0.8751
+Accuratezza della rete: 9.58%
+
+Configurazione: 1752
+
+Time: 12 sec
+Learning rate: 0.8756
+Accuratezza della rete: 9.82%
+
+Configurazione: 1753
+
+Time: 12 sec
+Learning rate: 0.8761
+Accuratezza della rete: 8.92%
+
+Configurazione: 1754
+
+Time: 12 sec
+Learning rate: 0.8766
+Accuratezza della rete: 9.74%
+
+Configurazione: 1755
+
+Time: 12 sec
+Learning rate: 0.8771
+Accuratezza della rete: 10.09%
+
+Configurazione: 1756
+
+Time: 12 sec
+Learning rate: 0.8776
+Accuratezza della rete: 9.92%
+
+Configurazione: 1757
+
+Time: 12 sec
+Learning rate: 0.8781
+Accuratezza della rete: 8.92%
+
+Configurazione: 1758
+
+Time: 12 sec
+Learning rate: 0.8786
+Accuratezza della rete: 9.8%
+
+Configurazione: 1759
+
+Time: 12 sec
+Learning rate: 0.8791
+Accuratezza della rete: 4.47%
+
+Configurazione: 1760
+
+Time: 12 sec
+Learning rate: 0.8796
+Accuratezza della rete: 9.8%
+
+Configurazione: 1761
+
+Time: 12 sec
+Learning rate: 0.8801
+Accuratezza della rete: 9.58%
+
+Configurazione: 1762
+
+Time: 12 sec
+Learning rate: 0.8806
+Accuratezza della rete: 9.58%
+
+Configurazione: 1763
+
+Time: 12 sec
+Learning rate: 0.8811
+Accuratezza della rete: 9.45%
+
+Configurazione: 1764
+
+Time: 12 sec
+Learning rate: 0.8816
+Accuratezza della rete: 7.51%
+
+Configurazione: 1765
+
+Time: 12 sec
+Learning rate: 0.8821
+Accuratezza della rete: 9.81%
+
+Configurazione: 1766
+
+Time: 12 sec
+Learning rate: 0.8826
+Accuratezza della rete: 8.15%
+
+Configurazione: 1767
+
+Time: 12 sec
+Learning rate: 0.8831
+Accuratezza della rete: 9.8%
+
+Configurazione: 1768
+
+Time: 12 sec
+Learning rate: 0.8836
+Accuratezza della rete: 9.74%
+
+Configurazione: 1769
+
+Time: 12 sec
+Learning rate: 0.8841
+Accuratezza della rete: 8.46%
+
+Configurazione: 1770
+
+Time: 12 sec
+Learning rate: 0.8846
+Accuratezza della rete: 7.93%
+
+Configurazione: 1771
+
+Time: 12 sec
+Learning rate: 0.8851
+Accuratezza della rete: 9.8%
+
+Configurazione: 1772
+
+Time: 12 sec
+Learning rate: 0.8856
+Accuratezza della rete: 10.32%
+
+Configurazione: 1773
+
+Time: 12 sec
+Learning rate: 0.8861
+Accuratezza della rete: 8.92%
+
+Configurazione: 1774
+
+Time: 12 sec
+Learning rate: 0.8866
+Accuratezza della rete: 10.09%
+
+Configurazione: 1775
+
+Time: 12 sec
+Learning rate: 0.8871
+Accuratezza della rete: 9.8%
+
+Configurazione: 1776
+
+Time: 12 sec
+Learning rate: 0.8876
+Accuratezza della rete: 8.92%
+
+Configurazione: 1777
+
+Time: 12 sec
+Learning rate: 0.8881
+Accuratezza della rete: 11.35%
+
+Configurazione: 1778
+
+Time: 12 sec
+Learning rate: 0.8886
+Accuratezza della rete: 11.26%
+
+Configurazione: 1779
+
+Time: 12 sec
+Learning rate: 0.8891
+Accuratezza della rete: 7.81%
+
+Configurazione: 1780
+
+Time: 12 sec
+Learning rate: 0.8896
+Accuratezza della rete: 9.54%
+
+Configurazione: 1781
+
+Time: 12 sec
+Learning rate: 0.8901
+Accuratezza della rete: 10.32%
+
+Configurazione: 1782
+
+Time: 12 sec
+Learning rate: 0.8906
+Accuratezza della rete: 11.35%
+
+Configurazione: 1783
+
+Time: 12 sec
+Learning rate: 0.8911
+Accuratezza della rete: 10.28%
+
+Configurazione: 1784
+
+Time: 12 sec
+Learning rate: 0.8916
+Accuratezza della rete: 6.69%
+
+Configurazione: 1785
+
+Time: 12 sec
+Learning rate: 0.8921
+Accuratezza della rete: 10.32%
+
+Configurazione: 1786
+
+Time: 12 sec
+Learning rate: 0.8926
+Accuratezza della rete: 8.92%
+
+Configurazione: 1787
+
+Time: 12 sec
+Learning rate: 0.8931
+Accuratezza della rete: 7.88%
+
+Configurazione: 1788
+
+Time: 12 sec
+Learning rate: 0.8936
+Accuratezza della rete: 8.92%
+
+Configurazione: 1789
+
+Time: 12 sec
+Learning rate: 0.8941
+Accuratezza della rete: 10.28%
+
+Configurazione: 1790
+
+Time: 12 sec
+Learning rate: 0.8946
+Accuratezza della rete: 9.04%
+
+Configurazione: 1791
+
+Time: 12 sec
+Learning rate: 0.8951
+Accuratezza della rete: 5.27%
+
+Configurazione: 1792
+
+Time: 12 sec
+Learning rate: 0.8956
+Accuratezza della rete: 9.82%
+
+Configurazione: 1793
+
+Time: 12 sec
+Learning rate: 0.8961
+Accuratezza della rete: 10.09%
+
+Configurazione: 1794
+
+Time: 12 sec
+Learning rate: 0.8966
+Accuratezza della rete: 9.29%
+
+Configurazione: 1795
+
+Time: 12 sec
+Learning rate: 0.8971
+Accuratezza della rete: 9.58%
+
+Configurazione: 1796
+
+Time: 12 sec
+Learning rate: 0.8976
+Accuratezza della rete: 9.82%
+
+Configurazione: 1797
+
+Time: 12 sec
+Learning rate: 0.8981
+Accuratezza della rete: 10.09%
+
+Configurazione: 1798
+
+Time: 12 sec
+Learning rate: 0.8986
+Accuratezza della rete: 9.82%
+
+Configurazione: 1799
+
+Time: 12 sec
+Learning rate: 0.8991
+Accuratezza della rete: 14.23%
+
+Configurazione: 1800
+
+Time: 12 sec
+Learning rate: 0.8996
+Accuratezza della rete: 9.77%
+
+Configurazione: 1801
+
+Time: 12 sec
+Learning rate: 0.9001
+Accuratezza della rete: 9.86%
+
+Configurazione: 1802
+
+Time: 12 sec
+Learning rate: 0.9006
+Accuratezza della rete: 10.09%
+
+Configurazione: 1803
+
+Time: 12 sec
+Learning rate: 0.9011
+Accuratezza della rete: 10.09%
+
+Configurazione: 1804
+
+Time: 12 sec
+Learning rate: 0.9016
+Accuratezza della rete: 5.7%
+
+Configurazione: 1805
+
+Time: 12 sec
+Learning rate: 0.9021
+Accuratezza della rete: 1.58%
+
+Configurazione: 1806
+
+Time: 12 sec
+Learning rate: 0.9026
+Accuratezza della rete: 9.74%
+
+Configurazione: 1807
+
+Time: 12 sec
+Learning rate: 0.9031
+Accuratezza della rete: 10.26%
+
+Configurazione: 1808
+
+Time: 12 sec
+Learning rate: 0.9036
+Accuratezza della rete: 11.35%
+
+Configurazione: 1809
+
+Time: 12 sec
+Learning rate: 0.9041
+Accuratezza della rete: 9.74%
+
+Configurazione: 1810
+
+Time: 12 sec
+Learning rate: 0.9046
+Accuratezza della rete: 9.8%
+
+Configurazione: 1811
+
+Time: 12 sec
+Learning rate: 0.9051
+Accuratezza della rete: 16.29%
+
+Configurazione: 1812
+
+Time: 12 sec
+Learning rate: 0.9056
+Accuratezza della rete: 10.31%
+
+Configurazione: 1813
+
+Time: 12 sec
+Learning rate: 0.9061
+Accuratezza della rete: 8.59%
+
+Configurazione: 1814
+
+Time: 12 sec
+Learning rate: 0.9066
+Accuratezza della rete: 10.3%
+
+Configurazione: 1815
+
+Time: 12 sec
+Learning rate: 0.9071
+Accuratezza della rete: 5.73%
+
+Configurazione: 1816
+
+Time: 12 sec
+Learning rate: 0.9076
+Accuratezza della rete: 9.8%
+
+Configurazione: 1817
+
+Time: 12 sec
+Learning rate: 0.9081
+Accuratezza della rete: 2.14%
+
+Configurazione: 1818
+
+Time: 12 sec
+Learning rate: 0.9086
+Accuratezza della rete: 10.28%
+
+Configurazione: 1819
+
+Time: 12 sec
+Learning rate: 0.9091
+Accuratezza della rete: 2.83%
+
+Configurazione: 1820
+
+Time: 12 sec
+Learning rate: 0.9096
+Accuratezza della rete: 11.34%
+
+Configurazione: 1821
+
+Time: 12 sec
+Learning rate: 0.9101
+Accuratezza della rete: 11.35%
+
+Configurazione: 1822
+
+Time: 12 sec
+Learning rate: 0.9106
+Accuratezza della rete: 10.09%
+
+Configurazione: 1823
+
+Time: 12 sec
+Learning rate: 0.9111
+Accuratezza della rete: 10.89%
+
+Configurazione: 1824
+
+Time: 12 sec
+Learning rate: 0.9116
+Accuratezza della rete: 10.09%
+
+Configurazione: 1825
+
+Time: 12 sec
+Learning rate: 0.9121
+Accuratezza della rete: 11.18%
+
+Configurazione: 1826
+
+Time: 12 sec
+Learning rate: 0.9126
+Accuratezza della rete: 8.92%
+
+Configurazione: 1827
+
+Time: 12 sec
+Learning rate: 0.9131
+Accuratezza della rete: 9.78%
+
+Configurazione: 1828
+
+Time: 12 sec
+Learning rate: 0.9136
+Accuratezza della rete: 8.92%
+
+Configurazione: 1829
+
+Time: 12 sec
+Learning rate: 0.9141
+Accuratezza della rete: 8.92%
+
+Configurazione: 1830
+
+Time: 12 sec
+Learning rate: 0.9146
+Accuratezza della rete: 8.92%
+
+Configurazione: 1831
+
+Time: 12 sec
+Learning rate: 0.9151
+Accuratezza della rete: 8.92%
+
+Configurazione: 1832
+
+Time: 12 sec
+Learning rate: 0.9156
+Accuratezza della rete: 8.92%
+
+Configurazione: 1833
+
+Time: 12 sec
+Learning rate: 0.9161
+Accuratezza della rete: 8.92%
+
+Configurazione: 1834
+
+Time: 12 sec
+Learning rate: 0.9166
+Accuratezza della rete: 9.8%
+
+Configurazione: 1835
+
+Time: 12 sec
+Learning rate: 0.9171
+Accuratezza della rete: 8.92%
+
+Configurazione: 1836
+
+Time: 12 sec
+Learning rate: 0.9176
+Accuratezza della rete: 10.77%
+
+Configurazione: 1837
+
+Time: 12 sec
+Learning rate: 0.9181
+Accuratezza della rete: 10.09%
+
+Configurazione: 1838
+
+Time: 12 sec
+Learning rate: 0.9186
+Accuratezza della rete: 10.09%
+
+Configurazione: 1839
+
+Time: 12 sec
+Learning rate: 0.9191
+Accuratezza della rete: 8.92%
+
+Configurazione: 1840
+
+Time: 12 sec
+Learning rate: 0.9196
+Accuratezza della rete: 10.09%
+
+Configurazione: 1841
+
+Time: 12 sec
+Learning rate: 0.9201
+Accuratezza della rete: 8.92%
+
+Configurazione: 1842
+
+Time: 12 sec
+Learning rate: 0.9206
+Accuratezza della rete: 8.92%
+
+Configurazione: 1843
+
+Time: 12 sec
+Learning rate: 0.9211
+Accuratezza della rete: 11.35%
+
+Configurazione: 1844
+
+Time: 12 sec
+Learning rate: 0.9216
+Accuratezza della rete: 8.92%
+
+Configurazione: 1845
+
+Time: 12 sec
+Learning rate: 0.9221
+Accuratezza della rete: 8.92%
+
+Configurazione: 1846
+
+Time: 12 sec
+Learning rate: 0.9226
+Accuratezza della rete: 8.92%
+
+Configurazione: 1847
+
+Time: 12 sec
+Learning rate: 0.9231
+Accuratezza della rete: 8.92%
+
+Configurazione: 1848
+
+Time: 12 sec
+Learning rate: 0.9236
+Accuratezza della rete: 12.54%
+
+Configurazione: 1849
+
+Time: 12 sec
+Learning rate: 0.9241
+Accuratezza della rete: 8.92%
+
+Configurazione: 1850
+
+Time: 12 sec
+Learning rate: 0.9246
+Accuratezza della rete: 9.57%
+
+Configurazione: 1851
+
+Time: 12 sec
+Learning rate: 0.9251
+Accuratezza della rete: 8.92%
+
+Configurazione: 1852
+
+Time: 12 sec
+Learning rate: 0.9256
+Accuratezza della rete: 8.92%
+
+Configurazione: 1853
+
+Time: 12 sec
+Learning rate: 0.9261
+Accuratezza della rete: 8.92%
+
+Configurazione: 1854
+
+Time: 12 sec
+Learning rate: 0.9266
+Accuratezza della rete: 8.92%
+
+Configurazione: 1855
+
+Time: 12 sec
+Learning rate: 0.9271
+Accuratezza della rete: 10.09%
+
+Configurazione: 1856
+
+Time: 12 sec
+Learning rate: 0.9276
+Accuratezza della rete: 8.92%
+
+Configurazione: 1857
+
+Time: 12 sec
+Learning rate: 0.9281
+Accuratezza della rete: 10.09%
+
+Configurazione: 1858
+
+Time: 12 sec
+Learning rate: 0.9286
+Accuratezza della rete: 8.92%
+
+Configurazione: 1859
+
+Time: 12 sec
+Learning rate: 0.9291
+Accuratezza della rete: 10.09%
+
+Configurazione: 1860
+
+Time: 12 sec
+Learning rate: 0.9296
+Accuratezza della rete: 8.92%
+
+Configurazione: 1861
+
+Time: 12 sec
+Learning rate: 0.9301
+Accuratezza della rete: 8.92%
+
+Configurazione: 1862
+
+Time: 12 sec
+Learning rate: 0.9306
+Accuratezza della rete: 10.09%
+
+Configurazione: 1863
+
+Time: 12 sec
+Learning rate: 0.9311
+Accuratezza della rete: 8.92%
+
+Configurazione: 1864
+
+Time: 12 sec
+Learning rate: 0.9316
+Accuratezza della rete: 8.92%
+
+Configurazione: 1865
+
+Time: 12 sec
+Learning rate: 0.9321
+Accuratezza della rete: 10.09%
+
+Configurazione: 1866
+
+Time: 12 sec
+Learning rate: 0.9326
+Accuratezza della rete: 8.92%
+
+Configurazione: 1867
+
+Time: 12 sec
+Learning rate: 0.9331
+Accuratezza della rete: 8.92%
+
+Configurazione: 1868
+
+Time: 12 sec
+Learning rate: 0.9336
+Accuratezza della rete: 8.92%
+
+Configurazione: 1869
+
+Time: 12 sec
+Learning rate: 0.9341
+Accuratezza della rete: 8.92%
+
+Configurazione: 1870
+
+Time: 12 sec
+Learning rate: 0.9346
+Accuratezza della rete: 8.92%
+
+Configurazione: 1871
+
+Time: 12 sec
+Learning rate: 0.9351
+Accuratezza della rete: 8.92%
+
+Configurazione: 1872
+
+Time: 12 sec
+Learning rate: 0.9356
+Accuratezza della rete: 8.92%
+
+Configurazione: 1873
+
+Time: 12 sec
+Learning rate: 0.9361
+Accuratezza della rete: 8.92%
+
+Configurazione: 1874
+
+Time: 12 sec
+Learning rate: 0.9366
+Accuratezza della rete: 4.45%
+
+Configurazione: 1875
+
+Time: 12 sec
+Learning rate: 0.9371
+Accuratezza della rete: 10.09%
+
+Configurazione: 1876
+
+Time: 12 sec
+Learning rate: 0.9376
+Accuratezza della rete: 8.92%
+
+Configurazione: 1877
+
+Time: 12 sec
+Learning rate: 0.9381
+Accuratezza della rete: 8.92%
+
+Configurazione: 1878
+
+Time: 12 sec
+Learning rate: 0.9386
+Accuratezza della rete: 7.44%
+
+Configurazione: 1879
+
+Time: 12 sec
+Learning rate: 0.9391
+Accuratezza della rete: 8.92%
+
+Configurazione: 1880
+
+Time: 12 sec
+Learning rate: 0.9396
+Accuratezza della rete: 8.92%
+
+Configurazione: 1881
+
+Time: 12 sec
+Learning rate: 0.9401
+Accuratezza della rete: 10.28%
+
+Configurazione: 1882
+
+Time: 12 sec
+Learning rate: 0.9406
+Accuratezza della rete: 8.92%
+
+Configurazione: 1883
+
+Time: 12 sec
+Learning rate: 0.9411
+Accuratezza della rete: 10.09%
+
+Configurazione: 1884
+
+Time: 12 sec
+Learning rate: 0.9416
+Accuratezza della rete: 8.92%
+
+Configurazione: 1885
+
+Time: 12 sec
+Learning rate: 0.9421
+Accuratezza della rete: 10.09%
+
+Configurazione: 1886
+
+Time: 12 sec
+Learning rate: 0.9426
+Accuratezza della rete: 10.13%
+
+Configurazione: 1887
+
+Time: 12 sec
+Learning rate: 0.9431
+Accuratezza della rete: 8.92%
+
+Configurazione: 1888
+
+Time: 12 sec
+Learning rate: 0.9436
+Accuratezza della rete: 8.92%
+
+Configurazione: 1889
+
+Time: 12 sec
+Learning rate: 0.9441
+Accuratezza della rete: 8.92%
+
+Configurazione: 1890
+
+Time: 12 sec
+Learning rate: 0.9446
+Accuratezza della rete: 8.92%
+
+Configurazione: 1891
+
+Time: 12 sec
+Learning rate: 0.9451
+Accuratezza della rete: 9.8%
+
+Configurazione: 1892
+
+Time: 12 sec
+Learning rate: 0.9456
+Accuratezza della rete: 10.09%
+
+Configurazione: 1893
+
+Time: 12 sec
+Learning rate: 0.9461
+Accuratezza della rete: 8.92%
+
+Configurazione: 1894
+
+Time: 12 sec
+Learning rate: 0.9466
+Accuratezza della rete: 8.92%
+
+Configurazione: 1895
+
+Time: 12 sec
+Learning rate: 0.9471
+Accuratezza della rete: 10.25%
+
+Configurazione: 1896
+
+Time: 12 sec
+Learning rate: 0.9476
+Accuratezza della rete: 8.92%
+
+Configurazione: 1897
+
+Time: 12 sec
+Learning rate: 0.9481
+Accuratezza della rete: 9.74%
+
+Configurazione: 1898
+
+Time: 12 sec
+Learning rate: 0.9486
+Accuratezza della rete: 10.09%
+
+Configurazione: 1899
+
+Time: 12 sec
+Learning rate: 0.9491
+Accuratezza della rete: 10.28%
+
+Configurazione: 1900
+
+Time: 12 sec
+Learning rate: 0.9496
+Accuratezza della rete: 9.81%
+
+Configurazione: 1901
+
+Time: 12 sec
+Learning rate: 0.9501
+Accuratezza della rete: 8.92%
+
+Configurazione: 1902
+
+Time: 12 sec
+Learning rate: 0.9506
+Accuratezza della rete: 10.09%
+
+Configurazione: 1903
+
+Time: 12 sec
+Learning rate: 0.9511

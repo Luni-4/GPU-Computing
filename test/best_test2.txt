@@ -1,0 +1,5 @@
+Time: 12 sec
+Learning rate: 0.1996
+Accuratezza della rete: 84.93%
+
+

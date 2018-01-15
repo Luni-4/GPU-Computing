@@ -1,0 +1,80 @@
+Configurazione: 1
+
+Time: 56 sec
+Accuratezza della rete: 88.04%%
+
+Configurazione: 2
+
+Time: 56 sec
+Accuratezza della rete: 92.29%%
+
+Configurazione: 3
+
+Time: 56 sec
+Accuratezza della rete: 93.14%%
+
+Configurazione: 4
+
+Time: 56 sec
+Accuratezza della rete: 93.63%%
+
+Configurazione: 5
+
+Time: 56 sec
+Accuratezza della rete: 93.65%%
+
+Configurazione: 6
+
+Time: 56 sec
+Accuratezza della rete: 93.69%%
+
+Configurazione: 7
+
+Time: 56 sec
+Accuratezza della rete: 93.72%%
+
+Configurazione: 8
+
+Time: 56 sec
+Accuratezza della rete: 92.93%%
+
+Configurazione: 9
+
+Time: 56 sec
+Accuratezza della rete: 92.51%%
+
+Configurazione: 10
+
+Time: 56 sec
+Accuratezza della rete: 93.1%%
+
+Configurazione: 11
+
+Time: 56 sec
+Accuratezza della rete: 90.76%%
+
+Configurazione: 12
+
+Time: 56 sec
+Accuratezza della rete: 90.57%%
+
+Configurazione: 13
+
+Time: 56 sec
+Accuratezza della rete: 86.82%%
+
+Configurazione: 14
+
+Time: 56 sec
+Accuratezza della rete: 86.8%%
+
+Configurazione: 15
+
+Time: 56 sec
+Accuratezza della rete: 71.95%%
+
+Configurazione: 16
+
+Time: 56 sec
+Accuratezza della rete: 74.41%%
+
