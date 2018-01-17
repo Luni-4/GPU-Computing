@@ -6,9 +6,8 @@ GPU Computing
 1. [Informazioni](#1-informazioni)
 2. [Modalità di lavoro](#2-modalità-di-lavoro)
   1. [TODO](#21-todo)
-  2. [Processo di lavoro](#22-processo-di-lavoro)
-  3. [Divisione dei compiti](#23-divisione-dei-compiti)
-  4. [Link Utili](#24-link-utili)
+  2. [Divisione dei compiti](#22-divisione-dei-compiti)
+  3. [Link Utili](#23-link-utili)
 3. [Considerazioni](#3-considerazioni)
 
 
@@ -26,37 +25,30 @@ GPU Computing
 
 ## 2.1. TODO
 
-- Valutare la velocità delle rete neurale sequenziale contenuta nella directory sequential su diversi terminali
-- Riprodurre la stessa rete in CUDA e valutare se:
-    - Diminuisce il tempo di esecuzione, quindi si ottiene un notevole Speed-up
-    - Diminuisce l'errore della rete (molto improbabile in quanto dipende dal learning rate e da parametri sulla quale bisogna fare il tuning)
-- Produrre la documentazione necessaria da presentare (report, slide)
+- Effettuare più test sulla Educnn usando il livello di batch per confrontare le accuratezze a partire dagli stessi pesi iniziali
+- Effettuare dei test usando Cifar per valutare l'accuratezza ed i tempi computazionali ottenuti dalla nostra rete
+- Usare un approccio mini-batch per ridurre il tempo computazionale
+- Usare gli stream sulle fasi della rete e non su singole funzioni (caso convoluzionale, lanciare le convoluzioni di forward propagation di un livello
+in diversi stream)
+- Confrontare la nostra rete con un'altra rete implementata in CUDA e vedere se speedup ed accuratezza sono simili tra loro
+- Utilizzare algoritmi di convoluzioni per immagini trovati da Nicholas (bassa priorità, solo nel caso in cui tutti gli altri metodi fallissero)
+- Implementare gli stride per i livelli convoluzionali(facoltativo)
 
-## 2.2. Processo di lavoro
 
-- Parallelizzare il più possibile la rete, partendo dalla costruzione dei livelli e poi dalla loro composizione 
-- Analizzare i risultati ottenuti e successivamente fare il tuning dei parametri per vedere se si riescono ad ottenere risultati
-migliori (es. dimensione del blocco, uso di stream ecc...)
-- Produrre il report, slide ecc...
- 
-
-## 2.3. Divisione dei compiti
+## 2.2. Divisione dei compiti
 
 NICHOLAS:
 
-- Testare accuracy rete
-- Testare velocità rete
-- Inserire gli stream (facoltativo)
-- Possibile implementazione di stride (???)
-
+- Testare la EduCnn e la nostra rete con il livello di batch per vedere come cambiano i tempi di esecuzioni e l'accuratezza
+- Aggiungere gli Stream alle varie fasi del livello convoluzionale e non ai singoli kernel che compongono le fasi
 
 MICHELE:
 
-- Scrivere Documentazione
-- Testare Cifar su livelli FullyConnected
-- Aggiungere Streams (facoltativo)
+- Verificare perché con un unico livello fully-connected e pesi iniziali fissati la EduCNN e la nostra rete producono risultati diversi
+- Aggiungere alle varie fasi del livello fully-connected e non ai singoli kernel che compongono le fasi
+- Testare con Cifar la nostra rete
 
-## 2.4. Link Utili
+## 2.3. Link Utili
 
 - Creazione di reti neurali con NVidia: https://developer.nvidia.com/cudnn
 - Rete convoluzionale: https://en.wikipedia.org/wiki/Convolutional_neural_network#GPU_implementations
@@ -86,3 +78,8 @@ MICHELE:
 
 - La dnn **originale** risulta più veloce perché utilizza uno stride pari a 2 nei livelli convoluzionali e non usa le epoche
 - La educnn oltre ai livelli convoluzionali ha i livelli di max_pooling e di average_pooling
+- Definire un intervallo per il learning rate, ad esempio [0.001, 0.8], e campionarlo con diverse frequenze di campionamento (già fatto)
+- Testare i learning rate in maniera decrescente per vedere se l'accuratezza migliora al diminuire dei valori (aumento del tempo di esecuzione)
+- Partire con dei pesi iniziali bassi fissi, non generati casualmente, per poter confrontare le due reti senza dover dipendere dai diversi algoritmi
+per la generazione di numeri pseudo-casuali
+- Costruire una rete con tanti livelli convoluzionali e fully-connected
