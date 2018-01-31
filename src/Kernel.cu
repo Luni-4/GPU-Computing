@@ -5,7 +5,7 @@
 
 /*  INIZIALIZZAZIONE DEI PESI */
 
- __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *states) {
+__global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *states) {
 	// Gestione degli indici	
 	const unsigned int blockId = blockIdx.y * gridDim.x + blockIdx.x;
 	const unsigned int tid = blockId * blockDim.x + threadIdx.x;
@@ -23,12 +23,12 @@
 #ifdef TOYINPUT
 		weight[tid] = 1.0;
 #else
-		weight[tid] = 0.2 * r;
+		weight[tid] = 0.01 * r;
 	//weight[tid] = 0.1;
 #endif
 }
 
- __global__ void initBias(double *bias, const int node, curandStateXORWOW_t *states) {
+__global__ void initBias(double *bias, const int node, curandStateXORWOW_t *states) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -52,7 +52,7 @@
 
 /* CALCOLO DEL DELTA */
 
- __global__ void outputError(const double *output, double *error, const uint8_t *label, const int target, const int node) {
+__global__ void outputError(const double *output, double *error, const uint8_t *label, const int target, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -71,7 +71,7 @@
 /* FUNZIONI DI ATTIVAZIONE E RELATIVE DERIVATE */
 
 /* Funzione di attivazione del Relu e derivata */
- __global__ void actRelu(double *output, double *temp, const int node) {
+__global__ void actRelu(double *output, double *temp, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -81,7 +81,7 @@
 	}
 }
 
- __global__ void derivActRelu(double *error, double *temp, const int node) {
+__global__ void derivActRelu(double *error, double *temp, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -90,7 +90,7 @@
 }
 
 /* Funzione di attivazione del Sigmoide e derivata */
- __global__ void actSigmoid(double *output, const int node) {
+__global__ void actSigmoid(double *output, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -98,7 +98,7 @@
 		output[tid] = 1 / (1 + (exp((-output[tid]))));
 }
 
- __global__ void derivActSigmoid(const double *output, double *error, const int node) {
+__global__ void derivActSigmoid(const double *output, double *error, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -111,7 +111,7 @@
 }
 
 /* Funzione di attivazione della Tanh e derivata */
- __global__ void actTanh(double *output, const int node) {
+__global__ void actTanh(double *output, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -119,7 +119,7 @@
 		output[tid] = tanh(output[tid]);
 }
 
- __global__ void derivActTanh(const double *output, double *error, const int node) {
+__global__ void derivActTanh(const double *output, double *error, const int node) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -129,7 +129,7 @@
 
 /* AGGIORNAMENTO DEI PESI FULLY CONNECTED*/
 
- __global__ void errorPrevOutput(double *temp, const double *prevOutput, const double *error, const int node, const int prevDim) {
+__global__ void errorPrevOutput(double *temp, const double *prevOutput, const double *error, const int node, const int prevDim) {
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -142,7 +142,7 @@
 
 /* METODI CONVOLUZIONALE */
 
- __global__ void createSubmatrixBis(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+__global__ void createSubmatrixBis(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
 	// es 24x24 * 1 sottomatrici di 5x5 (ho input di 28x28) 
 	// lancio thread di grandezza 5x5 e blocchi di grandezza 24x24
 	// tid va da 0 a 24*24*5*5 = 14400
@@ -166,7 +166,7 @@
 	sub[tid] = prevOutput[pTid];
 }
 
- __global__ void createSubmatrix(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+__global__ void createSubmatrix(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
 	// es 20x20 * 2 sottomatrici di 5x5 (ho due input di 24x24) 
 	// lancio thread di grandezza 2 e blocchi di grandezza 20x20
 	// tid va da 0 a 20*20*2 = 800
@@ -191,7 +191,7 @@
 	}
 }
 
- __global__ void zeroPaddingBis(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+__global__ void zeroPaddingBis(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
 	//threadIdx.y rappresenta la riga 
 	//threadIdx.x rappresenta la colonna
 	const unsigned int paddingLeft = forwardFilterWidth - 1;
@@ -204,7 +204,7 @@
 	error[tid] = forwardError[pTid];
 }
 
- __global__ void zeroPadding(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
+__global__ void zeroPadding(double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
 	//blockIdx.y rappresenta la riga 
 	const unsigned int paddingLeft = forwardFilterWidth - 1;
 	const unsigned int widthWithPadding = forwardErrorWidth + (paddingLeft * 2);
@@ -214,7 +214,7 @@
 }
 
 
- __global__ void rot180Bis(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+__global__ void rot180Bis(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
 	// es 2 filtri di 5x5
 	// per ora lancio thread di grandezza 2 e blocchi di grandezza 5x5
 	// tid va da 0 a 5*5*2 = 50
@@ -232,7 +232,7 @@
 	forwardWeightRot[tid] = forwardWeight[plus - blockId];
 }
 
- __global__ void rot180(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
+__global__ void rot180(const double * forwardWeight, double * forwardWeightRot, int filterDim) {
 	// es 2 filtri di 5x5
 	// per ora lancio thread di grandezza 2 e blocchi di grandezza 5x5
 	// tid va da 0 a 5*5*2 = 50

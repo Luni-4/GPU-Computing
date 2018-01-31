@@ -23,7 +23,7 @@
 \usepackage{dsfont}
 
 % Consente di impostare le virgolette del discorso diretto
-\usepackage{dirtytalk}
+%\usepackage{dirtytalk}
 
 % Consente di impostare i commenti multiline
 \usepackage{verbatim}
@@ -63,7 +63,7 @@
 
 % Definizione degli autori
 \author {
-            \hspace*{0.01em}{\Large Michele Valsesia}
+            \hspace*{0.01em}{\Large Nicholas Aspes}
             %\texorpdfstring{\hspace*{0.01em}{\Large Michele Valsesia}}{Michele Valsesia} 
             %\texorpdfstring{\\ \bigskip}{e}
             %\texorpdfstring{\hspace*{0.3em}{\Large Nicholas Aspes }}{Nicholas Aspes}
@@ -1231,6 +1231,27 @@
     \end{itemize}     
 \end{frame}
 
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Analisi}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Nello specifico, gli algoritmi per la generazione di numeri casuali utilizzati nei due progetti sono: xorsfhit128 per EduCNN e xorwow per la rete CUDA.
+        \item \large Lo xorsfhit rappresenta una classe di generatore di numeri pseudocasuali che utilizza un sottoinsieme di operazioni linear-feedback shift register (LFSRs): esegue uno shift sui registri usando come input una funzione lineare o lo stato precedente.
+        \item \large L'utilizzo di LFSRs permette una implementazione efficiente senza un utilizzo eccessivo di polinomi sparsi. Essi generano il numero successivo della sequenza prendendo ripetutamente lo xor esclusivo di un numero con una versione bit-shifted di se stesso.
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Analisi}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large I generatori xorshift sono tra i più veloci non-cryptographically-secure generatori di numeri casuali, ma non passano ogni test statistico senza ulteriori raffinamenti. Per rimediare a questo problema è sufficiente combinare l'algoritmo con una funzione non lineare e risultando nei generatori xorwow, xorshift+ o xorshift*.
+        \item \large Lo xorsfhit128 implementato nella EduCNN è la versione base dell'algoritmo: utilizza 4 stati e produce una sequenza di $2_{}^{128}-1$
+        \item \large Lo xorwow comporta invece una piccola modifica alla sequenza realizzata aggiungendo un contatore modulo $2_{}^{32}$, producendo quindi una sequenza di $2_{}^{192}-2_{}^{32}$.
+    \end{itemize}     
+\end{frame}
 
 \begin{frame}[c]
   \centering
