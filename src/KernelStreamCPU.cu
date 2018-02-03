@@ -113,20 +113,14 @@ void KernelStream::errorPrevOutputK(dim3 b, dim3 t, const cudaStream_t *streams,
 
 /* METODI CONVOLUZIONALE */
 
-void KernelStream::createSubmatrixBisK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+void KernelStream::createSubmatrixBisK(dim3 b, dim3 t, const cudaStream_t *streams, const int &nStreams, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+	for (int i = 0; i < nStreams; i++) {
 #ifdef _WIN32
-	createSubmatrixBis NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+		createSubmatrixBis NvCUDA4(b, t, 0, streams[i])  (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
 #else
-	createSubmatrixBis << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
+		createSubmatrixBis << <b, t, 0, streams[i] >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
 #endif
-}
-
-void KernelStream::createSubmatrixK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
-#ifdef _WIN32
-	createSubmatrix NvCUDA2(b, t) (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
-#else
-	createSubmatrix << <b, t >> > (sub, prevOutput, prevLayerWidth, filterWidth, stride, uniqueNodes);
-#endif
+	}
 }
 
 void KernelStream::zeroPaddingBisK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
@@ -137,26 +131,10 @@ void KernelStream::zeroPaddingBisK(dim3 b, dim3 t, double * error, const double 
 #endif
 }
 
-void KernelStream::zeroPaddingK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth) {
-#ifdef _WIN32
-	zeroPadding NvCUDA2(b, t) (error, forwardError, forwardErrorWidth, forwardFilterWidth);
-#else
-	zeroPadding << <b, t >> > (error, forwardError, forwardErrorWidth, forwardFilterWidth);
-#endif
-}
-
 void KernelStream::rot180BisK(dim3 b, dim3 t, const double * forwardWeight, double * forwardWeightRot, int filterDim) {
 #ifdef _WIN32
 	rot180Bis NvCUDA2(b, t) (forwardWeight, forwardWeightRot, filterDim);
 #else
 	rot180Bis << <b, t >> > (forwardWeight, forwardWeightRot, filterDim);
-#endif
-}
-
-void KernelStream::rot180K(dim3 b, dim3 t, const double * forwardWeight, double * forwardWeightRot, int filterDim) {
-#ifdef _WIN32
-	rot180 NvCUDA2(b, t) (forwardWeight, forwardWeightRot, filterDim);
-#else
-	rot180 << <b, t >> > (forwardWeight, forwardWeightRot, filterDim);
 #endif
 }

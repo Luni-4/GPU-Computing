@@ -36,7 +36,6 @@ private:
 	void updateWeights(const double *prevOutput, const double &learningRate);
 	void calcBackPropagation(const double *prevOutput, const double &learningRate);
 	int _calcOutput(bool withPadding);
-	inline void initStreams(void);
 
 private:
 	int _wDim;
@@ -46,13 +45,6 @@ private:
 	int _prevLayerWidth;
 	int _prevLayerDepth;
 	int _alignedNodes;
-
-	int _nStreams;
-	int _nStreamsBack;
-	int _matrix;
-	int _alignedMatrixKernel;
-	int _alignedMatrix;
-	int _alignedMatrixBack;
 
 	//Fattori dei prodotti
 	const double alpha = 1.0f;
@@ -82,9 +74,5 @@ private:
 
 	// Handle per cuBlas
 	cublasHandle_t handle;
-
-	// Array di streams
-	cudaStream_t *streams;
-	cudaStream_t *streamsBack;
 };
 

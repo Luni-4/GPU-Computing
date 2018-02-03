@@ -6,8 +6,7 @@
 #include "Common.h"
 
 // Cuda Kernel
-#include "KernelCPU.h"
-#include "KernelStreamCPU.h"
+#include "KernelStreamBisCPU.h"
 
 #include "ConvolutionalStream.h"
 
@@ -56,28 +55,14 @@ void ConvolutionalStream::defineCuda(const int &prevLayerWidth, const int &prevL
 	_height = _calcOutput(false);
 	//depth = numero di filtri
 
-	_uniqueNodes = _width * _height;
 	this->_nodes = _width * _height * _depth;
+	_alignedNodes = ALIGN_UP(_nodes, THREADS);
+
+	_uniqueNodes = _width * _height;
 
 #ifdef DEBUG
 	std::cout << "dimensioni output del livello: " << _width << " - " << _height << " - " << _depth << std::endl;
 #endif
-
-	initStreams();
-
-	// Creazione degli stream
-	streams = (cudaStream_t *)malloc(_nStreams * sizeof(cudaStream_t));
-
-	for (int i = 0; i < _nStreams; i++) {
-		CHECK(cudaStreamCreate(&(streams[i])));
-	}
-
-	// Creazione degli stream
-	streamsBack = (cudaStream_t *)malloc(_nStreamsBack * sizeof(cudaStream_t));
-
-	for (int i = 0; i < _nStreamsBack; i++) {
-		CHECK(cudaStreamCreate(&(streamsBack[i])));
-	}
 
 	//Creare l'handle di cuBLAS
 	CHECK_CUBLAS(cublasCreate(&handle));
@@ -155,10 +140,10 @@ void ConvolutionalStream::defineCuda(const int &prevLayerWidth, const int &prevL
 	CHECK(cudaMalloc((void **)&devStates, numRand * sizeof(curandStateXORWOW_t)));
 
 	// Inizializzare i weight del livello
-	Kernel::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
+	KernelStreamBis::initWeightK(numBlocks, threadBlocks, weight, _wDim, devStates);
 
 	// Inizializzare i bias del livello
-	Kernel::initBiasK((_alignedNodes / THREADS), THREADS, bias, _nodes, devStates);
+	KernelStreamBis::initBiasK((_alignedNodes / THREADS), THREADS, bias, _nodes, devStates);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -175,7 +160,7 @@ void ConvolutionalStream::defineCuda(const int &prevLayerWidth, const int &prevL
 	// Tanti blocchi quante sono le righe e le colonne di forwardError
 	numBlocks = dim3(_filterWidth, _filterWidth, 1);
 
-	Kernel::rot180BisK(numBlocks, threadBlocks, weight, weightRot, _filterDim);
+	KernelStreamBis::rot180BisK(numBlocks, threadBlocks, weight, weightRot, _filterDim);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -201,7 +186,7 @@ void ConvolutionalStream::forward_propagation(const double * prevOutput) {
 	// Tanti blocchi quanti sono i nodi in output e il depth del livello precedente
 	dim3 numBlocks(_width, _height, _prevLayerDepth);
 
-	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, subForward, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
+	KernelStreamBis::createSubmatrixBisK(numBlocks, threadBlocks, subForward, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
@@ -212,16 +197,7 @@ void ConvolutionalStream::forward_propagation(const double * prevOutput) {
 	//ora sono in una situazione simile al fully connected
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-#ifdef CUBLAS_STREAM
-			for (int k = 0; k < _nStreams; k++) {
-				int indexW = k * _alignedMatrix * _filterDim;
-				int indexO = k * _alignedMatrix;
-				CHECK_CUBLAS(cublasSetStream(handle, streams[k]));
-				CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _alignedMatrix, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _alignedMatrix, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim) + indexW, 1, &beta, output + (i * _uniqueNodes) + indexO, 1));
-			}
-#else
 			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
-#endif 
 		}
 	}
 
@@ -235,7 +211,7 @@ void ConvolutionalStream::forward_propagation(const double * prevOutput) {
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
 	//CHECK_CUBLAS(
-		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));
+	//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));
 
 #ifdef DEBUG
 	std::cout << "\n\nValore output prima di funzione di attivazione\n\n";
@@ -243,21 +219,12 @@ void ConvolutionalStream::forward_propagation(const double * prevOutput) {
 #endif
 
 	// Applicare funzione di attivazione
-#ifdef STREAM
 	if (_a == RELU)
-		KernelStream::actReluK(1, _alignedMatrixKernel, streamsBack, _nStreamsBack, output, tempOutput, _nodes);
+		KernelStreamBis::actReluK((_alignedNodes / THREADS), THREADS, output, tempOutput, _nodes);
 	else if (_a == SIGMOID)
-		KernelStream::actSigmoidK(1, _alignedMatrixKernel, streamsBack, _nStreamsBack, output, _nodes);
+		KernelStreamBis::actSigmoidK((_alignedNodes / THREADS), THREADS, output, _nodes);
 	else if (_a == TANH)
-		KernelStream::actTanhK(1, _alignedMatrixKernel, streamsBack, _nStreamsBack, output, _nodes);
-#else
-	if (_a == RELU)
-		Kernel::actReluK((_alignedNodes / THREADS), THREADS, output, tempOutput, _nodes);
-	else if (_a == SIGMOID)
-		Kernel::actSigmoidK((_alignedNodes / THREADS), THREADS, output, _nodes);
-	else if (_a == TANH)
-		Kernel::actTanhK((_alignedNodes / THREADS), THREADS, output, _nodes);
-#endif
+		KernelStreamBis::actTanhK((_alignedNodes / THREADS), THREADS, output, _nodes);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -283,7 +250,7 @@ void ConvolutionalStream::calcError(double *prevError, const int &prevNodes) {
 	// Tanti blocchi quanto il numero di filtri
 	dim3 numBlocks(1, 1, _depth);
 
-	Kernel::zeroPaddingBisK(numBlocks, threadBlocks, padding, error, _width, _filterWidth);
+	KernelStreamBis::zeroPaddingBisK(numBlocks, threadBlocks, padding, error, _width, _filterWidth);
 
 #ifdef DEBUG
 	std::cout << "\n\nerror con zero padding\n\n";
@@ -299,7 +266,7 @@ void ConvolutionalStream::calcError(double *prevError, const int &prevNodes) {
 	// Tanti blocchi quanti sono i nodi in input e il depth del livello precedente
 	numBlocks = dim3(sqrt(prevUniqueNodes), sqrt(prevUniqueNodes), _prevLayerDepth);
 
-	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, subCalcError, padding, paddingWidth, _filterWidth, _stride, prevUniqueNodes);
+	KernelStreamBis::createSubmatrixBisK(numBlocks, threadBlocks, subCalcError, padding, paddingWidth, _filterWidth, _stride, prevUniqueNodes);
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
@@ -310,16 +277,7 @@ void ConvolutionalStream::calcError(double *prevError, const int &prevNodes) {
 	//ora sono in una situazione simile alla convoluzione
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-#ifdef CUBLAS_STREAM
-			for (int k = 0; k < _nStreams; k++) {
-				int indexW = k * _alignedMatrix * _filterDim;
-				int indexO = k * _alignedMatrix;
-				CHECK_CUBLAS(cublasSetStream(handle, streams[k]));
-				CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _alignedMatrix, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _alignedMatrix, weightRot + ((i + j * _depth) * _filterDim) + indexW, 1, &beta, prevError + (j * prevUniqueNodes) + indexO, 1));
-			}
-#else
 			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
-#endif 
 		}
 	}
 
@@ -338,7 +296,7 @@ void ConvolutionalStream::back_propagation(const double *prevOutput, const doubl
 
 void ConvolutionalStream::back_propagation_output(const double * prevOutput, const uint8_t * labels, const int & target, const double & learningRate) {
 	// Calcolo dell'errore per ogni nodo
-	Kernel::outputErrorK((_alignedNodes / THREADS), THREADS, output, error, labels, target, _nodes);
+	KernelStreamBis::outputErrorK((_alignedNodes / THREADS), THREADS, output, error, labels, target, _nodes);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -358,7 +316,7 @@ void ConvolutionalStream::calcBackPropagation(const double *prevOutput, const do
 	// Tanti blocchi quante sono le righe e le colonne di error
 	dim3 numBlocks(_width, _height, 1);
 
-	Kernel::rot180BisK(numBlocks, threadBlocks, error, errorRot, _uniqueNodes);
+	KernelStreamBis::rot180BisK(numBlocks, threadBlocks, error, errorRot, _uniqueNodes);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -367,22 +325,12 @@ void ConvolutionalStream::calcBackPropagation(const double *prevOutput, const do
 #endif
 
 	// Applicare derivata della funzione di attivazione
-#ifdef STREAM
 	if (_a == RELU)
-		KernelStream::derivActReluK(1, _alignedMatrixKernel, streamsBack, _nStreamsBack, errorRot, tempOutput, _nodes);
+		KernelStreamBis::derivActReluK((_alignedNodes / THREADS), THREADS, errorRot, tempOutput, _nodes);
 	else if (_a == SIGMOID)
-		KernelStream::derivActSigmoidK(1, _alignedMatrixKernel, streamsBack, _nStreamsBack, output, errorRot, _nodes);
+		KernelStreamBis::derivActSigmoidK((_alignedNodes / THREADS), THREADS, output, errorRot, _nodes);
 	else if (_a == TANH)
-		KernelStream::derivActTanhK(1, _alignedMatrixKernel, streamsBack, _nStreamsBack, output, errorRot, _nodes);
-#else
-	if (_a == RELU)
-		Kernel::derivActReluK((_alignedNodes / THREADS), THREADS, errorRot, tempOutput, _nodes);
-	else if (_a == SIGMOID)
-		Kernel::derivActSigmoidK((_alignedNodes / THREADS), THREADS, output, errorRot, _nodes);
-	else if (_a == TANH)
-		Kernel::derivActTanhK((_alignedNodes / THREADS), THREADS, output, errorRot, _nodes);
-#endif
-
+		KernelStreamBis::derivActTanhK((_alignedNodes / THREADS), THREADS, output, errorRot, _nodes);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -401,7 +349,7 @@ void ConvolutionalStream::updateWeights(const double *prevOutput, const double &
 	// Tanti blocchi quanti la grandezza dei filtri e il depth del livello precedente
 	dim3 numBlocks(_filterWidth, _filterWidth, _prevLayerDepth);
 
-	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, subBack, prevOutput, _prevLayerWidth, _width, _stride, _filterDim);
+	KernelStreamBis::createSubmatrixBisK(numBlocks, threadBlocks, subBack, prevOutput, _prevLayerWidth, _width, _stride, _filterDim);
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
@@ -413,18 +361,10 @@ void ConvolutionalStream::updateWeights(const double *prevOutput, const double &
 	CHECK(cudaMemset(tempWeight, 0, _wBytes));
 
 	//ora sono in una situazione simile al fully connected
+	//double backAlpha = 1.0 / _uniqueNodes;
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-#ifdef CUBLAS_STREAM
-			for (int k = 0; k < _nStreamsBack; k++) {
-				int indexW = k * _alignedMatrixBack* _uniqueNodes;
-				int indexO = k * _alignedMatrixBack;
-				CHECK_CUBLAS(cublasSetStream(handle, streams[k]));
-				CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _alignedMatrixBack, _filterDim, &alpha, subBack + (j * _filterDim), _alignedMatrixBack, errorRot + (i * _uniqueNodes) + indexW, 1, &beta, tempWeight + ((i + j * _depth) * _filterDim) + indexO, 1));
-			}
-#else
 			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &alpha, subBack + (j * _filterDim), _uniqueNodes, errorRot + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
-#endif
 		}
 	}
 
@@ -438,7 +378,7 @@ void ConvolutionalStream::updateWeights(const double *prevOutput, const double &
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _wDim, &learningRate, tempWeight, 1, weight, 1));
 	//CHECK_CUBLAS(
-		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _wDim, _depth, &learningRate, tempWeight, _wDim, &alpha, weight, _wDim, weight, _wDim));
+	//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _wDim, _depth, &learningRate, tempWeight, _wDim, &alpha, weight, _wDim, weight, _wDim));
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -453,7 +393,7 @@ void ConvolutionalStream::updateWeights(const double *prevOutput, const double &
 	// Tanti blocchi quante sono le righe e le colonne di forwardError
 	numBlocks = dim3(_filterWidth, _filterWidth, 1);
 
-	Kernel::rot180BisK(numBlocks, threadBlocks, weight, weightRot, _filterDim);
+	KernelStreamBis::rot180BisK(numBlocks, threadBlocks, weight, weightRot, _filterDim);
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -465,7 +405,7 @@ void ConvolutionalStream::updateWeights(const double *prevOutput, const double &
 	CHECK_CUBLAS(
 		cublasDaxpy(handle, _nodes, &learningRate, errorRot, 1, bias, 1));
 	//CHECK_CUBLAS(
-		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, errorRot, 1, &alpha, bias, 1, bias, 1));
+	//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, errorRot, 1, &alpha, bias, 1, bias, 1));
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
@@ -473,6 +413,27 @@ void ConvolutionalStream::updateWeights(const double *prevOutput, const double &
 	printFromCudaFormatted(bias, _nodes, _width);
 #endif
 
+}
+
+void ConvolutionalStream::deleteCuda() {
+	CHECK_CUBLAS(cublasDestroy(handle));
+	CHECK(cudaFree(weight));
+	CHECK(cudaFree(weightRot));
+	CHECK(cudaFree(bias));
+	CHECK(cudaFree(output));
+	CHECK(cudaFree(error));
+	CHECK(cudaFree(errorRot));
+	CHECK(cudaFree(tempWeight));
+	CHECK(cudaFree(tempOutput));
+	CHECK(cudaFree(subForward));
+	CHECK(cudaFree(subCalcError));
+	CHECK(cudaFree(subBack));
+	CHECK(cudaFree(padding));
+}
+
+void ConvolutionalStream::printW() {
+	printFromCudaFormatted(weight, _wDim, _filterWidth);
+	//printFromCudaFormatted(bias, _nodes, _width);
 }
 
 int ConvolutionalStream::_calcOutput(bool withPadding) {
@@ -492,48 +453,24 @@ int ConvolutionalStream::_calcOutput(bool withPadding) {
 }
 
 
-inline void ConvolutionalStream::initStreams(void) {
-	this->_alignedNodes = ALIGN_UP(_nodes, THREADS);
+/*
+ESEMPIO DIFFERENZA UTILIZZO METODI BIS E NON:
 
-	// Numero degli stream
-	this->_nStreams = 5;
-	this->_nStreamsBack = 4;
+// Blocchi bidimensionali contenenti tanti thread quanti il depth del livello precedente
+dim3 threadBlocks(_prevLayerDepth, 1, 1);
 
+// Tanti blocchi quanti sono i nodi in output (width * height), in questo modo nel kernel sfrutto gli id per righe e colonne delle submatrici
+dim3 numBlocks(_width, _height, 1);
 
-	// Numero di elementi che uno stream deve elaborare
-	this->_alignedMatrix = _filterDim / _nStreams;
-	this->_alignedMatrixBack = _uniqueNodes / _nStreamsBack;
-	this->_alignedMatrixKernel = _nodes / _nStreamsBack;
+Kernel::createSubmatrixK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
 
-	std::cout << _filterDim << "/" << _nStreams << "=>" << _alignedMatrix << " ";
-	std::cout << _uniqueNodes << "/" << _nStreamsBack << "=>" << _alignedMatrixBack << " ";
-	std::cout << _nodes << "/" << _nStreamsBack << "=>" << _alignedMatrixKernel << std::endl;
-}
+**************************************
 
-void ConvolutionalStream::deleteCuda() {
-	CHECK_CUBLAS(cublasDestroy(handle));
+// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
+dim3 threadBlocks(_filterWidth, _filterWidth, 1);
 
-	for (int i = 0; i < _nStreams; i++) {
-		CHECK(cudaStreamDestroy(streams[i]));
-	}
+// Tanti blocchi quanti sono i nodi in output e il depth del livello precedente
+dim3 numBlocks(_width, _height, _prevLayerDepth);
 
-	CHECK(cudaFree(weight));
-	CHECK(cudaFree(weightRot));
-	CHECK(cudaFree(bias));
-	CHECK(cudaFree(output));
-	CHECK(cudaFree(error));
-	CHECK(cudaFree(errorRot));
-	CHECK(cudaFree(tempWeight));
-	CHECK(cudaFree(tempOutput));
-	CHECK(cudaFree(subForward));
-	CHECK(cudaFree(subCalcError));
-	CHECK(cudaFree(subBack));
-	CHECK(cudaFree(padding));
-
-	free(streams);
-}
-
-void ConvolutionalStream::printW() {
-	printFromCudaFormatted(weight, _wDim, _filterWidth);
-	//printFromCudaFormatted(bias, _nodes, _width);
-}
+Kernel::createSubmatrixBisK(numBlocks, threadBlocks, sub, prevOutput, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
+*/
