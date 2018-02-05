@@ -10,7 +10,7 @@
 #include "FullyConnected.h"
 #include "FullyConnectedStream.h"
 #include "Convolutional.h"
-#include "ConvolutionalStream.h"
+#include "ConvolutionalStreams.h"
 #include "Batch.h"
 #include "Network.h"
 
@@ -56,8 +56,8 @@ int main() {
 	//layers.emplace_back(new Convolutional(4, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	layers.emplace_back(new ConvolutionalStream(5, 1, 1, SIGMOID));
-	layers.emplace_back(new ConvolutionalStream(5, 1, 1, SIGMOID));
+	layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
+	layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Batch(5, 1, 1));
 	//layers.emplace_back(new Batch(5, 1, 1));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
