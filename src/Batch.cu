@@ -311,9 +311,6 @@ void Batch::updateWeights(const double *prevOutput, const double &learningRate) 
 	printFromCudaFormatted(subBack, _uniqueNodes * _filterDim, _width);
 #endif
 
-	// Riempire la matrice temporanea di 0
-	CHECK(cudaMemset(tempWeight, 0, _wBytes));
-
 	//ora sono in una situazione simile al fully connected
 	double backAlpha = 1.0 / _uniqueNodes;
 	for (int i = 0; i < _depth; i++) {

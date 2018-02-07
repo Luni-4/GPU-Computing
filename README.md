@@ -23,13 +23,27 @@ GPU Computing
 
 # 2. Modalità di lavoro
 
-## 2.1. TODO
+## 2.1 TODO
+### 2.1.1 TODO MIGLIORAMENTI
 
-- Effettuare più test sulla Educnn usando il livello di batch per confrontare le accuratezze a partire dagli stessi pesi iniziali
-- Effettuare dei test usando Cifar per valutare l'accuratezza ed i tempi computazionali ottenuti dalla nostra rete
+- (FATTO) Usare gli stream sulle fasi della rete e non su singole funzioni (caso convoluzionale, lanciare le convoluzioni di forward propagation di un livello in diversi stream) => non porta ad uno speedup in quanto i dati sono tutti in memoria gpu e i kernel così suddivisi impiegano troppo poco tempo per portare ad un vantaggio.
+- (FATTO) guardare l'occupancy e se migliorandola può portare a dei miglioramenti.
+- (FATTO) implementare i livelli batch veri e propri => sono un metodo diverso di fare la convoluzione ma non aumenta la parallelizzazione e quindi non ci porta un vantaggio nell'implementarla.
+- provare ad utilizzare i metodi batched di cublas nella convoluzione
+- provare a ripensare l'algoritmo della convoluzione
+- provare ad utilizzare la libreria di cuda per le reti neurali, CUDNN, in modo integrale o su solo una parte del nostro progetto.
+- implementare le epoche.
+
+### 2.1.2 TODO TEST
+- Provare ad utilizzare lo stesso tipo di random su entrambe le reti, nei test successivi comunque utilizzare dei pesi fissi.
+- Effettuare più test sulla Educnn usando il livello di batch per confrontare le accuratezze a partire dagli stessi pesi iniziali.
+- Effettuare dei test usando Cifar per valutare l'accuratezza ed i tempi computazionali ottenuti dalla nostra rete.
+- Creare una rete grossa, composta da più livelli e più profondità, e con le epoche e utilizzarla col MNIST per fare un confronto con la educnn. NB: se i pesi iniziali sono gli stessi e usiamo il livello chiamato "batch", il miglior learning rate dovrebbe essere lo stesso per entrambe le reti.
+- Usare la rete precedente su CIFAR e raccogliere dati per il prof senza poter fare un confronto.
+
+### 2.1.3 TODO ALTRO
+
 - Usare un approccio mini-batch per ridurre il tempo computazionale
-- Usare gli stream sulle fasi della rete e non su singole funzioni (caso convoluzionale, lanciare le convoluzioni di forward propagation di un livello
-in diversi stream)
 - Confrontare la nostra rete con un'altra rete implementata in CUDA e vedere se speedup ed accuratezza sono simili tra loro
 - Utilizzare algoritmi di convoluzioni per immagini trovati da Nicholas (bassa priorità, solo nel caso in cui tutti gli altri metodi fallissero)
 - Implementare gli stride per i livelli convoluzionali(facoltativo)
