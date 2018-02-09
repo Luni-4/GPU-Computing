@@ -197,6 +197,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	//ora sono in una situazione simile al fully connected
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
+			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, _uniqueNodes, 1, _filterDim, &alpha, subForward + (j * _uniqueNodes), _uniqueNodes, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), _filterDim, &beta, output + (i * _uniqueNodes), _uniqueNodes));
 			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
 		}
 	}
