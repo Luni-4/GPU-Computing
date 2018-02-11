@@ -33,6 +33,8 @@ namespace Kernel {
 
 	/*METODI CONVOLUZIONALE*/
 	void createSubmatrixBisK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes);
+	void createSubmatrixProductK(dim3 b, dim3 t, double * sub, const double * prevOutput, const double * weightRot, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes);
+	void outputFromSubK(dim3 numBlocks, dim3 threadBlocks, double * output, double * sub, int filterDim);
 	void createSubmatrixK(dim3 b, dim3 t, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes);
 	void zeroPaddingBisK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth);
 	void zeroPaddingK(dim3 b, dim3 t, double * error, const double * forwardError, const int forwardErrorWidth, const int forwardFilterWidth);

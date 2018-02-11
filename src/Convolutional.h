@@ -74,5 +74,8 @@ private:
 
 	// Handle per cuBlas
 	cublasHandle_t handle;
+
+	cudaStream_t *streams;
+
 };
 

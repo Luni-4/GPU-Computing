@@ -248,7 +248,8 @@ void ConvolutionalStreams::forward_propagation_streams(const double * prevOutput
 	CHECK_CUBLAS(cublasSetStream(handle, stream));
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, (_uniqueNodes / _nStreams), &alpha, subForward + (j * _uniqueNodes) + subForwardPlus, _filterDim, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes) + outputPlus, 1));
+			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, (_uniqueNodes / _nStreams), _filterDim, &alpha, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes) + subForwardPlus, _filterDim, &beta, output + (i * _uniqueNodes) + outputPlus, 1));
+			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, (_uniqueNodes / _nStreams), &alpha, subForward + (j * _uniqueNodes) + subForwardPlus, _filterDim, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes) + outputPlus, 1));
 		}
 	}
 

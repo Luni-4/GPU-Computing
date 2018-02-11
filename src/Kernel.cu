@@ -166,6 +166,44 @@ __global__ void createSubmatrixBis(double * sub, const double * prevOutput, cons
 	sub[tid] = prevOutput[pTid];
 }
 
+__global__ void createSubmatrixProduct(double * sub, const double * prevOutput, const double * weightRot, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
+	// es 24x24 * 1 sottomatrici di 5x5 (ho input di 28x28) 
+	// lancio thread di grandezza 5x5 e blocchi di grandezza 24x24
+	// tid va da 0 a 24*24*5*5 = 14400
+	// blockIdx.x e blockIdx.y rappresentano la sottomatrice
+	// blockIdx.z rappresenta la profondità del livello precedente
+	// blockDim.x è il numero di thread nel blocco in orizzontale, 5
+	// gridDim.x è il numero di blocchi, 24
+	// ad ogni tid corrisponde una posizione dell'input, pTid
+	//printf("tid %d, blockId %d, blockIdx.x %d, blockIdx.y %d, gridDim.x %d\n", tid, blockId, blockIdx.x, blockIdx.y, gridDim.x);
+
+	const unsigned int gDim = (gridDim.x * gridDim.y);
+	const unsigned int bDim = (blockDim.x * blockDim.y);
+	const unsigned int depth = blockIdx.z * gDim * bDim;
+	const unsigned int blockId = depth + (blockIdx.y * gridDim.x + blockIdx.x) * bDim;
+	const unsigned int tid = blockId + threadIdx.y * blockDim.x + threadIdx.x;
+
+	const unsigned int pDepth = blockIdx.z * prevLayerWidth * prevLayerWidth;
+	const unsigned int pBlockId = pDepth + (blockIdx.y * stride) * prevLayerWidth + blockIdx.x * stride;
+	const unsigned int pTid = pBlockId + threadIdx.y * prevLayerWidth + threadIdx.x;
+
+	const unsigned int wTid = blockDim.x * threadIdx.y + threadIdx.x;
+
+	sub[tid] = prevOutput[pTid] * weightRot[wTid];
+}
+
+__global__ void outputFromSub(double * output, double * sub, int filterDim) {
+	const unsigned int wTid = blockDim.x * threadIdx.y + threadIdx.x;
+	const unsigned int sTid = wTid * filterDim;
+
+	double result = 0;
+	for (int i = 0; i < filterDim; i++) {
+		result += sub[sTid + i];
+	}
+
+	output[wTid] = result;
+}
+
 __global__ void createSubmatrix(double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes) {
 	// es 20x20 * 2 sottomatrici di 5x5 (ho due input di 24x24) 
 	// lancio thread di grandezza 2 e blocchi di grandezza 20x20
