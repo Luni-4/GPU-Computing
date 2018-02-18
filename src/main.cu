@@ -58,11 +58,11 @@ int main() {
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
-	int depth = 4;
+	int depth = 1;
 	layers.emplace_back(new Batch(5, depth, 1));
 	layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, 4, 1));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
 	//layers.emplace_back(new FullyConnected(300, SIGMOID));
