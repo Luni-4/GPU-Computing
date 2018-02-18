@@ -1,0 +1,30 @@
+confronto CUDA (nostra rete) con EDUCNN, impostando i pesi fissi a 0.13, learning rate a 1 e disattivando il bias e utilizzando il livello chiamato "bias" in modo tale da avere due reti che restituiscono lo stesso identico risultato e con l'obiettivo di valutare unicamente le tempistiche con diverse strutture della rete.
+
+									|		CUDA		|		EDUCNN		| 	(accuratezza)
+									|					|					|
+2 conv (5*5*1) + 1 fully			|		29s			|		38s			|	9.8%
+									|					|					|
+2 conv (5*5*2) + 1 fully			|		43s			|		106s		|	9.8%
+									|					|					|
+2 conv (5*5*3) + 1 fully			|		63s			|		203s		|	9.8%
+									|					|					|
+2 conv (5*5*4) + 1 fully			|		88s			|		325s		|	9.8%
+									|					|					|
+									|					|					|
+3 conv (5*5*1) + 1 fully			|		34s			|		48s			|	9.8%
+									|					|					|
+3 conv (5*5*2) + 1 fully			|		56s			|		141s		|	9.8%
+									|					|					|
+3 conv (5*5*3) + 1 fully			|		86s			|		288s		|	9.8%
+									|					|					|
+3 conv (5*5*4) + 1 fully			|		129s		|		485s		|	9.8%
+									|					|					|
+									|					|					|
+4 conv (5*5*1) + 1 fully			|		37s			|		52s			|	9.8%
+									|					|					|
+4 conv (5*5*2) + 1 fully			|		65s			|		165s		|	9.8%
+									|					|					|
+4 conv (5*5*3) + 1 fully			|		104s		|		333s		|	9.8%
+									|					|					|
+4 conv (5*5*4) + 1 fully			|		160s		|		555s		|	9.8%
+									|					|					|

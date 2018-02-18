@@ -191,8 +191,8 @@ void Batch::forward_propagation(const double * prevOutput) {
 #endif
 
 	// Somma con il bias
-	CHECK_CUBLAS(
-		cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
+	//CHECK_CUBLAS(
+		//cublasDaxpy(handle, _nodes, &alpha, bias, 1, output, 1));
 	//CHECK_CUBLAS(
 		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &alpha, bias, 1, &alpha, output, 1, output, 1));
 
@@ -338,8 +338,8 @@ void Batch::updateWeights(const double *prevOutput, const double &learningRate) 
 #endif
 
 	// Aggiornamento del bias 
-	CHECK_CUBLAS(
-		cublasDaxpy(handle, _nodes, &learningRate, error, 1, bias, 1));
+	//CHECK_CUBLAS(
+		//cublasDaxpy(handle, _nodes, &learningRate, error, 1, bias, 1));
 	//CHECK_CUBLAS(
 		//cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, errorRot, 1, &alpha, bias, 1, bias, 1));
 

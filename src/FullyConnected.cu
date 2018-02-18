@@ -276,5 +276,5 @@ void FullyConnected::deleteCuda(void) {
 }
 
 void FullyConnected::printW() {
-	printFromCudaFormatted(weight, _wDim, _prevLayerDim);
+	//printFromCudaFormatted(weight, _wDim, _prevLayerDim);
 }
