@@ -73,15 +73,15 @@ int main() {
 
 	// MEMO: learning rate base 0.001
 #else
-	//layers.emplace_back(new FullyConnected(300, SIGMOID));
-	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 	//layers.emplace_back(new FullyConnected_Stream(500, SIGMOID));
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
-	// Creare la rete
+		// Creare la rete
 	Network nn(layers);
 
 	//#ifdef DEBUG

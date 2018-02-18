@@ -38,7 +38,6 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
 	_imgIndex = 0;
 
-<<<<<<< HEAD
 	for (int i = 0; i < _nImages; i++) {
 		//std::cout << i << " of " << _nImages << "\r";
 
@@ -49,14 +48,6 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 		//if (i == 4000)
 			//return;
 
-=======
-	for (int i = 0; i < _nImages; i++) {		
-
-		forwardPropagation();
-
-		//backPropagation(i, learningRate);
-		
->>>>>>> 9a9856d153a0eb5092355d7221250a0c4984754f
 		// Incrementare l'indice
 		_imgIndex += _imgDim;
 	}
@@ -86,10 +77,11 @@ void Network::predict(Data *data) {
 
 	// Elabora ogni immagine
 	for (int i = 0; i < _nImages; i++) {
+		std::cout << i << " of " << _nImages << "\r";
 
 		forwardPropagation();
 
-		//predictLabel(i, labels[i]);
+		predictLabel(i, labels[i]);
 
 		// Incrementare l'indice
 		_imgIndex += _imgDim;
@@ -284,10 +276,9 @@ inline void Network::printNetworkError(const int &nImages) {
 	double accuracy = (static_cast<double>(_testRight) / nImages) * 100;
 
 	// Stampare numero di errori commessi
-	//std::cout << "Immagini classificate correttamente: " << _testRight << std::endl;
-	//std::cout << "Immagini classificate scorrettamente: " << nImages - _testRight << std::endl;
-	std::cout << "Accuratezza della rete: " << accuracy << "%\n\n";
-	_testRight = 0;
+	std::cout << "Immagini classificate correttamente: " << _testRight << std::endl;
+	std::cout << "Immagini classificate scorrettamente: " << nImages - _testRight << std::endl;
+	std::cout << "Accuratezza della rete: " << accuracy << std::endl;
 }
 
 inline void Network::cudaClearAll(void) {

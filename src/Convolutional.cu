@@ -97,7 +97,6 @@ void Convolutional::defineCuda(const int &prevLayerWidth, const int &prevLayerHe
 	CHECK(cudaMalloc((void**)&weightRot, _wBytes));
 	CHECK(cudaMalloc((void**)&bias, Bytes));
 	CHECK(cudaMalloc((void**)&output, Bytes));
-	//CHECK(cudaMalloc((void**)&output, (_width*2) * (_width*2) * (_uniqueNodes / (_width *2)) * sizeof(double)));
 	CHECK(cudaMalloc((void**)&error, Bytes));
 	CHECK(cudaMalloc((void**)&errorRot, Bytes));
 	CHECK(cudaMalloc((void**)&tempWeight, _wBytes));
@@ -190,8 +189,6 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 
 #ifdef DEFAULT
 
-    int p = _width * 4;
-
 	// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
 	dim3 threadBlocks(_filterWidth, _filterWidth, 1);
 
@@ -210,23 +207,15 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
 
-			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _uniqueNodes, _filterDim, &alpha, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes), _filterDim, &beta, output + (i * _uniqueNodes), 1));
+			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _uniqueNodes, _filterDim, &alpha, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes), _filterDim, &beta, output + (i * _uniqueNodes), 1));
 			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
-            
-            // Stream su prodotto tra matrici
-			/*for (int nS = 0; nS < (_uniqueNodes / p); nS++) {
-				int subForwardPlus = p * _filterDim * nS;
-				int o = p * p * nS;
+
+			/*for (int nS = 0; nS < _uniqueNodes; nS++) {
+				int subForwardPlus = _filterDim * nS;
+				int outputPlus = nS;
 				CHECK_CUBLAS(cublasSetStream(handle, streams[nS]));
-				CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, p, p, _filterDim, &alpha, (subForward + subForwardPlus), p, (subForward + subForwardPlus), _filterDim, &beta, output + o, p));
+				CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, 1, _filterDim, &alpha, weightRot + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes) + subForwardPlus, _filterDim, &beta, output + (i * _uniqueNodes) + outputPlus, 1));
 			}*/
-			
-			for (int nS = 0; nS < _uniqueNodes / p; nS++) {
-				int subForwardPlus = p * _filterDim * nS;
-				int o = p * nS;
-				CHECK_CUBLAS(cublasSetStream(handle, streams[nS]));
-				CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, p, _filterDim, &alpha, weightRot, 1, subForward + subForwardPlus, _filterDim, &beta, output + o , 1));
-			}		
 		}
 	}
 #else
@@ -238,7 +227,7 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 
 	Kernel::createSubmatrixProductK(numBlocks, threadBlocks, subForward, prevOutput, weightRot, _prevLayerWidth, _filterWidth, _stride, _uniqueNodes);
 
-	//CHECK(cudaDeviceSynchronize());
+	CHECK(cudaDeviceSynchronize());
 
 	// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
 	threadBlocks = dim3(_width, _height, 1);
@@ -246,21 +235,18 @@ void Convolutional::forward_propagation(const double * prevOutput) {
 	// Tanti blocchi quanti sono i nodi in output e il depth del livello precedente
 	numBlocks = dim3(1, 1, 1);
 
-	//Kernel::outputFromSubK(numBlocks, threadBlocks, output, subForward, _filterDim);
-	
-	cublasSetPointerMode(handle, CUBLAS_POINTER_MODE_DEVICE);
+	Kernel::outputFromSubK(numBlocks, threadBlocks, output, subForward, _filterDim);
 
-	for (int i = 0; i < _depth; i++) {
-		for (int j = 0; j < _prevLayerDepth; j++) {
-			for (int nS = 0; nS < _uniqueNodes / p; nS++) {
-				int subForwardPlus = _filterDim * nS;
-				//CHECK_CUBLAS(cublasSetStream(handle, streams[nS]));
-				CHECK_CUBLAS(cublasDasum(handle, _filterDim, subForward + subForwardPlus, 1, output + nS));
-			}
-		}
-	}
-	
-	cublasSetPointerMode(handle, CUBLAS_POINTER_MODE_HOST);
+	//for (int i = 0; i < _depth; i++) {
+	//	for (int j = 0; j < _prevLayerDepth; j++) {
+	//		for (int nS = 0; nS < _uniqueNodes; nS++) {
+	//			int subForwardPlus = _filterDim * nS;
+	//			int outputPlus = nS;
+	//			CHECK_CUBLAS(cublasSetStream(handle, streams[nS]));
+	//			CHECK_CUBLAS(cublasDasum(handle, _filterDim, subForward + (j * _uniqueNodes) + subForwardPlus, 1, output + (i * _uniqueNodes) + outputPlus));
+	//		}
+	//	}
+	//}
 #endif
 
 #ifdef DEBUG
