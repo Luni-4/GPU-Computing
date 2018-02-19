@@ -92,10 +92,11 @@ int main() {
 	//std::cout.precision(64);
 	//double learningRate = 0.160;
 	double learningRate = 1;
+	int epoch = 2;
 	std::cout << "\nlearningRate:" << learningRate << std::endl;
 
 	// Training
-	nn.train(d.get(), 1, learningRate);
+	nn.train(d.get(), epoch, learningRate);
 
 	//#ifdef DEBUG
 	auto finish = std::chrono::high_resolution_clock::now();
