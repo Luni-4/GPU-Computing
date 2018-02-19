@@ -52,15 +52,16 @@ int main() {
 
 	// Inizializzare i livelli
 #ifdef _WIN32
+	int depth = 4;
 	//dim_filtro, n_filtri, stride
-	//layers.emplace_back(new Convolutional(4, 1, 1, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
-	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
+	layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
-	int depth = 1;
-	layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, 4, 1));
