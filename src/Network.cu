@@ -39,12 +39,14 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	_imgIndex = 0;
 
 	for (int i = 0; i < _nImages; i++) {
-		//std::cout << i << " of " << _nImages << "\r";
+	
+	    for(int j = 0; j < epoch; j++) {		
 
-		forwardPropagation();
+		    forwardPropagation();
 
-		backPropagation(i, learningRate);
-
+		    backPropagation(i, learningRate);
+		}
+		
 		// Incrementare l'indice
 		_imgIndex += _imgDim;
 	}
@@ -73,8 +75,7 @@ void Network::predict(Data *data) {
 	_imgIndex = 0;
 
 	// Elabora ogni immagine
-	for (int i = 0; i < _nImages; i++) {
-		std::cout << i << " of " << _nImages << "\r";
+	for (int i = 0; i < _nImages; i++) {		
 
 		forwardPropagation();
 
