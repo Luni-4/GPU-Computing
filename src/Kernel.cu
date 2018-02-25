@@ -24,7 +24,7 @@ __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *
 		weight[tid] = 1.0;
 #else
 		//weight[tid] = 0.01 * r;
-		weight[tid] = 0.13;
+		weight[tid] = 0.01;
 #endif
 }
 
