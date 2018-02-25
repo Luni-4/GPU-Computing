@@ -1,6 +1,6 @@
 MAIN = main
 NVCC = nvcc
-CUDAFLAGS = --default-stream per-thread -O3 -m 64 -std=c++11 -Xcompiler -Wall -arch=sm_20
+CUDAFLAGS = --fmad=false -O3 -m 64 -std=c++11 -Xcompiler -Wall -arch=sm_20
 LIBS = -lcublas
 
 OBJECTS := $(wildcard src/*.cu)
