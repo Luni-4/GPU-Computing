@@ -49,10 +49,11 @@ int main() {
 
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
+	
+	int depth = 1;
 
 	// Inizializzare i livelli
 #ifdef _WIN32
-	int depth = 4;
 	//dim_filtro, n_filtri, stride
 	layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
@@ -74,7 +75,12 @@ int main() {
 
 	// MEMO: learning rate base 0.001
 #else
-	layers.emplace_back(new FullyConnected(300, SIGMOID));
+    //layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
+	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
+	//layers.emplace_back(new FullyConnected(100, SIGMOID));
+	layers.emplace_back(new FullyConnected(50, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
@@ -82,7 +88,7 @@ int main() {
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
-		// Creare la rete
+    // Creare la rete
 	Network nn(layers);
 
 	//#ifdef DEBUG
@@ -92,7 +98,7 @@ int main() {
 	//std::cout.precision(64);
 	//double learningRate = 0.160;
 	double learningRate = 1;
-	int epoch = 2;
+	int epoch = 1;
 	std::cout << "\nlearningRate:" << learningRate << std::endl;
 
 	// Training

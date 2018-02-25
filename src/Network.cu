@@ -38,7 +38,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
 	_imgIndex = 0;
 
-	for (int i = 0; i < _nImages; i++) {
+	for (int i = 0; i < _nImages; i++) { 
 	
 	    for(int j = 0; j < epoch; j++) {		
 
