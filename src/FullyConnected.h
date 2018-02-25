@@ -55,6 +55,7 @@ private:
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
 	double *temp; // Matrice temporanea usata per l'aggiornamento dei pesi
+	double *wcalc; // Matrice contenente i pesi da aggiornare
 
 				  // Handle per cuBlas
 	cublasHandle_t handle;

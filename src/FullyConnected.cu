@@ -88,6 +88,7 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	CHECK(cudaMalloc((void**)&output, Bytes));
 	CHECK(cudaMalloc((void**)&error, Bytes));
 	CHECK(cudaMalloc((void**)&temp, _wBytes));
+	CHECK(cudaMalloc((void**)&wcalc, _wBytes));
 
 	// Rendere i blocchi multipli di 32
 	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight, THREADS);
@@ -174,18 +175,18 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 void FullyConnected::calcError(double *prevError, const int &prevNodes) {
 
 	// Propagazione dell'errore dal livello successivo
-	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _nodes, prevNodes, &alpha, weight, _nodes, error, 1, &beta, prevError, 1));
+	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _nodes, prevNodes, &alpha, wcalc, _nodes, error, 1, &beta, prevError, 1));
 
 
-#ifdef DEBUG
+//#ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
-	std::cout << "\n\nForward weight\n\n";
-	pettyPrintCuda(weight, _wDim, prevNodes);
-	std::cout << "\n\nForward error\n\n";
-	pettyPrintCuda(error, _nodes, 1);
-	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
+	//std::cout << "\n\nForward weight\n\n";
+	//pettyPrintCuda(weight, _wDim, prevNodes);
+	//std::cout << "\n\nForward error\n\n";
+	//pettyPrintCuda(error, _nodes, 1);
+	//std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
 	pettyPrintCuda(prevError, prevNodes, 1);
-#endif
+//#endif
 }
 
 
@@ -244,7 +245,10 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
 	pettyPrintCuda(temp, _wDim, _prevLayerDim);
-#endif		
+#endif
+
+    // Copiare matrice dei pesi dentro wcalc
+    CHECK(cudaMemcpy(wcalc, weight, _wBytes, cudaMemcpyDeviceToDevice));		
 
 	CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _nodes, _prevLayerDim, &learningRate, temp, _nodes, &alpha, weight, _nodes, weight, _nodes));
 
@@ -252,7 +256,7 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nMatrice dei pesi aggiornata\n\n";
 	pettyPrintCuda(weight, _wDim, _prevLayerDim);
-#endif	
+#endif
 
 	CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, error, 1, &alpha, bias, 1, bias, 1));
 
@@ -273,6 +277,7 @@ void FullyConnected::deleteCuda(void) {
 	CHECK(cudaFree(output));
 	CHECK(cudaFree(error));
 	CHECK(cudaFree(temp));
+	CHECK(cudaFree(wcalc));
 }
 
 void FullyConnected::printW() {
