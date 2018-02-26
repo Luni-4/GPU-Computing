@@ -87,8 +87,8 @@ void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerH
 	CHECK(cudaMalloc((void**)&bias, Bytes));
 	CHECK(cudaMalloc((void**)&output, Bytes));
 	CHECK(cudaMalloc((void**)&error, Bytes));
+	CHECK(cudaMalloc((void**)&prevError, _prevLayerDim * sizeof(double)));
 	CHECK(cudaMalloc((void**)&temp, _wBytes));
-	CHECK(cudaMalloc((void**)&wcalc, _wBytes));
 
 	// Rendere i blocchi multipli di 32
 	const int aligned = ALIGN_UP(prevLayerWidth * prevLayerHeight, THREADS);
@@ -172,49 +172,7 @@ void FullyConnected::forward_propagation(const double *prevOutput) {
 #endif
 }
 
-void FullyConnected::calcError(double *prevError, const int &prevNodes) {
-
-	// Propagazione dell'errore dal livello successivo
-	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _nodes, prevNodes, &alpha, wcalc, _nodes, error, 1, &beta, prevError, 1));
-
-
-//#ifdef DEBUG
-	CHECK(cudaDeviceSynchronize());
-	//std::cout << "\n\nForward weight\n\n";
-	//pettyPrintCuda(weight, _wDim, prevNodes);
-	//std::cout << "\n\nForward error\n\n";
-	//pettyPrintCuda(error, _nodes, 1);
-	//std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
-	pettyPrintCuda(prevError, prevNodes, 1);
-//#endif
-}
-
-
-void FullyConnected::back_propagation(const double *prevOutput, const double &learningRate) {
-
-	// Aggiornare i pesi (da mettere in funzione)    
-	calcBackPropagation(prevOutput, learningRate);
-
-}
-
 void FullyConnected::back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) {
-
-	// Calcolo dell'errore per ogni nodo
-	Kernel::outputErrorK(_alignedNodes / THREADS, THREADS, output, error, labels, target, _nodes);
-
-	CHECK(cudaDeviceSynchronize());
-
-#ifdef DEBUG
-	std::cout << "\n\nErrore commesso sui nodi back propagation output\n\n";
-	pettyPrintCuda(error, _nodes, 1);
-#endif
-
-	// Calcolo della Back Propagation
-	calcBackPropagation(prevOutput, learningRate);
-
-}
-
-inline void FullyConnected::calcBackPropagation(const double *prevOutput, const double &learningRate) {
 
 	// Applicare derivata della funzione di attivazione
 	if (_a == RELU)
@@ -223,6 +181,54 @@ inline void FullyConnected::calcBackPropagation(const double *prevOutput, const 
 		Kernel::derivActSigmoidK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
 	else if (_a == TANH)
 		Kernel::derivActTanhK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
+
+#ifdef DEBUG
+	CHECK(cudaDeviceSynchronize());
+	std::cout << "\n\nErrore commesso sui nodi con relativa derivata\n\n";
+	pettyPrintCuda(error, _nodes, 1);
+#endif
+
+    // Calcolo dell'errore per ogni nodo
+	Kernel::outputErrorK(_alignedNodes / THREADS, THREADS, output, error, labels, target, _nodes);
+
+	//CHECK(cudaDeviceSynchronize());
+
+#ifdef DEBUG
+	std::cout << "\n\nErrore commesso sui nodi back propagation output\n\n";
+	pettyPrintCuda(error, _nodes, 1);
+#endif
+
+    // Calcolo di prevError
+    CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, error, 1, &beta, prevError, 1));
+    
+#ifdef DEBUG
+	CHECK(cudaDeviceSynchronize());
+	std::cout << "\n\nCalcolo dell'errore da propagare al livello precedente\n\n";
+	pettyPrintCuda(prevError, _prevLayerDim, 1);
+#endif
+
+	// Aggiornare i pesi (da mettere in funzione)    
+	updateWeights(prevOutput, learningRate);
+}
+
+
+
+
+void FullyConnected::back_propagation(const double *prevOutput, const double *prevErr, const double &learningRate) {
+
+    // Applicare derivata della funzione di attivazione
+	if (_a == RELU)
+		Kernel::derivActReluK(_alignedNodes / THREADS, THREADS, error, temp, _nodes);
+	else if (_a == SIGMOID)
+		Kernel::derivActSigmoidK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
+	else if (_a == TANH)
+		Kernel::derivActTanhK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
+    
+    // Prodotto prevErr * error
+    Kernel::prevErrorK(_alignedNodes / THREADS, THREADS, prevErr, error, _nodes);    
+    
+    // Calcolo del nuovo prevError
+    CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, error, 1, &beta, prevError, 1));    
 
 
 #ifdef DEBUG
@@ -235,6 +241,7 @@ inline void FullyConnected::calcBackPropagation(const double *prevOutput, const 
 	updateWeights(prevOutput, learningRate);
 }
 
+
 void FullyConnected::updateWeights(const double *prevOutput, const double &learningRate) {
 
 	int dim = ALIGN_UP(_nodes * _prevLayerDim, THREADS);
@@ -245,10 +252,7 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
 	pettyPrintCuda(temp, _wDim, _prevLayerDim);
-#endif
-
-    // Copiare matrice dei pesi dentro wcalc
-    CHECK(cudaMemcpy(wcalc, weight, _wBytes, cudaMemcpyDeviceToDevice));		
+#endif    		
 
 	CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, _nodes, _prevLayerDim, &learningRate, temp, _nodes, &alpha, weight, _nodes, weight, _nodes));
 
@@ -261,7 +265,7 @@ void FullyConnected::updateWeights(const double *prevOutput, const double &learn
 	CHECK_CUBLAS(cublasDgeam(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _nodes, &learningRate, error, 1, &alpha, bias, 1, bias, 1));
 
 	// CPU deve attendere che esecuzione della funzione finisca
-	CHECK(cudaDeviceSynchronize());
+	//CHECK(cudaDeviceSynchronize());
 
 #ifdef DEBUG
 	std::cout << "\n\nVettore del bias aggiornato\n\n";
@@ -276,8 +280,8 @@ void FullyConnected::deleteCuda(void) {
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
 	CHECK(cudaFree(error));
+	CHECK(cudaFree(prevError));
 	CHECK(cudaFree(temp));
-	CHECK(cudaFree(wcalc));
 }
 
 void FullyConnected::printW() {

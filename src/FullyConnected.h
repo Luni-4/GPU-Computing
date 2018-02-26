@@ -20,9 +20,9 @@ public:
 
 	void forward_propagation(const double *prevOutput) override;
 
-	void calcError(double *prevError, const int &prevNodes) override;
+	//void calcError(double *prevError, const int &prevNodes) override;
 
-	void back_propagation(const double *prevOutput, const double &learningRate) override;
+	void back_propagation(const double *prevOutput, const double *prevErr, const double &learningRate) override;
 	void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
@@ -30,14 +30,13 @@ public:
 
 	double* getCudaOutputPointer(void) const override { return output; }
 	double* getCudaWeightPointer(void) const override { return weight; }
-	double* getCudaErrorPointer(void) const override { return error; }
+	//double* getCudaErrorPointer(void) const override { return error; }
+	double* getCudaPrevErrorPointer(void) const override { return prevError; }
 
 	void printW() override;
 
 private:
 	void updateWeights(const double *prevOutput, const double &learningRate);
-
-	inline void calcBackPropagation(const double *prevOutput, const double &learningRate);
 
 private:
 	int _wDim;
@@ -54,9 +53,9 @@ private:
 	double *bias; // Matrice per i bias in Cuda
 	double *output; // Matrice dell'output in Cuda
 	double *error; // Matrice degli errori
+	double *prevError; // Matrice contenente gli errori da passare al livello precedente in backpropagation
 	double *temp; // Matrice temporanea usata per l'aggiornamento dei pesi
-	double *wcalc; // Matrice contenente i pesi da aggiornare
 
-				  // Handle per cuBlas
+	// Handle per cuBlas
 	cublasHandle_t handle;
 };
