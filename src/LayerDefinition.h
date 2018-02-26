@@ -29,8 +29,8 @@ public:
 
 	virtual void forward_propagation(const double *prevOutput) = 0;
 
-	virtual void calcError(double *prevError, const int &prevNodes) = 0;
-	virtual void back_propagation(const double *prevOutput, const double &learningRate) = 0;
+	//virtual void calcError(double *prevError, const int &prevNodes) = 0;
+	virtual void back_propagation(const double *prevOutput, const double *prevErr, const double &learningRate) = 0;
 	virtual void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) = 0;
 
 	virtual void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) = 0;
@@ -38,7 +38,8 @@ public:
 
 	virtual double* getCudaOutputPointer(void) const = 0;
 	virtual double* getCudaWeightPointer(void) const = 0;
-	virtual double* getCudaErrorPointer(void) const = 0;
+	//virtual double* getCudaErrorPointer(void) const = 0;
+	virtual double* getCudaPrevErrorPointer(void) const = 0;
 
 	inline LayerType getLayerType(void) const { return _l; }
 	inline int getWidth(void) const { return _width; }
