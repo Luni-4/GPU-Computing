@@ -175,7 +175,7 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 	}
 
 	// Caso in cui i livelli > 1 (tornare indietro di 2 livelli)	    
-	auto prevOutput = (*std::prev(_layers.end(), 2))->getCudaOutputPointer();
+	auto prevOutput = (*std::prev(_layers.end(), 2))->getCudaOutputPointer();	
 	_layers.back()->back_propagation_output(prevOutput, cudaLabels, target, learningRate);
 
 	// Back Propagation sui livelli intermedi
@@ -184,22 +184,17 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 		auto pv = std::next(it, 1);
 		auto fw = std::prev(it, 1);
 
-		auto prev = (*pv)->getCudaOutputPointer();
-		auto currentError = (*it)->getCudaErrorPointer();
-		auto currentNodes = (*it)->getNodeCount();
-
-		(*fw)->calcError(currentError, currentNodes);
-
-		(*it)->back_propagation(prev, learningRate);
+		auto prevOutput = (*pv)->getCudaOutputPointer();
+		auto prevError =  (*fw)->getCudaPrevErrorPointer();
+		
+		(*it)->back_propagation(prevOutput, prevError, learningRate);
 	}
 
 	// Back Propagation al primo livello (solo input precedente a lui)
 	auto fw = std::next(_layers.begin(), 1);
-	auto currentError = _layers.front()->getCudaErrorPointer();
-	auto currentNodes = _layers.front()->getNodeCount();
-
-	(*fw)->calcError(currentError, currentNodes);
-	_layers.front()->back_propagation(cudaData + _imgIndex, learningRate);
+	auto prevError =  (*fw)->getCudaPrevErrorPointer();
+	
+	_layers.front()->back_propagation(cudaData + _imgIndex, prevError, learningRate);
 }
 
 void Network::printWeightsOnFile(const std::string &filename) {
