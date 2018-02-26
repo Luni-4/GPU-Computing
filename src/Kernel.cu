@@ -65,8 +65,21 @@ __global__ void outputError(const double *output, double *error, const uint8_t *
 
 	// L'errore commesso è dato dalla differenza tra la predizione ottenuta e il valore reale dell'etichetta
 	if (tid < node)
-		error[tid] = trueLabel - output[tid];
+		error[tid] = error[tid] * (trueLabel - output[tid]);
 }
+
+
+/* CALCOLO DI PREV ERROR */
+
+
+__global__ void prevError(const double *prevErr, double *error, const int node) {
+	// Gestione degli indici	
+	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+	if (tid < node)
+		error[tid] = prevErr[tid] * error[tid];	
+}
+
 
 /* FUNZIONI DI ATTIVAZIONE E RELATIVE DERIVATE */
 
@@ -102,12 +115,8 @@ __global__ void derivActSigmoid(const double *output, double *error, const int n
 	// Gestione degli indici	
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
-	double r;
-
-	if (tid < node) {
-		r = output[tid] * (1 - output[tid]);
-		error[tid] = error[tid] * r;
-	}
+	if (tid < node)
+		error[tid] = output[tid] * (1 - output[tid]);
 }
 
 /* Funzione di attivazione della Tanh e derivata */

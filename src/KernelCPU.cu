@@ -29,6 +29,17 @@ void Kernel::outputErrorK(dim3 b, dim3 t, const double *output, double *error, c
 #endif
 }
 
+
+/* CALCOLO DI PREV ERROR */
+
+void Kernel::prevErrorK(dim3 b, dim3 t, const double *prevErr, double *error, const int &nodes) {
+#ifdef _WIN32
+	prevError NvCUDA2(b, t) (prevErr, error, nodes);
+#else
+	prevError << <b, t >> > (prevErr, error, nodes);
+#endif
+}
+
 /* FUNZIONI DI ATTIVAZIONE E RELATIVE DERIVATE */
 
 void Kernel::actReluK(dim3 b, dim3 t, double *output, double *temp, const int &nodes) {

@@ -12,6 +12,12 @@ __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *
 __global__ void initBias(double *bias, const int node, curandStateXORWOW_t *states);
 
 
+/* CALCOLO DI PREV ERROR */
+
+
+__global__ void prevError(const double *prevErr, double *error, const int node);
+
+
 /* CALCOLO DEL DELTA */
 
 __global__ void outputError(const double *output, double *error, const uint8_t *label, const int target, const int node);

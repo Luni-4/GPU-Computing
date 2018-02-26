@@ -28,6 +28,8 @@ namespace Kernel {
 
 	void actTanhK(dim3 b, dim3 t, double *output, const int &nodes);
 	void derivActTanhK(dim3 b, dim3 t, const double *output, double *error, const int &nodes);
+	
+	void prevErrorK(dim3 b, dim3 t, const double *prevErr, double *error, const int &nodes); 
 
 	void errorPrevOutputK(dim3 b, dim3 t, double *temp, const double *prevOutput, const double *error, const int &nodes, const int &dim, const int &prevDim);
 
