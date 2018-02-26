@@ -8,10 +8,10 @@
 #include "Mnist.h"
 #include "Cifar.h"
 #include "FullyConnected.h"
-#include "FullyConnectedStream.h"
-#include "Convolutional.h"
-#include "ConvolutionalStreams.h"
-#include "Batch.h"
+//#include "FullyConnectedStream.h"
+//#include "Convolutional.h"
+//#include "ConvolutionalStreams.h"
+//#include "Batch.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -80,7 +80,8 @@ int main() {
 	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
-	layers.emplace_back(new FullyConnected(50, SIGMOID));
+	layers.emplace_back(new FullyConnected(200, SIGMOID));
+	//layers.emplace_back(new FullyConnected(50, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, 1, 1, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
