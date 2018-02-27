@@ -1,4 +1,4 @@
-# Considerazioni
+# C onsiderazioni
 
 ## Setting iniziale
 
@@ -27,3 +27,17 @@ e questo comporta problemi nel poter trovare un'accuratezza migliore
 - ESEGUIRE I TEST SENZA AVERE ALTRE APPLICAZIONI APERTE (TIPO MOZILLA O CHROME) PERCHÈ IL PROCESSO DI COMPUTAZIONE RALLENTA MOLTO E ANCHE QUESTI
 SOFTWARE OCCUPANO SPAZIO IN GRAM E LE ACCURATEZZE OTTENUTE POSSONO ESSERE DIVERSE DA UN ESECUZIONE AD UN ALTRA A CAUSA DEL FATTO CHE LA GRAM È
 VICINA AL SUO LIMITE (NEL MIO CASO 1GB)
+
+
+
+TEST NICHOLAS
+ho fatto tutti test con learning rate = 1, pesi = 0.01 e epoch = 1.
+non ho potuto spegnere gli altri programmi perchè dovevo almeno far finta di lavorare XD
+
+1)		 	    10 = 89.56
+2)		 100 -> 10 = 29.23%
+3)	 	 200 -> 10 = 29.26%
+4)		 300 -> 10 = 9.74%
+5)100 ->  50 -> 10 = 32.93%
+6)300 -> 100 -> 10 = 32.01%
+6)500 -> 300 -> 10 = 9.74%
