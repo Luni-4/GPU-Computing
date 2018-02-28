@@ -38,15 +38,20 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Indice che reperisce la giusta immagine da mandare in input alla rete
 	_imgIndex = 0;
 
-	for (int i = 0; i < _nImages; i++) { 
-	
-	    for(int j = 0; j < epoch; j++) {		
+	for (int i = 0; i < _nImages; i++) {
 
-		    forwardPropagation();
+		for (int j = 0; j < epoch; j++) {
+			//non eliminare che la uso quando non devo calcolare i tempi
+			//std::cout << i << " of " << _nImages << "\r";
 
-		    backPropagation(i, learningRate);
+			forwardPropagation();
+
+			backPropagation(i, learningRate);
+
+			//if (i == 30000)
+				//return;
 		}
-		
+
 		// Incrementare l'indice
 		_imgIndex += _imgDim;
 	}
@@ -75,7 +80,7 @@ void Network::predict(Data *data) {
 	_imgIndex = 0;
 
 	// Elabora ogni immagine
-	for (int i = 0; i < _nImages; i++) {		
+	for (int i = 0; i < _nImages; i++) {
 
 		forwardPropagation();
 
@@ -175,7 +180,7 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 	}
 
 	// Caso in cui i livelli > 1 (tornare indietro di 2 livelli)	    
-	auto prevOutput = (*std::prev(_layers.end(), 2))->getCudaOutputPointer();	
+	auto prevOutput = (*std::prev(_layers.end(), 2))->getCudaOutputPointer();
 	_layers.back()->back_propagation_output(prevOutput, cudaLabels, target, learningRate);
 
 	// Back Propagation sui livelli intermedi
@@ -185,15 +190,15 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 		auto fw = std::prev(it, 1);
 
 		auto prevOutput = (*pv)->getCudaOutputPointer();
-		auto prevError =  (*fw)->getCudaPrevErrorPointer();
-		
+		auto prevError = (*fw)->getCudaPrevErrorPointer();
+
 		(*it)->back_propagation(prevOutput, prevError, learningRate);
 	}
 
 	// Back Propagation al primo livello (solo input precedente a lui)
 	auto fw = std::next(_layers.begin(), 1);
-	auto prevError =  (*fw)->getCudaPrevErrorPointer();
-	
+	auto prevError = (*fw)->getCudaPrevErrorPointer();
+
 	_layers.front()->back_propagation(cudaData + _imgIndex, prevError, learningRate);
 }
 

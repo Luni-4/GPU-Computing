@@ -188,7 +188,7 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 	pettyPrintCuda(error, _nodes, 1);
 #endif
 
-    // Calcolo dell'errore per ogni nodo
+	// Calcolo dell'errore per ogni nodo
 	Kernel::outputErrorK(_alignedNodes / THREADS, THREADS, output, error, labels, target, _nodes);
 
 	//CHECK(cudaDeviceSynchronize());
@@ -198,9 +198,9 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 	pettyPrintCuda(error, _nodes, 1);
 #endif
 
-    // Calcolo di prevError
-    CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, error, 1, &beta, prevError, 1));
-    
+	// Calcolo di prevError
+	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, error, 1, &beta, prevError, 1));
+
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nCalcolo dell'errore da propagare al livello precedente\n\n";
@@ -216,19 +216,19 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 
 void FullyConnected::back_propagation(const double *prevOutput, const double *prevErr, const double &learningRate) {
 
-    // Applicare derivata della funzione di attivazione
+	// Applicare derivata della funzione di attivazione
 	if (_a == RELU)
 		Kernel::derivActReluK(_alignedNodes / THREADS, THREADS, error, temp, _nodes);
 	else if (_a == SIGMOID)
 		Kernel::derivActSigmoidK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
 	else if (_a == TANH)
 		Kernel::derivActTanhK(_alignedNodes / THREADS, THREADS, output, error, _nodes);
-    
-    // Prodotto prevErr * error
-    Kernel::prevErrorK(_alignedNodes / THREADS, THREADS, prevErr, error, _nodes);    
-    
-    // Calcolo del nuovo prevError
-    CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, error, 1, &beta, prevError, 1));    
+
+	// Prodotto prevErr * error
+	Kernel::prevErrorK(_alignedNodes / THREADS, THREADS, prevErr, error, _nodes);
+
+	// Calcolo del nuovo prevError
+	CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_N, _prevLayerDim, _nodes, &alpha, weight, _prevLayerDim, error, 1, &beta, prevError, 1));
 
 
 #ifdef DEBUG

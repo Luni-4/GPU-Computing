@@ -11,7 +11,7 @@
 //#include "FullyConnectedStream.h"
 //#include "Convolutional.h"
 //#include "ConvolutionalStreams.h"
-//#include "Batch.h"
+#include "Batch.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -64,10 +64,10 @@ int main() {
 	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, depth, 1));
-	//layers.emplace_back(new Batch(5, depth, 1));
+	layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, 4, 1));
-	layers.emplace_back(new FullyConnected(500, SIGMOID));
-	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	//layers.emplace_back(new FullyConnected(500, SIGMOID));
+	//layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 	//layers.emplace_back(new FullyConnected_Stream(500, SIGMOID));
 	//layers.emplace_back(new FullyConnectedStream(300, SIGMOID));
@@ -111,7 +111,7 @@ int main() {
 	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
 	//#endif
 
-	//nn.printW();
+	nn.printW();
 	// Stampa i pesi prodotti dalla rete su un file
 	//nn.printWeightsOnFile("Weights.txt");
 

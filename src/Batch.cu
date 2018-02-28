@@ -38,8 +38,7 @@ int Batch::getPredictionIndex(void) {
 	int maxIndex;
 
 	// Individuare indice (classe) che corrisponde al valore massimo di output
-	CHECK_CUBLAS(
-		cublasIdamax(handle, _nodes, output, 1, &maxIndex));
+	CHECK_CUBLAS(cublasIdamax(handle, _nodes, output, 1, &maxIndex));
 
 	return maxIndex - 1;
 }
@@ -91,6 +90,7 @@ void Batch::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, co
 	CHECK(cudaMalloc((void**)&bias, Bytes));
 	CHECK(cudaMalloc((void**)&output, Bytes));
 	CHECK(cudaMalloc((void**)&error, Bytes));
+	CHECK(cudaMalloc((void**)&prevError, _prevLayerWidth * _prevLayerWidth  * _prevLayerDepth * sizeof(double)));
 	CHECK(cudaMalloc((void**)&tempWeight, _wBytes));
 	CHECK(cudaMalloc((void**)&tempOutput, Bytes));
 
@@ -180,7 +180,8 @@ void Batch::forward_propagation(const double * prevOutput) {
 	//ora sono in una situazione simile al fully connected
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
+			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
+			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _uniqueNodes, _filterDim, &alpha, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes), _filterDim, &beta, output + (i * _uniqueNodes), 1));
 		}
 	}
 
@@ -204,7 +205,7 @@ void Batch::forward_propagation(const double * prevOutput) {
 #endif
 }
 
-void Batch::calcError(double *prevError, const int &prevNodes) {
+void Batch::calcError() {
 
 	//prev error è l'errore del livello precedente che devo riempire, 
 	//error è l'errore che ho usato al passo precedente (non ruotato) quando sono passato da questo livello
@@ -228,20 +229,20 @@ void Batch::calcError(double *prevError, const int &prevNodes) {
 #endif
 
 	// Dimensione insieme submatrici in byte = creo una submatrice per ogni nodo di output di L-1
-	const int prevUniqueNodes = prevNodes / _prevLayerDepth;
+	const int prevUniqueNodes = _prevLayerWidth * _prevLayerWidth;
 
 	// Blocchi tridimensionali contenenti tanti thread quanti la grandezza dei filtri
 	threadBlocks = dim3(_filterWidth, _filterWidth, 1);
 
 	// Tanti blocchi quanti sono i nodi in input e il depth del livello precedente
-	numBlocks = dim3(sqrt(prevUniqueNodes), sqrt(prevUniqueNodes), _prevLayerDepth);
+	numBlocks = dim3(_prevLayerWidth, _prevLayerWidth, _prevLayerDepth);
 
 	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, subCalcError, padding, paddingWidth, _filterWidth, _stride, prevUniqueNodes);
 
 #ifdef DEBUG_SUB
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nValore submatrici zero padding\n\n";
-	printFromCudaFormatted(sub, prevUniqueNodes * _depth * _filterDim, _filterWidth);
+	printFromCudaFormatted(subCalcError, prevUniqueNodes * _depth * _filterDim, _filterWidth);
 #endif
 
 	// Ruoto subito i pesi aggiornati per poi usarli nella backpropagation al livello L-1
@@ -262,14 +263,15 @@ void Batch::calcError(double *prevError, const int &prevNodes) {
 	//ora sono in una situazione simile alla convoluzione
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
+			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
+			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, prevUniqueNodes, _filterDim, &alpha, weightRot + ((i + j * _depth) * _filterDim), 1, subCalcError + (i * prevUniqueNodes), _filterDim, &beta, prevError + (j * prevUniqueNodes), 1));
 		}
 	}
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nErrore commesso sui nodi back propagation\n\n";
-	printFromCudaFormatted(prevError, prevNodes, sqrt(prevUniqueNodes));
+	printFromCudaFormatted(prevError, prevUniqueNodes * _prevLayerDepth, _prevLayerWidth);
 #endif
 }
 
@@ -283,15 +285,17 @@ void Batch::back_propagation_output(const double * prevOutput, const uint8_t * l
 	printFromCudaFormatted(error, _nodes, _width);
 #endif
 
-	// Calcolo della Back Propagation
-	calcBackPropagation(prevOutput, learningRate);
+	calcError();
+
+	// Aggiornamento pesi
+	updateWeights(prevOutput, learningRate);
 }
 
-void Batch::back_propagation(const double *prevOutput, const double &learningRate) {
-	calcBackPropagation(prevOutput, learningRate);
-}
+void Batch::back_propagation(const double *prevOutput, const double *prevError, const double &learningRate) {
 
-void Batch::calcBackPropagation(const double *prevOutput, const double &learningRate) {
+	error = (double*)prevError;
+	calcError();
+
 	updateWeights(prevOutput, learningRate);
 }
 
@@ -315,14 +319,15 @@ void Batch::updateWeights(const double *prevOutput, const double &learningRate) 
 	double backAlpha = 1.0 / _uniqueNodes;
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &backAlpha, subBack + (j * _filterDim), _uniqueNodes, error + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
+			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &backAlpha, subBack + (j * _filterDim), _uniqueNodes, error + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
+			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _filterDim, _uniqueNodes, &backAlpha, error + (i * _uniqueNodes), 1, subBack + (j * _filterDim), _uniqueNodes, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
 		}
 	}
 
 #ifdef DEBUG
 	CHECK(cudaDeviceSynchronize());
 	std::cout << "\n\nMatrice temporanea per aggiornamento pesi\n\n";
-	printFromCudaFormatted(tempWeightRot, _wDim, _filterWidth);
+	printFromCudaFormatted(tempWeight, _wDim, _filterWidth);
 #endif
 
 	// Aggiornamento effettivo dei pesi 
