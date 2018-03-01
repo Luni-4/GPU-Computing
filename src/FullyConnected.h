@@ -22,8 +22,8 @@ public:
 
 	//void calcError(double *prevError, const int &prevNodes) override;
 
-	void back_propagation(const double *prevOutput, const double *prevErr, const double &learningRate) override;
 	void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) override;
+	void back_propagation(const double *prevOutput, double *prevErr, const double &learningRate, const bool notFirst) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda(void) override;

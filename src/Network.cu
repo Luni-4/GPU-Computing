@@ -192,14 +192,14 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 		auto prevOutput = (*pv)->getCudaOutputPointer();
 		auto prevError = (*fw)->getCudaPrevErrorPointer();
 
-		(*it)->back_propagation(prevOutput, prevError, learningRate);
+		(*it)->back_propagation(prevOutput, prevError, learningRate, true);
 	}
 
 	// Back Propagation al primo livello (solo input precedente a lui)
 	auto fw = std::next(_layers.begin(), 1);
 	auto prevError = (*fw)->getCudaPrevErrorPointer();
 
-	_layers.front()->back_propagation(cudaData + _imgIndex, prevError, learningRate);
+	_layers.front()->back_propagation(cudaData + _imgIndex, prevError, learningRate, false);
 }
 
 void Network::printWeightsOnFile(const std::string &filename) {

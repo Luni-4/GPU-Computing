@@ -50,7 +50,7 @@ int main() {
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
 
-	int depth = 1;
+	int depth = 3;
 
 	// Inizializzare i livelli
 #ifdef _WIN32
@@ -63,7 +63,7 @@ int main() {
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
 	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, depth, 1));
-	//layers.emplace_back(new Batch(5, depth, 1));
+	layers.emplace_back(new Batch(5, depth, 1));
 	layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new Batch(5, 4, 1));
 	//layers.emplace_back(new FullyConnected(500, SIGMOID));
@@ -111,7 +111,7 @@ int main() {
 	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
 	//#endif
 
-	nn.printW();
+	//nn.printW();
 	// Stampa i pesi prodotti dalla rete su un file
 	//nn.printWeightsOnFile("Weights.txt");
 

@@ -18,8 +18,8 @@ public:
 
 	void forward_propagation(const double *prevOutput) override;
 
-	void back_propagation(const double *prevOutput, const double *prevError, const double &learningRate) override;
 	void back_propagation_output(const double *prevOutput, const uint8_t *labels, const int &target, const double &learningRate) override;
+	void back_propagation(const double *prevOutput, double *prevError, const double &learningRate, const bool notFirst) override;
 
 	void defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) override;
 	void deleteCuda(void) override;
@@ -56,7 +56,6 @@ private:
 	double *error; // Matrice degli errori
 	double *prevError; // Matrice degli errori
 	double *tempWeight; // Matrice temporanea usata per l'aggiornamento dei pesi
-	double *tempOutput; // Matrice temporanea usata per l'aggiornamento dei pesi
 
 	int _filterWidth;
 	int _filterDim;

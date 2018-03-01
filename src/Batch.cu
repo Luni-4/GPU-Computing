@@ -89,10 +89,9 @@ void Batch::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, co
 	CHECK(cudaMalloc((void**)&weightRot, _wBytes));
 	CHECK(cudaMalloc((void**)&bias, Bytes));
 	CHECK(cudaMalloc((void**)&output, Bytes));
-	CHECK(cudaMalloc((void**)&error, Bytes));
+	//CHECK(cudaMalloc((void**)&error, Bytes));
 	CHECK(cudaMalloc((void**)&prevError, _prevLayerWidth * _prevLayerWidth  * _prevLayerDepth * sizeof(double)));
 	CHECK(cudaMalloc((void**)&tempWeight, _wBytes));
-	CHECK(cudaMalloc((void**)&tempOutput, Bytes));
 
 	// Dimensione insieme submatrici in byte = creo una submatrice per ogni nodo che compone un blocco di output * la profondità del livello precedente e grande quanto un filtro
 	unsigned int subBytes = _uniqueNodes * _prevLayerDepth * _filterDim * sizeof(double);
@@ -180,8 +179,8 @@ void Batch::forward_propagation(const double * prevOutput) {
 	//ora sono in una situazione simile al fully connected
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
-			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _uniqueNodes, _filterDim, &alpha, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes), _filterDim, &beta, output + (i * _uniqueNodes), 1));
+			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
+			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _uniqueNodes, _filterDim, &alpha, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes), _filterDim, &beta, output + (i * _uniqueNodes), 1));
 		}
 	}
 
@@ -263,8 +262,8 @@ void Batch::calcError() {
 	//ora sono in una situazione simile alla convoluzione
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
-			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, prevUniqueNodes, _filterDim, &alpha, weightRot + ((i + j * _depth) * _filterDim), 1, subCalcError + (i * prevUniqueNodes), _filterDim, &beta, prevError + (j * prevUniqueNodes), 1));
+			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
+			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, prevUniqueNodes, _filterDim, &alpha, weightRot + ((i + j * _depth) * _filterDim), 1, subCalcError + (i * prevUniqueNodes), _filterDim, &beta, prevError + (j * prevUniqueNodes), 1));
 		}
 	}
 
@@ -291,10 +290,11 @@ void Batch::back_propagation_output(const double * prevOutput, const uint8_t * l
 	updateWeights(prevOutput, learningRate);
 }
 
-void Batch::back_propagation(const double *prevOutput, const double *prevError, const double &learningRate) {
+void Batch::back_propagation(const double *prevOutput, double *prevError, const double &learningRate, const bool notFirst) {
 
-	error = (double*)prevError;
-	calcError();
+	error = prevError;
+	if (notFirst)
+		calcError();
 
 	updateWeights(prevOutput, learningRate);
 }
@@ -316,11 +316,11 @@ void Batch::updateWeights(const double *prevOutput, const double &learningRate) 
 #endif
 
 	//ora sono in una situazione simile al fully connected
-	double backAlpha = 1.0 / _uniqueNodes;
+	double backAlpha = 1.0 / _nodes;
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			//CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &backAlpha, subBack + (j * _filterDim), _uniqueNodes, error + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
-			CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _filterDim, _uniqueNodes, &backAlpha, error + (i * _uniqueNodes), 1, subBack + (j * _filterDim), _uniqueNodes, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
+			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &backAlpha, subBack + (j * _filterDim), _uniqueNodes, error + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
+			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _filterDim, _uniqueNodes, &backAlpha, error + (i * _uniqueNodes), 1, subBack + (j * _filterDim), _uniqueNodes, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
 		}
 	}
 
@@ -361,9 +361,9 @@ void Batch::deleteCuda() {
 	CHECK(cudaFree(weightRot));
 	CHECK(cudaFree(bias));
 	CHECK(cudaFree(output));
-	CHECK(cudaFree(error));
+	//CHECK(cudaFree(error));
+	CHECK(cudaFree(prevError));
 	CHECK(cudaFree(tempWeight));
-	CHECK(cudaFree(tempOutput));
 	CHECK(cudaFree(subForward));
 	CHECK(cudaFree(subCalcError));
 	CHECK(cudaFree(subBack));

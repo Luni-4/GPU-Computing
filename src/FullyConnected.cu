@@ -212,9 +212,7 @@ void FullyConnected::back_propagation_output(const double *prevOutput, const uin
 }
 
 
-
-
-void FullyConnected::back_propagation(const double *prevOutput, const double *prevErr, const double &learningRate) {
+void FullyConnected::back_propagation(const double *prevOutput, double *prevErr, const double &learningRate, const bool notFirst) {
 
 	// Applicare derivata della funzione di attivazione
 	if (_a == RELU)
