@@ -24,7 +24,7 @@ __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *
 		weight[tid] = 1.0;
 #else
 		//weight[tid] = 0.01 * r;
-		weight[tid] = 0.01;
+		weight[tid] = 0.0001;
 #endif
 }
 
@@ -77,7 +77,7 @@ __global__ void prevError(const double *prevErr, double *error, const int node) 
 	const unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	if (tid < node)
-		error[tid] = prevErr[tid] * error[tid];	
+		error[tid] = prevErr[tid] * error[tid];
 }
 
 
