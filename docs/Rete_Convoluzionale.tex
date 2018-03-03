@@ -42,7 +42,8 @@
 
 %TODO
 % Definire i confronti tra le configurazioni e le accuratezze ottenute (bisogna aspettare di fare i test)
-% Modificare le conclusioni in base ai risultati ottenuti con i test            
+% Modificare le conclusioni in base ai risultati ottenuti con i test
+% Cifar           
 
 
 % Watermark background (simple theme)
@@ -977,7 +978,9 @@
         \setlength\itemsep{1em}
         \item[] \large \emph{Il kernel aggiornato viene ricavato dalla convoluzione tra la matrice degli errori $\delta$ e la feature map di input}
     \end{itemize}
-\end{frame}   
+\end{frame} 
+
+% /////////////////////////// Implementazione della Rete ///////////////////////////
 
 \begin{frame}[c]
   \centering
@@ -989,8 +992,8 @@
     \framesubtitle{Obiettivo}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Si vuole costruire una rete neurale convoluzionale che permetta il riconoscimento di cifre numeriche scritte a mano
-        \item \large Le cifre da riconoscere sono salvate come immagini in scala di grigio a 8 bit. Un pixel può assumere solo i valori che sono compresi nell'intervallo $[0,255]$
+        \item \large Sfruttando l'architettura per il calcolo parallelo \emph{CUDA}, si vuole costruire una rete neurale convoluzionale che permetta di riconoscere cifre numeriche scritte a mano
+        \item \large Le cifre da riconoscere sono salvate come immagini in scala di grigio a 8 bit. Un pixel può assumere solo valori compresi nell'intervallo $[0,255]$
         \item \large L'output della rete è dato dalle 10 cifre numeriche che si vogliono riconoscere
         \item \large La rete riceve in input un'immagine e le associa la cifra numerica corrispondente
     \end{itemize}
@@ -1008,28 +1011,73 @@
 \end{frame}
 
 \begin{frame}{Implementazione della Rete}
-    \framesubtitle{Rete Sequenziale}
+    \framesubtitle{Rete CUDA}
     \begin{itemize} [<+->]
-        \setlength\itemsep{3em}
-        \item \large La rete sequenziale utilizzata per il confronto dei tempi di esecuzione è chiamata \emph{EduCNN}
-        \item \large Ammette sia livelli di tipo fully-connected che convoluzionali
-        \item \large L'unica funzione di attivazione disponibile è la sigmoide
-        \item \large La rete è stata implementata usando il linguaggio di programmazione C++  
+        \setlength\itemsep{2em}
+        \item \large Per potere sfruttare le potenzialità del paradigma ad oggetti, il codice host della rete CUDA è scritto in C++
+        \item \large I livelli implementati devono rispettare un'interfaccia comune e vengono modellati come classi
+        \item \large Le funzioni abibite alla fase di train, di test e al calcolo dell'accuratezza sono contenute in unica classe chiamata \emph{Network}
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Rete CUDA}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+         \item \large Quando viene definito un livello, l'utente non deve inserire anche la dimensione di output del livello precedente, ma solo quella del livello che sta definendo
+         \item \large I pesi iniziali della rete possono essere generati in maniera casuale
+        \item \large Le funzioni di attivazione implementate dalla rete sono la \emph{Sigmoide}, la \emph{Tangente Iperbolica} e la \emph{SoftPlus} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Caratteristiche tecniche}
+      \begin{itemize} [<+->] 
+        \setlength\itemsep{1em}           
+            \item \large Per implementare i livelli della rete sono stati usati gli \emph{unique pointer} perché permettono all'utente di non deve specificare il numero di livelli che vuole usare e non deve preoccuparsi di deallocarli al termine dell'esecuzione           
+            \item \large All'inizio della fase di train, l'intero training set viene caricato nella GRAM utilizzando il meccanismo della \emph{pinned memory}
+             \item \large Prima della fase di test, il training set viene deallocato e al suo posto viene caricato il test set sempre con il meccanismo \emph{pinned memory}
+            \item \large Le strutture dati usate dai singoli livelli vengono deallocate automaticamente al termine dell'esecuzione del processo
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Librerie}
+      \begin{itemize} [<+->] 
+        \setlength\itemsep{1em}           
+            \item \large Per eseguire le varie operazioni algebriche è stata utilizzata la libreria CUDA chiamata \emph{cuBLAS}
+            \item \large Durante la costruzione della rete, più di preciso nell'esecuzione dei test intermedi, si è osservato che la funzione adibita al calcolo del prodotto tra matrici \emph{cublasGemm} risulta più lenta di \emph{cublasGemv} che effettua il prodotto tra matrici e vettori
+            \item \large A fronte di questi risultati, si è scelto di usare la funzione \emph{cublasGemv} per eseguire i prodotti matrice-vettore
+            %\item \large I pesi iniziali della rete sono generati in maniera casuale per mezzo della funzione \emph{cuRandUniform} contenuta nella libreria CUDA \emph{cuRand}
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Rete Sequenziale}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Le accuratezze e i tempi di esecuzione della rete CUDA sono stati confrontati con quelli di una rete sequenziale chiamata \emph{EduCNN}
+        \item \large La scelta della rete sequenziale è ricaduta sulla EduCNN perché consente di trovare buone accuratezze in un tempo adeguato
+        \item \large Ammette sia livelli di tipo fully-connected che convoluzionali
+        \item \large L'unica funzione di attivazione implementata è la sigmoide
+        \item \large La EduCNN è scritta con il linguaggio di programmazione \emph{C++}
+    \end{itemize}
+\end{frame}
+
+\begin{comment}
 
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Differenze tra le due Reti}
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Entrambe le reti permettono di generare i pesi iniziali in maniera casuale
-        \item \large La EduCNN genera numeri casuali con la funzione \emph{rand}, mentre la rete CUDA utilizza le funzioni della libreria \emph{curand}
-        \item \large Quando si definisce un livello, la EduCNN richiede all'utente di specificare la dimensione di output del livello precedente, mentre la rete CUDA la calcola internamente
-        \item \large A differenza della EduCNN, la rete CUDA libera la memoria allocata dai vari livelli in maniera automatica 
+        %\item \large La EduCNN genera numeri casuali usando la funzione \emph{rand} del C
+        \item \large Quando si definisce un livello, la EduCNN richiede all'utente di specificare il numero di livelli che vuole usare e la dimensione di output del livello precedente
+        \item \large La memoria allocata per ciascun livello deve essere eliminata dall'utente al termine dell'esecuzione del processo 
     \end{itemize}     
 \end{frame}
+
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{comment}
@@ -1090,10 +1138,8 @@
     \framesubtitle{Considerazioni}
     \begin{itemize} [<+->]
         \setlength\itemsep{1.5em}
-        \item \large I calcoli interni alla rete vengono svolti usando il formato di dato \emph{double} in modo da non perdere precisione numerica tra i vari passaggi
+        \item \large I calcoli interni alla rete vengono svolti usando il formato di dato \emph{double} per non perdere precisione numerica tra un passaggio e un altro
         \item \large All'inizio della fase di training i pixel delle immagini vengono riscalati nell'intervallo $[0,1]$ per poter essere compatibili con il formato di dato usato dalla rete 
-        \item \large Tutti i dati e le strutture necessarie al funzionamento della rete vengono allocate all'inizio dell'esecuzione e deallocate al suo termine
-        \item \large La funzione di attivazione utilizzata dalla rete CUDA è la stessa della EduCnn
     \end{itemize} 
     
 \end{frame}
@@ -1105,7 +1151,7 @@
         \setlength\itemsep{2em}
         \item \large Il testing della rete viene effettuato combinando tra loro differenti tipi di livelli
         \item \large Le diverse combinazioni vengono chiamate \emph{Configurazioni}
-        \item \large Per studiare il comportamento della rete vengono definite cinque configurazioni
+        \item \large Vengono definite quattro configurazioni in modo da poter analizzare il comportamento della rete in determinate situazioni
     \end{itemize}     
 \end{frame}
 
@@ -1114,10 +1160,10 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Per ciascuna configurazione, il learning rate $\eta$ ed i pesi iniziali sono gli stessi in entrambe le reti
-        \item \large All'inizio della computazione, i pesi vengono fissati a $0.001$ 
-        \item \large Alcune configurazioni vengono eseguite utilizzando le funzioni per generare casualmente i pesi iniziali in modo da poter confrontare i differenti valori di accuratezza prodotti dalle due reti
-        \item \large Il numero di nodi e di livelli di ciascuna configurazione viene scelto tenendo conto della componentistica hardware utilizzata per eseguire i test
+        \item \large Il learning rate $\eta$ ed i pesi iniziali di ciascuna configurazione sono gli stessi per entrambe le reti 
+        \item \large All'inizio della computazione, i pesi vengono posti ad un valore fisso di $0.001$ 
+        %\item \large Alcune delle configurazioni vengono eseguite utilizzando le funzioni per la generazione dei numeri casuali messe a disposizione dalle reti
+        \item \large Il numero di nodi e di livelli per ciascuna configurazione viene scelto tenendo conto della componentistica hardware che si ha a disposizione per eseguire i test
     \end{itemize}     
 \end{frame}
 
@@ -1341,7 +1387,7 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Le varie configurazioni sono state eseguite su due differenti macchine
+        \item \large Le varie configurazioni sono state eseguite su due differenti tipi di macchine
         \item \large La prima presenta le seguenti caratteristiche tecniche       
         \bigskip
         \setbeamertemplate{itemize items}[square] 
@@ -1365,10 +1411,7 @@
         \setbeamertemplate{itemize items}[square] 
         \begin{itemize} [<+->] 
         \setlength\itemsep{2.5em}
-            \item \large Processore Intel Core i7-4510 da 2.00GHz
-            \item \large RAM da 6GB
-            \item \large Scheda grafica Nvidia GeForce 820M da 1GB
-            \item \large Sistema operativo Ubuntu 17.10                    
+            \item \large Da Riempire come la slide precedente                   
         \end{itemize}        
     \end{itemize}     
 \end{frame}
@@ -1380,7 +1423,7 @@
         \setlength\itemsep{2.5em}
         \item \large I diversi valori del learning rate $\eta$ utilizzati per testare la rete sono stati ottenuti campionando l'intervallo $[0.001, 0.8]$ a step variabili
         \item \large Per ciascuna configurazione vengono ricavati i tempi di computazione della rete sequenziale, della rete CUDA ed il relativo speedup
-        \item \large Le configurazioni mostrate nei risultati sono quelle che hanno ottenuto il massimo valore di accuratezza in entrambe le reti
+        \item \large Le configurazioni mostrate nei risultati sono quelle che hanno ottenuto il massimo valore di accuratezza in entrambe le reti tra tutti i learning rate $\eta$ testati
     \end{itemize}     
 \end{frame}
 
@@ -1390,7 +1433,6 @@
         \begin{table}
             \centering
             \renewcommand\arraystretch{1.3}
-            \setlength{\abovecaptionskip}{0pt}
             \small
             \begin{tabular}{| c | c | c | c | c | c |}
                 \hline
@@ -1407,13 +1449,12 @@
                 \hline
                 \multirow{2}{*}{4} & EduCNN & 0.18 & 90.30\% & 25 & \multirow{2}{*}{0.66} \\ \cline{2-5}
                                    & CUDA   & 0.04 & 84.05\% & 38 & \\
-                \hline
-                \multirow{2}{*}{5} & EduCNN & 0.18 & 90.30\% & 25 & \multirow{2}{*}{0.66} \\ \cline{2-5}
-                                   & CUDA   & 0.04 & 84.05\% & 38 & \\
-                \hline                                
+                \hline                     
             \end{tabular}
-            \caption            
-    {\tabular[t]{@{}l@{}}Risultato del confronto tra le reti usando come learning rate $\eta$ \\ quello che ha individuato l'accuratezza migliore\endtabular}          
+            \caption{Risultati ottenuti dalle configurazioni testate}          
+        %\end{table} 
+            %\caption            
+    %{\tabular[t]{@{}l@{}}Risultati ottenuti dalle configurazioni scelte\endtabular}          
         \end{table}    
 \end{frame}
 
@@ -1461,6 +1502,7 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
+        \item \large Da fare
         %\item \large La rete CUDA risulta una buona soluzione quando si vogliono creare reti neurali semplici e convoluzionali che necessitano di grossi livelli di tipo fully-connected o convoluzionali
         %\item \large Può essere utilizzata con livelli di piccole dimensioni al posto della rete sequenziale quando è richiesto che la CPU non venga troppo caricata di processi
         \item \large Non dipende da librerie di terze parti e può essere eseguita anche sui sistemi operativi Windows e macOS
