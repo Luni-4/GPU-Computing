@@ -26,6 +26,11 @@ FullyConnected::FullyConnected(const int &width, const ActFctType &a)
 	: LayerDefinition(width, 1, 1, FULLY_CONNECTED, a),
 	_nodes(width) {
 
+	if (sqrt(width) == (int)sqrt(width)) {
+		_width = sqrt(width);
+		_height = sqrt(width);
+	}
+
 	this->_alignedNodes = ALIGN_UP(_nodes, THREADS);
 }
 
@@ -57,6 +62,13 @@ int FullyConnected::getPredictionIndex(void) {
 }
 
 void FullyConnected::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
+
+#ifdef RELEASE
+	std::cout << "******** FULLY ********\n";
+	std::cout << "dimensioni input del livello: " << prevLayerWidth << " - " << prevLayerHeight << " - " << prevLayerDepth << std::endl;
+	std::cout << "dimensioni output del livello: " << _width << " - " << _height << " - " << _depth << std::endl;
+	std::cout << "\n\n";
+#endif 
 
 	// Creare l'handle di cuBLAS
 	CHECK_CUBLAS(cublasCreate(&handle));

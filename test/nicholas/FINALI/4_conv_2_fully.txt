@@ -1,7 +1,0 @@
-
-	4 CONV (filtri 5x5, profondità 3)
-+	FULLY 300
-+ 	FULLY 10
-
-pesi fissi a:
-

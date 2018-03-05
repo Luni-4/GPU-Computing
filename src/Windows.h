@@ -22,4 +22,6 @@
 //#define DEBUG_SUB
 //#define DEFAULT
 
+//#define RELEASE
+
 #define exit(n) system("pause"); exit(n);

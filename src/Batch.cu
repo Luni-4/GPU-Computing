@@ -59,9 +59,13 @@ void Batch::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, co
 
 	_uniqueNodes = _width * _height;
 
-#ifdef DEBUG
+#ifdef RELEASE
+	std::cout << "******** CONV ********\n";
+	std::cout << "dimensioni input del livello: " << prevLayerWidth << " - " << prevLayerHeight << " - " << prevLayerDepth << std::endl;
 	std::cout << "dimensioni output del livello: " << _width << " - " << _height << " - " << _depth << std::endl;
-#endif
+	std::cout << "\n\n";
+#endif 
+
 
 	//Creare l'handle di cuBLAS
 	CHECK_CUBLAS(cublasCreate(&handle));
