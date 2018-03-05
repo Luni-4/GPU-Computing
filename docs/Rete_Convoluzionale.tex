@@ -40,7 +40,10 @@
 % Disabilitare la trasparenza sulla pause
 \setbeamercovered{invisible}
 
-            
+%TODO
+% Definire i confronti tra le configurazioni e le accuratezze ottenute (bisogna aspettare di fare i test)
+% Modificare le conclusioni in base ai risultati ottenuti con i test
+% Cifar           
 
 
 % Watermark background (simple theme)
@@ -975,7 +978,9 @@
         \setlength\itemsep{1em}
         \item[] \large \emph{Il kernel aggiornato viene ricavato dalla convoluzione tra la matrice degli errori $\delta$ e la feature map di input}
     \end{itemize}
-\end{frame}   
+\end{frame} 
+
+% /////////////////////////// Implementazione della Rete ///////////////////////////
 
 \begin{frame}[c]
   \centering
@@ -987,8 +992,8 @@
     \framesubtitle{Obiettivo}
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Si vuole costruire una rete neurale convoluzionale che permetta il riconoscimento di cifre numeriche scritte a mano
-        \item \large Le cifre da riconoscere sono salvate come immagini in scala di grigio a 8 bit. Un pixel può assumere solo i valori che sono compresi nell'intervallo $[0,255]$
+        \item \large Sfruttando l'architettura per il calcolo parallelo \emph{CUDA}, si vuole costruire una rete neurale convoluzionale che permetta di riconoscere cifre numeriche scritte a mano
+        \item \large Le cifre da riconoscere sono salvate come immagini in scala di grigio a 8 bit. Un pixel può assumere solo valori compresi nell'intervallo $[0,255]$
         \item \large L'output della rete è dato dalle 10 cifre numeriche che si vogliono riconoscere
         \item \large La rete riceve in input un'immagine e le associa la cifra numerica corrispondente
     \end{itemize}
@@ -1006,78 +1011,89 @@
 \end{frame}
 
 \begin{frame}{Implementazione della Rete}
+    \framesubtitle{Rete CUDA}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Per potere sfruttare le potenzialità del paradigma ad oggetti, il codice host della rete CUDA è scritto in C++
+        \item \large I livelli implementati devono rispettare un'interfaccia comune e vengono modellati come classi
+        \item \large Le funzioni abibite alla fase di train, di test e al calcolo dell'accuratezza sono contenute in unica classe chiamata \emph{Network}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Rete CUDA}
+    \begin{itemize} [<+->]
+        \setlength\itemsep{1em}
+         \item \large Quando viene definito un livello, l'utente non deve inserire anche la dimensione di output del livello precedente, ma solo quella del livello che sta definendo
+         \item \large I pesi iniziali della rete possono essere generati in maniera casuale
+         \item \large Per migliorare l'accuratezza della rete, viene utilizzato il meccanismo delle \emph{epoche} che consiste nel ripetere più volte la forward e la back propagation sulla stessa immagine
+        \item \large Le funzioni di attivazione implementate dalla rete sono la \emph{Sigmoide}, la \emph{Tangente Iperbolica} e la \emph{SoftPlus} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Caratteristiche tecniche}
+      \begin{itemize} [<+->] 
+        \setlength\itemsep{1em}           
+            \item \large Per implementare i livelli della rete sono stati usati gli \emph{unique pointer} perché permettono all'utente di non deve specificare il numero di livelli che vuole usare e non deve preoccuparsi di deallocarli al termine dell'esecuzione           
+            \item \large All'inizio della fase di train, l'intero training set viene caricato nella GRAM utilizzando il meccanismo della \emph{pinned memory}
+             \item \large Prima della fase di test, il training set viene deallocato e al suo posto viene caricato il test set sempre con il meccanismo \emph{pinned memory}
+            \item \large Le strutture dati usate dai singoli livelli vengono deallocate automaticamente al termine dell'esecuzione del processo
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Librerie}
+      \begin{itemize} [<+->] 
+        \setlength\itemsep{1em}           
+            \item \large Per eseguire le varie operazioni algebriche è stata utilizzata la libreria CUDA chiamata \emph{cuBLAS}
+            \item \large Durante la costruzione della rete, più di preciso quando si eseguivano i test intermedi, si è osservato che la funzione adibita al calcolo del prodotto tra matrici \emph{cublasGemm} risulta più lenta di \emph{cublasGemv} che effettua il prodotto tra matrici e vettori
+            \item \large A fronte di questi risultati, si è scelto di usare la funzione \emph{cublasGemv} per eseguire i prodotti matrice-vettore
+            %\item \large I pesi iniziali della rete sono generati in maniera casuale utilizzando l'algoritmo \emph{xorWow} contenuto nella libreria CUDA \emph{cuRand}
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Stream}
+      \begin{itemize} [<+->] 
+        \setlength\itemsep{3em}           
+            \item \large Se la funzione \emph{cublasGemm} viene utilizzata insieme agli \emph{streams}, il tempo di calcolo per eseguire i prodotti tra matrici dovrebbe ridursi notevolmente
+            \item \large Nel caso della rete CUDA, eseguire una \emph{cublasGemm} per stream su matrici relativamente piccole, sia per livelli convoluzionali che fully-connected, non ha portato a nessun miglioramento del tempo di calcolo
+            \item \large Il tempo impiegato con e senza stream è lo stesso, questo è dovuto al fatto che l'overhead della \emph{cublasGemm} su diversi stream è maggiore dell'effettivo tempo di calcolo del prodotto matriciale
+        \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
     \framesubtitle{Rete Sequenziale}
     \begin{itemize} [<+->]
-        \setlength\itemsep{3em}
-        \item \large La rete sequenziale utilizzata per il confronto dei tempi di esecuzione è chiamata \emph{EduCNN}
+        \setlength\itemsep{2em}
+        \item \large Le accuratezze e i tempi di esecuzione della rete CUDA sono stati confrontati con quelli di una rete sequenziale chiamata \emph{EduCNN}
+        \item \large La scelta della rete sequenziale è ricaduta sulla EduCNN perché consente di trovare buone accuratezze in un tempo adeguato
         \item \large Ammette sia livelli di tipo fully-connected che convoluzionali
-        \item \large La funzione di attivazione scelta è la sigmoide
-        \item \large La rete è stata implementata usando il linguaggio di programmazione C++  
+        \item \large L'unica funzione di attivazione implementata è la sigmoide
+        \item \large La EduCNN è scritta con il linguaggio di programmazione \emph{C++}
     \end{itemize}
 \end{frame}
 
-\begin{comment}
+
 \begin{frame}{Implementazione della Rete}
-    \framesubtitle{Struttura}
+    \framesubtitle{Differenze tra le due Reti}
+    \smallskip
     \begin{itemize} [<+->]
-        \setlength\itemsep{2.5em}
-        \item \large La rete neurale convoluzionale sviluppata si compone di 3 livelli
-        \item \large Due livelli hidden di tipo convoluzionale ed un livello di output di tipo fully-connected
-        \item \large La struttura si basa su una rete neurale convoluzionale chiamata \emph{Dnn} 
-        \item \large La Dnn è scritta in linguaggio C e adotta un approccio di tipo sequenziale
-    \end{itemize}
+        \setlength\itemsep{2em}
+        %\item \large La EduCNN utilizza il generatore di numeri casuali \emph{xorshift128} per ottenere i valori dei pesi iniziali
+        \item \large Quando si definisce un livello, la EduCNN richiede all'utente di specificare il numero di livelli che vuole usare e la dimensione di output del livello precedente
+        \item \large La memoria allocata per ciascun livello deve essere eliminata dall'utente al termine dell'esecuzione del processo 
+    \end{itemize}     
 \end{frame}
-
-\begin{frame}{Implementazione della Rete}
-    \framesubtitle{Struttura}
-    
-    \begin{table}
-        \centering
-        \begin{tabular}{| c | c | c | c | c |}
-           \hline
-           & Input & Hidden 1 & Hidden 2 & Output \\
-           \hline
-           \emph{Dimensione} & $28 \times 28$ & $24 \times 24$ & $20 \times 20$ & $10 \times 1$ \\ 
-           \hline         
-           \emph{Numero di Nodi} & 784 & 2880 & 2000 & 10 \\
-           \hline
-           \emph{Profondità} & 1 & 1 & 1 & 1 \\
-           \hline
-           \emph{Dimensione filtro} & & 5 & 5 & \\
-           \hline
-        \end{tabular}
-    \caption{Struttura Rete Neurale}
-    \end{table} 
-    
-    \begin{table}
-        \centering
-        \begin{tabular}{| c | c | c | c | c |}
-           \hline
-           & Input & Hidden 1 & Hidden 2 & Output \\
-           \hline
-           \emph{Sigmoide} & & \checkmark & \checkmark & \checkmark \\ 
-           \hline         
-           \emph{Tanh} & & \checkmark & \checkmark & \checkmark \\
-           \hline
-           \emph{Softplus} & & \checkmark & \checkmark & \checkmark \\
-           \hline          
-        \end{tabular}
-    \caption{Funzioni di attivazione per livello}
-    \end{table} 
-     
-    
-\end{frame}
-\end{comment}
-
 
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Considerazioni}
     \begin{itemize} [<+->]
         \setlength\itemsep{1.5em}
-        \item \large I calcoli interni alla rete vengono svolti usando il formato di dato \emph{double} in modo da non perdere precisione numerica tra i vari passaggi
-        \item \large All'inizio della fase di training i pixel delle immagini vengono riscalati nell'intervallo $[0,1]$ per poter essere compatibili con il formato di dato usato dalla rete
-        \item \large Tutti i dati e le strutture necessarie al funzionamento della rete vengono allocate all'inizio dell'esecuzione e deallocate al suo termine
-        \item \large Le funzioni di attivazione utilizzate dalla rete CUDA sono le stesse della rete sequenziale
+        \item \large I calcoli interni alla rete vengono svolti usando il formato di dato \emph{double} per non perdere precisione numerica tra un passaggio e un altro
+        \item \large All'inizio della fase di training i pixel delle immagini vengono riscalati nell'intervallo $[0,1]$ per poter essere compatibili con il formato di dato usato dalla rete 
     \end{itemize} 
     
 \end{frame}
@@ -1089,11 +1105,150 @@
         \setlength\itemsep{2em}
         \item \large Il testing della rete viene effettuato combinando tra loro differenti tipi di livelli
         \item \large Le diverse combinazioni vengono chiamate \emph{Configurazioni}
-        \item \large Per studiare il comportamento della rete vengono definite quattro configurazioni
-        \item \large Il numero di nodi e di livelli di ciascuna configurazione viene scelto tenendo conto della componentistica hardware utilizzata per eseguire i test
+        \item \large Vengono definite quattro configurazioni in modo da poter analizzare il comportamento della rete in determinate situazioni
     \end{itemize}     
 \end{frame}
 
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Il learning rate $\eta$ ed i pesi iniziali di ciascuna configurazione sono gli stessi per entrambe le reti 
+        \item \large All'inizio della computazione, i pesi vengono posti ad un valore fisso di $0.001$ 
+        %\item \large Si è scelto di eseguire alcune configurazioni generando i pesi iniziali in maniera casuale in modo da valutare la differenza tra le accuratezze ottenute dalle due reti
+        \item \large Il numero di nodi e di livelli per ciascuna configurazione viene scelto tenendo conto della componentistica hardware che si ha a disposizione per eseguire i test
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}   
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
+           \hline
+           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
+           \hline 
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline          
+        \end{tabular}
+    \caption{Configurazione 1}
+    \end{table}
+    
+    \vspace{-0.5em}   
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
+           \hline
+           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
+           \hline 
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Fully Connected & $300 \times 1$ & \ding{55} \\
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline           
+        \end{tabular}
+    \caption{Configurazione 2}
+    \end{table}
+    
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}     
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
+           \hline
+           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
+           \hline 
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Convoluzionale & $12 \times 12$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Fully Connected & $300 \times 1$ & \ding{55} \\
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline           
+        \end{tabular}
+    \caption{Configurazione 3}
+    \end{table}    
+    
+\end{frame}
+
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}
+    
+     \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
+           \hline
+           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Fully Connected & $100 \times 1$ & \ding{55} \\
+           \hline
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Convoluzionale & $12 \times 12$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline           
+        \end{tabular}
+    \caption{Configurazione 4}
+    \end{table}  
+    
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}  
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 6$   \\  
+           \hline
+           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 6$   \\ 
+           \hline 
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 6$   \\ 
+           \hline
+           Fully Connected & $300 \times 1$ & \ding{55} \\
+           \hline
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline           
+        \end{tabular}
+    \caption{Configurazione 5}
+    \end{table}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Configurazioni}
     
@@ -1171,6 +1326,9 @@
     
 \end{frame}
 
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \begin{frame}[c]
   \centering
@@ -1183,15 +1341,31 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large Le varie configurazioni sono state eseguite su una macchina che presenta le seguenti caratteristiche tecniche       
+        \item \large Le varie configurazioni sono state eseguite su due differenti tipi di macchine
+        \item \large La prima presenta le seguenti caratteristiche tecniche       
         \bigskip
         \setbeamertemplate{itemize items}[square] 
         \begin{itemize} [<+->] 
         \setlength\itemsep{2.5em}
             \item \large Processore Intel Core i7-4510 da 2.00GHz
             \item \large RAM da 6GB
-            \item \large Scheda grafica Nvidia GeForce 820M da 1GB
-            \item \large Sistema operativo Ubuntu 17.04                    
+            \item \large Scheda grafica Nvidia GeForce 820M da 1GB con Architettura Fermi
+            \item \large Sistema operativo Ubuntu 17.10                    
+        \end{itemize}        
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Hardware}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Le caratteristiche tecniche della seconda macchina sono            
+        \bigskip
+        \setbeamertemplate{itemize items}[square] 
+        \begin{itemize} [<+->] 
+        \setlength\itemsep{2.5em}
+            \item \large Da Riempire come la slide precedente                   
         \end{itemize}        
     \end{itemize}     
 \end{frame}
@@ -1201,16 +1375,15 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2.5em}
-        \item \large I diversi valori del learning rate $\eta$ utilizzati per testare la rete si ottengono campionando l'intervallo $[0.001, 0.8]$ a step variabili
-        \item \large Per ciascuna configurazione vengono ricavati i tempi di computazione sequenziali, paralleli ed il relativo speedup
-        \item \large Le configurazioni mostrate nei risultati sono quelle che hanno ottenuto il massimo valore di accuratezza in entrambe le reti
+        \item \large I diversi valori del learning rate $\eta$ utilizzati per testare la rete sono stati ottenuti campionando l'intervallo $[0.001, 0.8]$ a step variabili
+        \item \large Per ciascuna configurazione vengono ricavati i tempi di computazione della rete sequenziale, della rete CUDA ed il relativo speedup
+        \item \large Le configurazioni mostrate nei risultati sono quelle che hanno ottenuto il massimo valore di accuratezza in entrambe le reti tra tutti i learning rate $\eta$ testati
     \end{itemize}     
 \end{frame}
 
 \begin{frame}{Analisi dei Risultati}
     \framesubtitle{Risultati}
-    \bigskip
-    \bigskip
+
         \begin{table}
             \centering
             \renewcommand\arraystretch{1.3}
@@ -1230,50 +1403,76 @@
                 \hline
                 \multirow{2}{*}{4} & EduCNN & 0.18 & 90.30\% & 25 & \multirow{2}{*}{0.66} \\ \cline{2-5}
                                    & CUDA   & 0.04 & 84.05\% & 38 & \\
-                \hline                
+                \hline                     
             \end{tabular}
-            \caption
-    {\tabular[t]{@{}l@{}}Risultati delle configurazioni che hanno ottenuto il miglior \\ valore di accuratezza per un determinato learning rate $\eta$\endtabular}          
+            \caption{Risultati ottenuti dalle configurazioni testate}          
+        %\end{table} 
+            %\caption            
+    %{\tabular[t]{@{}l@{}}Risultati ottenuti dalle configurazioni scelte\endtabular}          
         \end{table}    
 \end{frame}
 
-\begin{frame}{Analisi dei Risultati}
-    \framesubtitle{Analisi}
-    \smallskip
-    \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
-        \item \large La massima differenza tra le accuratezze delle reti è del 6\%. Questa differenza è dovuta ai diversi algoritmi utilizzati dalla GPU e dalla CPU per generare i pesi casuali iniziali. A parità di pesi iniziali e di learning rate entrambe le reti producono lo stesso livello di accuratezza
-        \item \large Lo speedup è significativo nelle configurazioni 1 e 3, ma inesistente o nullo nelle altre. Con kernel e livelli fully-connected di grossa taglia si ottiene un notevole vantaggio utilizzando il parallelismo, mentre per livelli più piccoli risulta migliore un approccio di tipo sequenziale
-    \end{itemize}     
-\end{frame}
-
-% Commento la parte relativa ai numeri casuali in quanto deve essere ancora testata bene con l'approccio rand
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{comment}
 
 \begin{frame}{Analisi dei Risultati}
-    \framesubtitle{Analisi}
-    \smallskip
-    \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
-        \item \large Nello specifico, gli algoritmi per la generazione di numeri casuali utilizzati nei due progetti sono: xorsfhit128 per EduCNN e xorwow per la rete CUDA.
-        \item \large Lo xorsfhit rappresenta una classe di generatore di numeri pseudocasuali che utilizza un sottoinsieme di operazioni linear-feedback shift register (LFSRs): esegue uno shift sui registri usando come input una funzione lineare o lo stato precedente.
-        \item \large L'utilizzo di LFSRs permette una implementazione efficiente senza un utilizzo eccessivo di polinomi sparsi. Essi generano il numero successivo della sequenza prendendo ripetutamente lo xor esclusivo di un numero con una versione bit-shifted di se stesso.
-    \end{itemize}     
+    \framesubtitle{Risultati}
+
+        \begin{table}
+            \centering
+            \renewcommand\arraystretch{1.3}
+            \small
+            \begin{tabular}{| c | c | c | c | c | c |}
+                \hline
+                \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \hline
+                \multirow{2}{*}{1} & EduCNN & 0.56 & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{2-5} 
+                                   & CUDA   & 0.18 & 93.86\% & 55 & \\                               
+                \hline
+                \multirow{2}{*}{2} & EduCNN & 0.21 & 90.64\% & 14 & \multirow{2}{*}{1.17} \\ \cline{2-5}
+                                   & CUDA   & 0.20 & 84.93\% & 12 & \\
+                \hline                                 
+            \end{tabular}
+            \caption            
+    {\tabular[t]{@{}l@{}}Valori di accuratezza e tempo impiegato dalle due reti \\ a partire da pesi iniziali generati casualmente \endtabular}          
+        \end{table}    
 \end{frame}
+
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Risultati}
+
+        \begin{table}
+            \centering
+            \renewcommand\arraystretch{1.3}
+            \small
+            \begin{tabular}{| c | c | c | c | c | c |}
+                \hline
+                \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \hline
+                \multirow{2}{*}{1} & EduCNN & 0.56 & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{2-5} 
+                                   & CUDA   & 0.18 & 93.86\% & 55 & \\                               
+                \hline
+                \multirow{2}{*}{2} & EduCNN & 0.21 & 90.64\% & 14 & \multirow{2}{*}{1.17} \\ \cline{2-5}
+                                   & CUDA   & 0.20 & 84.93\% & 12 & \\
+                \hline                                 
+            \end{tabular}
+            \caption            
+    {\tabular[t]{@{}l@{}}Valori di accuratezza e tempo impiegato dalle due reti \\ usando un numero di epoche pari a $10$ \endtabular}          
+        \end{table}    
+\end{frame}
+
+\end{comment}
 
 \begin{frame}{Analisi dei Risultati}
     \framesubtitle{Analisi}
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        \item \large I generatori xorshift sono tra i più veloci non-cryptographically-secure generatori di numeri casuali, ma non passano ogni test statistico senza ulteriori raffinamenti. Per rimediare a questo problema è sufficiente combinare l'algoritmo con una funzione non lineare e risultando nei generatori xorwow, xorshift+ o xorshift*.
-        \item \large Lo xorsfhit128 implementato nella EduCNN è la versione base dell'algoritmo: utilizza 4 stati e produce una sequenza di $2_{}^{128}-1$
-        \item \large Lo xorwow comporta invece una piccola modifica alla sequenza realizzata aggiungendo un contatore modulo $2_{}^{32}$, producendo quindi una sequenza di $2_{}^{192}-2_{}^{32}$.
+        \item \large Da fare %La massima differenza tra le accuratezze delle reti è del 6\%. Questa differenza è dovuta ai diversi algoritmi utilizzati dalla GPU e dalla CPU per generare i pesi casuali iniziali. A parità di pesi iniziali e di learning rate entrambe le reti producono lo stesso livello di accuratezza
+        \item \large Da fare %Lo speedup è significativo nelle configurazioni 1 e 3, ma inesistente o nullo nelle altre. Con kernel e livelli fully-connected di grossa taglia si ottiene un notevole vantaggio utilizzando il parallelismo, mentre per livelli più piccoli risulta migliore un approccio di tipo sequenziale
     \end{itemize}     
 \end{frame}
-
-\end{comment}
 
 \begin{frame}[c]
   \centering
@@ -1286,8 +1485,9 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{3em}
-        \item \large La rete CUDA risulta una buona soluzione quando si vogliono creare reti neurali semplici e convoluzionali che necessitano di grossi livelli di tipo fully-connected o convoluzionali
-        \item \large Può essere utilizzata con livelli di piccole dimensioni al posto della rete sequenziale quando è richiesto che la CPU non venga troppo caricata di processi
+        \item \large Da fare
+        %\item \large La rete CUDA risulta una buona soluzione quando si vogliono creare reti neurali semplici e convoluzionali che necessitano di grossi livelli di tipo fully-connected o convoluzionali
+        %\item \large Può essere utilizzata con livelli di piccole dimensioni al posto della rete sequenziale quando è richiesto che la CPU non venga troppo caricata di processi
         \item \large Non dipende da librerie di terze parti e può essere eseguita anche sui sistemi operativi Windows e macOS
     \end{itemize}     
 \end{frame}
