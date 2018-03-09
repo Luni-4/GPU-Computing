@@ -1,0 +1,25 @@
+
+Qui scrivo tutte le configurazioni che provo, con l'obiettivo di cercare quelle che non provocano overfitting.
+Quindi lancio il test e appena trovo una accuratezza "decente" (sopra il 70%) lo interrompo e segno la rete con "SI".
+Se la rete invece non impara per tutta la durata del test allora la segno con "NO". 
+Mi sembra interessante vedere quando le reti cominciano a non imparare più.
+Sceglierò poi le configurazioni che ritengo più interessanti come finali per i test e la ricerca del learning rate.
+I test sono stati fatti su un range da 0.05 fino a 4.00, aumentando il valore del learning rate di 0.05 ogni tentativo. (80 test)
+Ho osservato che in generale un learning rate buono non è mai troppo alto e comunque si fa prima a trovare una configurazione che porti risultati in  questo range piuttosto che fare test più approfonditi.
+
+Tutti i livelli CONV3 sono intesi con filtro 5x5 e profondità 3.
+Tutti i livelli CONV2 sono intesi con filtro 5x5 e profondità 2.
+
+SI 	- 2 CONV3 + FULLY10
+SI 	- 3 CONV3 + FULLY10
+NO	- 4 CONV3 + FULLY10							 			-->	(61.43%, learning rate < 1.5 ma non l'ho segnato)
+NO	- 3 CONV3 + FULLY300 + FULLY10							--> (11.35%, learning rate 2.6)
+NO	- 2 CONV3 + FULLY300 + FULLY10							-->	(29.11%, learning rate 0.9)
+NO	- CONV3 + FULLY300 + FULLY10							--> (29.98%, learning rate 0.2)
+SI	- CONV3 + FULLY100 + CONV3 + FULLY10					
+SI	- CONV3 + FULLY400 + CONV3 + FULLY10
+NO	- CONV3 + FULLY100 + CONV3 + FULLY100 + CONV3 + FULLY10	--> (57.06%, learning rate 5.3)
+NO	- CONV3 + FULLY225 + CONV3 + FULLY100 + CONV3 + FULLY10	--> (58.61%, learning rate 4.05)
+NO	- CONV3 + FULLY400 + CONV3 + FULLY100 + CONV3 + FULLY10	--> (74.62%, learning rate 3.50)
+NO	- CONV3 + FULLY400 + CONV3 + FULLY100 + FULLY10			--> (32.47%, learning rate 0.35)
+	

@@ -1,0 +1,19 @@
+
+Questi sono i test finali sulle configurazioni scelte con il learning rate migliore.
+I test sono stati fatti su un range da 0.05 fino a 8.00. I pesi sono fissi a 0.01, una volta trovato il learning rate migliore per curiosità farò il test mettendo i pesi casuali.
+Tutti i livelli CONV sono intesi con filtro 5x5 e profondità 3.
+
+
+							|								GPU COMPUTING							|									EDUCNN								|
+							|	learning rate	|	accuratezza		|	tempo	| 	numeri casuali	|	learning rate	|	accuratezza		|	tempo	|	numeri casuali	| 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------1)	FULLY300 + FULLY10		|		0.09		|		30.49%		|	66s		| 					|					|					| 			|					|
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2)	3 CONV + FULLY10		|		0.50		|		86.97%		|	77s		| 					|					|					| 			|					|
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3) 	CONV + FULLY400 		|		0.60		|		91.48		|	187s	| 					|					|					| 			|					|
+	+ CONV + FULLY10		|					|					|			| 					|					|					| 			|					|
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4)	CONV + FULLY400 		|					|					|			| 					|					|					| 			|					|
+	+ CONV + FULLY100 		|		3.43		|		76.26%		|	208s	| 					|					|					| 			|					|
+	+ CONV + FULLY10		|					|					|			| 					|					|					| 			|					|
+	(NB. questa configurazione varia molto in base al learning rate. es: 3.43 -> 76.26%, 3.44 -> 11.35%!; 3.48 -> 5.85%, 3.49 -> 62.79%)
