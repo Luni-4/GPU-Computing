@@ -42,8 +42,7 @@
 
 %TODO
 % Definire i confronti tra le configurazioni e le accuratezze ottenute (bisogna aspettare di fare i test)
-% Modificare le conclusioni in base ai risultati ottenuti con i test
-% Cifar           
+% Modificare le conclusioni in base ai risultati ottenuti con i test          
 
 
 % Watermark background (simple theme)
@@ -1082,7 +1081,7 @@
     \smallskip
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
-        %\item \large La EduCNN utilizza il generatore di numeri casuali \emph{xorshift128} per ottenere i valori dei pesi iniziali
+        %\item \large La EduCNN utilizza il generatore di numeri casuali \emph{xorshift128} per ricavare i valori dei pesi iniziali
         \item \large Quando si definisce un livello, la EduCNN richiede all'utente di specificare il numero di livelli che vuole usare e la dimensione di output del livello precedente
         \item \large La memoria allocata per ciascun livello deve essere eliminata dall'utente al termine dell'esecuzione del processo 
     \end{itemize}     
@@ -1126,26 +1125,22 @@
     
     \begin{table}
         \centering
+        \renewcommand\arraystretch{1.3}
         \begin{tabular}{| c | c | c |}
            \hline
-           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \emph{Livello} & \emph{Output} \\
            \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
+           Fully Connected & $300 \times 1$ \\
            \hline
-           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
-           \hline 
-           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           Fully Connected & $10 \times 1$ \\
            \hline
-           Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline          
         \end{tabular}
     \caption{Configurazione 1}
     \end{table}
     
-    \vspace{-0.5em}   
-    
     \begin{table}
         \centering
+        \renewcommand\arraystretch{1.3}
         \begin{tabular}{| c | c | c |}
            \hline
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
@@ -1155,8 +1150,6 @@
            Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
            \hline 
            Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
-           \hline
-           Fully Connected & $300 \times 1$ & \ding{55} \\
            \hline
            Fully Connected & $10 \times 1$ & \ding{55} \\
            \hline           
@@ -1170,164 +1163,97 @@
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Configurazioni}     
     
-    \begin{table}
-        \centering
-        \begin{tabular}{| c | c | c |}
-           \hline
-           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
-           \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
-           \hline
-           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
-           \hline 
-           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
-           \hline
-           Convoluzionale & $12 \times 12$ & $5 \times 5 \times 3$   \\ 
-           \hline
-           Fully Connected & $300 \times 1$ & \ding{55} \\
-           \hline
-           Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline           
-        \end{tabular}
-    \caption{Configurazione 3}
-    \end{table}    
-    
-\end{frame}
-
-
-\begin{frame}{Implementazione della Rete}
-    \framesubtitle{Configurazioni}
-    
-     \begin{table}
-        \centering
-        \begin{tabular}{| c | c | c |}
-           \hline
-           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
-           \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
-           \hline
-           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 3$   \\ 
-           \hline
-           Fully Connected & $100 \times 1$ & \ding{55} \\
-           \hline
-           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
-           \hline
-           Convoluzionale & $12 \times 12$ & $5 \times 5 \times 3$   \\ 
-           \hline
-           Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline           
-        \end{tabular}
-    \caption{Configurazione 4}
-    \end{table}  
-    
-\end{frame}
-
-\begin{frame}{Implementazione della Rete}
-    \framesubtitle{Configurazioni}  
-    
-    \begin{table}
-        \centering
-        \begin{tabular}{| c | c | c |}
-           \hline
-           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
-           \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 6$   \\  
-           \hline
-           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 6$   \\ 
-           \hline 
-           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 6$   \\ 
-           \hline
-           Fully Connected & $300 \times 1$ & \ding{55} \\
-           \hline
-           Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline           
-        \end{tabular}
-    \caption{Configurazione 5}
-    \end{table}
-    
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{comment}
-\begin{frame}{Implementazione della Rete}
-    \framesubtitle{Configurazioni}
-    
-     \begin{table}
-        \centering
-        \begin{tabular}{| c | c |}
-           \hline
-           \emph{Livello} & \emph{Output} \\
-           \hline
-           Fully Connected & $300 \times 1$  \\ 
-           \hline         
-           Fully Connected & $10 \times 1$ \\
-           \hline
-        \end{tabular}
-    \caption{Configurazione 1}
-    \end{table}
-    
     \bigskip
     
     \begin{table}
         \centering
+        \renewcommand\arraystretch{1.3}
         \begin{tabular}{| c | c | c |}
            \hline
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
            \hline
-           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
+           \hline
+           Fully Connected & $400 \times 1$ & \ding{55} \\
            \hline 
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           \hline
            Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline          
+           \hline           
         \end{tabular}
-    \caption{Configurazione 2}
-    \end{table}
-    
-    
+    \caption{Configurazione 3}
+    \end{table}   
     
 \end{frame}
 
 
 \begin{frame}{Implementazione della Rete}
-    \framesubtitle{Configurazioni}   
+    \framesubtitle{Configurazioni}
     
-    \begin{table}
+    \bigskip
+    
+     \begin{table}
         \centering
+        \renewcommand\arraystretch{1.3}
         \begin{tabular}{| c | c | c |}
            \hline
            \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
            \hline
-           Convoluzionale & $22 \times 22$ & $7 \times 7 \times 1$   \\  
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 3$   \\  
            \hline
-           Fully Connected & $300 \times 1$ & \ding{55} \\
+           Fully Connected & $400 \times 1$ & \ding{55} \\
            \hline 
+           Convoluzionale & $16 \times 16$ & $5 \times 5 \times 3$   \\ 
+           \hline
+           Fully Connected & $100 \times 1$ & \ding{55} \\
+           \hline 
+           Convoluzionale & $6 \times 6$ & $5 \times 5 \times 3$   \\ 
+           \hline
            Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline          
-        \end{tabular}
-    \caption{Configurazione 3}
-    \end{table}
-    
-    \bigskip    
-    
-    \begin{table}
-        \centering
-        \begin{tabular}{| c | c | c |}
-           \hline
-           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
-           \hline
-           Convoluzionale & $26 \times 26$ & $3 \times 3 \times 1$   \\  
            \hline         
-           Convoluzionale & $24 \times 24$ & $3 \times 3 \times 1$   \\
-           \hline
-           Fully Connected & $10 \times 1$ & \ding{55} \\
-           \hline          
         \end{tabular}
     \caption{Configurazione 4}
-    \end{table}     
-    
+    \end{table}    
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni}
+
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large La \emph{Configurazione 1} ha lo scopo di testare il comportamento della rete CUDA quando vengono utilizzati solo livelli di tipo fully-connected
+        \item \large La \emph{Configurazione 2} verifica che mettendo più livelli convoluzionali in serie avviene il fenomeno dell'\emph{overfitting}       
+        \item \large Le restanti configurazioni sono costruite alternado tra loro livelli convoluzionali di profondità tre e livelli fully-connected. Questo tipo di approccio serve a valutare se i valori di accuratezza ed i tempi di esecuzione ottenuti dalla rete CUDA sono validi anche per reti che ammettono una certa \emph{profondità}
+    \end{itemize}     
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{comment}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Cifar}
+
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large Per poter analizzare più approfonditamente le potenzialità computazionali della rete CUDA, le \emph{Configurazioni 3} e \emph{4} vengono testate usando il training set ed il test set del database di immagini chiamato \emph{Cifar}
+        \item \large In Cifar, le immagini che costituiscono gli esempi del training e del test set sono definite secondo il modello di colore \emph{RGB} e presentano tre differenti piani colore: rosso, verde, blu       
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Cifar}
+
+    \begin{itemize} [<+->]
+        \setlength\itemsep{3em}
+        \item \large La dimensione di ciascuna immagine è $32 \times 32 \times 3$. Il valore della terza dimensione è pari al numero dei piani colore del modello RGB
+        \item \large Le etichette sono rappresentate da numeri interi positivi
+        \item \large Il training ed il test set contengono rispettativamente $50000$ esempi di train e $10000$ di test         
+    \end{itemize}     
 \end{frame}
 
 \end{comment}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 
 \begin{frame}[c]
@@ -1390,20 +1316,20 @@
             \small
             \begin{tabular}{| c | c | c | c | c | c |}
                 \hline
-                \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
                 \hline
-                \multirow{2}{*}{1} & EduCNN & 0.56 & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{2-5} 
-                                   & CUDA   & 0.18 & 93.86\% & 55 & \\                               
+                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
-                \multirow{2}{*}{2} & EduCNN & 0.21 & 90.64\% & 14 & \multirow{2}{*}{1.17} \\ \cline{2-5}
-                                   & CUDA   & 0.20 & 84.93\% & 12 & \\
+                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
-                \multirow{2}{*}{3} & EduCNN & 0.16 & 95.58\% & 213 & \multirow{2}{*}{3.44} \\ \cline{2-5} 
-                                   & CUDA   & 0.16 & 92.65\% & 62 & \\
+                \multirow{2}{*}{3} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
-                \multirow{2}{*}{4} & EduCNN & 0.18 & 90.30\% & 25 & \multirow{2}{*}{0.66} \\ \cline{2-5}
-                                   & CUDA   & 0.04 & 84.05\% & 38 & \\
-                \hline                     
+                \multirow{2}{*}{4} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
             \end{tabular}
             \caption{Risultati ottenuti dalle configurazioni testate}          
         %\end{table} 
@@ -1412,7 +1338,7 @@
         \end{table}    
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{comment}
 
@@ -1425,14 +1351,14 @@
             \small
             \begin{tabular}{| c | c | c | c | c | c |}
                 \hline
-                \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
                 \hline
-                \multirow{2}{*}{1} & EduCNN & 0.56 & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{2-5} 
-                                   & CUDA   & 0.18 & 93.86\% & 55 & \\                               
+                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
-                \multirow{2}{*}{2} & EduCNN & 0.21 & 90.64\% & 14 & \multirow{2}{*}{1.17} \\ \cline{2-5}
-                                   & CUDA   & 0.20 & 84.93\% & 12 & \\
-                \hline                                 
+                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
             \end{tabular}
             \caption            
     {\tabular[t]{@{}l@{}}Valori di accuratezza e tempo impiegato dalle due reti \\ a partire da pesi iniziali generati casualmente \endtabular}          
@@ -1448,21 +1374,46 @@
             \small
             \begin{tabular}{| c | c | c | c | c | c |}
                 \hline
-                \emph{Configurazione} & \emph{Rete} & $\eta$ & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
                 \hline
-                \multirow{2}{*}{1} & EduCNN & 0.56 & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{2-5} 
-                                   & CUDA   & 0.18 & 93.86\% & 55 & \\                               
+                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
-                \multirow{2}{*}{2} & EduCNN & 0.21 & 90.64\% & 14 & \multirow{2}{*}{1.17} \\ \cline{2-5}
-                                   & CUDA   & 0.20 & 84.93\% & 12 & \\
-                \hline                                 
+                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
             \end{tabular}
             \caption            
     {\tabular[t]{@{}l@{}}Valori di accuratezza e tempo impiegato dalle due reti \\ usando un numero di epoche pari a $10$ \endtabular}          
         \end{table}    
 \end{frame}
 
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Risultati}
+
+        \begin{table}
+            \centering
+            \renewcommand\arraystretch{1.3}
+            \small
+            \begin{tabular}{| c | c | c | c | c | c |}
+                \hline
+                \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \hline
+                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
+                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
+            \end{tabular}
+            \caption            
+    {\tabular[t]{@{}l@{}}Valori di accuratezza e tempo impiegato dalle due reti \\ usando come database Cifar \endtabular}          
+        \end{table}    
+\end{frame}
+
 \end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Analisi dei Risultati}
     \framesubtitle{Analisi}
