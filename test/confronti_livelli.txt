@@ -1,0 +1,23 @@
+Learning rate pari a 1
+Pesi iniziali: 0.01
+Epoche: 1
+
+                    CUDA  vs  EDU 
+
+
+2 fully             29.23 vs 27.14
+3 fully             32.93 vs 32.93
+4 fully             21.54 vs 21.54
+
+Depth: 1
+
+1 conv + fully      89.02 vs 89.20
+2 conv + fully      89.04 vs 88.72
+3 conv + fully      87.66 vs 87.68
+
+
+Depth: 3
+
+1 conv + fully      89.54 vs 88.71      
+2 conv + fully      85.15 vs 88.95
+3 conv + fully      38.72 vs 86.06
