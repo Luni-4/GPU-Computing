@@ -58,9 +58,9 @@ int main() {
 	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new FullyConnected(400, SIGMOID));
+	//layers.emplace_back(new FullyConnected(400, SIGMOID));
 	layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new FullyConnected(100, SIGMOID));
+	//layers.emplace_back(new FullyConnected(100, SIGMOID));
 	layers.emplace_back(new Batch(5, depth, 1));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 
@@ -80,36 +80,36 @@ int main() {
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
-	for (double i = 3.20; i < 3.60; i += 0.02) {
+	//for (double i = 3.20; i < 3.60; i += 0.02) {
 		// Creare la rete
-		Network nn(layers);
+	Network nn(layers);
 
-		//#ifdef DEBUG
-		auto start = std::chrono::high_resolution_clock::now();
-		//#endif
+	//#ifdef DEBUG
+	auto start = std::chrono::high_resolution_clock::now();
+	//#endif
 
-		//std::cout.precision(64);
-		//double learningRate = 1.0;
-		double learningRate = i;
-		int epoch = 1;
-		std::cout << "\nlearningRate:" << learningRate << std::endl;
+	//std::cout.precision(64);
+	double learningRate = 1.0;
+	//double learningRate = i;
+	int epoch = 1;
+	std::cout << "\nlearningRate:" << learningRate << std::endl;
 
-		// Training
-		nn.train(d.get(), epoch, learningRate);
+	// Training
+	nn.train(d.get(), epoch, learningRate);
 
-		//#ifdef DEBUG
-		auto finish = std::chrono::high_resolution_clock::now();
-		auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-		std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
-		//#endif
+	//#ifdef DEBUG
+	auto finish = std::chrono::high_resolution_clock::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
+	//#endif
 
-		//nn.printW();
-		// Stampa i pesi prodotti dalla rete su un file
-		//nn.printWeightsOnFile("Weights.txt");
+	//nn.printW();
+	// Stampa i pesi prodotti dalla rete su un file
+	//nn.printWeightsOnFile("Weights.txt");
 
-		// Test
-		nn.predict(d.get());
-	}
+	// Test
+	nn.predict(d.get());
+	//}
 
 #ifdef _WIN32
 	system("pause");

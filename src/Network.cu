@@ -48,7 +48,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 			backPropagation(i, learningRate);
 
-			//if (i == 30000)
+			//if (i == 100)
 				//return;
 		}
 

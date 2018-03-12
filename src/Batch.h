@@ -47,7 +47,7 @@ private:
 
 	//Fattori dei prodotti
 	const double alpha = 1.0f;
-	const double beta = 0.0f;
+	double beta = 0.0f;
 
 	double *weight; // Matrice dei pesi in Cuda
 	double *weightRot; // Matrice dei pesi in Cuda

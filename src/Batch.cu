@@ -183,7 +183,8 @@ void Batch::forward_propagation(const double * prevOutput) {
 	//ora sono in una situazione simile al fully connected
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes), _filterDim, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
+			(j == 0) ? beta = 0.0 : beta = 1.0;
+			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, _uniqueNodes, &alpha, subForward + (j * _uniqueNodes * _filterDim), _filterDim, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, &beta, output + (i * _uniqueNodes), 1));
 			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _uniqueNodes, _filterDim, &alpha, weight + (i * _filterDim * _prevLayerDepth) + (j * _filterDim), 1, subForward + (j * _uniqueNodes), _filterDim, &beta, output + (i * _uniqueNodes), 1));
 		}
 	}
@@ -238,7 +239,7 @@ void Batch::calcError() {
 	threadBlocks = dim3(_filterWidth, _filterWidth, 1);
 
 	// Tanti blocchi quanti sono i nodi in input e il depth del livello precedente
-	numBlocks = dim3(_prevLayerWidth, _prevLayerWidth, _prevLayerDepth);
+	numBlocks = dim3(_prevLayerWidth, _prevLayerWidth, _depth);
 
 	Kernel::createSubmatrixBisK(numBlocks, threadBlocks, subCalcError, padding, paddingWidth, _filterWidth, _stride, prevUniqueNodes);
 
@@ -266,7 +267,8 @@ void Batch::calcError() {
 	//ora sono in una situazione simile alla convoluzione
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
+			(i == 0) ? beta = 0.0 : beta = 1.0;
+			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _filterDim, prevUniqueNodes, &alpha, subCalcError + (i * prevUniqueNodes * _filterDim), _filterDim, weightRot + ((i + j * _depth) * _filterDim), 1, &beta, prevError + (j * prevUniqueNodes), 1));
 			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, prevUniqueNodes, _filterDim, &alpha, weightRot + ((i + j * _depth) * _filterDim), 1, subCalcError + (i * prevUniqueNodes), _filterDim, &beta, prevError + (j * prevUniqueNodes), 1));
 		}
 	}
@@ -320,10 +322,11 @@ void Batch::updateWeights(const double *prevOutput, const double &learningRate) 
 #endif
 
 	//ora sono in una situazione simile al fully connected
-	double backAlpha = 1.0 / _nodes;
+	double backAlpha = 1.0 / _uniqueNodes;
+	beta = 0.0;
 	for (int i = 0; i < _depth; i++) {
 		for (int j = 0; j < _prevLayerDepth; j++) {
-			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &backAlpha, subBack + (j * _filterDim), _uniqueNodes, error + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
+			CHECK_CUBLAS(cublasDgemv(handle, CUBLAS_OP_T, _uniqueNodes, _filterDim, &backAlpha, subBack + (j * _uniqueNodes * _filterDim), _uniqueNodes, error + (i * _uniqueNodes), 1, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
 			//CHECK_CUBLAS(cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, 1, _filterDim, _uniqueNodes, &backAlpha, error + (i * _uniqueNodes), 1, subBack + (j * _filterDim), _uniqueNodes, &beta, tempWeight + ((i + j * _depth) * _filterDim), 1));
 		}
 	}
