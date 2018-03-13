@@ -62,6 +62,7 @@ int main() {
 	layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
 	layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 
 	// MEMO: learning rate base 0.001
@@ -80,7 +81,7 @@ int main() {
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
-	//for (double i = 3.20; i < 3.60; i += 0.02) {
+	//for (double i = 0.00; i < 1.00; i += 0.10) {
 		// Creare la rete
 	Network nn(layers);
 
@@ -89,7 +90,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 1.0;
+	double learningRate = 0.24;
 	//double learningRate = i;
 	int epoch = 1;
 	std::cout << "\nlearningRate:" << learningRate << std::endl;

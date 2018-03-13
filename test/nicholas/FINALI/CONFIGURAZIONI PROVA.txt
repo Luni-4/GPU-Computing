@@ -10,6 +10,8 @@ Ho osservato che in generale un learning rate buono non è mai troppo alto e com
 Tutti i livelli CONV3 sono intesi con filtro 5x5 e profondità 3.
 Tutti i livelli CONV2 sono intesi con filtro 5x5 e profondità 2.
 
+SAREBBE TUTTO DA RIFARE, SONO STATI SISTEMATI DIVERSI ERRORI NEL FRATTEMPO!!
+
 SI 	- 2 CONV3 + FULLY10
 SI 	- 3 CONV3 + FULLY10
 NO	- 4 CONV3 + FULLY10							 			-->	(61.43%, learning rate < 1.5 ma non l'ho segnato)
