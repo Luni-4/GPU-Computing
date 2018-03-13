@@ -1253,7 +1253,7 @@
 \end{frame}
 
 \end{comment}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}[c]
@@ -1324,14 +1324,45 @@
                 \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
                                    &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
-                \multirow{2}{*}{3} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
-                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \multirow{2}{*}{3} & \multirow{2}{*}{0.62} & EduCNN & 93.80\% & 599 & \multirow{2}{*}{3.07} \\ \cline{3-5} 
+                                   &                       & CUDA   & 92.78\% & 195  & \\
                 \hline
-                \multirow{2}{*}{4} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
-                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \multirow{2}{*}{4} & \multirow{2}{*}{1.11} & EduCNN & 88.63\% & 680 & \multirow{2}{*}{3.1} \\ \cline{3-5} 
+                                   &                       & CUDA   & 92.10\% & 215  & \\
                 \hline
             \end{tabular}
-            \caption{Risultati ottenuti dalle configurazioni testate}          
+            \caption{Risultati ottenuti dal testing delle configurazioni su Linux}          
+        %\end{table} 
+            %\caption            
+    %{\tabular[t]{@{}l@{}}Risultati ottenuti dalle configurazioni scelte\endtabular}          
+        \end{table}    
+\end{frame}
+
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Risultati}
+
+        \begin{table}
+            \centering
+            \renewcommand\arraystretch{1.3}
+            \small
+            \begin{tabular}{| c | c | c | c | c | c |}
+                \hline
+                \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
+                \hline
+                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
+                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \hline
+                \multirow{2}{*}{3} & \multirow{2}{*}{0.62} & EduCNN & 93.80\% & 599 & \multirow{2}{*}{3.07} \\ \cline{3-5} 
+                                   &                       & CUDA   & 92.78\% & 195  & \\
+                \hline
+                \multirow{2}{*}{4} & \multirow{2}{*}{1.11} & EduCNN & 88.63\% & 680 & \multirow{2}{*}{3.1} \\ \cline{3-5} 
+                                   &                       & CUDA   & 92.10\% & 215  & \\
+                \hline
+            \end{tabular}
+            \caption{Risultati ottenuti dal testing delle configurazioni su Windows}          
         %\end{table} 
             %\caption            
     %{\tabular[t]{@{}l@{}}Risultati ottenuti dalle configurazioni scelte\endtabular}          
@@ -1353,10 +1384,10 @@
                 \hline
                 \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [s]} & \emph{Speedup} \\
                 \hline
-                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
-                                   &                       & CUDA   & 93.86\% & 55  & \\
+                \multirow{2}{*}{1} & \multirow{2}{*}{0.56} & EduCNN & 94.57\% & 182 & \multirow{2}{*}{2.84} \\ \cline{3-5} 
+                                   &                       & CUDA   & 95.21\% & 64  & \\
                 \hline
-                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 97.60\% & 121 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
+                \multirow{2}{*}{2} & \multirow{2}{*}{0.56} & EduCNN & 87.61\% & 190 & \multirow{2}{*}{2.22} \\ \cline{3-5} 
                                    &                       & CUDA   & 93.86\% & 55  & \\
                 \hline
             \end{tabular}
