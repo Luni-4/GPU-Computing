@@ -49,7 +49,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 			backPropagation(i, learningRate);
 
 			//if (i == 100)
-				//return;
+			//return;
 		}
 
 		// Incrementare l'indice

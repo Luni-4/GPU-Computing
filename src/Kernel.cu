@@ -23,8 +23,8 @@ __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *
 #ifdef TOYINPUT
 		weight[tid] = 1.0;
 #else
-		weight[tid] = 0.01 * r;
-	//weight[tid] = 0.01;
+		//weight[tid] = 0.01 * r;
+		weight[tid] = 0.001;
 #endif
 }
 
@@ -45,8 +45,8 @@ __global__ void initBias(double *bias, const int node, curandStateXORWOW_t *stat
 #ifdef TOYINPUT
 		bias[tid] = 1.0;
 #else
-		bias[tid] = r;
-	//bias[tid] = 0.0;
+		//bias[tid] = r;
+		bias[tid] = 0.0;
 #endif
 }
 
