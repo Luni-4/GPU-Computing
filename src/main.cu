@@ -60,8 +60,8 @@ int main() {
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
 	layers.emplace_back(new Batch(5, depth, 1));
 	layers.emplace_back(new FullyConnected(400, SIGMOID));
-	layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new FullyConnected(100, SIGMOID));
+	//layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new FullyConnected(100, SIGMOID));
 	layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
@@ -91,7 +91,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 1.11;
+	double learningRate = 0.62;
 	//double learningRate = i;
 	int epoch = 10;
 	std::cout << "\nlearningRate:" << learningRate << std::endl;

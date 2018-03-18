@@ -233,6 +233,7 @@ TSWLatexianTemp*
 *.sln
 *.opendb
 *.VC.db
+*.pdb
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
