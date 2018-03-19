@@ -65,8 +65,8 @@ int main() {
 	//layers.emplace_back(new Batch(5, depth, 1));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
 	//layers.emplace_back(new Batch(5, depth, 1));
-	//layers.emplace_back(new FullyConnected(300, SIGMOID));
-	//layers.emplace_back(new FullyConnected(10, SIGMOID));
+	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	layers.emplace_back(new FullyConnected(10, SIGMOID));
 
 	// MEMO: learning rate base 0.001
 #else
@@ -84,71 +84,34 @@ int main() {
 	//layers.emplace_back(new FullyConnected_Stream(300, SIGMOID));
 #endif
 
-	for (int con = 3; con < 4; con++) {
+	// Creare la rete
+	Network nn(layers);
 
-		layers.clear();
+	//#ifdef DEBUG
+	auto start = std::chrono::high_resolution_clock::now();
+	//#endif
 
-		double learningRate;
-		if (con == 0) {
-			layers.emplace_back(new FullyConnected(300, SIGMOID));
-			layers.emplace_back(new FullyConnected(10, SIGMOID));
-			learningRate = 0.09;
-		}
-		else if (con == 1) {
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new FullyConnected(10, SIGMOID));
-			learningRate = 0.24;
-		}
-		else if (con == 2) {
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new FullyConnected(400, SIGMOID));
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new FullyConnected(10, SIGMOID));
-			learningRate = 0.62;
-		}
-		else {
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new FullyConnected(400, SIGMOID));
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new FullyConnected(100, SIGMOID));
-			layers.emplace_back(new Batch(5, depth, 1));
-			layers.emplace_back(new FullyConnected(10, SIGMOID));
-			learningRate = 1.11;
-		}
+	//std::cout.precision(64);
+	double learningRate = 0.09;
+	//double learningRate = i;
+	int epoch = 10;
+	std::cout << "\nlearningRate:" << learningRate << std::endl;
 
-		//for (double i = 0.00; i < 2.00; i += 0.20) {
-		// Creare la rete
-		Network nn(layers);
+	// Training
+	nn.train(d.get(), epoch, learningRate);
 
-		//#ifdef DEBUG
-		auto start = std::chrono::high_resolution_clock::now();
-		//#endif
+	//#ifdef DEBUG
+	auto finish = std::chrono::high_resolution_clock::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+	std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
+	//#endif
 
-		//std::cout.precision(64);
-		//double learningRate = 0.24;
-		//double learningRate = i;
-		int epoch = 10;
-		std::cout << "\nlearningRate:" << learningRate << std::endl;
+	//nn.printW();
+	// Stampa i pesi prodotti dalla rete su un file
+	//nn.printWeightsOnFile("Weights.txt");
 
-		// Training
-		nn.train(d.get(), epoch, learningRate);
-
-		//#ifdef DEBUG
-		auto finish = std::chrono::high_resolution_clock::now();
-		auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-		std::cout << "Tempo di esecuzione della funzione di train: " << elapsed.count() << std::endl;
-		//#endif
-
-		//nn.printW();
-		// Stampa i pesi prodotti dalla rete su un file
-		//nn.printWeightsOnFile("Weights.txt");
-
-		// Test
-		nn.predict(d.get());
-		//}
-	}
+	// Test
+	nn.predict(d.get());
 
 
 #ifdef _WIN32
