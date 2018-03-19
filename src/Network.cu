@@ -35,12 +35,11 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 	// Dimensione della singola immagine
 	_imgDim = data->getImgDimension();
 
-	// Indice che reperisce la giusta immagine da mandare in input alla rete
-	_imgIndex = 0;
+	for (int j = 0; j < epoch; j++) {
+		// Indice che reperisce la giusta immagine da mandare in input alla rete
+		_imgIndex = 0;
 
-	for (int i = 0; i < _nImages; i++) {
-
-		for (int j = 0; j < epoch; j++) {
+		for (int i = 0; i < _nImages; i++) {
 			//non eliminare che la uso quando non devo calcolare i tempi
 			//std::cout << i << " of " << _nImages << "\r";
 
@@ -50,10 +49,10 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 			//if (i == 100)
 			//return;
-		}
 
-		// Incrementare l'indice
-		_imgIndex += _imgDim;
+			// Incrementare l'indice
+			_imgIndex += _imgDim;
+		}
 	}
 
 	// Cancellare i dati di train dal device

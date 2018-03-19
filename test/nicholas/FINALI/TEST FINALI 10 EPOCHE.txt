@@ -6,15 +6,15 @@ Tutti i livelli CONV sono intesi con filtro 5x5 e profondità 3.
 
 											|					GPU COMPUTING				|						EDUCNN					|
 							|learning rate	|	accuratezza	|	tempo	| 	numeri casuali	|	accuratezza	|	tempo	|	numeri casuali	| 
----------------------------------------------------------------------------------------------------------------------------------------------1)	FULLY300 + FULLY10		|		0.09	|		24.33%	|	655s	| (+- 94.54%) 94.76%|		31.96%	| 	2746s	|(0.1 97.82%) 97.73%|
+---------------------------------------------------------------------------------------------------------------------------------------------1)	FULLY300 + FULLY10		|		0.09	|		31.96%	|	 627s	| 		97.72%		|		31.96%	| 	2746s	|	 	97.73%		|
 ---------------------------------------------------------------------------------------------------------------------------------------------
-2)	3 CONV + FULLY10		|		0.24	|		86.25%	|	771s	| (+- 14.18%) 13.03%|		90.11%	| 	2833s	|(0.1 90.46%) 90.47%|
+2)	3 CONV + FULLY10		|		0.24	|		90.11%	|	 771s	| 	  	 9.80%		|		90.11%	| 	2833s	|		90.47%		|
 ---------------------------------------------------------------------------------------------------------------------------------------------
-3) 	CONV + FULLY400 		|		0.62	|		95.39%	|	1904s	| (+- 94.81%) 94.44%|		97.49%	| 	9122s	|(0.1 97.75%) 97.61%|
+3) 	CONV + FULLY400 		|		0.62	|		97.71%	|	1860s	|		97.78%		|		97.49%	| 	9122s	|		97.61%		|
 	+ CONV + FULLY10		|				|				|			| 					|				| 			|					|
 ---------------------------------------------------------------------------------------------------------------------------------------------
 4)	CONV + FULLY400 		|				|				|			| 					|				| 			|					|
-	+ CONV + FULLY100 		|		1.11	|		47.93%	|	2084s	| (+- 20.60%) 69.31%|		13.68%	| 	9781s	|(0.1 19.43%)  9.58%|
+	+ CONV + FULLY100 		|		1.11	|		18.88%	|	2084s	| 		 9.58%		|		13.68%	| 	9781s	|		 9.58%		|
 	+ CONV + FULLY10		|				|				|			| 					|				| 			|					|
 	(NB. questa da buoni risultati anche con learning rate fino a 1.50 circa)
 	
@@ -22,17 +22,37 @@ Tutti i livelli CONV sono intesi con filtro 5x5 e profondità 3.
 Per quel che riguarda i numeri casuali, lo stesso learning rate non è il migliore utilizzando i numeri casuali ma andrebbe ricercato.
 
 
+
+
+
 *************
 EXTRA per configurazione 2 
 
+numeri casuali:			pesi fissi:				numeri casuali bis:		pesi fissi bis:
+1 epoca   -> 80.57%		1 epoca   -> 88.35%		1 epoca   -> 80.57%		1 epoca   -> 88.35%
+2 epoche  -> 87.24%		2 epoche  -> 87.60%		2 epoche  -> 88.06%		2 epoche  -> 89.05%
+3 epoche  -> 82.73%		3 epoche  -> 87.23%		3 epoche  -> 11.35%		3 epoche  -> 89.27%	
+4 epoche  -> 26.54%		4 epoche  -> 86.55%		4 epoche  -> 11.35%		4 epoche  -> 89.50%
+5 epoche  -> 11.35%		5 epoche  -> 86.33%		5 epoche  -> 11.35%		5 epoche  -> 89.67%
+7 epoche  -> 10.12%		7 epoche  -> 86.98%		7 epoche  -> %			7 epoche  -> %
+8 epoche  -> 11.34%		8 epoche  -> 86.42%		8 epoche  -> %			8 epoche  -> %
+10 epoche -> 13.03%		10 epoche -> 86.25%		10 epoche -> 11.35%		10 epoche -> %
+12 epoche ->  2.70%		12 epoche -> 85.70%		12 epoche -> %			12 epoche -> %
+15 epoche ->  9.80%		15 epoche -> 85.39%		15 epoche -> %			15 epoche -> %
+
+
+*************
+EXTRA configurazione con 2 conv + fully, learning rate 0.5
+
 numeri casuali:			pesi fissi:
-1 epoca   -> 80.57%		1 epoca   -> 88.35%
-2 epoche  -> 87.24%		2 epoche  -> 87.60%
-3 epoche  -> 82.73%		3 epoche  -> 87.23%
-4 epoche  -> 26.54%		4 epoche  -> 86.55%
-5 epoche  -> 11.35%		5 epoche  -> 86.33%
-7 epoche  -> 10.12%		7 epoche  -> 86.98%
-8 epoche  -> 11.34%		8 epoche  -> 86.42%
-10 epoche -> 13.03%		10 epoche -> 86.25%
-12 epoche ->  2.70%		12 epoche -> 85.70%
-15 epoche ->  9.80%		15 epoche -> 85.39%
+1 epoca   -> 73.53%		1 epoca   -> 89.47%
+2 epoche  -> 19.39%		2 epoche  -> 89.03%
+3 epoche  -> 10.28%		3 epoche  -> 88.67%
+4 epoche  -> 13.29%		4 epoche  -> 88.74%
+5 epoche  -> 12.57%		5 epoche  -> 89.00%
+7 epoche  -> 40.75%		7 epoche  -> 88.37%
+8 epoche  -> 10.16%		8 epoche  -> 88.58%
+10 epoche -> 33.93%		10 epoche -> 87.91%
+15 epoche -> 38.25%		15 epoche -> 88.17%
+
+
