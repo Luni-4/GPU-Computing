@@ -40,6 +40,7 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 		_imgIndex = 0;
 
 		for (int i = 0; i < _nImages; i++) {
+
 			//non eliminare che la uso quando non devo calcolare i tempi
 			//std::cout << i << " of " << _nImages << "\r";
 
