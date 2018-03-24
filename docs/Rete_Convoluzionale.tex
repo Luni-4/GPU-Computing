@@ -41,7 +41,8 @@
 \setbeamercovered{invisible}
 
 %TODO
-% Definire i confronti tra le configurazioni e le accuratezze ottenute (bisogna aspettare di fare i test)
+% Attendere risultati configurazione 2
+% Parte Cifar
 % Modificare le conclusioni in base ai risultati ottenuti con i test          
 
 
@@ -1227,17 +1228,16 @@
     \end{itemize}     
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{comment}
 
 \begin{frame}{Implementazione della Rete}
     \framesubtitle{Cifar}
 
     \begin{itemize} [<+->]
-        \setlength\itemsep{3em}
-        \item \large Per poter analizzare più approfonditamente le potenzialità computazionali della rete CUDA, le \emph{Configurazioni 3} e \emph{4} vengono testate usando il training set ed il test set del database di immagini chiamato \emph{Cifar}
-        \item \large In Cifar, le immagini che costituiscono gli esempi del training e del test set sono definite secondo il modello di colore \emph{RGB} e presentano tre differenti piani colore: rosso, verde, blu       
+        \setlength\itemsep{1em}
+        \item \large Per poter analizzare più approfonditamente le potenzialità computazionali della rete CUDA, sono state definite delle nuove configurazioni che usano come esempi di train e di test immagini contenute nel database chiamato \emph{Cifar}
+        \item \large Le configurazioni sono state scelte in modo da ottenere buoni risultati di accuratezza, ma al tempo stesso consentire una buona valutazione dei tempi 
+        \item \large I pesi sono inizializzati in maniera casuale e ciascuna configurazione è stata testata utilizzando un numero crescente di epoche fino ad un massimo di 10
+        \item \large Non è stato possibile individuare una rete sequenziale per Cifar, in modo da poter confrontare i risultati ottenuti dalla rete CUDA
     \end{itemize}     
 \end{frame}
 
@@ -1245,15 +1245,78 @@
     \framesubtitle{Cifar}
 
     \begin{itemize} [<+->]
-        \setlength\itemsep{3em}
-        \item \large La dimensione di ciascuna immagine è $32 \times 32 \times 3$. Il valore della terza dimensione è pari al numero dei piani colore del modello RGB
-        \item \large Le etichette sono rappresentate da numeri interi positivi
+        \setlength\itemsep{2em}
+        \item \large Le immagini contenute in Cifar sono rappresentate per mezzo del modello di colore \emph{RGB} che si compone di tre differenti piani di colore: rosso, verde, blu
+        \item \large La dimensione di ciascuna immagine è $32 \times 32 \times 3$. Il valore della terza dimensione corrisponde al numero dei piani colore del modello RGB
+        \item \large Le etichette sono rappresentate da numeri interi positivi ed identificano animali e oggetti del mondo reale
         \item \large Il training ed il test set contengono rispettativamente $50000$ esempi di train e $10000$ di test         
     \end{itemize}     
 \end{frame}
 
-\end{comment}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni Cifar}
+
+    \begin{table}
+        \centering
+        \renewcommand\arraystretch{1.3}
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} \\
+           \hline
+           Fully Connected & $300 \times 1$ \\
+           \hline
+           Fully Connected & $10 \times 1$ \\
+           \hline
+        \end{tabular}
+    \caption{Configurazione 1}
+    \end{table}
+    
+    \vspace{-1em}
+    
+    \begin{table}
+        \centering
+        \renewcommand\arraystretch{1.3}
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           \hline
+           Convoluzionale & $20 \times 20$ & $5 \times 5 \times 1$   \\ 
+           \hline 
+           Fully Connected & $100 \times 1$ & \ding{55} \\
+           \hline
+           Convoluzionale  & $6 \times 6$ & $5 \times 5 \times 1$   \\ 
+           \hline 
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline           
+        \end{tabular}
+    \caption{Configurazione 2}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Implementazione della Rete}
+    \framesubtitle{Configurazioni Cifar}
+    
+    \begin{table}
+        \centering
+        \renewcommand\arraystretch{1.3}
+        \begin{tabular}{| c | c | c |}
+           \hline
+           \emph{Livello} & \emph{Output} & \emph{Dimensione Filtro} \\
+           \hline
+           Convoluzionale & $24 \times 24$ & $5 \times 5 \times 1$   \\  
+           \hline 
+           Fully Connected & $400 \times 1$ & \ding{55} \\
+           \hline
+           Convoluzionale  & $16 \times 16$ & $5 \times 5 \times 1$   \\ 
+           \hline 
+           Fully Connected & $10 \times 1$ & \ding{55} \\
+           \hline           
+        \end{tabular}
+    \caption{Configurazione 3}
+    \end{table}
+\end{frame}
 
 
 \begin{frame}[c]
@@ -1457,7 +1520,7 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large L'uso dei numeri casuali migliora le accuratezze delle configurazioni \emph{1} e \emph{3} sia su Linux che su Windows. La rete CUDA ottiene un'accuratezza inferiore a quella della EduCNN nella \emph{Configurazione 2} ed entrambe le reti producono risultati pessimi nella \emph{Configurazione 4} a causa dell'overfitting
-        \item \large Lo speedup ottenuto è lo stesso delle configurazioni a pesi fissi
+        \item \large Lo speedup è lo stesso ottenuto dalle configurazioni a pesi fissi
     \end{itemize}     
 \end{frame}
 
@@ -1552,7 +1615,7 @@
                                    &                       & CUDA   & 97.72\% & 00:10:22 & \\
                 \hline
                 \multirow{2}{*}{2} & \multirow{2}{*}{0.24} & EduCNN & 89.19\% & 00:33:20 & \multirow{2}{*}{2.85} \\ \cline{3-5} 
-                                   &                       & CUDA   & 9.80\%  & 00:11:42 & \\
+                                   &                       & CUDA   & 89.34\% & 00:11:42 & \\
                 \hline
                 \multirow{2}{*}{3} & \multirow{2}{*}{0.62} & EduCNN & 97.65\% & 01:45:00 & \multirow{2}{*}{3.18} \\ \cline{3-5} 
                                    &                       & CUDA   & 97.78\% & 00:33:00 & \\
@@ -1581,7 +1644,7 @@
                                    &                       & CUDA   & 97.72\% & 00:10:27  & \\
                 \hline
                 \multirow{2}{*}{2} & \multirow{2}{*}{0.24} & EduCNN & 90.47\% & 00:47:13 & \multirow{2}{*}{3.67} \\ \cline{3-5} 
-                                   &                       & CUDA   & 9.80\% & 00:12:51 & \\
+                                   &                       & CUDA   & 90.53\% & 00:12:51 & \\
                 \hline
                 \multirow{2}{*}{3} & \multirow{2}{*}{0.62} & EduCNN & 97.61\% & 02:32:02 & \multirow{2}{*}{4.90} \\ \cline{3-5} 
                                    &                       & CUDA   & 97.78\% & 00:31:00 & \\
@@ -1596,13 +1659,19 @@
 \end{frame}
 
 
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Analisi configurazioni con epoche e pesi iniziali casuali}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large L'utilizzo dei numeri casuali consente di ottenere un'accuratezza con un errore inferiore al 3\% per le configurazioni \emph{1} e \emph{3}. La \emph{Configurazione 2} peggiora del 1\% su Linux e migliora di 0.3\% in Windows. La \emph{Configurazione 4} rimane affetta da overfitting come per i pesi fissi.
+        \item \large Lo speedup è lo stesso ottenuto dalle configurazioni con le epoche e pesi fissi
+    \end{itemize}     
+\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{comment}
 
 \begin{frame}{Analisi dei Risultati}
-    \framesubtitle{Risultati}
+    \framesubtitle{Risultati Cifar}
 
         \begin{table}
             \centering
@@ -1610,40 +1679,18 @@
             \small
             \begin{tabular}{| c | c | c | c | c | c |}
                 \hline
-                \emph{Configurazione} & $\eta$ & \emph{Rete} & \emph{Accuratezza} & \emph{Tempo [h:m:s]} & \emph{Speedup} \\
+                \emph{Configurazione} & $\eta$ & Epoche & \emph{Accuratezza} & \emph{Tempo [h:m:s]} \\
                 \hline
-                \multirow{2}{*}{1} & \multirow{2}{*}{0.09} & EduCNN & 97.73\% & 00:45:46 & \multirow{2}{*}{4.38} \\ \cline{3-5} 
-                                   &                       & CUDA   & 97.72\% & 00:10:27  & \\
-                \hline
-                \multirow{2}{*}{2} & \multirow{2}{*}{0.24} & EduCNN & 90.47\% & 00:47:13 & \multirow{2}{*}{3.67} \\ \cline{3-5} 
-                                   &                       & CUDA   & 9.80\% & 00:12:51 & \\
-                \hline
-                \multirow{2}{*}{3} & \multirow{2}{*}{0.62} & EduCNN & 97.61\% & 02:32:02 & \multirow{2}{*}{4.90} \\ \cline{3-5} 
-                                   &                       & CUDA   & 97.78\% & 00:31:00 & \\
-                \hline
-                \multirow{2}{*}{4} & \multirow{2}{*}{1.11} & EduCNN & 9.58\% & 02:43:01 & \multirow{2}{*}{4.69} \\ \cline{3-5} 
-                                   &                       & CUDA   & 9.58\% & 00:34:44 & \\
+                1 & 0.2 &  1 & 33.09\% & 00:03:01 \\
+                2 & 1.6 & 10 & 31.82\% & 00:06:49 \\
+                3 & 1.2 & 10 & 33.06\% & 00:15:38 \\                
                 \hline
             \end{tabular}
             \caption            
-    {\tabular[t]{@{}l@{}}Risultati ottenuti eseguendo le configurazioni \\ usando come database Cifar \endtabular}          
+    {\tabular[t]{@{}l@{}}Risultati ottenuti eseguendo le configurazioni scelte per Cifar \endtabular}          
         \end{table}    
 \end{frame}
 
-\end{comment}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Analisi dei Risultati}
-    \framesubtitle{Analisi configurazioni con epoche e pesi iniziali casuali}
-    \smallskip
-    \begin{itemize} [<+->]
-        \setlength\itemsep{2em}
-        \item \large L'utilizzo dei numeri casuali consente di ottenere un'accuratezza con un errore inferiore al 3\% per le configurazioni \emph{1} e \emph{3}. La \emph{Configurazione 4} rimane affetta da overfitting come per i pesi fissi.
-        \item \large Lo speedup ottenuto è lo stesso delle configurazioni con le epoche e pesi fissi
-    \end{itemize}     
-\end{frame}
 
 \begin{frame}[c]
   \centering
@@ -1661,6 +1708,8 @@
         \item \large Non dipende da librerie di terze parti e può essere eseguita anche sul sistema operativo macOS
     \end{itemize}     
 \end{frame}
+
+
 
 
 \end{document}
