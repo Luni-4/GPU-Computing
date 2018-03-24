@@ -1691,6 +1691,22 @@
         \end{table}    
 \end{frame}
 
+\begin{frame}{Analisi dei Risultati}
+    \framesubtitle{Analisi configurazioni Cifar}
+    \smallskip
+    \begin{itemize} [<+->]
+        \setlength\itemsep{2em}
+        \item \large Le accuratezze ottenute dalle diverse configurazioni sono estremamente basse, ma potrebbero aumentare utilizzando particolari tecniche:
+        \setbeamertemplate{itemize items}[square] 
+        \begin{itemize} 
+        \setlength\itemsep{2em}
+            \item \large L'aggiunta di un livello \emph{MaxPooling} per ridurre la dimensione spaziale dei singoli piani colore in modo da individuare con maggior facilità le caratteristiche discriminanti di ciascuna immagine
+            \item \large Effettuare un pre-processing dei dati di input per eliminare il noise presente nelle immagini ed evidenziare in maniera chiara le forme geometriche e i colori che compongono le immagini stesse
+            \item \large Combinare diverse reti addestrate tra loro seguendo regole specifiche: il cosiddetto \emph{Network Surgeon}  
+        \end{itemize}
+    \end{itemize}     
+\end{frame}
+
 
 \begin{frame}[c]
   \centering
