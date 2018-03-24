@@ -89,15 +89,6 @@ void Network::predict(Data *data) {
 	// Stampare risultati ottenuti in fase di test
 	printNetworkError(data->getLabelSize());
 
-	// Cancellare il vettore contenente le labels
-	data->clearLabels();
-
-	// Cancellare i dati di test dal device
-	CHECK(cudaFree(cudaData));
-	CHECK(cudaFree(cudaLabels));
-
-	// Pulizia della memoria Cuda e reset del device 
-	cudaClearAll();
 }
 
 
@@ -198,13 +189,13 @@ void Network::backPropagation(const int &target, const double &learningRate) {
 	_layers.front()->back_propagation(cudaData + _imgIndex, prevError, learningRate, false);
 }
 
-void Network::printWeightsOnFile(const std::string &filename) {
+void Network::printWeightsOnFile(const std::string &filename, Data *data) {
 
 	std::ofstream ofs(filename.c_str(), std::ios::out | std::ios::binary);
 
 	if (!ofs.is_open()) {
 		std::cerr << "Errore nell'apertura del file per i pesi!!" << std::endl;
-		cudaClearAll();
+		cudaClearAll(data);
 		exit(1);
 	}
 
@@ -275,7 +266,14 @@ inline void Network::printNetworkError(const int &nImages) {
 	std::cout << "Accuratezza della rete: " << accuracy << std::endl;
 }
 
-inline void Network::cudaClearAll(void) {
+inline void Network::cudaClearAll(Data *data) {
+
+	// Cancellare il vettore contenente le labels
+	data->clearLabels();
+
+	// Cancellare i dati di test dal device
+	CHECK(cudaFree(cudaData));
+	CHECK(cudaFree(cudaLabels));
 
 	// Liberare la memoria cuda associata ad ogni layer
 	for (auto l : _layers)

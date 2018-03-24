@@ -7,6 +7,8 @@
 // Librerie di progetto
 #include "Mnist.h"
 #include "Cifar.h"
+#include "DataSingle.h"
+
 #include "FullyConnected.h"
 #include "FullyConnectedStream.h"
 #include "Convolutional.h"
@@ -48,12 +50,10 @@ int main() {
 
 #endif
 
-
-
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
 
-	int depth = 1;
+	int depth = 3;
 
 	// Inizializzare i livelli
 #ifdef _WIN32
@@ -92,7 +92,7 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 0.8;
+	double learningRate = 0.24;
 	//double learningRate = i;
 	int epoch = 1;
 	std::cout << "\nlearningRate:" << learningRate << std::endl;
@@ -112,6 +112,13 @@ int main() {
 
 	// Test
 	nn.predict(d.get());
+
+	//Libera memoria
+	nn.cudaClearAll(d.get());
+
+	DataSingle dataSingle;
+	uint8_t * data = dataSingle.read_file("../data/test/test.ppm");
+	std::cout << data << std::endl;
 
 #ifdef _WIN32
 	system("pause");
