@@ -28,31 +28,28 @@ Per quel che riguarda i numeri casuali, lo stesso learning rate non è il miglio
 *************
 EXTRA per configurazione 2 
 
-numeri casuali:			pesi fissi:				numeri casuali bis:		pesi fissi bis:
-1 epoca   -> 80.57%		1 epoca   -> 88.35%		1 epoca   -> 80.57%		1 epoca   -> 88.35%
-2 epoche  -> 87.24%		2 epoche  -> 87.60%		2 epoche  -> 88.06%		2 epoche  -> 89.05%
-3 epoche  -> 82.73%		3 epoche  -> 87.23%		3 epoche  -> 11.35%		3 epoche  -> 89.27%	
-4 epoche  -> 26.54%		4 epoche  -> 86.55%		4 epoche  -> 11.35%		4 epoche  -> 89.50%
-5 epoche  -> 11.35%		5 epoche  -> 86.33%		5 epoche  -> 11.35%		5 epoche  -> 89.67%
-7 epoche  -> 10.12%		7 epoche  -> 86.98%		7 epoche  -> %			7 epoche  -> %
-8 epoche  -> 11.34%		8 epoche  -> 86.42%		8 epoche  -> %			8 epoche  -> %
-10 epoche -> 13.03%		10 epoche -> 86.25%		10 epoche -> 11.35%		10 epoche -> %
-12 epoche ->  2.70%		12 epoche -> 85.70%		12 epoche -> %			12 epoche -> %
-15 epoche ->  9.80%		15 epoche -> 85.39%		15 epoche -> %			15 epoche -> %
+numeri casuali:			pesi fissi:		
+1 epoca   -> 80.57%		1 epoca   -> %
+2 epoche  -> 88.06%		2 epoche  -> %
+3 epoche  ->  9.80%		3 epoche  -> %	
+4 epoche  ->  9.80%		4 epoche  -> %
+5 epoche  ->  9.80%		5 epoche  -> %
+7 epoche  ->  9.80%		7 epoche  -> %	
+8 epoche  ->  9.80%		8 epoche  -> %	
+9 epoche  ->  9.80%		9 epoche  -> %	
+10 epoche ->  9.80%		10 epoche -> %	
+12 epoche ->  	%		12 epoche -> %	
+15 epoche ->  	%		15 epoche -> %	
 
 
-*************
-EXTRA configurazione con 2 conv + fully, learning rate 0.5
 
-numeri casuali:			pesi fissi:
-1 epoca   -> 73.53%		1 epoca   -> 89.47%
-2 epoche  -> 19.39%		2 epoche  -> 89.03%
-3 epoche  -> 10.28%		3 epoche  -> 88.67%
-4 epoche  -> 13.29%		4 epoche  -> 88.74%
-5 epoche  -> 12.57%		5 epoche  -> 89.00%
-7 epoche  -> 40.75%		7 epoche  -> 88.37%
-8 epoche  -> 10.16%		8 epoche  -> 88.58%
-10 epoche -> 33.93%		10 epoche -> 87.91%
-15 epoche -> 38.25%		15 epoche -> 88.17%
+
+
+
+
+
+
+
+
 
 

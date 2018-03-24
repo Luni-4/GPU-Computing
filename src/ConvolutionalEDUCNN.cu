@@ -8,10 +8,10 @@
 // Cuda Kernel
 #include "KernelCPU.h"
 
-#include "Batch.h"
+#include "ConvolutionalEDUCNN.h"
 
-Batch::Batch(const int &filterWidth, const int &depth, const int &stride)
-	: LayerDefinition(0, 0, depth, BATCH, NONE) {
+ConvolutionalEDUCNN::ConvolutionalEDUCNN(const int &filterWidth, const int &depth, const int &stride)
+	: LayerDefinition(0, 0, depth, CONVOLUTIONAL_EDUCNN, NONE) {
 	this->_filterWidth = filterWidth;
 	this->_filterDim = filterWidth * filterWidth;
 	this->_depth = depth;
@@ -19,22 +19,22 @@ Batch::Batch(const int &filterWidth, const int &depth, const int &stride)
 	this->_padding = 0;
 }
 
-Batch::~Batch() {
+ConvolutionalEDUCNN::~ConvolutionalEDUCNN() {
 }
 
-std::vector<double> Batch::getWeights(void) {
+std::vector<double> ConvolutionalEDUCNN::getWeights(void) {
 	std::vector<double> wCPU(_wDim);
 	CHECK(cudaMemcpy(&wCPU[0], weight, _wBytes, cudaMemcpyDeviceToHost));
 	return wCPU;
 }
 
-std::vector<double> Batch::getBias(void) {
+std::vector<double> ConvolutionalEDUCNN::getBias(void) {
 	std::vector<double> bCPU(_nodes);
 	CHECK(cudaMemcpy(&bCPU[0], bias, _nodes * sizeof(double), cudaMemcpyDeviceToHost));
 	return bCPU;
 }
 
-int Batch::getPredictionIndex(void) {
+int ConvolutionalEDUCNN::getPredictionIndex(void) {
 	int maxIndex;
 
 	// Individuare indice (classe) che corrisponde al valore massimo di output
@@ -43,7 +43,7 @@ int Batch::getPredictionIndex(void) {
 	return maxIndex - 1;
 }
 
-void Batch::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
+void ConvolutionalEDUCNN::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, const int &prevLayerDepth) {
 	_prevLayerWidth = prevLayerWidth;
 	_prevLayerDepth = prevLayerDepth;
 
@@ -159,7 +159,7 @@ void Batch::defineCuda(const int &prevLayerWidth, const int &prevLayerHeight, co
 	CHECK(cudaFree(devStates));
 }
 
-void Batch::forward_propagation(const double * prevOutput) {
+void ConvolutionalEDUCNN::forward_propagation(const double * prevOutput) {
 
 #ifdef DEBUG
 	std::cout << "\n\nValore dell'input\n\n";
@@ -209,7 +209,7 @@ void Batch::forward_propagation(const double * prevOutput) {
 #endif
 }
 
-void Batch::calcError() {
+void ConvolutionalEDUCNN::calcError() {
 
 	//prev error è l'errore del livello precedente che devo riempire, 
 	//error è l'errore che ho usato al passo precedente (non ruotato) quando sono passato da questo livello
@@ -280,7 +280,7 @@ void Batch::calcError() {
 #endif
 }
 
-void Batch::back_propagation_output(const double * prevOutput, const uint8_t * labels, const int & target, const double & learningRate) {
+void ConvolutionalEDUCNN::back_propagation_output(const double * prevOutput, const uint8_t * labels, const int & target, const double & learningRate) {
 	// Calcolo dell'errore per ogni nodo
 	Kernel::outputErrorK((_alignedNodes / THREADS), THREADS, output, error, labels, target, _nodes);
 
@@ -296,7 +296,7 @@ void Batch::back_propagation_output(const double * prevOutput, const uint8_t * l
 	updateWeights(prevOutput, learningRate);
 }
 
-void Batch::back_propagation(const double *prevOutput, double *prevError, const double &learningRate, const bool notFirst) {
+void ConvolutionalEDUCNN::back_propagation(const double *prevOutput, double *prevError, const double &learningRate, const bool notFirst) {
 
 	error = prevError;
 	if (notFirst)
@@ -305,7 +305,7 @@ void Batch::back_propagation(const double *prevOutput, double *prevError, const 
 	updateWeights(prevOutput, learningRate);
 }
 
-void Batch::updateWeights(const double *prevOutput, const double &learningRate) {
+void ConvolutionalEDUCNN::updateWeights(const double *prevOutput, const double &learningRate) {
 
 	// Blocchi tridimensionali contenenti tanti thread quanti sono i nodi in output
 	dim3 threadBlocks(_width, _height, 1);
@@ -362,7 +362,7 @@ void Batch::updateWeights(const double *prevOutput, const double &learningRate) 
 #endif
 }
 
-void Batch::deleteCuda() {
+void ConvolutionalEDUCNN::deleteCuda() {
 	CHECK_CUBLAS(cublasDestroy(handle));
 	CHECK(cudaFree(weight));
 	CHECK(cudaFree(weightRot));
@@ -377,12 +377,12 @@ void Batch::deleteCuda() {
 	CHECK(cudaFree(padding));
 }
 
-void Batch::printW() {
+void ConvolutionalEDUCNN::printW() {
 	printFromCudaFormatted(weight, _wDim, _filterWidth);
 	//printFromCudaFormatted(bias, _nodes, _width);
 }
 
-int Batch::_calcOutput(bool withPadding) {
+int ConvolutionalEDUCNN::_calcOutput(bool withPadding) {
 	//PER ORA NON CONSIDERATO CASO IN CUI SI GENERANO ERRORI (padding numero non intero, filtro più grande dell'input, stride che non combacia, ecc)
 	if (_filterWidth > _prevLayerWidth) {
 		std::cerr << "Le dimensioni del filtro superano le dimensioni del livello precedente!!" << std::endl;

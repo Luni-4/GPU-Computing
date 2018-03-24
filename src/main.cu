@@ -8,10 +8,10 @@
 #include "Mnist.h"
 #include "Cifar.h"
 #include "FullyConnected.h"
-//#include "FullyConnectedStream.h"
-//#include "Convolutional.h"
-//#include "ConvolutionalStreams.h"
-#include "Batch.h"
+#include "FullyConnectedStream.h"
+#include "Convolutional.h"
+#include "ConvolutionalStreams.h"
+#include "ConvolutionalEDUCNN.h"
 #include "Network.h"
 
 #ifdef DEBUG
@@ -53,25 +53,25 @@ int main() {
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
 
-	int depth = 3;
+	int depth = 1;
 
 	// Inizializzare i livelli
 #ifdef _WIN32
 	//dim_filtro, n_filtri, stride
 	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new ConvolutionalStreams(5, 1, 1, SIGMOID));
-	//layers.emplace_back(new Batch(5, depth, 1));
+	layers.emplace_back(new ConvolutionalEDUCNN(5, depth, 1));
 	//layers.emplace_back(new FullyConnected(400, SIGMOID));
-	//layers.emplace_back(new Batch(5, depth, 1));
+	layers.emplace_back(new ConvolutionalEDUCNN(5, depth, 1));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
-	//layers.emplace_back(new Batch(5, depth, 1));
-	layers.emplace_back(new FullyConnected(300, SIGMOID));
+	layers.emplace_back(new ConvolutionalEDUCNN(5, depth, 1));
+	//layers.emplace_back(new FullyConnected(300, SIGMOID));
 	layers.emplace_back(new FullyConnected(10, SIGMOID));
 
 	// MEMO: learning rate base 0.001
 #else
-	//layers.emplace_back(new Batch(5, depth, 1));
-	//layers.emplace_back(new Batch(5, depth, 1));
+	//layers.emplace_back(new ConvolutionalEDUCNN(5, depth, 1));
+	//layers.emplace_back(new ConvolutionalEDUCNN(5, depth, 1));
 	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new Convolutional(5, depth, 1, SIGMOID));
 	//layers.emplace_back(new FullyConnected(100, SIGMOID));
@@ -92,9 +92,9 @@ int main() {
 	//#endif
 
 	//std::cout.precision(64);
-	double learningRate = 0.09;
+	double learningRate = 0.8;
 	//double learningRate = i;
-	int epoch = 10;
+	int epoch = 1;
 	std::cout << "\nlearningRate:" << learningRate << std::endl;
 
 	// Training
@@ -112,7 +112,6 @@ int main() {
 
 	// Test
 	nn.predict(d.get());
-
 
 #ifdef _WIN32
 	system("pause");

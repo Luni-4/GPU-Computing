@@ -41,15 +41,11 @@ void Network::train(Data *data, const int &epoch, const double &learningRate) {
 
 		for (int i = 0; i < _nImages; i++) {
 
-			//non eliminare che la uso quando non devo calcolare i tempi
 			//std::cout << i << " of " << _nImages << "\r";
 
 			forwardPropagation();
 
 			backPropagation(i, learningRate);
-
-			//if (i == 100)
-			//return;
 
 			// Incrementare l'indice
 			_imgIndex += _imgDim;

@@ -29,6 +29,16 @@ void KernelStream::outputErrorK(dim3 b, dim3 t, const double *output, double *er
 #endif
 }
 
+/* CALCOLO DI PREV ERROR */
+
+void KernelStream::prevErrorK(dim3 b, dim3 t, const double *prevErr, double *error, const int &nodes) {
+#ifdef _WIN32
+	prevError NvCUDA2(b, t) (prevErr, error, nodes);
+#else
+	prevError << <b, t >> > (prevErr, error, nodes);
+#endif
+}
+
 /* FUNZIONI DI ATTIVAZIONE E RELATIVE DERIVATE */
 
 void KernelStream::actReluK(dim3 b, dim3 t, const cudaStream_t *streams, const int &nStreams, double *output, double *temp, const int &nodes) {

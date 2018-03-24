@@ -30,6 +30,7 @@ namespace KernelStream {
 	void derivActTanhK(dim3 b, dim3 t, const cudaStream_t *streams, const int &nStreams, const double *output, double *error, const int &nodes);
 
 	void errorPrevOutputK(dim3 b, dim3 t, const cudaStream_t *streams, const int &nStreams, double *temp, const double *prevOutput, const double *error, const int &nodes, const int &dim, const int &prevDim);
+	void prevErrorK(dim3 b, dim3 t, const double *prevErr, double *error, const int &nodes);
 
 	/*METODI CONVOLUZIONALE*/
 	void createSubmatrixBisK(dim3 b, dim3 t, const cudaStream_t *streams, const int &nStreams, double * sub, const double * prevOutput, const int prevLayerWidth, const int filterWidth, const int stride, const int uniqueNodes);

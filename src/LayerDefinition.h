@@ -1,6 +1,6 @@
 #pragma once
 
-typedef enum LayerType { CONVOLUTIONAL, BATCH, FULLY_CONNECTED } LayerType;
+typedef enum LayerType { CONVOLUTIONAL, CONVOLUTIONAL_EDUCNN, FULLY_CONNECTED } LayerType;
 typedef enum ActFctType { SIGMOID, TANH, RELU, NONE } ActFctType;
 
 class LayerDefinition {

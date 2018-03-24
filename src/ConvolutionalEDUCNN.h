@@ -5,10 +5,10 @@
 
 #include "LayerDefinition.h"
 
-class Batch : public LayerDefinition {
+class ConvolutionalEDUCNN : public LayerDefinition {
 public:
-	Batch(const int &filterWidth, const int &filterDepth, const int &stride);
-	~Batch();
+	ConvolutionalEDUCNN(const int &filterWidth, const int &filterDepth, const int &stride);
+	~ConvolutionalEDUCNN();
 
 	int getNodeCount(void) const override { return _nodes; }
 	int getWeightCount(void) const override { return _wDim; }

@@ -12,6 +12,7 @@ __global__ void initWeight(double *weight, const int wDim, curandStateXORWOW_t *
 
 	// Sequenza di rand diversa per ogni thread
 	curand_init(tid, 0, 0, &states[tid]);
+	//curand_init(0, 0, 0, &states[tid]);
 
 	// Variabile che conterrà il valore casuale
 	double r = curand_normal_double(&states[tid]);
