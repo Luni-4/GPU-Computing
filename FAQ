@@ -1,0 +1,30 @@
+1) Perché non è stato possibile individuare una rete sequenziale per Cifar?
+
+Perché le reti trovate per Cifar usavano tutte framework con implementazioni parallele, come ad esempio tensorflow e torch, impedendone il confronto
+
+2)Perché fully-connected in serie e livelli convoluzionali di profondità 1 per Cifar?
+
+La scelta dei fully connected è dovuta al fatto che vengono fatti più conti che con i livelli convoluzionali e si è cercato di testare su un database
+più grande perché funzionano
+
+La scelta dei convoluzionali a dimensione 1 perché cercando in giro si è notato che se si applica lo stesso filtro sui 3 piani colori diversi si ottengono
+risultati migliori ----> è una considerazione empirica
+
+
+3) Perché abbiamo fatto le configurazioni in questo modo? 
+
+Spiegato nelle slide
+
+4) Cosa significa Network Surgery?
+
+Assemblare diverse reti già addestrate tra loro --> sono le tecniche spiegate nei vari pdf, le ho riassunte così
+
+5) Cosa significa normalization?
+
+Per evitare che la distribuzione di probabilità dei dati di input venga modificata da ciascun livello dopo l'aggiornamento dei pesi, durante la fase
+di backpropagation a ciascun output viene sottratta la media e  la deviazione standard in modo da riportare la distribuzione ottenuta in output ad un livello
+come quella di input
+
+6) Anche se abbiamo implementato la reLU e la Softplus diciamo che non le abbiamo usate perché non implementate dalla eduCNN
+
+
