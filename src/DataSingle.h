@@ -2,6 +2,8 @@
 #include "Windows.h"
 #endif
 
+#include <cstdint>
+
 class DataSingle {
 
 public:
