@@ -1021,7 +1021,7 @@
         \setlength\itemsep{1em}
          \item \large Quando viene definito un livello, l'utente non deve inserire anche la dimensione di output del livello precedente, ma solo quella del livello che sta definendo
          \item \large I pesi iniziali della rete possono essere generati in maniera casuale
-         \item \large Per migliorare l'accuratezza della rete, viene utilizzato il meccanismo delle \emph{epoche} che consiste nel ripetere più volte la forward e la back propagation sulla stessa immagine
+         \item \large Per migliorare l'accuratezza della rete, viene utilizzato il meccanismo delle \emph{epoche} che consiste nel ripetere più volte l'intera fase di train
         \item \large Le funzioni di attivazione implementate dalla rete sono la \emph{Sigmoide}, la \emph{Tangente Iperbolica} e la \emph{SoftPlus} 
     \end{itemize}
 \end{frame}
@@ -1030,9 +1030,9 @@
     \framesubtitle{Caratteristiche tecniche}
       \begin{itemize} [<+->] 
         \setlength\itemsep{1em}           
-            \item \large Per implementare i livelli della rete sono stati usati gli \emph{unique pointer} perché permettono all'utente di non deve specificare il numero di livelli che vuole usare e non deve preoccuparsi di deallocarli al termine dell'esecuzione           
-            \item \large All'inizio della fase di train, l'intero training set viene caricato nella GRAM utilizzando il meccanismo della \emph{pinned memory}
-             \item \large Prima della fase di test, il training set viene deallocato e al suo posto viene caricato il test set sempre con il meccanismo \emph{pinned memory}
+            \item \large Per implementare i livelli della rete vengono usati gli \emph{unique pointer} che consentono all'utente di non specificare il numero di livelli che vuole usare e non è richiesta la loro deallocazione al termine dell'esecuzione           
+            \item \large All'inizio della fase di train, l'intero training set viene caricato in global memory utilizzando il meccanismo della \emph{pinned memory}
+             \item \large Prima della fase di test, il training set viene deallocato e al suo posto viene caricato il test set sempre utilzzando il meccanismo della \emph{pinned memory}
             \item \large Le strutture dati usate dai singoli livelli vengono deallocate automaticamente al termine dell'esecuzione del processo
         \end{itemize}
 \end{frame}
@@ -1052,9 +1052,9 @@
     \framesubtitle{Stream}
       \begin{itemize} [<+->] 
         \setlength\itemsep{3em}           
-            \item \large Se la funzione \emph{cublasGemm} viene utilizzata insieme agli \emph{streams}, il tempo di calcolo per eseguire i prodotti tra matrici dovrebbe ridursi notevolmente
-            \item \large Nel caso della rete CUDA, eseguire una \emph{cublasGemm} per stream su matrici relativamente piccole, sia per livelli convoluzionali che fully-connected, non ha portato a nessun miglioramento del tempo di calcolo
-            \item \large Il tempo impiegato con e senza stream è lo stesso, questo è dovuto al fatto che l'overhead della \emph{cublasGemm} su diversi stream è maggiore dell'effettivo tempo di calcolo del prodotto matriciale
+            \item \large Se si usa la funzione \emph{cublasGemm} insieme agli \emph{streams}, il tempo di calcolo per eseguire i prodotti tra matrici dovrebbe ridursi notevolmente
+            \item \large Nel caso della rete CUDA, l'esecuzione di una \emph{cublasGemm} per stream, su matrici relativamente piccole, sia per livelli convoluzionali che fully-connected, non ha portato a nessun miglioramento del tempo di calcolo
+            \item \large Il tempo impiegato con e senza stream è lo stesso, questo è dovuto al fatto che l'overhead della \emph{cublasGemm} applicata a diversi stream è maggiore dell'effettivo tempo di calcolo del prodotto matriciale
         \end{itemize}
 \end{frame}
 
@@ -1078,7 +1078,7 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{2em}
         \item \large Per ricavare i valori dei pesi iniziali, la EduCNN utilizza come generatore di numeri casuali l'algoritmo \emph{xorshift128}
-        \item \large Quando si definisce un livello, la EduCNN richiede all'utente di specificare il numero di livelli che vuole usare e la dimensione di output del livello precedente
+        \item \large Quando si definisce un livello, la EduCNN richiede all'utente di specificare il numero di livelli che si vogliono usare e la dimensione di output del livello precedente
         \item \large La memoria allocata per ciascun livello deve essere eliminata dall'utente al termine dell'esecuzione del processo 
     \end{itemize}     
 \end{frame}
@@ -1110,7 +1110,7 @@
     \begin{itemize} [<+->]
         \setlength\itemsep{1em}
         \item \large Il learning rate $\eta$ ed i pesi iniziali di ciascuna configurazione sono gli stessi per entrambe le reti 
-        \item \large All'inizio della computazione, i pesi vengono posti ad un valore fisso di $0.001$ 
+        \item \large All'inizio della computazione, i pesi vengono posti ad un valore fisso di $0.01$ 
         \item \large Le configurazioni vengono inoltre testate generando i pesi iniziali in maniera casuale in modo da poter valutare le differenti accuratezze ottenute dalle due reti. Il seed scelto per effettuare i test è pari a $0$
         \item \large Il numero di nodi e di livelli per ciascuna configurazione viene scelto tenendo conto della componentistica hardware che si ha a disposizione per eseguire i test
     \end{itemize}     
@@ -1677,7 +1677,9 @@
                 \emph{Configurazione} & $\eta$ & Epoche & \emph{Accuratezza} & \emph{Tempo [h:m:s]} \\
                 \hline
                 1 & 0.2 &  1 & 33.09\% & 00:03:01 \\
+                \hline
                 2 & 1.6 & 10 & 31.82\% & 00:06:49 \\
+                \hline
                 3 & 1.2 & 10 & 33.06\% & 00:15:38 \\                
                 \hline
             \end{tabular}
@@ -1693,8 +1695,9 @@
         \setlength\itemsep{2em}
         \item \large Le accuratezze ottenute dalle diverse configurazioni sono estremamente basse, ma potrebbero aumentare utilizzando particolari tecniche:
         \setbeamertemplate{itemize items}[square] 
+        \bigskip
         \begin{itemize} 
-        \setlength\itemsep{2em}
+        \setlength\itemsep{1em}
             \item \large L'aggiunta di un livello \emph{MaxPooling} per ridurre la dimensione spaziale dei singoli piani colore in modo da individuare con maggior facilità le caratteristiche discriminanti di ciascuna immagine
             \item \large Effettuare un pre-processing dei dati di input per eliminare il noise presente nelle immagini ed evidenziare in maniera chiara le forme geometriche e i colori che compongono le immagini stesse
             \item \large Combinare tra loro diverse reti addestrate seguendo determinate regole: la cosiddetta \emph{Network Surgery}  
