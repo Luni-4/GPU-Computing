@@ -266,7 +266,7 @@ inline void Network::printNetworkError(const int &nImages) {
 	std::cout << "Accuratezza della rete: " << accuracy << std::endl;
 }
 
-inline void Network::cudaClearAll(Data *data) {
+void Network::cudaClearAll(Data *data) {
 
 	// Cancellare il vettore contenente le labels
 	data->clearLabels();

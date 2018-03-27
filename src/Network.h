@@ -19,7 +19,7 @@ public:
 	inline std::vector<uint8_t> getPredictions(void) const { return _predictions; }
 	inline int getTestRight(void) const { return _testRight; }
 
-	inline void cudaClearAll(Data *data);
+	void cudaClearAll(Data *data);
 
 	void printW();
 

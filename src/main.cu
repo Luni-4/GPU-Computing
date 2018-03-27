@@ -51,7 +51,7 @@ int main() {
 	// Vettore contenente i livelli della rete
 	std::vector<std::unique_ptr<LayerDefinition>> layers;
 
-	int depth = 1;
+	//int depth = 1;
 
 	// Inizializzare i livelli
 #ifdef _WIN32	
@@ -77,8 +77,7 @@ int main() {
 
 		auto start = std::chrono::high_resolution_clock::now();
 
-		//std::cout.precision(64);
-		double learningRate = 1;
+		double learningRate = 0.09;
 
 		int epoch = 1;
 		std::cout << "\nlearningRate:" << learningRate << std::endl;
@@ -92,6 +91,8 @@ int main() {
 		
 		// Test
 		nn.predict(d.get());
+		
+		nn.cudaClearAll(d.get());
 
 #ifdef _WIN32
 	system("pause");
